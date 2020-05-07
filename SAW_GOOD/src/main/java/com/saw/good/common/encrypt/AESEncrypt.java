@@ -14,15 +14,23 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 public class AESEncrypt {
 	
 	private static SecretKey key;
 	private String path;
 	
-	public AESEncrypt(String path) {
-		this.path=path;
-		File f = new File(path+"/secret.bs");
+	public AESEncrypt() {
+		
+		String path = AESEncrypt.class.getResource("/").getPath();
+		
+		this.path=path.substring(0, path.indexOf("target"))+"src/main/webapp/WEB-INF";
+		System.out.println(this.path);
+		File f = new File(this.path+"/secret.bs");
 		if(f.exists()) {
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));){
 				key = (SecretKey)ois.readObject();
