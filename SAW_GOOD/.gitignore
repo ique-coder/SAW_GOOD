@@ -1,3 +1,5 @@
 /target/
-/src/webapp/WEB-INF/classes/
+/src/main/webapp/WEB-INF/classes/
 /Users/
+/src/main/webapp/WEB-INF/secret.bs
+secret.bs

@@ -37,6 +37,8 @@
 	<bean id="transactionmanager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
       <property name="dataSource" ref="dataSource"></property>
    </bean> 
-	
+	 <bean id ="encryptor" class="com.saw.good.common.encrypt.AESEncrypt">
+		<!-- <constructor-arg index="0" value="/Users/xcxoco/dev"/> -->
+	</bean> 
 	
 </beans>
