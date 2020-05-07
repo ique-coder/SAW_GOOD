@@ -1,0 +1,260 @@
+@charset "UTF-8";
+/* 초기화 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+    color: black;
+    font-family: "Roboto";
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+    list-style: none;
+    
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* 초기화  */
+html, body, section{
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    font-family: "Roboto";
+}
+#content1 h3,#content2 h3{
+	font-size:28px;
+	margin-bottom:12px;
+}
+#content1 p,#content2 p{
+	font-size:16px;
+	margin-bottom:16px;
+}
+div.row,div.col-md-6{
+    height:100%;
+    margin: 0;
+}
+div#container{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top:0;
+    padding: 0;
+    transition:transform 0.7s ease-in-out;
+
+}
+
+
+div#pic-container{
+    height: 100%;
+    background: url(../images/signup7.jpg) no-repeat ;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    width:100%;
+    margin: 0;
+    padding: 0;
+    
+}
+div#pic-container2{
+    height: 100%;
+    background: url(../images/signup6.png) no-repeat ;
+    background-size: cover;
+    position: absolute;
+    bottom: -100%;
+    width:100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+#content-container,#content-container2{
+    height: 100%;
+    width:100%;
+    position: relative;
+}
+#content1,#content2{
+    filter: blur(0px);
+    
+    /* background-color:rgba(255, 255, 255,0.8) ; */
+    height: 85%;
+    width:70%;
+    left: 15%;
+    z-index: 1;
+    position: absolute;
+}
+
+#content1::after{
+    content: "";
+    
+    background-color:rgba(255, 255, 255, 0.6);
+    /* background-color:rgba(242, 232, 220,0.6); */
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    z-index: -1;
+    filter: blur(1px);
+    height: 100%;
+    width:100%;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    box-shadow: rgba(49, 49, 49,0.4) 25px -15px 15px 0;
+
+}
+#content2::after{
+    content: "";
+    background-color:rgba(255, 255, 255, 0.6);
+    position: absolute;
+    left: 0;
+    top: -1px;
+    z-index: -1;
+    filter: blur(1px);
+    height: 100%;
+    width:100%;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    box-shadow: rgba(49, 49, 49,0.4) 25px 15px 15px 0;
+}
+#content1{
+    bottom: 0;
+    padding-top: 15%;
+    
+}
+
+#content2{
+    top: 0;
+    padding-top: 10%;
+    
+}
+table{
+    width:100%;
+    margin-top:7%
+    
+}
+table th{
+    text-align: left;
+    padding-left: 17%;
+    padding-bottom: 8px;
+}
+table td{
+    padding-bottom: 20px;
+}
+.inputStyle{
+    border: none;
+    background-color: rgb(242, 242, 242);
+    height: 40px;
+    font-size: 14px;
+    padding: 0px 10px;
+    outline: none;
+    border-radius: 10px;
+    width:70%
+}
+.selectStyle{
+    border-radius: 0;
+    border: none;
+    font-size: 14px;
+    height: 40px;
+    margin-left: 5px;
+    outline: none;
+    width:21%;
+    background-color:  rgb(242, 242, 242);
+}
+#navbarDropdown{
+    display: inline-block;
+    background-color:rgb(242, 242, 242);
+    border-radius: 10px;
+    color: rgb(161, 161, 161);
+    font-size: 14px;
+    height: 40px;
+    position: relative;
+    top: -2px;
+}
+.submit-btn,.login-btn{
+    width: 35%;
+    height:50px;
+    /* border: black solid 1px; */
+    border: 0;
+    outline: 0;
+    font-size: 14px;
+}
+.submit-btn{
+    border-radius: 10px;
+    background-color: #51735D;
+    color:white;
+    outline: none;
+}
+.login-btn{
+    border-radius: 10px;
+  background-color:rgb(238, 152, 124);
+  outline: none;
+
+}
+/* 전화번호설정 */
+#phone-td>span>input[type="text"]{
+    width:24%;
+}
+/* 주소창 설정 */
+#btn-Addr{
+    border: none;
+    background-color: #D9CDBF;
+    height: 40px;
+    width:35%;
+    border-radius: 10px;
+    font-size: 14px;
+}
+.postcode{
+    width:34%;
+}
+#address-td>*{
+    margin: 5px 0;
+    position: relative;
+}
+/* 유효성 검사 문구 */
+.alert-text{
+	
+	font-size:14px;
+	color:#51735D;
+	margin-left:10px;
+}
+.warn-text{
+	font-size:14px;
+	color:red;
+	margin-left:10px;
+}
+
