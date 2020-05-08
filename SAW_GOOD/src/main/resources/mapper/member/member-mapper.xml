@@ -9,8 +9,11 @@
   		SELECT * FROM MEMBER WHERE USERID = #{id}
   </select>
   <insert id="insertMember" parameterType="member">
-  	 INSERT INTO MEMBER (USERID,PASSWORD,USERNAME,EMAIL,PHONE,POSTCODE,ADDRESS1,ADDRESS2,STATUS) 
-  	 VALUES(#{userId},#{password},#{userName},#{email},#{phone},#{postCode},#{address1},#{address2},DEFAULT)
+  	 INSERT INTO MEMBER (USERID,PASSWORD,USERNAME,EMAIL,PHONE,POSTCODE,ADDRESS1,ADDRESS2,STATUS,EMAILACCESS) 
+  	 VALUES(#{userId},#{password},#{userName},#{email},#{phone},#{postCode},#{address1},#{address2},DEFAULT,DEFAULT)
   </insert>
+  <update id="accessMember" parameterType="string">
+  	 UPDATE MEMBER SET EMAILACCESS = 1 WHERE USERID=#{userId}
+  </update>
   
 </mapper>

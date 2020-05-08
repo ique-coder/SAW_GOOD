@@ -20,5 +20,6 @@ public class Member {
 	private String profile;
 	private int point;
 	private boolean status;
+	private boolean emailAccess;
 
 }

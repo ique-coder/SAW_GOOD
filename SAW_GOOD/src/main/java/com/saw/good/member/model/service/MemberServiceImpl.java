@@ -28,5 +28,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.insertMember(session,m);
 	}
 
+	@Override
+	public int updateMember(String userId) {
+		
+		return dao.updateMember(session,userId);
+	}
+
+	
 	
 }
