@@ -19,4 +19,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.insertMember", m);
 	}
 
+	@Override
+	public int updateMember(SqlSessionTemplate session, String userId) {
+		
+		return session.update("member.accessMember", userId);
+	}
+	
+
 }
