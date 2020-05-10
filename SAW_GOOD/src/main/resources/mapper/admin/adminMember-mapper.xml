@@ -12,11 +12,11 @@
  	</update>
  	
  	<select id="searchMember" parameterType="map" resultType="map">
- 		SELECT * FROM MEMBER WHERE ${searchType} LIKE '%'#{keyword}'%' AND STATUS='1'
+ 		SELECT * FROM MEMBER WHERE ${searchType} LIKE '%'||#{keyword}||'%' AND STATUS='1'
  	</select>
  	
  	<select id="countSearchMember" parameterType="map" resultType="_int">
- 		SELECT COUNT(*) FROM MEMBER WHERE ${searchType} LIKE '%'#{keyword}'%' AND STATUS='1'
+ 		SELECT COUNT(*) FROM MEMBER WHERE ${searchType} LIKE '%'||#{keyword}||'%' AND STATUS='1'
  	</select>
  	
  	<update id="checkDelete" parameterType="list">

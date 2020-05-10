@@ -8209,8 +8209,8 @@ h1, h2, h3, h4, h5,
 #sidebar {
   min-width: 270px;
   max-width: 270px;
-  background:url(../images/sidebar.jpg);
-  color: #fff;
+  background:url(../resources/images/sidebar.jpg);
+  color: black;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;

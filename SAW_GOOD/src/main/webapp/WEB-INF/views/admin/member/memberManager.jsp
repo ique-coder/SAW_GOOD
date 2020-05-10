@@ -278,33 +278,34 @@ label {
 	cursor: pointer;
 	display: inline-block;
 }
- /* 페이지바 */
-    #pageBar{
-      width:100%;
-      margin: 40px 0 40px 0;
-      text-align:center;
-   }
-   #pageBar>a,#pageBar>span{
-      width: 40px;
-       height: 40px;
-       text-align: center;
-       line-height: 40px;
-       border: 1px solid #d5d5d5;
-       color: #999;
-       background-color: #fff;
-       margin: 0 2px;
-       position: relative;
-       font-size: 13px;
-       font-family: "YoonGothicPro760";
-       display: inline-block;
-       vertical-align: top;
-       padding:0;
-   }
-    /* 페이지바 cpage span */
-    #pageBar>span.cPage{
-       border: 1px solid #191919;
-       color: #191919;
-    }
+/* 페이지바 */
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #d5d5d5;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+}
+/* 페이지바 cpage span */
+#pageBar>span.cPage {
+	border: 1px solid #191919;
+	color: #191919;
+}
 </style>
 <!-- Page Content  -->
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -329,69 +330,73 @@ label {
 					</select>
 						<div id="search_id">
 							<form action="${path }/admin/searchMember" method="get">
-								<input type="hidden" name="numPerPage" value="${param.numPerPage }"/>
-								<input type="hidden" name="searchType" value="userid"> <input
-									type="text" name="keyword" placeholder="아이디를 입력해주세요"
-									style="width: 60%">
+								<input type="hidden" name="numPerPage"
+									value="${numPerPage }" /> <input type="hidden"
+									name="searchType" value="userid"> <input type="text"
+									name="keyword" placeholder="아이디를 입력해주세요" style="width: 60%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
 						<div id="search_name">
 							<form action="${path }/admin/searchMember" method="post">
-								<input type="hidden" name="numPerPage" value="${param.numPerPage }"/>
-								<input type="hidden" name="searchType" value="username">
-								<input type="text" name="keyword" placeholder="이름을 입력해주세요"
-									style="width: 60%">
+								<input type="hidden" name="numPerPage"
+									value="${numPerPage }" /> <input type="hidden"
+									name="searchType" value="username"> <input type="text"
+									name="keyword" placeholder="이름을 입력해주세요" style="width: 60%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
 						<div id="search_email">
 							<form action="${path }/admin/searchMember" method="post">
-								<input type="hidden" name="numPerPage" value="${param.numPerPage }"/>
-								<input type="hidden" name="searchType" value="email"> <input
-									type="text" name="keyword" placeholder="이메일을 입력해주세요"
-									style="width: 60%">
+								<input type="hidden" name="numPerPage"
+									value="${numPerPage }" /> <input type="hidden"
+									name="searchType" value="email"> <input type="text"
+									name="keyword" placeholder="이메일을 입력해주세요" style="width: 60%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
 						<div id="search_phone">
 							<form action="${path }/admin/searchMember" method="post">
-								<input type="hidden" name="numPerPage" value="${param.numPerPage }"/>
-								<input type="hidden" name="searchType" value="phone"> <input
-									type="text" name="keyword" placeholder="전화번호를 입력해주세요"
-									style="width: 60%">
+								<input type="hidden" name="numPerPage"
+									value="${numPerPage }" /> <input type="hidden"
+									name="searchType" value="phone"> <input type="text"
+									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 60%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
 						<div id="search_addr">
 							<form action="#" method="post">
-								<input type="hidden" name="numPerPage" value="${param.numPerPage }"/>
-								<input type="hidden" name="searchType" value="address1">
-								<input type="text" name="keyword" placeholder="주소를 입력해주세요"
-									style="width: 60%">
+								<input type="hidden" name="numPerPage"
+									value="${param.numPerPage }" /> <input type="hidden"
+									name="searchType" value="address1"> <input type="text"
+									name="keyword" placeholder="주소를 입력해주세요" style="width: 60%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
-						</div>
-						</td>
+						</div></td>
 			</table>
 		</div>
 	</div>
 
 	<div class="container-fluid">
+		<div style="text-align: right;padding-right:20px;">
+		<form action='${path }/admin/${searchType!=null?"searchMember":"memberManager"}' method="post" id="frmNum">
+			<input type="hidden" name="cPage" value="${cPage }"/>
+			<input type="hidden" name="searchType" value="${searchType }"/>
+			<input type="hidden" name="keyword" value="${keyword }"/>
+			<select name="numPerPage" style="font-size: 16px;" id="numPer">
+				<option value="10" ${numPerPage!=10?"":"selected" }>10개씩보기</option>
+				<option value="20" ${numPerPage!=20?"":"selected" }>20개씩보기</option>
+				<option value="30" ${numPerPage!=30?"":"selected" }>30개씩보기</option>
+			</select>
+			</form>
+		</div>
 		<div class="col-md-12" style="height: auto;">
-		<form action="#" method="post" id="frmMember">
-					<div class="row">
-						<div class="col-md-8">
-							<button class="btn-black" type="button" onclick="checkDelete();">선택삭제</button>
-						</div>
-						<div class="col-md-4" style="text-align: right; padding-bottom: 20px;">
-							<select name="numPerPage" style="font-size: 14px;">
-								<option value="10">10개씩보기</option>
-								<option value="20">20개씩보기</option>
-								<option value="30">30개씩보기</option>
-							</select>
-						</div>
+			<form action="#" method="post" id="frmMember">
+				<div class="row">
+					<div class="col-md-8" style="padding-bottom:10px;">
+						<button class="btn-black" type="button" onclick="checkDelete();">선택삭제</button>
 					</div>
+				</div>
 				<table class="memberMg checking">
 					<colgroup>
 						<col width="5%">
@@ -403,8 +408,8 @@ label {
 						<col width="15%">
 					</colgroup>
 					<tr>
-						<th scope="col"><input type="checkbox"
-							id="allck"><label for="allck"></label></th>
+						<th scope="col"><input type="checkbox" id="allck"><label
+							for="allck"></label></th>
 						<th scope="col">아이디</th>
 						<th scope="col">이름</th>
 						<th scope="col">전화번호</th>
@@ -414,21 +419,23 @@ label {
 					</tr>
 					<c:forEach items="${list }" var="m" varStatus="vs">
 						<tr>
-							<td><input type="checkbox" class="memberck" name="memberCk" id="member${vs.count }" value="${m['USERID'] }"><label
+							<td><input type="checkbox" class="memberck" name="memberCk"
+								id="member${vs.count }" value="${m['USERID'] }"><label
 								for="member${vs.count }"></label></td>
-							<td><c:out value="${m['USERID'] }"/></td>
-							<td><c:out value="${m['USERNAME']}"/></td>
-							<td><c:out value="${m['PHONE'] }"/></td>
-							<td><c:out value="${m['ADDRESS1'] }"/></td>
-							<td><c:out value="${m['EMAIL'] }"/> </td>
+							<td><c:out value="${m['USERID'] }" /></td>
+							<td><c:out value="${m['USERNAME']}" /></td>
+							<td><c:out value="${m['PHONE'] }" /></td>
+							<td><c:out value="${m['ADDRESS1'] }" /></td>
+							<td><c:out value="${m['EMAIL'] }" /></td>
 							<td>
-								<button class="btn-black deleteMember" type="button" value="${m['USERID'] }">삭제</button>
+								<button class="btn-black deleteMember" type="button"
+									value="${m['USERID'] }">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
-				</form>
-            ${pageBar }
+			</form>
+			${pageBar }
 		</div>
 	</div>
 </div>
@@ -453,28 +460,32 @@ label {
 		})
 	})
 	//전체선택 전체해제
-		$(function(){
-			$("#allck").click(function(){
-				if($("#allck").prop("checked")){
-					$(".memberck").prop("checked",true);
-				}else{
-					$(".memberck").prop("checked",false);
-				}
-			})
+	$(function() {
+		$("#allck").click(function() {
+			if ($("#allck").prop("checked")) {
+				$(".memberck").prop("checked", true);
+			} else {
+				$(".memberck").prop("checked", false);
+			}
 		})
-	
+	})
+
 	//멤버 스테이터스 0->1
-	$(function(){
-		$(".deleteMember").click(function(){
-			let val=$(this).val();
-			location.replace("${path}/admin/deleteMember?id="+val);
+	$(function() {
+		$(".deleteMember").click(function() {
+			let val = $(this).val();
+			location.replace("${path}/admin/deleteMember?id=" + val);
 		})
 	})
 	//선택삭제
-	function checkDelete(){
-		$("#frmMember").attr("action","${path}/admin/checkdeleteMember");
+	function checkDelete() {
+		$("#frmMember").attr("action", "${path}/admin/checkdeleteMember");
 		$("#frmMember").submit();
 	}
+	//numPerPage변경
+	$("#numPer").change(function() {
+		$("#frmNum").submit();
+	})
 </script>
 
 

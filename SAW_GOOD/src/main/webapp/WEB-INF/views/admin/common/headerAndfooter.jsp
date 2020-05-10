@@ -46,7 +46,6 @@
 <!-- chart.js -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
 <style>
 /* 기본설정 및 사이드바 */
 html {

@@ -32,16 +32,17 @@ public class AdminMemberController {
 	
 	@RequestMapping("/admin/memberManager")
 	public ModelAndView memberManager(@RequestParam(value="cPage",defaultValue="1") int cPage,
-							@RequestParam(value="numPerPage",defaultValue="1") int numPerPage,
+							@RequestParam(value="numPerPage",defaultValue="10") int numPerPage,
 							HttpServletRequest request,ModelAndView m) {
 		
 		List<Map<String,String>> list =service.selectMember(cPage,numPerPage);
 		int totalData=service.countMember();
-		
 		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "memberManager");
 		
 		m.addObject("list", list);
 		m.addObject("pageBar", pageBar);
+		m.addObject("numPerPage", numPerPage);
+		m.addObject("cPage", cPage);
 		m.setViewName("admin/member/memberManager");
 		return m;
 	}
@@ -71,8 +72,15 @@ public class AdminMemberController {
 		
 		String pageBar=FinderPageFactory.getPage(totalData, cPage, numPerPage, searchType, keyword, "searchMember");
 		
+		System.out.println(numPerPage);
+		System.out.println(searchType);
+		System.out.println(keyword);
 		m.addObject("list", list);
 		m.addObject("pageBar", pageBar);
+		m.addObject("searchType", searchType);
+		m.addObject("keyword", keyword);
+		m.addObject("numPerPage", numPerPage);
+		m.addObject("cPage", cPage);
 		m.setViewName("admin/member/memberManager");
 		return m;
 	}
@@ -92,22 +100,5 @@ public class AdminMemberController {
 		m.setViewName("admin/common/msg");
 		return m;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
