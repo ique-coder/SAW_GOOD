@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${path }/resources/css/funding/list.css"/>
 
-<section>
+<section id="section">
 	<div class="container padding">
             <div class="row">
                 <div class="col-md-2">
