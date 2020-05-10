@@ -107,8 +107,8 @@ public class MemberController {
 				System.getProperty("line.separator")+
 				System.getProperty("line.separator")
 				+"SAW GOOD을 이용해 주셔서 감사합니다.<br>"
-				+ "이메일 인증을 완료하시면 바로 이용 가능합니다!"
-				+"<a href='"+e.getHost()+"/member/access.do?userId="+m.getUserId()+"&code="+sha256+" '>이메일 인증하기</a>"
+				+ "이메일 인증을 완료하시면 바로 이용 가능합니다!<br>"
+				+"<a href='"+e.getHost()+"/member/access.do?userId="+m.getUserId()+"&code="+sha256+" ' style='color:#3C5946;'>이메일 인증하기</a>"
 				
 				);
 		

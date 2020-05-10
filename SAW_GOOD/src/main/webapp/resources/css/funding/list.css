@@ -1,0 +1,147 @@
+html,body{
+    height: 100%;
+    position: relative;
+}
+div{
+    height: 100%;
+    position: relative;
+}
+button{
+	background:none;
+}
+.padding{
+    padding: 20px;
+    border: 50px solid #F2E8DC;
+    box-sizing: content-box;
+}
+.product-container:hover{
+    box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
+}
+/* 상품 안 글자 설정 */
+.text-deco{
+    position: relative;
+    display: inline-block;
+    font-weight: lighter;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #3C5946 ;
+    font-size: 1.2rem;
+}
+p{
+    font-size: 0.8rem;
+}
+.text-position{
+    margin: 3px 10%; 
+}
+.sub{
+    position: absolute;
+    right:10%;
+    margin-top: 1.5%;
+    color:rgb(129, 129, 129);
+    display: inline-block;
+}
+.text-deco:hover{
+    border-bottom: none;
+    transition-delay: 50ms;
+}
+.text-deco:after{
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    background-color: #3C5946;
+    height: 1px;
+}
+.text-deco:hover::after{
+    width: 100%;
+    transition: width ease-out 350ms;
+    transition-delay: 50ms;
+}
+/* 글자설정 끝 */
+.images{
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    height: 80%;
+}
+
+.col-md-3{
+    padding: 0 2%;
+
+}
+.main{
+    position: relative;
+    width: 100%;
+    height: 50%;
+    border: 1px black solid;
+}
+.test2{
+    width: 100%;
+    height: 250px;
+    border: 1px black solid;
+}
+/* 네비바 설정 */
+.block-span{
+    display: block;
+    border-bottom: solid 1px #E1E0E1;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.block-span>button{
+    border: none;
+    background: none;
+    outline: none;
+    position: absolute;
+    padding: 0;
+    right: 0;
+    bottom: 5px;
+}
+.block-span>input[type="text"]{
+    width: 80%;
+    border: none;
+    outline: none;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    background:none;
+}
+.category{
+    margin: 0;
+    padding: 10px 0;
+    list-style: none;
+    border-top: 1px solid #E1E0E1;
+    border-bottom: 1px solid #E1E0E1;
+}
+.category>li{
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+}
+#main-container{
+    height: 1500px;
+    position: relative;
+}
+.wrapper{
+    position: fixed;
+    top:0px;
+    height: 50%;
+}
+.attachBottom{
+    
+    position: absolute;
+    bottom: 0;
+}
+.bar{
+    fill: #51735D;
+
+}
+.bar-container{
+    background-color: #E1E0E1;
+    display: block;
+    position: relative;
+    margin: 10px 10%;
+    border-radius: 2px;
+}
