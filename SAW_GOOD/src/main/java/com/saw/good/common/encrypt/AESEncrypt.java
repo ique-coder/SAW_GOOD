@@ -14,10 +14,9 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AESEncrypt {
 	
@@ -27,7 +26,8 @@ public class AESEncrypt {
 	public AESEncrypt() {
 		
 		String path = AESEncrypt.class.getResource("/").getPath();
-		
+		//logger.debug(path);
+		System.out.println(path);
 		this.path=path.substring(0, path.indexOf("target"))+"src/main/webapp/WEB-INF";
 		System.out.println(this.path);
 		File f = new File(this.path+"/secret.bs");

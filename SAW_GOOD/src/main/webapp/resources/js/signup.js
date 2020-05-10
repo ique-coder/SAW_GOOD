@@ -147,7 +147,7 @@ $(function() {
 
 		if (!reg.test($(this).val())) {
 			$("#checkPhone").show();
-			$(this).val("").focus();
+			$(this).val("");
 			phone2_ck = false;
 		} else {
 			$("#checkPhone").hide();
@@ -160,7 +160,7 @@ $(function() {
 
 		if (!reg.test($(this).val())) {
 			$("#checkPhone").show();
-			$(this).val("").focus();
+			$(this).val("");
 			phone3_ck = false;
 		} else {
 			$("#checkPhone").hide();
@@ -172,7 +172,7 @@ $(function() {
 	$("input[name='userName'").blur(function() {
 		if ($(this).val().length < 2) {
 			$("#checkName").show();
-			$(this).focus();
+			
 			name_ck = false;
 		} else {
 			$("#checkName").hide();

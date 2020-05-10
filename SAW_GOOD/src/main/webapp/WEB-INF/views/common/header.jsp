@@ -32,57 +32,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
 </head>
+<style>
+	a:link { color: black; text-decoration: none;}
+    a:visited { color: black; text-decoration: none;}
+    a:hover { color:  #3C5946; text-decoration: none;}
+</style>
 <body>
-    <header>
-        <div class="container-fluid" style="background-color: lightgray; padding: 10px 0;">
-            <div class="container" style="padding: 0;">
-                <ul class="top_menu1">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="${path }/signup">회원가입</a></li>
-                    <li><a href="#">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="container-fluid top_menu2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2" style="margin-bottom: 15px;">
-                        <img src="http://placehold.it/150x70">
-                    </div>
-                    <div class="col-md-10" style="padding-left: 0; padding-right: 0;">
-                        <nav>
-                            <ul class="top_menu3">
-                                <li><a href="#">가구배치</a></li>
-                                <li>
-                                    <a href="#">새상품</a>
-                                    <div class="sub_menu">
-                                        <ul class="sub_menu2">
-                                            <li><a href="#">테스트1</a></li>
-                                            <li><a href="#">테스트2</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="#">중고</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">1:1문의</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header class="container-fluid" id="header">
+    	<div class="row">
+    		<div class="col-md-3 row">
+    			<div class="col-md-4"></div>
+    			<a href="#" class="col-md-4">
+    				<img src="${path }/resources/images/logo.png" />
+    			</a>
+    			<div class="col-md-4"></div>
+    		</div>
+    		<ul class="col-md-6 row header-style">
+                <li class="col-md-3">
+                    <span><a href="#" class="target">SHOW ROOM</a></span>
+                </li>
+                <li class="col-md-3">
+                    <span><a href="#" class="target">NEW ARRIVAL</a></span>
+                </li>
+                <li class="col-md-3">
+                    <span><a href="${path }/funding/list" class="target">FUNDING</a></span>
+                </li>
+                <li class="col-md-3">
+                    <span><a href="#" class="target">AUCTION</a></span>
+                </li>
+    		</ul>
+    		<ol class="col-md-3 row">
+    			<li class="col-md-4"><a href="${path }/signup">sign up</a></li>
+    			<li class="col-md-4"><a href="javascript:void(0)">login</a></li>
+    		</ol>
+    	</div>
     </header>
     <script>
+    $(".target").mouseover(function(){
+        $(event.target).parent("span").addClass("underline");
+    })
+    $(".target").mouseleave(function(){
+        $(event.target).parent("span").removeClass("underline");
+    })
     	$(function(){
     		$(window).scroll(function(){
                 var height = $(document).scrollTop();
-                if(height>=36){
-                    $(".top_menu2").attr({
-                        style:"top: 0px"
-                    });
-                    $(".top_menu2").css("margin-top", "15px");
+                if(height>=30){
+                    $("#header").addClass("fixed");
+                  
                 }else{
-                    $(".top_menu2").removeAttr("style");
+                	$("#header").removeClass("fixed");
                 }
     		})
             
