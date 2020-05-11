@@ -20,13 +20,13 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="${path }/resources/css/style.css">
+<link rel="stylesheet" href="${path }/resources/css/admin/style.css?ver=0">
 
 <!-- IonIcons -->
 <link rel="stylesheet"
 	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="${path }/resources/css/adminlte.min.css">
+<link rel="stylesheet" href="${path }/resources/css/admin/adminlte.min.css">
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"

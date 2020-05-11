@@ -66,6 +66,7 @@
                 <tr>
                     <th>가구별 카테고리</th>
                     <td>
+                    <!-- 대문자영어로 바꾸기  -->
                         <select id="furniture" style="width:100px">
                             <option value="침대">침대</option>
                             <option value="쇼파">쇼파</option>
@@ -75,6 +76,7 @@
                     </td>
                 </tr>
                 <tr>
+                <!-- 맞춰서 -->
                     <th>브랜드 카테고리</th>
                     <td>
                         <select id="brand" style="width:100px">

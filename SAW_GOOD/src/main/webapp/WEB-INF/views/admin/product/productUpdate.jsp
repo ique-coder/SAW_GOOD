@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<jsp:include page="/WEB-INF/views/admin/common/headerAndfooter.jsp/">
+<jsp:include page="/WEB-INF/views/admin/common/headerAndfooter.jsp"/>
 
 <style>
 /* 섹션부분 */

@@ -59,7 +59,6 @@ table.memberMg {
 }
 
 #search tr td {
-	border: 1px solid black;
 	padding: 5px 0;
 }
 
@@ -69,33 +68,33 @@ table.memberMg {
 }
 
 #search_id {
-	width: 80%;
+	width: 100%;
 	display: inline-block;
 }
 
 #search_name {
 	display: none;
-	width: 80%;
+	width: 100%;
 }
 
 #search_email {
 	display: none;
-	width: 80%;
+	width: 100%;
 }
 
 #search_phone {
 	display: none;
-	width: 80%;
+	width: 100%;
 }
 
 #search_addr {
 	display: none;
-	width: 80%
+	width: 100%;
 }
 
 #search_date {
 	display: none;
-	width: 80%;
+	width: 100%;
 }
 
 div[id^="search"]>input[type="text"] {
@@ -312,15 +311,18 @@ label {
 	<h2 id="titeltwo">Member Manager</h2>
 	<hr id="hr">
 	<div class="container-fluid" style="margin-bottom: 30px;">
-		<div class="col-md-8">
+		<div class="row">
+		<div class="col-md-6"></div>
+		<div class="col-md-6" style="text-align: right">
 			<table id="search">
 				<colgroup>
-					<col width="20%">
+					<col width="30%">
 					<col width="auto">
 				</colgroup>
 				<tr>
-					<th>통합검색</th>
-					<td><select name="search_Type"
+					<td>
+					<i class="fas fa-search"></i>
+					<select name="search_Type"
 						style="padding: 3px; margin-left: 10px" id="search_Type">
 							<option value="id">아이디</option>
 							<option value="name">이름</option>
@@ -328,12 +330,14 @@ label {
 							<option value="phone">전화번호</option>
 							<option value="addr">주소</option>
 					</select>
+					</td>
+					<td style="text-align:left;padding-left:10px">
 						<div id="search_id">
 							<form action="${path }/admin/searchMember" method="get">
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="userid"> <input type="text"
-									name="keyword" placeholder="아이디를 입력해주세요" style="width: 60%">
+									name="keyword" placeholder="아이디를 입력해주세요" style="width: 80%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
@@ -342,7 +346,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="username"> <input type="text"
-									name="keyword" placeholder="이름을 입력해주세요" style="width: 60%">
+									name="keyword" placeholder="이름을 입력해주세요" style="width: 80%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
@@ -351,7 +355,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="email"> <input type="text"
-									name="keyword" placeholder="이메일을 입력해주세요" style="width: 60%">
+									name="keyword" placeholder="이메일을 입력해주세요" style="width: 80%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
@@ -360,7 +364,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="phone"> <input type="text"
-									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 60%">
+									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 80%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
 						</div>
@@ -369,11 +373,14 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${param.numPerPage }" /> <input type="hidden"
 									name="searchType" value="address1"> <input type="text"
-									name="keyword" placeholder="주소를 입력해주세요" style="width: 60%">
+									name="keyword" placeholder="주소를 입력해주세요" style="width: 80%">
 								<button type="submit" class="btn-black">검색</button>
 							</form>
-						</div></td>
+						</div>
+						</td>
+						</tr>
 			</table>
+		</div>
 		</div>
 	</div>
 
@@ -388,7 +395,7 @@ label {
 				<option value="20" ${numPerPage!=20?"":"selected" }>20개씩보기</option>
 				<option value="30" ${numPerPage!=30?"":"selected" }>30개씩보기</option>
 			</select>
-			</form>
+		</form>
 		</div>
 		<div class="col-md-12" style="height: auto;">
 			<form action="#" method="post" id="frmMember">

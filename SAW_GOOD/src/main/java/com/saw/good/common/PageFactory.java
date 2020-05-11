@@ -5,13 +5,14 @@ public class PageFactory {
 	public static String getPage(int totalData,int cPage,int numPerPage, String url) {
 		
 		String pageBar="";
+		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
 		
 		int pageBarSize=5;
 		
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
-		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
+		
 		
 		pageBar+="<div id='pageBar'>";
 		//이전
