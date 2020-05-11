@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+ 	<select id="selectMember" resultType="map">
+ 		SELECT * FROM MEMBER WHERE STATUS='1' ORDER BY USERID
+ 	</select>
+ 	<select id="countMember" resultType="_int">
+ 		SELECT COUNT(*) FROM MEMBER WHERE STATUS='1'
+ 	</select>
+ 	<update id="deleteMember" parameterType="string">
+ 		UPDATE MEMBER SET STATUS='0' WHERE USERID=#{id}
+ 	</update>
+ 	
+ 	<select id="searchMember" parameterType="map" resultType="map">
+ 		SELECT * FROM MEMBER WHERE ${searchType} LIKE '%'||#{keyword}||'%' AND STATUS='1'
+ 	</select>
+ 	
+ 	<select id="countSearchMember" parameterType="map" resultType="_int">
+ 		SELECT COUNT(*) FROM MEMBER WHERE ${searchType} LIKE '%'||#{keyword}||'%' AND STATUS='1'
+ 	</select>
+ 	
+ 	<update id="checkDelete" parameterType="list">
+ 		UPDATE MEMBER SET STATUS='0' WHERE USERID IN
+ 		<foreach collection="list" item="id" open="(" close=")" separator=",">
+ 			#{id}
+ 		</foreach>
+ 	</update>
+</mapper>
