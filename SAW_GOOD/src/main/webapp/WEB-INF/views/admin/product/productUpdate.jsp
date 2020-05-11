@@ -52,24 +52,24 @@
                 </colgroup>
                 <tr>
                     <th>상품이름</th>
-                    <td><input type="text" name="title"></td>
+                    <td><input type="text" name="title" value="${product['PRODUCTNAME'] }"></td>
                 </tr>
                 <tr>
                     <th>상품가격</th>
-                    <td><input type="number" name="price"><span>원</span></td>
+                    <td><input type="number" name="price" value="${product['PRODUCTPRICE'] }"><span>원</span></td>
                 </tr>
                 <tr>
                     <th>상품정보</th>
-                    <td><textarea id="text"></textarea></td>
+                    <td><textarea id="text">${product['PRODUCTCONTENT'] }</textarea></td>
                 </tr>
                 <tr>
                     <th>가구별 카테고리</th>
                     <td>
                         <select id="furniture" style="width:100px">
-                            <option value="침대">침대</option>
-                            <option value="쇼파">쇼파</option>
-                            <option value="의자">의자</option>
-                            <option value="책상">책상</option>
+                            <option value="bad" ${product['CATEGORY']=='bad'?"selected":""}>bad</option>
+                            <option value="sofa" ${product['CATEGORY']=='sofa'?"selected":""}>sofa</option>
+                            <option value="chair" ${product['CATEGORY']=='chair'?"selected":""}>chair</option>
+                            <option value="table" ${product['CATEGORY']=='table'?"selected":""}>table</option>
                         </select>
                     </td>
                 </tr>
@@ -77,10 +77,10 @@
                     <th>브랜드 카테고리</th>
                     <td>
                         <select id="brand" style="width:100px">
-                            <option value="에이스">침대</option>
-                            <option value="한샘">한샘</option>
-                            <option value="이케아">이케아</option>
-                            <option value="파로마">파로마</option>
+                            <option value="에이스" ${product['BRAND']=='에이스'?"selected":""}>에이스</option>
+                            <option value="한샘" ${product['BRAND']=='한샘'?"selected":""}>한샘</option>
+                            <option value="이케아" ${product['BRAND']=='이케아'?"selected":""}>이케아</option>
+                            <option value="파로마" ${product['BRAND']=='파로마'?"selected":""}>파로마</option>
                         </select>
                     </td>
                 </tr>
@@ -89,10 +89,7 @@
                     <td>
                         <input type="file" name="upfile" multiple>
                         <div style="display: inline-block;">
-                            <img src="${path }/resources/images/chair.jpg" attr="" width="100px" height="100px"/>
-                            <img src="${path }/resources/images/chair.jpg" attr="" width="100px" height="100px"/>
-                            <img src="${path }/resources/images/chair.jpg" attr="" width="100px" height="100px"/>
-                    
+                            <img src="${path }/resources/images/${product['PRODUCTIMG']}" attr="" width="100px" height="100px"/>
                         </div>
                     </td>
                 </tr>

@@ -344,7 +344,7 @@ label {
 	
 	<div class="container-fluid newPro" style="margin-bottom: 30px;">
 		<div class="col-md">
-			<form id="searchFrm" action="${path }/admin/searchProduct" method="post">
+			<form id="searchFrm" action="${path }/admin/searchProduct" method="get">
 				<table id="search">
 					<colgroup>
 						<col width="20%">
@@ -414,10 +414,10 @@ label {
 			</form>
 		</div>
 		<div class="col-md-12" style="height: auto;">
-			<form action="#" method="post" onsubmit="">
+			<form action="#" method="post" id="proFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom: 10px;">
-						<button class="btn-black" type="button">삭제</button>
+						<button class="btn-black checkDelete" type="button">선택삭제</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -433,7 +433,7 @@ label {
 					</colgroup>
 
 					<tr>
-						<th scope="col"><input type="checkbox" name="procheck"
+						<th scope="col"><input type="checkbox"
 							id="allck"><label for="allck"></label></th>
 						<th scope="col">번호</th>
 						<th scope="col"></th>
@@ -445,7 +445,7 @@ label {
 					</tr>
 					<c:forEach items="${list }" var="p" varStatus="vs">
 					<tr>
-						<td><input type="checkbox" name="procheck" class="procheck" id="pro${vs.count }"><label
+						<td><input type="checkbox" name="procheck" class="procheck" value="${p['PRODUCTNO']}"  id="pro${vs.count }"><label
 							for="pro${vs.count }"></label></td>
 						<td>${p['PRODUCTNO'] }</td>
 						<td>
@@ -460,7 +460,7 @@ label {
 						<td>${p['BRAND'] }</td>
 						<td>${p['STAR'] }</td>
 						<td>
-							<button class="btn-black" type="button">삭제</button>
+							<button class="btn-black deletePro" type="button" value="${p['PRODUCTNO']}">삭제</button>
 							<button class="btn-black updatePro" type="button" value="${p['PRODUCTNO']}">수정</button>
 						</td>
 					</tr>
@@ -509,7 +509,23 @@ label {
 	})
 	//수정페이지 이동
 	$(".updatePro").click(function(){
-		location.replace("${path}/admin/productUpdate");
+		var value=$(this).val();
+		location.replace("${path}/admin/productUpdate?productno="+value);
+	})
+	
+	//삭제페이지 이동
+	$(".deletePro").click(function(){
+		var value=$(this).val();
+		location.replace("${path}/admin/productDelete?productno="+value);
+	})
+	//선택삭제
+	$(".checkDelete").click(function(){
+		if($(".procheck:checked").length>0){
+			$("#proFrm").attr("action","${path}/admin/checkDelete");
+			$("#proFrm").submit(); 
+		}else{
+			alert("삭제 할 항목을 선택해주세요!");
+		}
 	})
 </script>
 </html>

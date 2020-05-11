@@ -2,9 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
 	<select id="selectProduct" resultType="map">
-		SELECT * FROM NEWPRODUCT
+		SELECT * FROM NEWPRODUCT WHERE STATUS='N'
 	</select>
 	<select id="countProduct" resultType="_int">
-		SELECT COUNT(*) FROM NEWPRODUCT
+		SELECT COUNT(*) FROM NEWPRODUCT WHERE STATUS='N'
 	</select>
+	<select id="oneProduct" resultType="map" parameterType="_int">
+		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{productno}
+	</select>
+	<update id="deleteProduct" parameterType="_int">
+		UPDATE NEWPRODUCT SET STATUS='Y' WHERE PRODUCTNO=#{productno}
+	</update>
+	
+	<update id="checkDelete" parameterType="com.saw.good.admin.home.AdminProduct">
+		UPDATE NEWPRODUCT SET STATUS='Y' WHERE PRODUCTNO IN 
+		<foreach collection="procheck" item="n" open="(" close=")" separator=",">
+			${n}
+		</foreach>
+	</update>
 </mapper>
