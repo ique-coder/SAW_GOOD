@@ -9,6 +9,22 @@ div{
 button{
 	background:none;
 }
+#section{
+	margin-top:60px;
+}
+.parallax-window{
+	height:400px;
+	text-align:center;
+	background: transparent;
+	margin-bottom: 60px;
+}
+.parallax-window h3{
+	position:relative;
+	top:45%;
+	font-size:1.7rem;
+	letter-spacing:1.25em;
+	color: white;
+}
 .padding{
     padding: 20px;
     border: 50px solid #F2E8DC;

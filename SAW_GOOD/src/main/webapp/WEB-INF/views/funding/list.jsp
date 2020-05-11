@@ -9,7 +9,13 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${path }/resources/css/funding/list.css"/>
 
+
 <section id="section">
+	<div class="parallax-window" data-parallax="scroll" data-image-src="${path }/resources/images/sample1.jpg">
+		<h3>
+			CREATE YOUR ROOM
+		</h3>
+	</div>
 	<div class="container padding">
             <div class="row">
                 <div class="col-md-2">
@@ -64,11 +70,6 @@
                             <div class="test2" ></div>
                             <div class="test2"></div>
                             <div class="test2"></div>
-                            <div class="test2" ></div>
-                            <div class="test2"></div>
-                            <div class="test2" ></div>
-                            <div class="test2"></div>
-                           
                         </div>
                         <div class="col-md-3 sub-container">
                             <div class="test2"></div>
@@ -77,11 +78,6 @@
                             <div class="test2" ></div>
                             <div class="test2"></div>
                             <div class="test2"></div>
-                            <div class="test2" ></div>
-                            <div class="test2"></div>
-                            <div class="test2" ></div>
-                            <div class="test2"></div>
-                          
                         </div>
                         
                     </div>
@@ -89,7 +85,10 @@
             </div>
             
         </div>
-    </section>
+</section>
+<div class="parallax" id="parallax2">
+
+</div>
     
     
     <script>
