@@ -50,7 +50,7 @@
       <div id="content" class="p-4 p-md-5 pt-5">
         <h2 id="titeltwo">Product</h2>
         <div class="container-fluid">
-        <form method="post" enctype="multipart/form-data">
+        <form action="${path }/admin/productRegistEnd" method="post" enctype="multipart/form-data">
             <table id="product-tbl" class="table-responsive-md">
                 <colgroup>
                     <col width="20%">
@@ -90,7 +90,7 @@
                 <!-- 맞춰서 -->
                     <th>브랜드 카테고리</th>
                     <td>
-                        <select id="brand" style="width:100px">
+                        <select id="brand" name="brand" style="width:100px">
                             <option value="에이스">에이스</option>
                             <option value="한샘">한샘</option>
                             <option value="이케아">이케아</option>
@@ -132,7 +132,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: right; padding:30px 30px 0 0; border:0;" colspan="2">
-                        <button type="button" class="btn-black" id="insertPro">등록</button>
+                        <button type="submit" class="btn-black" id="insertPro">등록</button>
                     </td>
                 </tr>
             </table>
@@ -237,7 +237,7 @@
 			});
 		}
 		
-		$("#insertPro").click(function(){
+		/* $("#insertPro").click(function(){
 			console.log("클릭");
 			const fd=new FormData();
 			fd.append("productImg",$("[name=productImg]")[0].files[0]);
@@ -264,7 +264,7 @@
 				}
 			})
 			
-		})
+		}) */
 	</script>
 	
     

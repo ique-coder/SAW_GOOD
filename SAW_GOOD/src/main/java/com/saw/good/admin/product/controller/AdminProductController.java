@@ -179,13 +179,10 @@ public class AdminProductController {
 	}
 	
 	@RequestMapping("/admin/productRegistEnd")
-	@ResponseBody
-	public ModelAndView productRegistEnd(ModelAndView mv,MultipartFile[] detailImg,
-			MultipartFile[] detailPageImg,
+	public ModelAndView productRegistEnd(ModelAndView mv,
 			MultipartHttpServletRequest request,HttpSession session) throws Exception{
 		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		int rnd=(int)(Math.random()*1000);
 		//상품 정보들
 		String productName=request.getParameter("productName");
 		int productPrice=Integer.parseInt(request.getParameter("productPrice"));
@@ -196,7 +193,11 @@ public class AdminProductController {
 		String renamepd="";
 		String originaltp="";
 		String renametp="";
-		
+		//파일 불러오기
+		List<MultipartFile> detailImg=request.getFiles("detailImg");
+		List<MultipartFile> detailPageImg=request.getFiles("detailPageImg");
+		MultipartFile pdImg=request.getFile("productImg");
+		MultipartFile tpImg=request.getFile("topImg");
 		//폴더경로 찾기
 		String path=session.getServletContext().getRealPath("/resources/upload/newproduct");
 		
@@ -205,8 +206,8 @@ public class AdminProductController {
 		if (!fileDir.exists()) { fileDir.mkdirs(); }
 		
 		//상품 썸네일 이미지
-		MultipartFile pdImg=request.getFile("productImg");
 		if(!pdImg.isEmpty()) {
+			int rnd=(int)(Math.random()*1000);
 			originalpd=pdImg.getOriginalFilename();
 			String ext=originalpd.substring(originalpd.lastIndexOf("."));
 			renamepd=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
@@ -214,8 +215,8 @@ public class AdminProductController {
 		}
 		
 		//상품 탑이미지
-		MultipartFile tpImg=request.getFile("topImg");
 		if(!tpImg.isEmpty()) {
+			int rnd=(int)(Math.random()*1000);
 			originaltp=tpImg.getOriginalFilename();
 			String ext=originaltp.substring(originaltp.lastIndexOf("."));
 			renametp=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
@@ -224,10 +225,12 @@ public class AdminProductController {
 		Product p= new Product(0,productName,productContent,productPrice,
 				originalpd,category,brand,0,null,originaltp,renamepd,renametp);
 		
-		List<DetailImg> diList=new ArrayList();
+		
 		//상품 상세이미지
+		List<DetailImg> diList=new ArrayList();
 		for(MultipartFile mf:detailImg) {
 			if(!mf.isEmpty()) {
+				int rnd=(int)(Math.random()*1000);
 				String originaldi=mf.getOriginalFilename();
 				String ext=originaldi.substring(originaldi.lastIndexOf("."));
 				String renamedi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
@@ -243,10 +246,11 @@ public class AdminProductController {
 			}
 		}
 		
-		List<PageDetailImg> pdiList=new ArrayList();
 		//상품상세페이지 이미지
+		List<PageDetailImg> pdiList=new ArrayList();
 		for(MultipartFile mpf:detailPageImg) {
 			if(!mpf.isEmpty()) {
+				int rnd=(int)(Math.random()*1000);
 				String originalpdi=mpf.getOriginalFilename();
 				String ext=originalpdi.substring(originalpdi.lastIndexOf("."));
 				String renamepdi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
@@ -261,10 +265,39 @@ public class AdminProductController {
 				pdiList.add(pdi);
 			}
 		}
-		int result=service.insertProduct(p,diList,pdiList);
 		
+		//오류나면 올리지마!
+		int result=0;
+		try {
+			result=service.insertProduct(p,diList,pdiList);;
+		}catch(RuntimeException e) {
+			File pdf=new File(fileDir+"/"+renamepd);
+			if(pdf.exists()) {
+				pdf.delete();
+			}
+			File tpf=new File(fileDir+"/"+renametp);
+			if(tpf.exists()) {
+				tpf.delete();
+			}
+			for(DetailImg di : diList) {
+				File delete=new File(fileDir+"/"+di.getDiRenameFile());
+				if(delete.exists()) {
+					delete.delete();
+				}
+			}
+			for(PageDetailImg pdi : pdiList) {
+				File delete=new File(fileDir+"/"+pdi.getPdiRenameFile());
+				if(delete.exists()) {
+					delete.delete();
+				}
+			}
+		}
 		
-		mv.setViewName("jsonView");
+		String msg=result>0?"등록성공":"등록실패";
+		String loc=result>0?"/admin/productManager":"/admin/productRegist";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("admin/common/msg");
 		return mv;
 	}
 	
