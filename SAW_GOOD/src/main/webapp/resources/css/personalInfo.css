@@ -8,7 +8,8 @@ body{
 div.main{
     width: 100%;
     height: 100%;
-    background-color: #D9CDBF
+   /*  background-color: #D9CDBF; */
+     background-color: rgb(206, 188, 151)
     /* background-image: url('../image/infomain4.jpg'); */
     /* background-repeat: no-repeat;
     background-size: cover; */
@@ -53,9 +54,9 @@ div.main{
     font-size: 13px;
 }
 /* 회원사진 밑 정보 */
-.profilePoto{
-    padding-top: 50px;
-    padding-left: 140px;
+.profilePhoto{
+    padding-top: 60px;
+    padding-left: 170px;
 
 }
 /* 회원정보 변경 */
@@ -69,7 +70,7 @@ div.main{
     display: block;
     /* font-size: 13px;
     font-weight: 600; */
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     letter-spacing: 0.1em;
     /* text-transform: uppercase; */
     /* line-height: 1.8; */
@@ -84,7 +85,7 @@ div.main{
     height: 35px;
     border-radius: 7px;
     border: 0;
-    padding: 5px;
+    padding: 10px;
 }
 /* 우편번호 인풋 스타일 */
 #postcode{
@@ -111,42 +112,71 @@ div.main{
 }
 /* 프사 센터 스타일 */
 #btnDiv{
-    text-align: center;
-    padding-top: 40px;
-     padding-left: 30px;
-
+ /*    text-align: center; */
+    padding-top: 25px;
+     padding-left: 160px;
 }
 /* 비밀번호 변경 버튼 스타일 */
 .pwd-btn{
+	
+	display : block;
     padding: 0 20px 0 20px;
-    width: 160px;
-    height: 35px;
+    width: 250px;
+    height: 40px;
     border: 0;
     border-radius: 7px;
-    background-color: rgb(238, 152, 124);
+    background-color: #A69B8D;
     color:white;
     outline: none;
+    margin-bottom: 10px;
+}
+/* 판매자 회원등록 */
+.seller-btn{
+	display : block;
+    padding: 0 20px 0 20px;
+    width: 250px;
+    height: 40px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #A69B8D;
+    color:white;
+    outline: none;
+    margin-bottom: 10px;
 }
 /* 프사변경 버튼 스타일 */
 .poto-btn{
+	display : block;
     padding: 0 20px 0 20px;
-    width: 160px;
-    height: 35px;
+    width: 250px;
+    height: 40px;
     border: 0;
     border-radius: 7px;
-    background-color: rgb(238, 152, 124);
+    background-color: #A69B8D;
+    color:white;
+    outline: none;
+    margin-bottom: 10px;
+}
+/* 정보변경완료 버튼 스타일 */
+.complete-btn{
+    margin-top: 10px;
+    padding: 0 20px 0 20px;
+    width: 49%;
+    height: 50px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #51735D;
     color:white;
     outline: none;
 }
 /* 변경완료 버튼 스타일 */
-.complete-btn{
+.delete-btn{
     margin-top: 10px;
     padding: 0 20px 0 20px;
-    width: 325px;
-    height: 35px;
+    width: 49%;
+    height: 50px;
     border: 0;
     border-radius: 7px;
-    background-color: #51735D;
+    background-color: rgb(238, 152, 124);
     color:white;
     outline: none;
 }
@@ -173,6 +203,13 @@ div.main{
     outline: none;
 }
 
+
+.pass{
+	font-size:14px;
+	color:#51735D;
+	margin-top:100px;
+	margin-left:10px;
+}
 /* 에러 클래스 */
 span.error {
 	color: red;

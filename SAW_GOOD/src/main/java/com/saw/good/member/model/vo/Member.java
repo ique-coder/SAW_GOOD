@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 public class Member {
 
@@ -19,12 +20,14 @@ public class Member {
 	private int point;
 	private boolean status;
 	private boolean emailAccess;
+	private String businessNumber;
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Member(String userId, String password, String userName, String email, String phone, String postCode,
-			String address1, String address2, String profile, int point, boolean status, boolean emailAccess) {
+			String address1, String address2, String profile, int point, boolean status, boolean emailAccess,
+			String businessNumber) {
 		super();
 		this.userId = userId;
 		this.password = password;
@@ -38,6 +41,7 @@ public class Member {
 		this.point = point;
 		this.status = status;
 		this.emailAccess = emailAccess;
+		this.businessNumber = businessNumber;
 	}
 	public String getUserId() {
 		return userId;
@@ -111,12 +115,18 @@ public class Member {
 	public void setEmailAccess(boolean emailAccess) {
 		this.emailAccess = emailAccess;
 	}
+	public String getBusinessNumber() {
+		return businessNumber;
+	}
+	public void setBusinessNumber(String businessNumber) {
+		this.businessNumber = businessNumber;
+	}
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", email=" + email
 				+ ", phone=" + phone + ", postCode=" + postCode + ", address1=" + address1 + ", address2=" + address2
 				+ ", profile=" + profile + ", point=" + point + ", status=" + status + ", emailAccess=" + emailAccess
-				+ "]";
+				+ ", businessNumber=" + businessNumber + "]";
 	}
 	
 

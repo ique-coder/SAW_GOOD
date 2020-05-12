@@ -1,5 +1,7 @@
 package com.saw.good.member.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectId(String id) {
-		System.out.println("서비스");
 		Member m = dao.selectId(session,id);
 		return m;
 	}
@@ -33,6 +34,37 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.updateMember(session,userId);
 	}
+
+	@Override
+	public Member loginMemberInfo(String userId) {
+		
+		return dao.loginMemberInfo(session, userId);
+	}
+
+	@Override
+	public int updateMemberInfo(Member m) {
+	
+		return dao.updateMemberInfo(session,m);
+	}
+
+	@Override
+	public int updatePassword(Member m) {
+		return dao.updatePassword(session,m);
+	}
+
+	@Override
+	public Member selectBusinessNumber(String bsNo) {
+		Member m = dao.selectBusinessNumber(session,bsNo);
+		return m;
+	}
+
+	@Override
+	public int updateBsNo(Member m) {
+
+		return dao.updateBsNo(session,m);
+	}
+	
+	
 
 	
 	
