@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="furniture">
+	<select id="category" resultType="product" parameterType="map">
+		SELECT * FROM NEWPRODUCT WHERE CATEGORY = #{1}
+		<if test="size > 1">
+		 	or CATEGORY = #{2}
+		</if>
+	</select>
+	
+	<select id="totalData" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM NEWPRODUCT WHERE CATEGORY = #{1}
+		<if test="size > 1">
+		 	or CATEGORY = #{2}
+		</if>
+	</select>
+</mapper>
