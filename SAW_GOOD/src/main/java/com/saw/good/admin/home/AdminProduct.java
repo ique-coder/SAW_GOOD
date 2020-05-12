@@ -12,5 +12,5 @@ public class AdminProduct {
 	private String productname;
 	private String[] brand;
 	private String[] category;
-	private String[] productprice;
+	private int productprice;
 }

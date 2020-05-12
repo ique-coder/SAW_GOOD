@@ -335,6 +335,34 @@ label {
 	width:100px;
 	height:100px;
 }
+/* 페이지바 */
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #d5d5d5;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+}
+/* 페이지바 cpage span */
+#pageBar>span.cPage {
+	border: 1px solid #191919;
+	color: #191919;
+}
 </style>
 
 <!-- Page Content  -->
@@ -422,12 +450,22 @@ label {
 	<div class="container-fluid newPro">
 		<div style="text-align: right; padding-right: 20px;">
 			<form
-				action='${path }/admin/${searchType!=null?"searchProduct":"productManager"}'
+				action='${path }/admin/${productname!=null?"searchProduct":"productManager"}'
 				method="post" id="frmNum">
-				<input type="hidden" name="cPage" value="${cPage }" /> <input
-					type="hidden" name="searchType" value="${searchType }" /> <input
-					type="hidden" name="keyword" value="${keyword }" /> <select
-					name="numPerPage" style="font-size: 16px;" id="numPer">
+				<input type="hidden" name="cPage" value="${cPage }" />
+				<input type="hidden" name="produtname" value="${produtname }" /> 
+				<input type="hidden" name="productprice" value="${productprice }" />
+				<c:if test="${brand !=null }">
+					<c:forEach items="${brand }" var="b">
+						<input type="hidden" name="brand" value="${b }"/>
+					</c:forEach>
+				</c:if>	
+				<c:if test="${category !=null }">
+					<c:forEach items="${category }" var="c">
+						<input type="hidden" name="category" value="${c }"/>
+					</c:forEach>
+				</c:if>	
+					<select name="numPerPage" style="font-size: 16px;" id="numPer">
 					<option value="10" ${numPerPage!=10?"":"selected" }>10개씩보기</option>
 					<option value="20" ${numPerPage!=20?"":"selected" }>20개씩보기</option>
 					<option value="30" ${numPerPage!=30?"":"selected" }>30개씩보기</option>
@@ -488,13 +526,14 @@ label {
 					</c:forEach>
 				</table>
 			</form>
+			${pageBar }
 		</div>
 </div>
 </div>
 </body>
 <script>
 	//가격 버튼 클릭시 히든태그 추가
-	$("input[name=productprice]").click(function() {
+	/* $("input[name=productprice]").click(function() {
 		console.log($(this).val());
 		if ($(this).prop("checked")) {
 			$("#pricehd").remove();
@@ -505,7 +544,7 @@ label {
 				"name" : "productprice"
 			}))
 		}
-	})
+	}) */
 	//카테고리 클릭시 화면변경
 	$("input[name=category]").click(function() {
 		if ($("#newP").prop("checked")) {
@@ -549,6 +588,10 @@ label {
 	})
 	$(".addtotal").click(function(){
 		$(".spanview").css("display","inline-block");
+	})
+	//넘버페이지 변경
+	$("#numPer").change(function() {
+		$("#frmNum").submit();
 	})
 </script>
 </html>

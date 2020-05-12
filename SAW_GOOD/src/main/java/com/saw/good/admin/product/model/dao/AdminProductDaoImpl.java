@@ -48,7 +48,7 @@ public class AdminProductDaoImpl implements AdminProductDao {
 	}
 	//상품검색
 	@Override
-	public List<Map<String, String>> searchProduct(SqlSession session, int cPage, int numPerPage, AdminProduct a) {
+	public List<Map<String, String>> searchProduct(SqlSession session, int cPage, int numPerPage,AdminProduct a) {
 		// TODO Auto-generated method stub
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return session.selectList("product.searchProduct", a, rb);
