@@ -74,32 +74,31 @@ public class AdminProductServiceImpl implements AdminProductService{
 	
 	//상품등록,상품상세페이지 이미지 등록,상품상세이미지 등록
 	@Override
-	public int insertProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList) {
+	public int insertProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList) throws RuntimeException  {
 		// TODO Auto-generated method stub
-		int result=0;
-		result=dao.insertProduct(session,p);
+		int result=dao.insertProduct(session,p);
 		if(result==0) {
 			throw new RuntimeException();
 		}
-		logger.debug(""+p.getProductNo());
-			if(!diList.isEmpty()) {
-				for(DetailImg di : diList) {
-					di.setProductNo(p.getProductNo());
-				}
-				result=dao.insertDetailImg(session,diList);
+		System.out.println(p.getProductNo());
+		if(!diList.isEmpty()) {
+			for(DetailImg di : diList) {
+				di.setProductNo(p.getProductNo());
+				result=dao.insertDetailImg(session,di);
 				if(result==0) {
 					throw new RuntimeException();
 				}
 			}
-			if(!pdiList.isEmpty()) {
-				for(PageDetailImg pdi : pdiList) {
-					pdi.setProductNo(p.getProductNo());
-				}
-				result=dao.insertPageDetailImg(session,pdiList);
+		}
+		if(!pdiList.isEmpty()) {
+			for(PageDetailImg pdi : pdiList) {
+				pdi.setProductNo(p.getProductNo());
+				result=dao.insertPageDetailImg(session,pdi);
 				if(result==0) {
 					throw new RuntimeException();
 				}
 			}
+		}
 		return result;
 	}
 

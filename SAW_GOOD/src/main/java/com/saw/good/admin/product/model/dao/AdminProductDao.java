@@ -28,7 +28,9 @@ public interface AdminProductDao {
 	int insertProduct(SqlSession session,Product p);
 
 	//상품상세이미지등록
-	int insertDetailImg(SqlSession session,List<DetailImg> diList);
+	int insertDetailImg(SqlSession session,DetailImg di);
+	
 	//상품상제페이지 이미지 등록
-	int insertPageDetailImg(SqlSession session,List<PageDetailImg> pdiList);
+	
+	int insertPageDetailImg(SqlSession session,PageDetailImg pdi);
 }
