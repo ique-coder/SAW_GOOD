@@ -75,7 +75,6 @@ public class AdminProductController {
 	@RequestMapping("/admin/checkDelete")
 	public ModelAndView checkDelete(AdminProduct a,ModelAndView m) {
 		
-		
 		int result=service.checkDelete(a);
 		
 		String msg=result==a.getProcheck().length?"삭제성공":"삭제실패";
@@ -83,8 +82,25 @@ public class AdminProductController {
 		m.addObject("msg", msg);
 		m.addObject("loc", loc);
 		m.setViewName("admin/common/msg");
-		
+
 		return m;
+	}
+	
+	@RequestMapping("/admin/searchProduct")
+	public ModelAndView searchProduct(AdminProduct a,ModelAndView m,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
+		//통합검색
+		List<Map<String,String>> list=service.searchProduct(cPage,numPerPage,a);
+		int totalData=service.countSearchProduct(a);
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "searchProduct");
+		
+		m.addObject("list", list);
+		m.addObject("pageBar", pageBar);
+		m.addObject("numPerPage", numPerPage);
+		m.addObject("cPage", cPage);
+		m.setViewName("admin/product/productManager");
+		return m;
+		
 	}
 	
 	

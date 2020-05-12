@@ -14,10 +14,34 @@
 		UPDATE NEWPRODUCT SET STATUS='Y' WHERE PRODUCTNO=#{productno}
 	</update>
 	
-	<update id="checkDelete" parameterType="com.saw.good.admin.home.AdminProduct">
+	<update id="checkDelete" parameterType="adproduct">
 		UPDATE NEWPRODUCT SET STATUS='Y' WHERE PRODUCTNO IN 
 		<foreach collection="procheck" item="n" open="(" close=")" separator=",">
-			${n}
+			#{n}
 		</foreach>
 	</update>
+	
+	<select id="searchProduct" parameterType="adproduct" resultType="map">
+		SELECT * FROM NEWPRODUCT WHERE 1=1
+		<if test="productname!=null and productname !=''">
+			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
+		</if>
+		<if test="brand != null and brand != ''">
+			AND BRAND IN (
+			<foreach collection="brand" item="b" open="'" close="'" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="category != null and category !=''">
+			AND CATEGORY IN (
+			<foreach collection="brand" item="b" open="'" close="'" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="productprice != null AND productprice != ''">
+			AND  PRODUCTPRICE
+		</if>
+	</select>
 </mapper>

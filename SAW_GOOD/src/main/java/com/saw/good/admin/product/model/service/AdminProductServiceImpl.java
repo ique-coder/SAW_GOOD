@@ -52,6 +52,20 @@ public class AdminProductServiceImpl implements AdminProductService{
 		return dao.checkDelete(session,a);
 	}
 	
+	//상품검색
+	@Override
+	public List<Map<String, String>> searchProduct(int cPage, int numPerPage, AdminProduct a) {
+		// TODO Auto-generated method stub
+		return dao.searchProduct(session,cPage,numPerPage,a);
+	}
+
+	@Override
+	public int countSearchProduct(AdminProduct a) {
+		// TODO Auto-generated method stub
+		return dao.countSearchProduct(session,a);
+	}
+	
+	
 	
 	
 

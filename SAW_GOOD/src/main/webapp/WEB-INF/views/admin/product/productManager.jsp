@@ -348,15 +348,16 @@ label {
 				<table id="search">
 					<colgroup>
 						<col width="20%">
-						<col width="auto">
+						<col width="60%">
+						<col width="20%">
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td><input type="text" name="title"></td>
+						<td colspan="2"><input type="text" name="produtname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>
-						<td class="checking"><input type="checkbox" name="brand"
+						<td class="checking" style="border-right:white"><input type="checkbox" name="brand"
 							value="에이스" id="br1"><label for="br1">에이스</label> <input
 							type="checkbox" name="brand" value="알레르망" id="br2"><label
 							for="br2">알레르망</label> <input type="checkbox" name="brand"
@@ -364,33 +365,53 @@ label {
 							type="checkbox" name="brand" value="모차르트" id="br4"><label
 							for="br4">모차르트</label> <input type="checkbox" name="brand"
 							value="베토벤" id="br5"><label for="br5">베토벤</label></td>
+							<td style="border-left:white;text-align:right;padding-right:10px">
+								<button type="button" class="addtotal">+</button>
+								<span style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
+							</td>
 					</tr>
 					<tr>
 						<th>가구종류</th>
-						<td class="checking" style="position: relative;"><input
-							type="checkbox" name="fur" value="침대" id="ca1"><label
-							for="ca1">침대</label> <input type="checkbox" name="fur"
-							value="테이블" id="ca2"><label for="ca2">테이블</label> <input
-							type="checkbox" name="fur" value="의자" id="ca3"><label
-							for="ca3">의자</label> <input type="checkbox" name="fur" value="전등"
-							id="ca4"><label for="ca4">전등</label> <input
-							type="checkbox" name="fur" value="TV" id="ca5"><label
-							for="ca5">TV</label></td>
-					</tr>
+						<td class="checking" style="position: relative;border-right:white"><input
+							type="checkbox" name="category" value="bad" id="ca1"><label
+							for="ca1">bad</label> <input type="checkbox" name="category"
+							value="sofa" id="ca2"><label for="ca2">sofa</label> <input
+							type="checkbox" name="category" value="chair" id="ca3"><label
+							for="ca3">chair</label> <input type="checkbox" name="category" value="light"
+							id="ca4"><label for="ca4">light</label> <input
+							type="checkbox" name="category" value="table" id="ca5"><label
+							for="ca5">table</label>
+							<input
+							type="checkbox" name="category" value="desk" id="ca6"><label
+							for="ca6">desk</label><input
+							type="checkbox" name="category" value="carpet" id="ca7"><label
+							for="ca7">carpet</label><input
+							type="checkbox" name="category" value="lug" id="ca8"><label
+							for="ca8">lug</label> <input
+							type="checkbox" name="category" value="storage" id="ca9"><label
+							for="ca9">storage</label> <input
+							type="checkbox" name="category" value="others" id="ca10"><label
+							for="ca10">others</label> 
+							</td>
+							<td style="border-left:white;text-align:right;padding-right:10px">
+								<button type="button" class="addtotal">+</button>
+								<span  style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
+							</td>
+							</tr>
 					<tr>
 						<th>가격</th>
-						<td class="checking" style="position: relative;"><input
-							type="radio" name="price" value="50000" id="pri1"><label
-							for="pri1">~50,000원</label> <input type="radio" name="price"
-							value="100000" id="pri2"><label for="pri2">50,000원~100,000원</label>
-							<input type="radio" name="price" value="150000" id="pri3"><label
-							for="pri3">100,000~150,000원</label> <input type="radio"
-							name="price" value="200000" id="pri4"><label for="pri4">200,000원~</label>
+						<td colspan="2" class="checking" style="position: relative;"><input
+							type="radio" name="productprice" value="100000" id="pri1"><label
+							for="pri1">~100,000원</label> <input type="radio" name="productprice"
+							value="200000" id="pri2"><label for="pri2">100,000원~200,000원</label>
+							<input type="radio" name="productprice" value="300000" id="pri3"><label
+							for="pri3">200,000~300,000원</label> <input type="radio"
+							name="productprice" value="400000" id="pri4"><label for="pri4">300,000원~400,000원</label>
 						</td>
 					</tr>
 
 					<tr>
-						<td colspan="2" style="text-align: right; border: none;">
+						<td colspan="3" style="text-align: right; border: none;">
 							<button type="submit" class="btn-black">검색</button>
 						</td>
 					</tr>
@@ -401,7 +422,7 @@ label {
 	<div class="container-fluid newPro">
 		<div style="text-align: right; padding-right: 20px;">
 			<form
-				action='${path }/admin/${searchType!=null?"searchMember":"memberManager"}'
+				action='${path }/admin/${searchType!=null?"searchProduct":"productManager"}'
 				method="post" id="frmNum">
 				<input type="hidden" name="cPage" value="${cPage }" /> <input
 					type="hidden" name="searchType" value="${searchType }" /> <input
@@ -467,22 +488,21 @@ label {
 					</c:forEach>
 				</table>
 			</form>
-			
 		</div>
 </div>
 </div>
 </body>
 <script>
 	//가격 버튼 클릭시 히든태그 추가
-	$("input[name=price]").click(function() {
+	$("input[name=productprice]").click(function() {
 		console.log($(this).val());
 		if ($(this).prop("checked")) {
 			$("#pricehd").remove();
 			$("#search").before($("<input>").attr({
 				"type" : "hidden",
 				"id" : "pricehd",
-				"value" : $(this).val() - 50000,
-				"name" : "price"
+				"value" : $(this).val() - 100000,
+				"name" : "productprice"
 			}))
 		}
 	})
@@ -526,6 +546,9 @@ label {
 		}else{
 			alert("삭제 할 항목을 선택해주세요!");
 		}
+	})
+	$(".addtotal").click(function(){
+		$(".spanview").css("display","inline-block");
 	})
 </script>
 </html>

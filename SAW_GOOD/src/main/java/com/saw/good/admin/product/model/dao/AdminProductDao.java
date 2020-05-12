@@ -17,4 +17,7 @@ public interface AdminProductDao {
 	int deleteProduct(SqlSession session,int productno);
 	//선택삭제
 	int checkDelete(SqlSession session,AdminProduct a);
+	//상품검색
+	List<Map<String,String>> searchProduct(SqlSession session,int cPage, int numPerPage, AdminProduct a);
+	int countSearchProduct(SqlSession session,AdminProduct a);
 }

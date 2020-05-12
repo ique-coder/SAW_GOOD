@@ -9,5 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdminProduct {
 	private int[] procheck;
-	
+	private String productname;
+	private String[] brand;
+	private String[] category;
+	private String[] productprice;
 }

@@ -15,4 +15,8 @@ public interface AdminProductService {
 	int deleteProduct(int productno);
 	//선택삭제
 	int checkDelete(AdminProduct a);
+	
+	//상품검색
+	List<Map<String,String>> searchProduct(int cPage,int numPerPage,AdminProduct a);
+	int countSearchProduct(AdminProduct a);
 }

@@ -46,6 +46,20 @@ public class AdminProductDaoImpl implements AdminProductDao {
 		// TODO Auto-generated method stub
 		return session.update("product.checkDelete", a);
 	}
+	//상품검색
+	@Override
+	public List<Map<String, String>> searchProduct(SqlSession session, int cPage, int numPerPage, AdminProduct a) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return session.selectList("product.searchProduct", a, rb);
+	}
+
+	@Override
+	public int countSearchProduct(SqlSession session, AdminProduct a) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.countSearchProduct", a);
+	}
+	
 	
 	
 	
