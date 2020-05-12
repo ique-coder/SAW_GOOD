@@ -1,0 +1,496 @@
+.detail_top{
+        list-style-type: none;
+        text-align: right;
+        margin-bottom: 30px;
+    }
+    .detail_top>li{
+        display: inline;
+        padding-right: 5px;
+    }
+    .detailArea{
+        /* padding: 0 0 0 540px; */
+        display: flex;
+    }
+    .info{
+        padding: 0 0 0 540px;
+        width: 100%;
+    }
+    .headingArea{
+        padding: 0 0 10px 15px;
+        margin: 0 0 15px;
+        line-height: 1.6;
+        border-top: 2px solid #000;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .imgArea{
+        float: left;
+        width: 500px;
+        margin: 0 0 0 -1100px;
+    }
+    .headingArea h2{
+        display: inline-block;
+        font-size: 18px;
+        color: #2e2e2e;
+        font-weight: bold;
+    }
+    .bigImg{
+        max-width: 500px;
+        cursor: pointer;
+    }
+    .record_container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .record{
+        font-weight: 400;
+        color: #555;
+        width: 115px;
+        padding: 7px 0 8px 15px;
+        text-align: left;
+        display: inline-block;
+    }
+    .productPrice{
+        margin: 0px 0 0;
+        padding: 39px 9px 39px;
+        border-top: 1px solid #9a9ba0;
+        color: #353535;
+        text-align: right;
+        vertical-align: middle;
+        background: #fff;
+        width: 100%;
+    }
+    .productAction{
+        padding: 10px 0 10px;
+        border-top: 1px solid #e8e8e8;
+        width: 100%;
+    }
+    .product-button{
+        padding: 10px 0;
+        text-align: center;
+    }
+    .buy-btn{
+        width: 144px;
+        height: 47px;
+        line-height: 47px;
+        font-size: 13px;
+        font-weight: 400;
+        background: #000;
+        color: #fff;
+        border-radius: 2px;
+        border: 0;
+        margin: 0 3px;
+    }
+    .buy-btn:hover{
+        background-color: rgba(0,0,0,0.7);
+    }
+    .cart-btn{
+        width: 144px;
+        height: 45px;
+        line-height: 45px;
+        background: #fff;
+        color: #555;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        margin: 10px 3px;
+        font-size: 13px;
+        font-weight: 700;
+        transition: border 0.8s ease-out;
+    }
+    .cart-btn:hover{
+        border: 1px solid black;
+    }
+    .addImg{
+        overflow: hidden;
+        width: 346px;
+        margin: 30px auto 0;
+        max-height: 75px;
+    }
+    .img-record{
+        display: inline-block;
+        margin: 0 1px;
+        font-size: 12px;
+        line-height: 14px;
+        vertical-align: top;
+    }
+    .subImg{
+        width: 65px;
+        height: 75px;
+        border: 1px solid #ececec;
+        cursor: pointer;
+    }
+    .tab{
+        width: 100%;
+        margin: 70px 0 30px;
+        border-bottom: 1px solid #202020;
+        position: relative;
+    }
+    .menu{
+        margin: 0 auto;
+        border-right: 1px solid #ededed;
+        width: 500px;
+        height: 35px;
+        text-align: center;
+        display: table;
+    }
+    .menu>li{
+        display: table-cell;
+        text-align: center;
+        border-top: 1px solid #ededed;
+        border-left: 1px solid #ededed
+    }
+    .menu>li>a, .menu>li>a:hover{
+        display: block;
+        width: 100%;
+        line-height: 35px;
+        color: black;
+        text-decoration: none;
+        position: relative;
+    }
+    .selected{
+        border-top: 1px solid #202020 !important;
+        border-left: 1px solid #202020 !important;
+        border-right: 1px solid #202020 !important;
+    }
+    .selected>a::after{
+        content: " ";
+        display: block;
+        width: 100%;
+        height: 4px;
+        background: #fff !important;
+        bottom: -2px;
+        position: absolute;
+    }
+    .test{
+        width: 100%;
+        height: 700px;
+    }
+    .gotop, .gotop:hover{
+        display: none;
+        position: fixed;
+        width: 50px;
+        height: 48px;
+        bottom: 100px;
+        right: 30px;
+        background-color: rgba(0,0,0,0.6);
+        color: white;
+        text-decoration: none;
+        transition: opacity 1s;
+        opacity: 0;
+    }
+    .quantity{
+        margin-bottom: 1rem;
+        width: 100%;
+        padding: 7px 0 8px 15px;
+    }
+    .pro-cnt{
+        border: none; 
+        outline: none; 
+        text-align: center;
+    }
+    .pro-btn ,.pro-btn:focus{
+        padding: .75rem; 
+        border: none; 
+        background-color: white;
+        outline: none;
+    }
+    .amount-area{
+        float: right; 
+        border: 1px solid #000;
+    }
+    .pro-name{
+        padding: 7px 0 8px 15px;
+        text-align: left;
+        width: 100%;
+        font-weight: 550;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .starR1{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+    }
+    .starR2{
+        background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+        background-size: auto 100%;
+        width: 15px;
+        height: 30px;
+        float:left;
+        text-indent: -9999px;
+        cursor: pointer;
+    }
+    .starR1.on{background-position:0 0;}
+    .starR2.on{background-position:-15px 0;}
+    .review>h3{
+        padding: 0 10px 0 9px;
+        font-size: 12px;
+    }
+    .desc{
+        padding: 0 10px 0 9px;
+    }
+    .base-btn{
+        padding: 10px 0;
+        float: right;
+    }
+    .write-btn, .write-btn:hover{
+        padding: 8px 18px;
+        font-size: 12px;
+        color: #fff;
+        background: #333;
+        border: 1px solid #333;
+        float: right;
+        text-decoration: none;
+    }
+    .review-container{
+        height: auto;
+        margin-bottom: 8px;
+        padding: 15px 13px;
+        border: 1px solid #dadada;
+        position: relative;
+        transition: padding-top 0.3s ease;
+    }
+    .review-message{
+        min-height: 100px;
+        height: auto;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0px;
+        border: 0;
+        width: 100%;
+        outline: transparent;
+        resize: none;
+        overflow: hidden;
+    }
+    .review-submit{
+        position: relative;
+        height: 35px;
+        font-family: "나눔고딕", "NanumGothic", "맑은 고딕", "Malgun Gothic", "돋움", "Dotum", "굴림", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .review-camara{
+        position: absolute;
+        left: 0;
+        width: 204px;
+        height: 33px;
+        border: 1px solid #dadada;
+        margin-right: 5px;
+        text-align: center;
+    }
+    .review-img{
+        display: inline-block;
+        position: absolute;
+        left: 15px;
+        top: 6px;
+        font-size: 20px;
+    }
+    .review-txt{
+        position: absolute;
+        color: #8f8f8f;
+        top: 3px;
+        left: 60px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: bold;
+        font-size: 12px;
+        text-align: left;
+    }
+    .review-score{
+        border: 1px solid #dadada;
+        font-size: 14px;
+        display: block;
+        padding: 4px 10px;
+        height: 32.8px;
+    }
+    .review-photo{
+        margin-left: -15px;
+        width: 335px;
+        height: 81px;
+        overflow: hidden;
+    }
+    .ul-photo{
+        width: 430px;
+        height: 75px;
+        padding: 0px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    .ul-photo li{
+        width: 75px;
+        height: 75px;
+        position: relative;
+        display: inline-block;
+        padding: 0 5px 10px 5px;
+    }
+    .img-wrap{
+        position: relative;
+        background: #c8c8c8;
+        overflow: hidden;
+        width: 75px;
+        height: 75px;
+    }
+    .img-size{
+        width: 100%;
+        height: auto;
+        min-width: 50px;
+    }
+    select{
+        width: 580px; /* 원하는 너비설정 */ 
+        padding-top: 5px; /* 여백으로 높이 설정 */ 
+        font-family: inherit; /* 폰트 상속 */ 
+        background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 40%; /* 네이티브 화살표 대체 */ 
+        border: none; 
+        border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+        -moz-appearance: none; 
+        appearance: none;
+        outline: none;
+    }
+    .review-btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 228px;
+        height: 35px;
+        background: #3f3f3f;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        border: none;
+    }
+    .review-btn:hover{
+        background-color: black;
+    }
+    .review-summary{
+        padding: 20px 0 20px 29px;
+        border: 1px solid #dadada;
+        margin-top: 44px;
+        display: flex;
+    }
+    .avg-score{
+        width: 96px;
+        float: left;
+    }
+    .summary-score{
+        line-height: 77px;
+        text-align: center;
+        background: #252525;
+        color: white;
+        font-size: 50px;
+    }
+    .review-count{
+        padding: 7px;
+        text-align: center;
+        color: #767676;
+        font-size: 12px;
+    }
+    .avg-bar{
+        padding-left: 50px;
+        width: 1000px;
+    }
+    .avg-bar li{
+        display: inline-block;
+        margin-bottom: 9px;
+        height: 14px;
+        width: 100%;
+    }
+    .avg-title{
+        float: left;
+        width: 50px;
+        color: #9d9d9d;
+    }
+    .avg-status{
+        float: right;
+        width: 64px;
+        margin-left: 6px;
+        color: #9d9d9d;
+    }
+    .star-guage{
+        margin-left: 54px;
+        margin-right: 70px;
+        background: #f4f4f4;
+        position: relative;
+    }
+    .persent{
+        background: #ff4c23;
+        height: 14px;
+    }
+    .review-container2{
+        padding-top: 44px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #dadada;
+    }
+    .review-container3{
+        padding-top: 44px;
+    }
+    .review-content{
+        padding-top: 14px;
+    }
+    .review-content-img{
+        display: inline-block;
+        width: 100%;
+        margin: 18px -5px 0 -5px;
+        font-size: 0;
+    }
+    .review-content-img li{
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+        float: left;
+        margin: 0px 5px 0px 5px;
+        border: 1px solid #eeeeee;
+        font-size: 0;
+        max-width: 130px;
+        max-height: 130px;
+    }
+    .info-container{
+        font-size: 14px;
+        float: right;
+        margin-bottom: 30px;
+        min-width: 205px;
+        font-family: "나눔고딕", "NanumGothic", "맑은 고딕", "Malgun Gothic", "돋움", "Dotum", "굴림", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .info-title{
+        line-height: 18px;
+        color: #a8a8a8;
+    }
+    .info-value{
+        line-height: 18px;
+        color: #333333;
+        font-weight: bold;
+    }
+    .info-container li:first-child{
+        padding-top: 0;
+        border-top: none;
+    }
+    .info-container li{
+        border-top: 1px solid #dadada;
+        padding: 7px 5px;
+    }
+    .img-remove{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        background: black;
+        cursor: pointer;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+        text-align: center;
+        padding-top: 40%;
+    }
+    .img-remove:hover{
+        opacity: 0.7;
+    }
