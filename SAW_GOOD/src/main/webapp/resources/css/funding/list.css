@@ -25,6 +25,25 @@ button{
 	letter-spacing:1.25em;
 	color: white;
 }
+#search-area{
+	padding:0px;
+	margin-bottom:10px;
+	left:10%;
+ 
+} 
+.selectStyle{
+	background:none;
+	border: 1px solid #9d9d9d;
+	border-radius:3px;
+	width:150px;
+	height:40px;
+}
+#search-area button{
+	background:  #51735D;
+	border:none;
+	border-radius:3px;
+	height:40px;
+}
 .padding{
     padding: 20px;
     border: 50px solid #F2E8DC;
@@ -33,27 +52,42 @@ button{
 .product-container:hover{
     box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
 }
+.sub-item:hover{
+	box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
+}
 /* 상품 안 글자 설정 */
+.main .text-deco{
+	font-size: 1.2rem;
+	display: inline-block;
+}
 .text-deco{
     position: relative;
-    display: inline-block;
     font-weight: lighter;
     padding-bottom: 3px;
     border-bottom: 1px solid #3C5946 ;
-    font-size: 1.2rem;
 }
-p{
+.main p{
     font-size: 0.8rem;
+    color:rgb(129, 129, 129);
 }
-.text-position{
+.main .text-position{
     margin: 3px 10%; 
 }
-.sub{
+.main .sub{
     position: absolute;
     right:10%;
     margin-top: 1.5%;
-    color:rgb(129, 129, 129);
     display: inline-block;
+}
+.main .bar{
+    fill: #51735D;
+}
+.main .bar-container{
+    background-color: #E1E0E1;
+    display: block;
+    position: relative;
+    margin: 10px 10%;
+    border-radius: 2px;
 }
 .text-deco:hover{
     border-bottom: none;
@@ -76,7 +110,7 @@ p{
     transition-delay: 50ms;
 }
 /* 글자설정 끝 */
-.images{
+.main .images{
     position: relative;
     object-fit: cover;
     width: 100%;
@@ -91,13 +125,51 @@ p{
     position: relative;
     width: 100%;
     height: 50%;
-    border: 1px black solid;
 }
-.test2{
+
+.sub-container .sub-item:first-child{
+	margin:0;
+}
+.sub-item{
+    width: 100%;
+    height: 100%;
+    margin:20px 0;
+}
+.sub-item table {
+	margin: 5px 10px;
+}
+.sub-item table th,td{
+	padding: 5px 0;
+}
+.sub-item table h1{
+	display:inline-block;
+}
+.sub-item tfoot th{
+	color:  #474a47;
+}
+.sub-item table td{
+	font-size:14px;
+	text-align:right;
+	color:#7f7f7f;
+}
+.sub-item .images{
+    position: relative;
+    object-fit: cover;
     width: 100%;
     height: 250px;
-    border: 1px black solid;
 }
+
+.sub-item .bar{
+    fill: #51735D;
+}
+.sub-item .bar-container{
+    background-color: #E1E0E1;
+    display: block;
+    position: relative;
+    border-radius: 2px;
+}
+
+
 /* 네비바 설정 */
 .block-span{
     display: block;
@@ -150,14 +222,4 @@ p{
     position: absolute;
     bottom: 0;
 }
-.bar{
-    fill: #51735D;
 
-}
-.bar-container{
-    background-color: #E1E0E1;
-    display: block;
-    position: relative;
-    margin: 10px 10%;
-    border-radius: 2px;
-}
