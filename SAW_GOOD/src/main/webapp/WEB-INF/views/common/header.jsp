@@ -30,20 +30,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,100&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=News+Cycle:wght@400;700&family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="${path }/resources/js/parallax.min.js"></script>
 </head>
 <style>
-	a:link { color: black; text-decoration: none;}
+   a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
     a:hover { color:  #3C5946; text-decoration: none;}
 </style>
 <body>
     <header class="container-fluid fixed-show">
-    	<div class="row " id="header">
-    		<div class="col-md-3"href="#">
-    			<a href="#" class="col-md-6"><img id="logo" src="" alt="로고"/></a>
-    		</div>
-    		<ul class="col-md-6 row text-design">
+       <div class="row " id="header">
+          <div class="col-md-3"href="#">
+             <a href="#" class="col-md-6"><img id="logo" src="" alt="로고"/></a>
+          </div>
+          <ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
                     <a href="#" class="target"><span>SHOW ROOM</span></a>
                 </li>
@@ -56,12 +57,12 @@
                 <li class="col-md-3">
                     <a href="#" class="target"><span>AUCTION</span></a>
                 </li>
-    		</ul>
-    		<ol class="col-md-3 row">
-    			<li class="col-md-4"><a href="${path }/signup">sign up</a></li>
-    			<li class="col-md-4"><a href="javascript:void(0)">login</a></li>
-    		</ol>
-    	</div>
+          </ul>
+          <ol class="col-md-3 row">
+             <li class="col-md-4"><a href="${path }/signup">sign up</a></li>
+             <li class="col-md-4"><a href="javascript:void(0)">login</a></li>
+          </ol>
+       </div>
     </header>
     <script>
         $(".target>span").mouseover(function(){
@@ -72,35 +73,35 @@
         })
         
         $(function(){
-        	var didScroll;
-        	$(window).scroll(function(event){
-        		didScroll=true;
-        	})
-        	
-        	setInterval(function(){
-        		if(didScroll){
-        			hasScrolled();
-        			didScroll=false;
-        		}
-        	},250);
-        	
-        	var lastScrollTop =0;
-        	var delta = 5;
-        	var navbarHeight=$("header.container-fluid").outerHeight();
-        	
-        	function hasScrolled(){
-					var st = $(this).scrollTop();
-       				if(Math.abs(lastScrollTop-st)<-delta) return;
-       				if(st>lastScrollTop && st> navbarHeight){
-       					$("header.container-fluid").addClass("fixed-hide").removeClass("fixed-show");
-       				}else{
-       					if(st+$(window).height()<$(document).height()){
-       						$("header.container-fluid").removeClass("fixed-hide").addClass("fixed-show");
-       					}
-       				}
-       			lastScrollTop = st;
-        	}
-       	})
+           var didScroll;
+           $(window).scroll(function(event){
+              didScroll=true;
+           })
+           
+           setInterval(function(){
+              if(didScroll){
+                 hasScrolled();
+                 didScroll=false;
+              }
+           },250);
+           
+           var lastScrollTop =0;
+           var delta = 5;
+           var navbarHeight=$("header.container-fluid").outerHeight();
+           
+           function hasScrolled(){
+               var st = $(this).scrollTop();
+                   if(Math.abs(lastScrollTop-st)<-delta) return;
+                   if(st>lastScrollTop && st> navbarHeight){
+                      $("header.container-fluid").addClass("fixed-hide").removeClass("fixed-show");
+                   }else{
+                      if(st+$(window).height()<$(document).height()){
+                         $("header.container-fluid").removeClass("fixed-hide").addClass("fixed-show");
+                      }
+                   }
+                lastScrollTop = st;
+           }
+          })
         
-    	
+       
     </script>

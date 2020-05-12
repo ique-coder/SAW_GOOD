@@ -47,7 +47,7 @@ public class MemberController {
 		return "member/signup";
 	}
 	
-	
+	//회원가입
 	@RequestMapping(value="/signup/checkId.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView checkId(@RequestParam("userId") String id,ModelAndView mv) throws IOException {
@@ -72,9 +72,8 @@ public class MemberController {
 		m.setPassword(pwEncoder.encode(m.getPassword()));
 		m.setEmail(aesEncrypt.encrypt(m.getEmail()));
 		m.setPostCode(aesEncrypt.encrypt(m.getPostCode()));
-		m.setAddress2(aesEncrypt.encrypt(m.getAddress2()));
+		m.setAddress1(aesEncrypt.encrypt(m.getAddress2()));
 		m.setPhone(aesEncrypt.encrypt(m.getPhone()));
-		
 		
 		int result = service.insertMember(m);
 		String msg;
@@ -141,6 +140,7 @@ public class MemberController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+
 	//승원 로그인멤버 정보 불러오기 
 	@RequestMapping("/member/info.do")
 	public ModelAndView memberInfo(Member m, ModelAndView mv) {
@@ -249,5 +249,6 @@ public class MemberController {
 //			
 			return mv;
 		}
+
 
 }

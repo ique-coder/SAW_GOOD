@@ -335,6 +335,34 @@ label {
 	width:100px;
 	height:100px;
 }
+/* 페이지바 */
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #d5d5d5;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+}
+/* 페이지바 cpage span */
+#pageBar>span.cPage {
+	border: 1px solid #191919;
+	color: #191919;
+}
 </style>
 
 <!-- Page Content  -->
@@ -344,19 +372,20 @@ label {
 	
 	<div class="container-fluid newPro" style="margin-bottom: 30px;">
 		<div class="col-md">
-			<form id="searchFrm" action="${path }/admin/searchProduct" method="post">
+			<form id="searchFrm" action="${path }/admin/searchProduct" method="get">
 				<table id="search">
 					<colgroup>
 						<col width="20%">
-						<col width="auto">
+						<col width="60%">
+						<col width="20%">
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td><input type="text" name="title"></td>
+						<td colspan="2"><input type="text" name="produtname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>
-						<td class="checking"><input type="checkbox" name="brand"
+						<td class="checking" style="border-right:white"><input type="checkbox" name="brand"
 							value="에이스" id="br1"><label for="br1">에이스</label> <input
 							type="checkbox" name="brand" value="알레르망" id="br2"><label
 							for="br2">알레르망</label> <input type="checkbox" name="brand"
@@ -364,33 +393,53 @@ label {
 							type="checkbox" name="brand" value="모차르트" id="br4"><label
 							for="br4">모차르트</label> <input type="checkbox" name="brand"
 							value="베토벤" id="br5"><label for="br5">베토벤</label></td>
+							<td style="border-left:white;text-align:right;padding-right:10px">
+								<button type="button" class="addtotal">+</button>
+								<span style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
+							</td>
 					</tr>
 					<tr>
 						<th>가구종류</th>
-						<td class="checking" style="position: relative;"><input
-							type="checkbox" name="fur" value="침대" id="ca1"><label
-							for="ca1">침대</label> <input type="checkbox" name="fur"
-							value="테이블" id="ca2"><label for="ca2">테이블</label> <input
-							type="checkbox" name="fur" value="의자" id="ca3"><label
-							for="ca3">의자</label> <input type="checkbox" name="fur" value="전등"
-							id="ca4"><label for="ca4">전등</label> <input
-							type="checkbox" name="fur" value="TV" id="ca5"><label
-							for="ca5">TV</label></td>
-					</tr>
+						<td class="checking" style="position: relative;border-right:white"><input
+							type="checkbox" name="category" value="bad" id="ca1"><label
+							for="ca1">bad</label> <input type="checkbox" name="category"
+							value="sofa" id="ca2"><label for="ca2">sofa</label> <input
+							type="checkbox" name="category" value="chair" id="ca3"><label
+							for="ca3">chair</label> <input type="checkbox" name="category" value="light"
+							id="ca4"><label for="ca4">light</label> <input
+							type="checkbox" name="category" value="table" id="ca5"><label
+							for="ca5">table</label>
+							<input
+							type="checkbox" name="category" value="desk" id="ca6"><label
+							for="ca6">desk</label><input
+							type="checkbox" name="category" value="carpet" id="ca7"><label
+							for="ca7">carpet</label><input
+							type="checkbox" name="category" value="lug" id="ca8"><label
+							for="ca8">lug</label> <input
+							type="checkbox" name="category" value="storage" id="ca9"><label
+							for="ca9">storage</label> <input
+							type="checkbox" name="category" value="others" id="ca10"><label
+							for="ca10">others</label> 
+							</td>
+							<td style="border-left:white;text-align:right;padding-right:10px">
+								<button type="button" class="addtotal">+</button>
+								<span  style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
+							</td>
+							</tr>
 					<tr>
 						<th>가격</th>
-						<td class="checking" style="position: relative;"><input
-							type="radio" name="price" value="50000" id="pri1"><label
-							for="pri1">~50,000원</label> <input type="radio" name="price"
-							value="100000" id="pri2"><label for="pri2">50,000원~100,000원</label>
-							<input type="radio" name="price" value="150000" id="pri3"><label
-							for="pri3">100,000~150,000원</label> <input type="radio"
-							name="price" value="200000" id="pri4"><label for="pri4">200,000원~</label>
+						<td colspan="2" class="checking" style="position: relative;"><input
+							type="radio" name="productprice" value="100000" id="pri1"><label
+							for="pri1">~100,000원</label> <input type="radio" name="productprice"
+							value="200000" id="pri2"><label for="pri2">100,000원~200,000원</label>
+							<input type="radio" name="productprice" value="300000" id="pri3"><label
+							for="pri3">200,000~300,000원</label> <input type="radio"
+							name="productprice" value="400000" id="pri4"><label for="pri4">300,000원~400,000원</label>
 						</td>
 					</tr>
 
 					<tr>
-						<td colspan="2" style="text-align: right; border: none;">
+						<td colspan="3" style="text-align: right; border: none;">
 							<button type="submit" class="btn-black">검색</button>
 						</td>
 					</tr>
@@ -401,12 +450,22 @@ label {
 	<div class="container-fluid newPro">
 		<div style="text-align: right; padding-right: 20px;">
 			<form
-				action='${path }/admin/${searchType!=null?"searchMember":"memberManager"}'
+				action='${path }/admin/${productname!=null?"searchProduct":"productManager"}'
 				method="post" id="frmNum">
-				<input type="hidden" name="cPage" value="${cPage }" /> <input
-					type="hidden" name="searchType" value="${searchType }" /> <input
-					type="hidden" name="keyword" value="${keyword }" /> <select
-					name="numPerPage" style="font-size: 16px;" id="numPer">
+				<input type="hidden" name="cPage" value="${cPage }" />
+				<input type="hidden" name="produtname" value="${produtname }" /> 
+				<input type="hidden" name="productprice" value="${productprice }" />
+				<c:if test="${brand !=null }">
+					<c:forEach items="${brand }" var="b">
+						<input type="hidden" name="brand" value="${b }"/>
+					</c:forEach>
+				</c:if>	
+				<c:if test="${category !=null }">
+					<c:forEach items="${category }" var="c">
+						<input type="hidden" name="category" value="${c }"/>
+					</c:forEach>
+				</c:if>	
+					<select name="numPerPage" style="font-size: 16px;" id="numPer">
 					<option value="10" ${numPerPage!=10?"":"selected" }>10개씩보기</option>
 					<option value="20" ${numPerPage!=20?"":"selected" }>20개씩보기</option>
 					<option value="30" ${numPerPage!=30?"":"selected" }>30개씩보기</option>
@@ -414,10 +473,10 @@ label {
 			</form>
 		</div>
 		<div class="col-md-12" style="height: auto;">
-			<form action="#" method="post" onsubmit="">
+			<form action="#" method="post" id="proFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom: 10px;">
-						<button class="btn-black" type="button">삭제</button>
+						<button class="btn-black checkDelete" type="button">선택삭제</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -433,7 +492,7 @@ label {
 					</colgroup>
 
 					<tr>
-						<th scope="col"><input type="checkbox" name="procheck"
+						<th scope="col"><input type="checkbox"
 							id="allck"><label for="allck"></label></th>
 						<th scope="col">번호</th>
 						<th scope="col"></th>
@@ -445,7 +504,7 @@ label {
 					</tr>
 					<c:forEach items="${list }" var="p" varStatus="vs">
 					<tr>
-						<td><input type="checkbox" name="procheck" class="procheck" id="pro${vs.count }"><label
+						<td><input type="checkbox" name="procheck" class="procheck" value="${p['PRODUCTNO']}"  id="pro${vs.count }"><label
 							for="pro${vs.count }"></label></td>
 						<td>${p['PRODUCTNO'] }</td>
 						<td>
@@ -460,32 +519,32 @@ label {
 						<td>${p['BRAND'] }</td>
 						<td>${p['STAR'] }</td>
 						<td>
-							<button class="btn-black" type="button">삭제</button>
+							<button class="btn-black deletePro" type="button" value="${p['PRODUCTNO']}">삭제</button>
 							<button class="btn-black updatePro" type="button" value="${p['PRODUCTNO']}">수정</button>
 						</td>
 					</tr>
 					</c:forEach>
 				</table>
 			</form>
-			
+			${pageBar }
 		</div>
 </div>
 </div>
 </body>
 <script>
 	//가격 버튼 클릭시 히든태그 추가
-	$("input[name=price]").click(function() {
+	/* $("input[name=productprice]").click(function() {
 		console.log($(this).val());
 		if ($(this).prop("checked")) {
 			$("#pricehd").remove();
 			$("#search").before($("<input>").attr({
 				"type" : "hidden",
 				"id" : "pricehd",
-				"value" : $(this).val() - 50000,
-				"name" : "price"
+				"value" : $(this).val() - 100000,
+				"name" : "productprice"
 			}))
 		}
-	})
+	}) */
 	//카테고리 클릭시 화면변경
 	$("input[name=category]").click(function() {
 		if ($("#newP").prop("checked")) {
@@ -509,7 +568,30 @@ label {
 	})
 	//수정페이지 이동
 	$(".updatePro").click(function(){
-		location.replace("${path}/admin/productUpdate");
+		var value=$(this).val();
+		location.replace("${path}/admin/productUpdate?productno="+value);
+	})
+	
+	//삭제페이지 이동
+	$(".deletePro").click(function(){
+		var value=$(this).val();
+		location.replace("${path}/admin/productDelete?productno="+value);
+	})
+	//선택삭제
+	$(".checkDelete").click(function(){
+		if($(".procheck:checked").length>0){
+			$("#proFrm").attr("action","${path}/admin/checkDelete");
+			$("#proFrm").submit(); 
+		}else{
+			alert("삭제 할 항목을 선택해주세요!");
+		}
+	})
+	$(".addtotal").click(function(){
+		$(".spanview").css("display","inline-block");
+	})
+	//넘버페이지 변경
+	$("#numPer").change(function() {
+		$("#frmNum").submit();
 	})
 </script>
 </html>
