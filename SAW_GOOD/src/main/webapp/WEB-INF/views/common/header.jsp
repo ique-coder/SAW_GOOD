@@ -51,7 +51,7 @@
                     <a href="#" class="target"><span>SHOW ROOM</span></a>
                 </li>
                 <li class="col-md-3">
-                    <a href="${path }/product/detail" class="target"><span>NEW ARRIVAL</span></a>
+                    <a href="${path }/product/productList" class="target"><span>NEW ARRIVAL</span></a>
                 </li>
                 <li class="col-md-3">
                     <a href="${path }/funding/list" class="target"><span>FUNDING</span></a>
