@@ -1,0 +1,189 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+/* 배경사진 */
+div.main{
+    width: 100%;
+    height: 100%;
+    background-color: #D9CDBF
+    /* background-image: url('../image/infomain4.jpg'); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+}
+/* 프로필 바탕 */
+#profileBackground{
+    top:10%;
+    padding-top: 40px;
+    /* background-color:rgba(255, 255, 255,0.8) ; */
+    height: 80%;
+    width:100%;
+    left: 15%;
+    z-index: 1;
+    position: absolute;
+}
+/* 프로필 바탕2 */
+#profileBackground::after{
+    content: "";
+    background-color:rgba(255, 255, 255, 0.6);
+    /* background-color:rgba(242, 232, 220,0.6); */
+    position: absolute;
+    bottom: -1px;
+    z-index: -1;
+    filter: blur(1px);
+    height: 100%;
+    width:100%;
+    border-radius: 30px;
+   
+    /* box-shadow: rgba(49, 49, 49,0.4) 25px -15px 15px 0; */
+
+}
+/* 회원정보 타이틀 센터 */
+.MemberInfo{
+    text-align: center;
+}
+/* 회원정보 타이틀 */
+.title{
+    font-size: 30px;
+}
+/* 회원정보 타이틀 밑에 글귀 */
+.content{
+    font-size: 13px;
+}
+/* 회원사진 밑 정보 */
+.profilePoto{
+    padding-top: 50px;
+    padding-left: 140px;
+
+}
+/* 회원정보 변경 */
+.profileModify{
+    
+    padding-top: 35px;
+    padding-right: 75px;
+}
+/* 변경제목 텍스트 스타일 */
+.modifyTitle{
+    display: block;
+    /* font-size: 13px;
+    font-weight: 600; */
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    /* text-transform: uppercase; */
+    /* line-height: 1.8; */
+    color : rgb(71, 71, 71);
+}
+/* 변경내용 인풋 스타일 */
+.modifyText{
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 100%;
+    height: 35px;
+    border-radius: 7px;
+    border: 0;
+    padding: 5px;
+}
+/* 우편번호 인풋 스타일 */
+#postcode{
+    display: inline-block;
+    width: 200px;
+    margin-bottom: 5px;
+}
+/* 주소찾기 버튼 스타일 */
+.post-btn{
+    padding: 0 20px 0 20px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #51735D;
+    color:white;
+    outline: none;
+}
+/* 신현쿤이 준 스타일 */
+.login-btn{
+    border-radius: 10px;
+    background-color:rgb(238, 152, 124);
+    outline: none;
+
+}
+/* 프사 센터 스타일 */
+#btnDiv{
+    text-align: center;
+    padding-top: 40px;
+     padding-left: 30px;
+
+}
+/* 비밀번호 변경 버튼 스타일 */
+.pwd-btn{
+    padding: 0 20px 0 20px;
+    width: 160px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(238, 152, 124);
+    color:white;
+    outline: none;
+}
+/* 프사변경 버튼 스타일 */
+.poto-btn{
+    padding: 0 20px 0 20px;
+    width: 160px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(238, 152, 124);
+    color:white;
+    outline: none;
+}
+/* 변경완료 버튼 스타일 */
+.complete-btn{
+    margin-top: 10px;
+    padding: 0 20px 0 20px;
+    width: 325px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #51735D;
+    color:white;
+    outline: none;
+}
+/* 모달 변경버튼 스타일 */
+.change-btn{
+    padding: 0 20px 0 20px;
+    width: 80px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(238, 152, 124);
+    color:white;
+    outline: none;
+}
+/* 모달 취소버튼 스타일 */
+.cancel-btn{
+    padding: 0 20px 0 20px;
+    width: 80px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #51735D;
+    color:white;
+    outline: none;
+}
+
+/* 에러 클래스 */
+span.error {
+	color: red;
+	font-size: 11px;
+    /* padding-bottom:  !important;  */
+    margin-bottom: 10px;
+}
+input.error {
+	outline: red solid 1px !important;
+	margin-bottom: 10px;
+}
+div.margin-top{
+    margin-top: 15px;
+}
