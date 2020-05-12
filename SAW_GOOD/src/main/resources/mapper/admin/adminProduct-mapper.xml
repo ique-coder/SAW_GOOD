@@ -21,5 +21,70 @@
 		</foreach>
 	</update>
 	
-	
+
+	<select id="searchProduct" parameterType="adproduct" resultType="map">
+		SELECT * FROM NEWPRODUCT WHERE 1=1
+		<if test="productname!=null and productname !=''">
+			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
+		</if>
+		<if test="brand != null and brand != ''">
+			AND BRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="category != null and category !=''">
+			AND CATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="productprice != null and productprice == 100000">
+			AND PRODUCTPRICE BETWEEN 0 AND 100000
+		</if>
+		<if test="productprice != null and productprice == 200000">
+			AND PRODUCTPRICE BETWEEN 100000 AND 200000
+		</if>
+		<if test="productprice != null and productprice == 300000">
+			AND PRODUCTPRICE BETWEEN 200000 AND 300000
+		</if>
+		<if test="productprice != null and productprice == 400000">
+			AND PRODUCTPRICE BETWEEN 300000 AND 400000
+		</if>
+	</select>
+	<select id="countSearchProduct" parameterType="adproduct" resultType="_int">
+		SELECT count(*) FROM NEWPRODUCT WHERE 1=1
+		<if test="productname!=null and productname !=''">
+			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
+		</if>
+		<if test="brand != null and brand != ''">
+			AND BRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="category != null and category !=''">
+			AND CATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="productprice != null and productprice == 100000">
+			AND PRODUCTPRICE BETWEEN 0 AND 100000
+		</if>
+		<if test="productprice != null and productprice == 200000">
+			AND PRODUCTPRICE BETWEEN 100000 AND 200000
+		</if>
+		<if test="productprice != null and productprice == 300000">
+			AND PRODUCTPRICE BETWEEN 200000 AND 300000
+		</if>
+		<if test="productprice != null and productprice == 400000">
+			AND PRODUCTPRICE BETWEEN 300000 AND 400000
+		</if>
+	</select>
+
 </mapper>
