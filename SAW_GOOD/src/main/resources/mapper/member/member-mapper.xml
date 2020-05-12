@@ -16,4 +16,15 @@
   	 UPDATE MEMBER SET EMAILACCESS = 1 WHERE USERID=#{userId}
   </update>
   
+  <!-- 승원 정보 수정 -->
+   <update id="updateMemberInfo" parameterType="member">
+  	 UPDATE MEMBER SET USERNAME = #{userName}, PHONE = #{phone}, POSTCODE = #{postCode},
+  	  ADDRESS1 = #{address1}, ADDRESS2 = #{address2} WHERE USERID=#{userId}
+  </update>
+  
+  <!-- 승원 test -->
+ 	<select id="test" parameterType="String" resultType="member">
+ 		SELECT * FROM MEMBER WHERE USERID = #{userId}
+ 	</select>
+  
 </mapper>

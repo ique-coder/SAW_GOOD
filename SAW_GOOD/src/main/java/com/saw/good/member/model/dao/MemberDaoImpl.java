@@ -1,5 +1,7 @@
 package com.saw.good.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,19 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return session.update("member.accessMember", userId);
 	}
+
+	@Override
+	public Member loginMemberInfo(SqlSessionTemplate session, String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.test",userId);
+	}
+
+	@Override
+	public int updateMemberInfo(SqlSessionTemplate session, Member m) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateMemberInfo",m);
+	}
+	
 	
 
 }
