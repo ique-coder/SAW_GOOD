@@ -1,0 +1,171 @@
+ /* 초기화 */
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed, 
+ figure, figcaption, footer, header, hgroup, 
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+     margin: 0;
+     padding: 0;
+     border: 0;
+     font-size: 100%;
+     font: inherit;
+     vertical-align: baseline;
+     text-decoration: none;
+     color: black;
+     font-family: "Noto Sans";
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure, 
+ footer, header, hgroup, menu, nav, section {
+     display: block;
+ }
+ body {
+     line-height: 1;
+     /* width:1366px;
+     height:auto;
+     margin:0 auto; */
+ }
+ section{
+     position: relative;
+ }
+ ol, ul {
+     list-style: none;
+     
+ }
+ blockquote, q {
+     quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+     content: '';
+     content: none;
+ }
+ table {
+     border-collapse: collapse;
+     border-spacing: 0;
+ }
+ /* 초기화  */
+
+ /* 승원 스타일 */
+ div{
+    /* border: 1px solid black; */
+}
+/* .container{
+    padding: 0;
+} */
+section>.container{
+    /* padding: 20px; */
+    border: 50px solid #F2E8DC;
+    box-sizing: content-box;
+}
+
+/* .sideMenu{
+    margin: 50px 0px 0px 0px;
+} */
+.category{
+    margin: 0;
+    padding: 10px 0;
+    list-style: none;
+    border-top: 1px solid #E1E0E1;
+    border-bottom: 1px solid  #E1E0E1;
+}
+.category>li{
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    color : rgb(90, 90, 90);
+}
+/* 검색창 스타일 */
+.block-span{
+display: block;
+border-bottom: solid 1px #E1E0E1;
+margin-top: 5px;
+margin-bottom: 20px;
+position: relative;
+}
+button{
+    border: none;
+    background: none;
+    outline: none;
+    position: absolute;
+    padding: 0;
+    right: 0;
+    bottom: 5px;
+}
+input[type="text"]{
+    width: 80%;
+    border: none;
+    outline: none;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    background:none;
+}
+/* 상품사진 div 스타일 */
+div.productPoto{
+    margin-bottom: 10px;
+}
+
+div.proTitle{
+    margin-bottom: 10px;
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    color : rgb(110, 110, 110);
+}
+div.cash{
+    font-size: 25px;
+}
+p.pCategory{
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color : rgb(160, 160, 160);
+    
+    
+}
+div.boderbottom-Red{
+    border-bottom: 1px solid rgb(255, 130, 130);
+    margin-bottom: 10px;
+}
+.finalPrice{
+    font-size: 20px;
+    font-weight: 600;
+}
+.nowPrice{
+    font-size: 15px;
+    color: rgb(255, 130, 130);
+    
+}
+.right{
+    float: right;
+    font-size: 15px;
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+}
+.finalPriceSmall{
+    font-size: 13px;
+    font-weight: 600;
+}
+.nowPriceSmall{
+    font-size: 11px;
+    color: rgb(255, 130, 130);
+}
+.rightSmall{
+    float: right;
+    font-size: 11px;
+    color: rgb(110, 110, 110);
+}
+.auctionProduct{
+    margin-bottom: 20px;
+}

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config  3.0/EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-
 	<typeAliases>
 		<typeAlias type="com.saw.good.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.saw.good.funding.model.vo.Funding" alias="funding"/>
+		<typeAlias type="com.saw.good.admin.home.AdminProduct" alias="adproduct"/>
+		<typeAlias type="com.saw.good.product.model.vo.Product" alias="product"/>
 	</typeAliases>
 </configuration>
