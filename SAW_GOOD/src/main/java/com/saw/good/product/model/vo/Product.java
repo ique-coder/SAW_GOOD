@@ -11,13 +11,18 @@ public class Product {
 	private int star;
 	private String status;
 	private String topImg;
+	private String renamedProductImg;
+	private String renamedTopImg;
+	
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+
 	public Product(int productNo, String productName, String productContent, int productPrice, String productImg,
-			String category, String brand, int star, String status, String topImg) {
+			String category, String brand, int star, String status, String topImg, String renamedProductImg,
+			String renamedTopImg) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
@@ -29,74 +34,137 @@ public class Product {
 		this.star = star;
 		this.status = status;
 		this.topImg = topImg;
+		this.renamedProductImg = renamedProductImg;
+		this.renamedTopImg = renamedTopImg;
 	}
+
 
 	public int getProductNo() {
 		return productNo;
 	}
+
+
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
+
+
 	public String getProductName() {
 		return productName;
 	}
+
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+
 	public String getProductContent() {
 		return productContent;
 	}
+
+
 	public void setProductContent(String productContent) {
 		this.productContent = productContent;
 	}
+
+
 	public int getProductPrice() {
 		return productPrice;
 	}
+
+
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
+
+
 	public String getProductImg() {
 		return productImg;
 	}
+
+
 	public void setProductImg(String productImg) {
 		this.productImg = productImg;
 	}
+
+
 	public String getCategory() {
 		return category;
 	}
+
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
+
 	public String getBrand() {
 		return brand;
 	}
+
+
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
+
+
 	public int getStar() {
 		return star;
 	}
+
+
 	public void setStar(int star) {
 		this.star = star;
 	}
+
+
 	public String getStatus() {
 		return status;
 	}
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
 	public String getTopImg() {
 		return topImg;
 	}
+
+
 	public void setTopImg(String topImg) {
 		this.topImg = topImg;
 	}
-	
+
+
+	public String getRenamedProductImg() {
+		return renamedProductImg;
+	}
+
+
+	public void setRenamedProductImg(String renamedProductImg) {
+		this.renamedProductImg = renamedProductImg;
+	}
+
+
+	public String getRenamedTopImg() {
+		return renamedTopImg;
+	}
+
+
+	public void setRenamedTopImg(String renamedTopImg) {
+		this.renamedTopImg = renamedTopImg;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productContent=" + productContent
 				+ ", productPrice=" + productPrice + ", productImg=" + productImg + ", category=" + category
-				+ ", brand=" + brand + ", star=" + star + ", status=" + status + ", topImg=" + topImg + "]";
+				+ ", brand=" + brand + ", star=" + star + ", status=" + status + ", topImg=" + topImg
+				+ ", renamedProductImg=" + renamedProductImg + ", renamedTopImg=" + renamedTopImg + "]";
 	}
 
 }

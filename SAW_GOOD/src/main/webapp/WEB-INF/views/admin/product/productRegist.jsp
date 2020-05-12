@@ -123,6 +123,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>상세페이지이미지</th>
+                    <td>
+                        <input type="file" name="detailPageImg" id="detailPageImg" multiple>
+                        <div id="detailPage" style="display: inline-block;">
+                         </div>
+                    </td>
+                </tr>
+                <tr>
                     <td style="text-align: right; padding:30px 30px 0 0; border:0;" colspan="2">
                         <button type="button" class="btn-black" id="insertPro">등록</button>
                     </td>
@@ -138,6 +146,7 @@
 			$("#thumbImg").on("change",preViewFnc);
 			$("#topImg").on("change",preViewFnc2);
 			$("#detailImg").on("change",multiPreViewFnc);
+			$("#detailPageImg").on("change",multiPreViewFnc2);
 		})
 		
 		function preViewFnc(e){
@@ -205,6 +214,29 @@
 			});
 		}
 		
+		function multiPreViewFnc2(e){
+			var files=e.target.files;
+			var fileArr=Array.prototype.slice.call(files);
+			console.log(fileArr);
+			fileArr.forEach(function(f){
+				if(!f.type.match("image.*")){
+					alert("이미지 파일만 등록해주세요!");
+					$("#detailPageImg").val("");
+					$("#detailPage").find($("img")).remove();
+					return;
+				}
+				multiView.push(f);
+				
+				var reader=new FileReader();
+				reader.onload=function(e){
+					console.log(e);
+					$("#detailPage").append($("<img>").attr({"src":e.target.result,
+						"class":"preViewImg"}));
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+		
 		$("#insertPro").click(function(){
 			console.log("클릭");
 			const fd=new FormData();
@@ -224,7 +256,8 @@
 				processData:false,
 				contentType:false,
 				success:function(data){
-					alert("성공")
+					alert("성공");
+					location.replace("${path}/admin/productManager");
 				},
 				error:function(r,e,m){
 					alert("공지사항 등록을 실패하였습니다. 확장자를 확인해주세요");
