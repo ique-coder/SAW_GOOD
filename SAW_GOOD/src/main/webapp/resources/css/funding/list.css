@@ -80,7 +80,7 @@ button{
     display: inline-block;
 }
 .main .bar{
-    fill: #51735D;
+    fill:  #ee987c;
 }
 .main .bar-container{
     background-color: #E1E0E1;
@@ -160,7 +160,7 @@ button{
 }
 
 .sub-item .bar{
-    fill: #51735D;
+    fill:  #ee987c;
 }
 .sub-item .bar-container{
     background-color: #E1E0E1;
@@ -214,7 +214,8 @@ button{
 }
 .wrapper{
     position: fixed;
-    top:0px;
+    /* bottom:0px; */
+   	top:0;
     height: 50%;
 }
 .attachBottom{

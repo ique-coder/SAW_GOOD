@@ -4,5 +4,6 @@
 
 	<typeAliases>
 		<typeAlias type="com.saw.good.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.saw.good.funding.model.vo.Funding" alias="funding"/>
 	</typeAliases>
 </configuration>

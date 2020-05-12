@@ -9,6 +9,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path }/resources/css/funding/list.css" />
 
+<!-- 오늘 날짜 세팅 -->
+<c:set value="<%=new java.util.Date() %>" var="now"/>
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
 
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
@@ -76,19 +79,30 @@
 				<div class="row">
 					<div class="col-md-6" id="main-container">
 						<div id="main" class="main product-container">
-							<a href="${path }/funding/detail"> <img
-								src="${path }/resources/images/signup.jpg" class="images" />
-								<h1 class="text-deco text-position">Title and sub</h1>
-								<p class="sub">Company or Designer</p>
+							<a href="${path }/funding/detail">
+							 <img src="${path }/resources/images/signup.jpg" class="images" />
+								<h1 class="text-deco text-position">
+									<c:out value="${list[0].title}" />
+								</h1>
+								<p class="sub">
+									<c:out value="${list[0].designer}" />
+								</p>
 								<h5 class="text-position">
-									설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</h5> <svg
-									width="80%" height="3px" xmlns="http://w3.org/2000/svg"
-									version="1.1" class="bar-container">
-                                        <rect x="0" y="0" width="50%"
-										height="3px" class="bar" />
-                                    </svg>
+									<c:out value="${list[0].subContent }"/>
+								</h5> 
+								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
+                                     <rect x="0" y="0" width="50%" height="3px" class="bar" />
+                                </svg>
 								<div style="margin: 0 10%; height: 20px;">
-									<i><img></i> <span><b>27</b>일 남음</span> <span><b>1,203,400</b>원</span>
+									<i><img></i> 
+									<span>
+										<b>
+											<fmt:parseNumber value="${list[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+											${endDate-today}
+
+										</b>일 남음
+									</span> 
+									<span><b>1,203,400</b>원</span>
 									<span><b>200</b>%</span>
 								</div>
 							</a>
@@ -105,7 +119,7 @@
 										<td>27일 남음</td>
 									</thead>
 									<tr>
-										<th colspan="2">CATEGORY</th>
+										<th colspan="2">DESIGNER</th>
 									</tr>
 									<tbody>
 										<th colspan="2"><svg width="100%" height="3px"
@@ -322,31 +336,9 @@
 </section>
 <div class="parallax" id="parallax2"></div>
 
-
+<script src="${path }/resources/js/funding/list.js"></script>
 <script>
-	var main_offset = $("#main").offset(), parent = $("#main").parent(), position = $(
-			"#main").position(), scrollTop = $("#main").scrollTop();
-	$(window).scroll(function() {
-		var bottom = parent.offset().top + parent.height();
-
-		if ($(window).scrollTop() >= main_offset.top) {
-			parentSize();
-			$("#main").addClass("wrapper");
-			$("#main").removeClass("attachBottom");
-			if ($("#main").height() >= bottom - $(window).scrollTop()) {
-				$("#main").removeClass("wrapper");
-				$("#main").addClass("attachBottom");
-			}
-		} else {
-			$("#main").removeClass("wrapper");
-		}
-	})
-	function parentSize() {
-		var pWidth = $("#main").parent().width();
-		var pHeight = $("#main").parent().height() / 2;
-		$("#main").width(pWidth);
-		$("#main").height(pHeight);
-	}
+	
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
