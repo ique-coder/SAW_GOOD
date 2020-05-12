@@ -102,29 +102,19 @@
 			width: 100%;
 		}
 
-		#search tr td {
-			border: 1px solid black;
-			padding: 5px 0;
-		}
-
-		#search tr th {
-			border: 1px solid black;
-			padding: 10px;
-		}
-
 		#search_title {
-			width: 80%;
+			width: 100%;
 			display:inline-block;
 		}
 
 		#search_writer {
 			display: none;
-			width: 80%;
+			width: 100%;
 		}
 
 		#search_date {
 			display: none;
-			width: 80%;
+			width: 100%;
 		}
 
 		div[id^="search"]>input[type="text"] {
@@ -329,25 +319,29 @@
 				</div>
 			</div>
 			<div class="container-fluid" style="margin-bottom: 30px;">
-				<div class="col-md-8">
-						<table id="search">
+				<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+						<table id="search" style="text-align: right">
 							<colgroup>
-								<col width="20%">
+								<col width="30%">
 								<col width="auto">
 							</colgroup>
 							<tr>
-								<th>통합검색</th>
 								<td>
+								<i class="fas fa-search"></i>
 									<select name="search_Type" style="padding:3px;margin-left:10px" id="search_Type">
 										<option value="title">제목</option>
 										<option value="writer">작성자</option>
 										<option value="date">작성일</option>
 									</select>
+								</td>
+									<td style="text-align:left;padding-left:10px">
 									<div id="search_title">
 										<form action="#" method="get">
 											<input type="hidden" name="searchType" value="title">
 											<input type="text" name="keyword" placeholder="제목을 입력해주세요"
-												style="width:60%">
+												style="width:80%">
 											<button type="submit" class="btn-black">검색</button>
 										</form>
 									</div>
@@ -355,7 +349,7 @@
 										<form action="#" method="post">
 											<input type="hidden" name="searchType" value="writer">
 											<input type="text" name="keyword" placeholder="작성자 입력해주세요"
-												style="width:60%">
+												style="width:80%">
 											<button type="submit" class="btn-black">검색</button>
 										</form>
 									</div>
@@ -363,12 +357,13 @@
 										<form action="#" method="post">
 											<input type="hidden" name="searchType" value="date">
 											<input type="text" name="keyword" placeholder="날짜를 입력해주세요"
-												style="width:60%">
+												style="width:80%">
 											<button type="submit" class="btn-black">검색</button>
 										</form>
 									</div>
 								</td>
 						</table>
+				</div>
 				</div>
 			</div>
 			<script>
@@ -486,12 +481,11 @@
 								</td>
 							</tr>
 						</table>
+						</form>
 				</div>
-				</form>
+				
 			</div>
 		</div>
-	</div>
-	</div>
 
 
 
