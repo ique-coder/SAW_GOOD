@@ -80,7 +80,7 @@
 					<div class="col-md-6" id="main-container">
 						<div id="main" class="main product-container">
 							<a href="${path }/funding/detail">
-							 <img src="${path }/resources/images/signup.jpg" class="images" />
+							 <img src="${path }/resources/images/${list[0].mainImg}" class="images" />
 								<h1 class="text-deco text-position">
 									<c:out value="${list[0].title}" />
 								</h1>
@@ -108,227 +108,90 @@
 							</a>
 						</div>
 					</div>
+					
+					<!-- 펀딩 메인 제품 -->
 					<div class="col-md-3 sub-container">
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">DESIGNER</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-
+						<c:forEach items="${list }" var ="item" begin="1" step="2">
+							<div class="sub-item">
+								<a href=""> <img src="${path }/resources/images/${item.mainImg}" class="images" />
+									<table>
+										<thead>
+											<th colspan="2">
+												<h1 class="text-deco text-position">
+													<c:out value="${item.title }"/>
+												</h1>
+											</th>
+											
+										</thead>
+										<tr>
+											<th>${item.designer}</th>
+											<td>
+												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+												${endDate-today}
+												일 남음
+											
+											</td>
+										</tr>
+										<tbody>
+											<th colspan="2"><svg width="100%" height="3px"
+													xmlns="http://w3.org/2000/svg" version="1.1"
+													class="bar-container">
+				                                        <rect x="0" y="0" width="50%"
+														height="3px" class="bar" />
+				                                    </svg></th>
+										</tbody>
+										<tfoot>
+											<th>1,203,400원</th>
+											<td>200%</td>
+										</tfoot>
+									</table>
+								</a>
+							</div>
+						</c:forEach>
 					</div>
+					
+					<!-- 메인 옆 서브 -->
 					<div class="col-md-3 sub-container">
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
-						<div class="sub-item">
-							<a href=""> <img src="${path }/resources/images/signup.jpg"
-								class="images" />
-								<table>
-									<thead>
-										<th><h1 class="text-deco text-position">Title and
-												sub</h1></th>
-										<td>27일 남음</td>
-									</thead>
-									<tr>
-										<th colspan="2">CATEGORY</th>
-									</tr>
-									<tbody>
-										<th colspan="2"><svg width="100%" height="3px"
-												xmlns="http://w3.org/2000/svg" version="1.1"
-												class="bar-container">
-			                                        <rect x="0" y="0" width="50%"
-													height="3px" class="bar" />
-			                                    </svg></th>
-									</tbody>
-									<tfoot>
-										<th>1,203,400원</th>
-										<td>200%</td>
-									</tfoot>
-								</table>
-							</a>
-						</div>
+						<c:forEach items="${list }" var ="item" begin="2" step="2">
+							<div class="sub-item">
+								<a href=""> <img src="${path }/resources/images/${item.mainImg}" class="images" />
+									<table>
+										<thead>
+											<th colspan="2">
+												<h1 class="text-deco text-position">
+													<c:out value="${item.title }"/>
+												</h1>
+											</th>
+											
+										</thead>
+										<tr>
+											<th>${item.designer}</th>
+											<td>
+												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+												${endDate-today}
+												일 남음
+											
+											</td>
+										</tr>
+										<tbody>
+											<th colspan="2"><svg width="100%" height="3px"
+													xmlns="http://w3.org/2000/svg" version="1.1"
+													class="bar-container">
+				                                        <rect x="0" y="0" width="50%"
+														height="3px" class="bar" />
+				                                    </svg></th>
+										</tbody>
+										<tfoot>
+											<th>1,203,400원</th>
+											<td>200%</td>
+										</tfoot>
+									</table>
+								</a>
+							</div>
+						</c:forEach>
 					</div>
+					
+					
 				</div>
 			</div>
 		</div>
