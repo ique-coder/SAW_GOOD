@@ -35,6 +35,7 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
+                        <c:forEach items="${list }" var="p" varStatus="vs">
                         <div class="col-auto">
                             <div class="auctionProduct">
                                 <div class="productPoto">
@@ -43,61 +44,41 @@
                                     </a>
                                 </div>
                                 <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
+                                    <p style="width:270px; height:50px;">
+                                    	<a href="#">${p['PRODUCTNAME'] }</a>
                                     </p>
                                 </div>
                                 <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
+                                    <p class="pCategory" >${p['CATEGORY'] }</p>
                                 </div>
                                 <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
+                                    <span class="nowPriceSmall">현재금액 : </span>
+                                    <fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="0,000"/>원        
                                     <span class="rightSmall">
                                         <img src="${path }/resources/images/quick.PNG">
                                     </span>
                                 </div>
                             </div>
                         </div>
+                        <c:if test="${!vs.last and vs.count % 3 == 0 }">
+					<div class="row">
                         <div class="col-auto">
                             <div class="auctionProduct">
                                 <div class="productPoto">
-                                    <a href="#">
+                                	<a href="#">
                                     	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
                                     </a>
                                 </div>
                                 <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
+                                    <p style="width:270px; height:50px;">
+                                    	<a href="#">${p['PRODUCTNAME'] }</a>
                                     </p>
                                 </div>
                                 <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
+                                    <p class="pCategory" >${p['CATEGORY'] }</p>
                                 </div>
                                 <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                    <a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
+                                    <span class="nowPriceSmall">현재금액 : </span>96,000원
                                     <span class="rightSmall">
                                         <img src="${path }/resources/images/quick.PNG">
                                     </span>
@@ -105,76 +86,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                    <a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                    <a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                    <a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p>
-                                    	<a href="#">909 3인소파/쿠션별매/인조가죽</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >SOFA</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원</span>
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        </c:if>
+                        </c:forEach>
                     </div>
                 </div>
             </div>           
