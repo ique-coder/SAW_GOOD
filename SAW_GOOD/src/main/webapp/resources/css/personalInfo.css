@@ -203,6 +203,13 @@ div.main{
     outline: none;
 }
 
+
+.pass{
+	font-size:14px;
+	color:#51735D;
+	margin-top:100px;
+	margin-left:10px;
+}
 /* 에러 클래스 */
 span.error {
 	color: red;

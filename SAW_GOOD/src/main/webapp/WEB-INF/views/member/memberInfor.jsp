@@ -79,7 +79,7 @@
 								<button type="button" class="pwd-btn" data-toggle="modal"
 									data-target="#pwdModal">비밀번호 변경</button>
 								<button type="button" class="seller-btn" data-toggle="modal"
-									data-target="#pwdModal">판매자 회원등록</button>
+									data-target="#sellerModal">판매자 회원등록</button>
 								
 							</div>
 						</div>
@@ -117,7 +117,7 @@
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="userId" value="skmb1230">
+					<input type="hidden" name="userId" value="${mem.userId }">
 				</form>
 
 			</div>
@@ -137,7 +137,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form id="pwdF" action="${pageContext.request.contextPath}/"
+				<form id="pwdF" action="${path}/member/passwordUpdate"
 					method="post">
 					<div class="modal-body" style="padding-bottom: 0;">
 						<div>
@@ -146,11 +146,12 @@
 								required>
 						</div>
 						<div>
-							<input type="password" class="form-control" name="password"
+							<input type="password" class="form-control"
 								id="userPwd2" placeholder="새로운 비밀번호 확인"
 								style="border-radius: 7px; margin-top: 10px;" required>
 						</div>
 					</div>
+					<input type="hidden" name="userId" value="${mem.userId }">
 					<div class="modal-footer" style="border: 0;">
 						<button type="button" class="change-btn" onclick="pwdModify();">변경</button>
 						<button type="button" class="cancel-btn" data-dismiss="modal">취소</button>
@@ -160,7 +161,40 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="sellerModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" style="border: 0; padding-bottom: 0;">
+					<h5 class="modal-title modifyTitle" id="exampleModalLabel">&nbsp
+						펀딩 판매자등급 Update</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="seller" action="${path}/member/sellerUpdate"
+					method="post">
+					<div class="modal-body" style="padding-bottom: 0;">
+						<div>
+							<input type="text" class="form-control" name="businessNumber"
+								id="businessNumber" placeholder=" 사업자등록번호 (예 : 1400000000 '-' 생략)" style="border-radius: 7px;"
+								required>
+							<span id="businessCk"></span>
+						</div>
+					</div>
+					<input type="hidden" name="userId" value="${mem.userId }">
+					<div class="modal-footer" style="border: 0;">
+						<button type="button" class="change-btn" onclick="sellerUpdate();">신청</button>
+						<button type="button" class="cancel-btn" data-dismiss="modal">취소</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
 	<script>
+		var bsCheck=false;
 		function Postcode() {
 			new daum.Postcode(
 					{
@@ -269,8 +303,9 @@
 
 					}
 				});
+	
 		//비밀번호 확인
-		$("#userPwd2").change(
+		$("#userPwd2").blur(
 				function() {
 					let pwd = $("#userPwd").val();
 					let pwd2 = $("#userPwd2").val();
@@ -322,6 +357,46 @@
 					alert("변경할 정보를 확인해 주십시오.")
 				}
 			}
+		}
+		//ajax사업자번호 체크 확인
+		$("#businessNumber").blur(function(){
+			let flag;
+			
+			if(businessCheck()){
+				bsCheck = true;
+				$("#businessCk").html("사용가능한 사업자 번호입니다.").addClass("pass");
+			}else{
+				$("#businessCk").removeClass("pass");
+				$("#businessCk").addClass("error");
+				$("#businessCk").html("존재하는 사업자 번호입니다.");
+				bsCheck = false;
+			}
+		});
+		
+		function sellerUpdate(){
+			if(bsCheck){
+				$("#seller").submit();
+			}
+		}
+		function businessCheck(){
+			$("#businessCk").html("");
+			let flag;
+			$.ajax({
+				url:"${path}/member/checkBusiness.do",
+				type:"POST",
+				async:false,
+				data:{"businessNumber":$("#businessNumber").val()},
+				success:function(data){
+					flag=data.flag;
+				},
+				error : function(request, status) {
+					if (request.status == 404)
+						//$("#content").append(request.status);
+						alert("페이지를 찾을 수 없습니다.");
+				}
+    			
+    		});
+    		return flag;
 		}
 	</script>
 </body>

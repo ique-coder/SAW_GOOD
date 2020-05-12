@@ -19,7 +19,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectId(String id) {
-		System.out.println("서비스");
 		Member m = dao.selectId(session,id);
 		return m;
 	}
@@ -44,8 +43,25 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMemberInfo(Member m) {
-		// TODO Auto-generated method stub
+	
 		return dao.updateMemberInfo(session,m);
+	}
+
+	@Override
+	public int updatePassword(Member m) {
+		return dao.updatePassword(session,m);
+	}
+
+	@Override
+	public Member selectBusinessNumber(String bsNo) {
+		Member m = dao.selectBusinessNumber(session,bsNo);
+		return m;
+	}
+
+	@Override
+	public int updateBsNo(Member m) {
+
+		return dao.updateBsNo(session,m);
 	}
 	
 	

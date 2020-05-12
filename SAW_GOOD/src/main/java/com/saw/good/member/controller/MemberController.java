@@ -186,5 +186,68 @@ public class MemberController {
 //			
 			return mv;
 	}
+	//승원 비밀번호 변경하기
+	@RequestMapping("/member/passwordUpdate")
+	public ModelAndView passwordUpdate(Member m, ModelAndView mv) {
+	
+		
+		//암호화하기
+		m.setPassword(pwEncoder.encode(m.getPassword()));
+
+		int result = service.updatePassword(m);
+		String msg;
+		//주소 바꾸기!!!!!!!!!!!!!=================================================
+		//데이터 넣기 성공하면 메일전송 
+		if(result>0) {
+			
+		    msg="비밀번호 변경을 성공하였습니다.";
+			
+		}else {
+			msg = "비밀번호 변경에 실패하였습니다.";
+		}
+		mv.addObject("msg", msg);
+		mv.setViewName("common/msg");
+//		
+		return mv;
+	}
+	//ajax 사업자번호 검사
+	@RequestMapping(value="/member/checkBusiness.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView businessChek(@RequestParam("businessNumber") String bsNum,ModelAndView mv) throws IOException {
+//		System.out.println(bsNo);
+		String bsNo =  aesEncrypt.encrypt(bsNum);
+		System.out.println(bsNo);
+		Member m  = service.selectBusinessNumber(bsNo);
+		boolean flag = m!=null?false:true;
+		
+//		System.out.println(flag);
+		mv.addObject("flag", flag);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	//승원 사업자번호 추가하기
+		@RequestMapping("/member/sellerUpdate")
+		public ModelAndView bsNoUpdate(Member m, ModelAndView mv) {
+		
+			System.out.println(m);
+			//암호화하기
+			m.setBusinessNumber((aesEncrypt.encrypt(m.getBusinessNumber())));
+
+			int result = service.updateBsNo(m);
+			String msg;
+			//주소 바꾸기!!!!!!!!!!!!!=================================================
+			//데이터 넣기 성공하면 메일전송 
+			if(result>0) {
+				
+			    msg="판매회원등급으로 되었습니다.";
+				
+			}else {
+				msg = "판매회원등급에 실패하였습니다.";
+			}
+			mv.addObject("msg", msg);
+			mv.setViewName("common/msg");
+//			
+			return mv;
+		}
 
 }

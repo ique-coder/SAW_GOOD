@@ -16,4 +16,10 @@ public interface MemberService {
 	Member loginMemberInfo(String userId);
 	
 	int updateMemberInfo(Member m);
+	
+	int updatePassword(Member m);
+	
+	Member selectBusinessNumber(String bsNo);
+	
+	int updateBsNo(Member m);
 }

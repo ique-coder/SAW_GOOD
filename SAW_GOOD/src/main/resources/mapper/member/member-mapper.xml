@@ -21,10 +21,21 @@
   	 UPDATE MEMBER SET USERNAME = #{userName}, PHONE = #{phone}, POSTCODE = #{postCode},
   	  ADDRESS1 = #{address1}, ADDRESS2 = #{address2} WHERE USERID=#{userId}
   </update>
-  
+    <!-- 승원 비밀번호 변경 -->
+   <update id="updatePassword" parameterType="member">
+  	 UPDATE MEMBER SET PASSWORD = #{password} WHERE USERID=#{userId}
+  </update>
+  	<!-- 승원 사업자번호 체크 -->
+   <select id="selectBsNum" parameterType="string" resultType="member">
+  		SELECT * FROM MEMBER WHERE BUSINESSNUMBER = #{bsNo}
+  </select>
   <!-- 승원 test -->
  	<select id="test" parameterType="String" resultType="member">
  		SELECT * FROM MEMBER WHERE USERID = #{userId}
  	</select>
+  <!-- 승원 사업자번호 추가 -->
+   <update id="updateBsNo" parameterType="member">
+  	 UPDATE MEMBER SET BUSINESSNUMBER = #{businessNumber} WHERE USERID=#{userId}
+  </update>
   
 </mapper>

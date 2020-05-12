@@ -18,4 +18,9 @@ public interface MemberDao {
 	
 	int updateMemberInfo(SqlSessionTemplate session, Member m);
 	
+	int updatePassword(SqlSessionTemplate session, Member m);
+	
+	Member selectBusinessNumber(SqlSessionTemplate session, String bsNo);
+	
+	int updateBsNo(SqlSessionTemplate session, Member m);
 }
