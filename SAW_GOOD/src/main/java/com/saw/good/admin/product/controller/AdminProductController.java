@@ -1,5 +1,8 @@
 package com.saw.good.admin.product.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.saw.good.admin.home.AdminProduct;
 import com.saw.good.admin.product.model.service.AdminProductService;
 import com.saw.good.common.PageFactory;
+import com.saw.good.product.model.vo.DetailImg;
+import com.saw.good.product.model.vo.PageDetailImg;
+import com.saw.good.product.model.vo.Product;
 
 @Controller
 public class AdminProductController {
@@ -170,32 +176,102 @@ public class AdminProductController {
 		m.addObject("productprice", productprice);
 		m.setViewName("admin/product/productManager");
 		return m;
-		
 	}
 	
-	@ResponseBody
 	@RequestMapping("/admin/productRegistEnd")
-	public ModelAndView productRegistEnd(ModelAndView mv,
+	@ResponseBody
+	public ModelAndView productRegistEnd(ModelAndView mv,MultipartFile[] detailImg,
+			MultipartFile[] detailPageImg,
 			MultipartHttpServletRequest request,HttpSession session) throws Exception{
-		System.out.println(request.getParameter("productName"));
-		System.out.println(request.getParameter("productPrice"));
-		System.out.println(request.getParameter("productContent"));
 		
-		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-
-		String path=session.getServletContext().getRealPath("/resources/upload/product");
-
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+		int rnd=(int)(Math.random()*1000);
+		//상품 정보들
+		String productName=request.getParameter("productName");
+		int productPrice=Integer.parseInt(request.getParameter("productPrice"));
+		String productContent=request.getParameter("productContent");
+		String brand=request.getParameter("brand");
+		String category=request.getParameter("category");
+		String originalpd="";
+		String renamepd="";
+		String originaltp="";
+		String renametp="";
+		
+		//폴더경로 찾기
+		String path=session.getServletContext().getRealPath("/resources/upload/newproduct");
+		
+		//폴더경로 없으면 생성
+		File fileDir = new File(path); 
+		if (!fileDir.exists()) { fileDir.mkdirs(); }
+		
+		//상품 썸네일 이미지
+		MultipartFile pdImg=request.getFile("productImg");
+		if(!pdImg.isEmpty()) {
+			originalpd=pdImg.getOriginalFilename();
+			String ext=originalpd.substring(originalpd.lastIndexOf("."));
+			renamepd=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			pdImg.transferTo(new File(fileDir+"/"+renamepd));
+		}
+		
+		//상품 탑이미지
+		MultipartFile tpImg=request.getFile("topImg");
+		if(!tpImg.isEmpty()) {
+			originaltp=tpImg.getOriginalFilename();
+			String ext=originaltp.substring(originaltp.lastIndexOf("."));
+			renametp=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			tpImg.transferTo(new File(fileDir+"/"+renametp));
+		}
+		Product p= new Product(0,productName,productContent,productPrice,
+				originalpd,category,brand,0,null,originaltp,renamepd,renametp);
+		
+		List<DetailImg> diList=new ArrayList();
+		//상품 상세이미지
+		for(MultipartFile mf:detailImg) {
+			if(!mf.isEmpty()) {
+				String originaldi=mf.getOriginalFilename();
+				String ext=originaldi.substring(originaldi.lastIndexOf("."));
+				String renamedi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+				try {
+					mf.transferTo(new File(fileDir+"/"+renamedi));
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+				DetailImg di=new DetailImg();
+				di.setDiOriNameFile(originaldi);
+				di.setDiRenameFile(renamedi);
+				diList.add(di);
+			}
+		}
+		
+		List<PageDetailImg> pdiList=new ArrayList();
+		//상품상세페이지 이미지
+		for(MultipartFile mpf:detailPageImg) {
+			if(!mpf.isEmpty()) {
+				String originalpdi=mpf.getOriginalFilename();
+				String ext=originalpdi.substring(originalpdi.lastIndexOf("."));
+				String renamepdi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+				try {
+					mpf.transferTo(new File(fileDir+"/"+renamepdi));
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+				PageDetailImg pdi=new PageDetailImg();
+				pdi.setPdiOriNameFile(originalpdi);
+				pdi.setPdiRenameFile(renamepdi);
+				pdiList.add(pdi);
+			}
+		}
+		int result=service.insertProduct(p,diList,pdiList);
+		
+		
 		mv.setViewName("jsonView");
 		return mv;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+
+	
+	
+	
+	
+	

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.saw.good.admin.home.AdminProduct;
+import com.saw.good.product.model.vo.DetailImg;
+import com.saw.good.product.model.vo.PageDetailImg;
+import com.saw.good.product.model.vo.Product;
 
 public interface AdminProductService {
 	//상품목록 불러오기
@@ -19,4 +22,7 @@ public interface AdminProductService {
 	//상품검색
 	List<Map<String,String>> searchProduct(int cPage,int numPerPage,AdminProduct a);
 	int countSearchProduct(AdminProduct a);
+	//상품등록
+	int insertProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList);
+	
 }
