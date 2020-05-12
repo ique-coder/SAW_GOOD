@@ -31,6 +31,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,100&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=News+Cycle:wght@400;700&family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="${path }/resources/css/common/parallax.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
@@ -44,7 +47,7 @@
     <header class="container-fluid fixed-show">
     	<div class="row " id="header">
     		<div class="col-md-3"href="#">
-    			<a href="#" class="col-md-6"><img id="logo" src="" alt="로고"/></a>
+    			<a href="${path }" class="col-md-6"><img id="logo" src="" alt="로고"/></a>
     		</div>
     		<ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
@@ -113,7 +116,7 @@
         	
         	function hasScrolled(){
 					var st = $(this).scrollTop();
-       				if(Math.abs(lastScrollTop-st)<-delta) return;
+       				if(Math.abs(lastScrollTop-st)<=delta) return;
        				if(st>lastScrollTop && st> navbarHeight){
        					$("header.container-fluid").addClass("fixed-hide").removeClass("fixed-show");
        				}else{
