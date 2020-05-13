@@ -6,10 +6,12 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.auction.model.service.AuctionService;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.common.PageFactory;
 
 
 @Controller
@@ -21,11 +23,17 @@ public class AuctionController {
 	@Autowired
 	Logger logger;
 	@RequestMapping("/auction/list")
-	public ModelAndView auctionList(ModelAndView mv) {
-
-		List<Auction> list = service.selectAcList();
-		System.out.println(list);
+	public ModelAndView auctionList(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="6") int numPerPage) {
+		List<Auction> list = service.selectAcList(cPage,numPerPage);
+		int totalData=service.countAuction();
+		System.out.println(totalData);
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
 		mv.addObject("list",list);
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("cPage", cPage);
 		mv.setViewName("auction/auctionList");
 		return mv;
 		

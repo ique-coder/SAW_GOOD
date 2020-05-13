@@ -8,5 +8,6 @@ import com.saw.good.auction.model.vo.Auction;
 
 public interface AuctionDao {
 
-	List<Auction> selectAcList(SqlSession session);
+	List<Auction> selectAcList(SqlSession session,int cPage, int numPerPage);
+	int countAuction(SqlSession session);
 }

@@ -107,6 +107,7 @@
 							</c:forEach>
 						</div>
 					</c:forEach>
+					${pageBar }
 				</div>
 			</div>
 		</div>
