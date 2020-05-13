@@ -52,8 +52,9 @@
 	border: solid 1px black;
 	background-color: lightgrey;
 	width: 100%;
-	overflow: scroll;
-	margin-top: 20px;
+	overflow: auto;
+	margin: 20px 0;
+	display: none;
 }
 
 #furnitureCategory {
@@ -63,16 +64,15 @@
 }
 
 #interiorSize {
-	width: 1000px;
-	height: 700px;
 	background-color: white;
-	/* border: solid 1px violet; */
-	margin: 0 auto;
+	border: solid 10px rgb(65, 26, 0);
+	margin: auto auto;
+	box-sizing: content-box;
 }
 
 .interior {
 	position: relative;
-	z-index: 0;
+	/* z-index: 0; */
 }
 
 /* 상단 카테고리 */
@@ -185,7 +185,7 @@ div.categoryNameList>input:checked+label {
 /* 페이지바 */
 #pageBar {
 	width: 100%;
-	margin: 40px 0 40px 0;
+	margin: 20px 0 0 0;
 	text-align: center;
 }
 
@@ -272,6 +272,58 @@ div.categoryNameList>input:checked+label {
 .emptyDiv {
 	width: 187.6px;
 }
+#insertRoomSize {
+	position: relative;
+	padding: 20px;
+	border: solid 1px #191919;
+	margin-top: 20px;
+	text-align: center;
+}
+#insertRoomSize p {
+	margin: 10px 0;
+	border-bottom: 0;
+}
+#insertRoomSize p:first-child {
+	font-size: 25px;
+	padding-bottom: 15px;
+	margin: 0 0 20px 0;
+	border-bottom: solid 1px lightgray;
+}
+#insertRoomSize p:last-child {
+	position: relative;
+	right: 0px;
+	margin: 0;
+	text-align: right;
+	border-bottom: 0;
+}
+#insertRoomSize button{
+	border: 0;
+	background-color: #51735D;
+	color: white;
+	padding: 5px 10px;
+	width: 100px;
+	/* cursor: */
+}
+
+#selectList p:last-child {
+	padding: 20px 0;
+	border-top: solid 1px lightgray;
+}
+#closeList {
+	background-color: #F2E8DC;
+	color: black;
+	border: 0;
+	padding: 5px 10px;
+	width: 100px;
+}
+#orderList {
+	background-color: #51735D;
+	color: white;
+	border: 0;
+	padding: 5px 10px;
+	width: 100px;
+}
+
 </style>
 <script type="text/javascript">
 	function roAndDr() {
@@ -317,150 +369,37 @@ div.categoryNameList>input:checked+label {
 					for="category">others</label>
 			</div>
 		</div>
+
 		<!-- 가구 리스트 -->
 		<div id="furnitureSelect" class="row">
-			<!-- <div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/bed1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">베이직 퀸사이즈 침대</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/desk1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">사무용 와이드 컴퓨터 책상</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/chair1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">원목 등받이 의자</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/chair2.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">인조 가죽 카라멜 소파</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/chair3.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">사무용 의자</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/chair4.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">패트릭 원목 등받이 의자</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/sofa1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">ㄱ자 중형 패트릭 소파</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/lug1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">원형 그레이 러그</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/laptop1.png">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">노트북, 책</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-			<div class="product col">
-				<img class="productImg"
-					src="${path }/resources/images/1524445081477_iT6B.jpg">
-				<p>
-					<span class="productBrand">[이케아]</span><span class="productName">벙커침대10</span>
-				</p>
-				<p>
-					<span class="productPrice">132,000원</span>
-				</p>
-				<input type="hidden" name="productName" value="벙커침대">
-				<input type="hidden" name="productBrand" value="이케아">
-			</div>
-		</div> -->
+		</div>
 
+		<div id="insertRoomSize" class="col-md-12">
+			<p>Please Enter My Room Size Here</p>
+			<p class="row">
+				<span class="col">가로(cm) <input id="roomWidth" type="text"></span>
+				<span class="col">세로(cm) <input id="roomHeight" type="text"></span>
+			</p>
+			<p><button id="createRoomBtn">입력</button></p>
+			
 		</div>
 
 		<div class="col-md-12 padding">
 
 			<div id="canvas" class="inline">
 				<div id="selectListTag">
-					<!-- <img src="${path }/resources/images/selectListTag.png" width="10px"> -->
 					<div id="selectList" class="modal-content">
 						<h3>ㅣ Furniture List ㅣ</h3>
 						<table id="listTable">
 						</table>
-
+						<p>
+							<span><button id="closeList">닫기</button></span>
+							<span><button id="orderList">주문하기</button></span>
+						</p>
 					</div>
-					<!-- <img id="selectListTagImg"
-					src="${path }/resources/images/selectListTag2.png"> -->
 				</div>
-
+				
 				<div id="interiorSize">
-					<!-- <img src="${path }/resources/images/pngwing.com.png" width="300px"
-					class="interior" alt=""> -->
 				</div>
 			</div>
 		</div>
@@ -530,7 +469,7 @@ div.categoryNameList>input:checked+label {
 							'position' : 'relative',
 							'top' : '0px',
 							'left' : '0px'
-						}).addClass("interior");
+						}).css({'z-index' : countProduct}).addClass("interior");
 						$("#interiorSize").append(img);
 
 						roAndDr();
@@ -571,7 +510,8 @@ div.categoryNameList>input:checked+label {
 				// $(this).css({'left':'-400px'});
 			} else {
 				$(this).css({
-					'left' : '0px'
+					'left' : '0px',
+					"cursor" : "default"
 				});
 			}
 		})
@@ -597,16 +537,16 @@ div.categoryNameList>input:checked+label {
 									($(this).parent().index() + 2));
 
 							// 이미지 z-index 변화
-							// 앞에 있는거 z-index구하기
-							let prevNum = $(this).parent().next().children()
-									.eq(2).attr('name');
-							let prevZIndex = $("[name=" + prevNum + "]").eq(4)
-									.css('z-index');
-							prevZIndex++;
-							console.log(prevZIndex);
-							// 현재 z-index변화
-							$("[name=" + $(this).attr('name') + "]").css(
-									'z-index', prevZIndex);
+							let indexUp = $(this).attr('name');
+							let indexDown = $(this).parent().next().children().eq(2).attr('name');
+							let changeUp = $("[name=" + indexUp + "]").eq(4);
+							let changeDown = $("[name=" + indexDown + "]").eq(4);
+							indexUp = $("[name=" + indexUp + "]").eq(4).css('z-index');
+							indexDown = $("[name=" + indexDown + "]").eq(4).css('z-index');
+							indexUp++;
+							indexDown--;
+							changeUp.css("z-index",indexUp);
+							changeDown.css("z-index",indexDown);
 						}
 					})
 			$(".listDown").off("click").on(
@@ -621,16 +561,16 @@ div.categoryNameList>input:checked+label {
 									($(this).parent().index()));
 
 							// 이미지 z-index 변화
-							// 앞에 있는거 z-index구하기
-							let prevNum = $(this).parent().prev().children()
-									.eq(2).attr('name');
-							let prevZIndex = $("[name=" + prevNum + "]").eq(4)
-									.css('z-index');
-							prevZIndex++;
-							console.log(prevZIndex);
-							// 현재 z-index변화
-							$("[name=" + $(this).attr('name') + "]").css(
-									'z-index', prevZIndex);
+							let indexDown = $(this).attr('name');
+							let indexUp = $(this).parent().prev().children().eq(2).attr('name');
+							let changeUp = $("[name=" + indexUp + "]").eq(4);
+							let changeDown = $("[name=" + indexDown + "]").eq(4);
+							indexUp = $("[name=" + indexUp + "]").eq(4).css('z-index');
+							indexDown = $("[name=" + indexDown + "]").eq(4).css('z-index');
+							indexUp++;
+							indexDown--;
+							changeUp.css("z-index",indexUp);
+							changeDown.css("z-index",indexDown);
 						}
 					})
 			// 클릭시 삭제
@@ -675,7 +615,7 @@ div.categoryNameList>input:checked+label {
 
 						// img tag
 						let src = "${path}/resources/upload/newproduct/" + product.productImg;
-						div.append($("<img>").attr({"src":src}));
+						div.append($("<img>").addClass("productImg").attr({"src":src}));
 						// 1 p tag
 						div.append($("<p>").append($("<span>").addClass("productBrand").html(product.brand))
 								.append($("<span>").addClass("productName").html(product.productName)));
@@ -728,6 +668,33 @@ div.categoryNameList>input:checked+label {
 			});
 		}
 		categotyAjax();
+
+		$("#createRoomBtn").click(function() {
+			let width = $("#roomWidth").val();
+			let height = $("#roomHeight").val();
+			let left = width * -1;
+			let marginTop = (700-height)/2 + "px";
+
+			if((width != 0 && width != null && width != '') && (height != 0 && height != null && height != '')) {
+				$("#canvas").show();
+
+				if(height > 700) {
+					$("#interiorSize").css({"width":width, "height":height, "margin":"auto"});
+					height = height -20 + 40;
+					$("#selectListTag").css("height",height);
+					$("#selectList").css("height",height);
+				} else {
+					height = height -20;
+					$("#interiorSize").css({"width":width, "height":height, "margin": marginTop + " auto"});
+				}
+				$("#insertRoomSize").hide();
+			}
+		})
+
+		// list Close
+		$("#closeList").click(function() {
+			$("#selectListTag").css({"left":"-400px", "cursor" : "pointer"});
+		})
 	</script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

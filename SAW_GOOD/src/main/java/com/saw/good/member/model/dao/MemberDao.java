@@ -23,4 +23,6 @@ public interface MemberDao {
 	Member selectBusinessNumber(SqlSessionTemplate session, String bsNo);
 	
 	int updateBsNo(SqlSessionTemplate session, Member m);
+	
+	Member selectMember(SqlSessionTemplate session, Member m);
 }

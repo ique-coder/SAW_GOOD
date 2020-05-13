@@ -1,13 +1,23 @@
 package com.saw.good.funding.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.Funding;
 
 public interface FundingDao {
 
 	List<Funding> selectList(SqlSession session, int numPerPage);
+
+	Funding selectItem(SqlSession session, int fdNo);
+
+	List<FDMember> selectMemberList(SqlSession session, int fdNo);
+
+	Map<String, Integer> selectPriceCount(SqlSession session, int fdNo);
+
+	List<Funding> selectHighList(SqlSession session, int high);
 
 }

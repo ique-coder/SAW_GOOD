@@ -34,6 +34,7 @@
      margin:0 auto; */
  }
  section{
+ 	margin-top : 120px;
      position: relative;
  }
  ol, ul {
@@ -66,10 +67,42 @@ section>.container{
     border: 50px solid #F2E8DC;
     box-sizing: content-box;
 }
-
-/* .sideMenu{
-    margin: 50px 0px 0px 0px;
-} */
+.parallax-window{
+	height:400px;
+	text-align:center;
+	background: transparent;
+}
+.parallax-window h3{
+	position:relative;
+	top:45%;
+	font-size:1.7rem;
+	letter-spacing:1.25em;
+	color: white;
+}
+.selectStyle{
+	background:none;
+	border: 1px solid #9d9d9d;
+	border-radius:3px;
+	width:150px;
+	height:40px;
+}
+#search-area{
+	padding:0px;
+	margin-top:30px;
+	margin-bottom:30px;
+	text-align:center;
+} 
+#search-area button{
+	padding : 0 10px 0 10px;
+	background:  #51735D;
+	border:none;
+	border-radius:3px;
+	height:40px;
+	position: relative;
+	top : 0;
+	bottom : 0;
+	color : white;
+}
 .category{
     margin: 0;
     padding: 10px 0;
@@ -168,4 +201,32 @@ div.boderbottom-Red{
 }
 .auctionProduct{
     margin-bottom: 20px;
+}
+/* 페이지바 */
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #d5d5d5;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+}
+/* 페이지바 cpage span */
+#pageBar>span.cPage {
+	border: 1px solid #191919;
+	color: #191919;
 }
