@@ -35,7 +35,11 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/detail")
-	public ModelAndView fundingDetail(ModelAndView mv) {
+	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
+		
+		Funding f = service.selectItem(item.getFdNo());
+		
+		mv.addObject("f",f);
 		mv.setViewName("funding/detail");
 		return mv;
 	}

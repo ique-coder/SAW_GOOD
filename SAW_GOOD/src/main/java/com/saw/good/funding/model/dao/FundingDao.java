@@ -10,4 +10,6 @@ public interface FundingDao {
 
 	List<Funding> selectList(SqlSession session, int numPerPage);
 
+	Funding selectItem(SqlSession session, int fdNo);
+
 }

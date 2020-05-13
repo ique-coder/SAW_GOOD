@@ -16,5 +16,11 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.selectAllList",numPerPage);
 	}
 
+	@Override
+	public Funding selectItem(SqlSession session, int fdNo) {
+	
+		return session.selectOne("funding.selectItem", fdNo);
+	}
+
 	
 }
