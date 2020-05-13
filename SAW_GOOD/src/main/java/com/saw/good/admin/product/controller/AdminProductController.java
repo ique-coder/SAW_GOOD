@@ -421,6 +421,7 @@ public class AdminProductController {
 					}catch(IOException e){
 						e.printStackTrace();
 					}
+					
 					PageDetailImg pdi=new PageDetailImg();
 					pdi.setProductNo(productno);
 					pdi.setPdiOriNameFile(originalpdi);
