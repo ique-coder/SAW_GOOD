@@ -451,6 +451,24 @@
                     $("#productPrice span:last").html(cnt);
                 }
             });
+            $(".review-photo").hide();
+            $(".review-camara").click(function(){
+            	$(".review-photo").show();
+            	e.preventDefault();
+
+            	$('#file').click();
+
+            	$.ajax({ 
+            		url: "${path}/review/image", 
+            		type: 'post', 
+            		dataType : 'json', 
+            		success : function (data) { 
+            			createImages(data) 
+            			
+            		} 
+            	});
+
+            })
         });
     </script>
 </body>

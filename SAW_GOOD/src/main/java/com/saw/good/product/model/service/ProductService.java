@@ -10,4 +10,6 @@ public interface ProductService {
 	List<Map<String,String>> selectProduct(int cPage, int numPerPage);
 	int countProduct();
 	Product selectProductView(int no);
+	List<Map<String,String>> searchProduct(int cPage,int numPerPage,Map<String,String> map);
+	int countSearchProduct(Map<String,String> map);
 }
