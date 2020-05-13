@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="card-body">
                                         
-                                        <div class="position-relative mb-4" style="width:100%;height:300px;">
+                                        <div class="position-relative mb-4" style="width:100%;height:auto;">
                                             <canvas id="visitor-ch"></canvas>
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="position-relative mb-4" style="width:100%;height:300px;">
+                                        <div class="position-relative mb-4" style="width:100%;height:auto;">
                                             <canvas id="line-chart"></canvas>
                                         </div>
                                     </div>
