@@ -31,11 +31,23 @@ public class AdminProductDaoImpl implements AdminProductDao {
 
 	//상품수정 페이지이동
 	@Override
-	public Map<String, String> oneProduct(SqlSession session, int productno) {
+	public Product oneProduct(SqlSession session, int productno) {
 		// TODO Auto-generated method stub
 		return session.selectOne("product.oneProduct", productno);
 	}
 	
+	@Override
+	public List<DetailImg> selectDetailImg(SqlSession session, int productno) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectDetailImg", productno);
+	}
+
+	@Override
+	public List<PageDetailImg> selectPageImg(SqlSession session, int productno) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectPageImg", productno);
+	}
+
 	//상품삭제
 	@Override
 	public int deleteProduct(SqlSession session, int productno) {
@@ -82,6 +94,28 @@ public class AdminProductDaoImpl implements AdminProductDao {
 		// TODO Auto-generated method stub
 		return session.insert("product.insertPageDetailImg",pdi);
 	}
+
+	//상품내용 수정
+	@Override
+	public int updateProduct(SqlSession session, Product p) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateProduct",p);
+	}
+
+	//상품상제이미지 수정
+	@Override
+	public int updateDetailImg(SqlSession session, DetailImg di) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateDetailImg",di);
+	}
+
+	//상품상세페이지 이미지 수정
+	@Override
+	public int updatePageDetailImg(SqlSession session,PageDetailImg pdi) {
+		// TODO Auto-generated method stub
+		return session.update("product.updatePageDetailImg", pdi);
+	}
+	
 	
 	
 	
