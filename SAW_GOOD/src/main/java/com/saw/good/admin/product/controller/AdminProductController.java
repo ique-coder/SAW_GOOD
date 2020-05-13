@@ -338,11 +338,8 @@ public class AdminProductController {
 		if (!fileDir.exists()) { fileDir.mkdirs(); }
 		
 		MultipartFile pdImg=request.getFile("productImg");
-		
-		if(pdImg.isEmpty()) {
-			p.setProductImg(orip.getProductImg());
-			p.setRenamedProductImg(orip.getRenamedProductImg());
-		}else {
+		System.out.println(pdImg.isEmpty());
+		if(!pdImg.isEmpty()) {
 			int rnd=(int)(Math.random()*1000);
 			originalpd=pdImg.getOriginalFilename();
 			String ext=originalpd.substring(originalpd.lastIndexOf("."));
@@ -354,14 +351,17 @@ public class AdminProductController {
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+		}else if(pdImg.isEmpty()){
+			System.out.println(orip.getProductImg());
+			p.setProductImg(orip.getProductImg());
+			System.out.println(orip.getRenamedProductImg());
+			p.setRenamedProductImg(orip.getRenamedProductImg());
 		}
+
 		
 		MultipartFile tpImg=request.getFile("topImg");
 		System.out.println("탑이미지"+tpImg.isEmpty());
-		if(tpImg.isEmpty()) {
-			p.setTopImg(orip.getTopImg());
-			p.setRenamedTopImg(orip.getRenamedTopImg());
-		}else {
+		if(!tpImg.isEmpty()) {
 			int rnd=(int)(Math.random()*1000);
 			originaltp=tpImg.getOriginalFilename();
 			String ext=originaltp.substring(originaltp.lastIndexOf("."));
@@ -369,11 +369,17 @@ public class AdminProductController {
 			p.setTopImg(originaltp);
 			p.setRenamedProductImg(renametp);
 			try {
-				pdImg.transferTo(new File(fileDir+"/"+renametp));
+				tpImg.transferTo(new File(fileDir+"/"+renametp));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+		}else if(tpImg.isEmpty()){
+			System.out.println(orip.getTopImg());
+			p.setTopImg(orip.getTopImg());
+			System.out.println(orip.getRenamedTopImg());
+			p.setRenamedTopImg(orip.getRenamedTopImg());
 		}
+		
 		
 		List<DetailImg> oriDi=service.selectDetailImg(productno);
 		List<DetailImg> diList=new ArrayList();
@@ -398,7 +404,7 @@ public class AdminProductController {
 					diList.add(di);
 				}
 			}
-		}else {
+		}else{
 			for(DetailImg di: oriDi) {
 				diList.add(di);
 			}
@@ -429,7 +435,6 @@ public class AdminProductController {
 					pdiList.add(pdi);
 				}
 			}
-			
 		}else{
 			for(PageDetailImg pdi : oripdi) {
 				pdiList.add(pdi);
@@ -461,40 +466,42 @@ public class AdminProductController {
 				}
 			}
 		}
+
 		
 		//모든 업데이트가 끝난후 원래있던 파일 삭제
-		if(!pdImg.isEmpty()) {
-			File prof=new File(fileDir+"/"+orip.getRenamedProductImg());
-			if(prof.exists()) {
-				prof.delete();
-			}
-		}
-		if(!tpImg.isEmpty()) {
-			File topf=new File(fileDir+"/"+orip.getRenamedTopImg());
-			if(topf.exists()) {
-				topf.delete();
-			}
-		}
+				if(!pdImg.isEmpty() && (result==diList.size()+pdiList.size()+1)) {
+					File prof=new File(fileDir+"/"+orip.getRenamedProductImg());
+					if(prof.exists()) {
+						prof.delete();
+					}
+				}
+				if(!tpImg.isEmpty() && (result==diList.size()+pdiList.size()+1)) {
+					File topf=new File(fileDir+"/"+orip.getRenamedTopImg());
+					if(topf.exists()) {
+						topf.delete();
+					}
+				}
 
-		if(detailImg.get(0).getSize()>0) {
-			for(DetailImg di : oriDi) {
-				File delf = new File(fileDir+"/"+di.getDiRenameFile());
-				if(delf.exists()) {
-					delf.delete();
+				if(detailImg.get(0).getSize()>0 && (result==diList.size()+pdiList.size()+1)) {
+					for(DetailImg di : oriDi) {
+						File delf = new File(fileDir+"/"+di.getDiRenameFile());
+						if(delf.exists()) {
+							delf.delete();
+						}
+					}
 				}
-			}
-		}
-		
-		if(detailPageImg.get(0).getSize()>0 ) {
-			for(PageDetailImg pdi : oripdi) {
-				File delf = new File(fileDir+"/"+pdi.getPdiRenameFile());
-				if(delf.exists()) {
-					delf.delete();
+				
+				if(detailPageImg.get(0).getSize()>0 && (result==diList.size()+pdiList.size()+1)) {
+					for(PageDetailImg pdi : oripdi) {
+						File delf = new File(fileDir+"/"+pdi.getPdiRenameFile());
+						if(delf.exists()) {
+							delf.delete();
+						}
+					}
 				}
-			}
-		}
 		
-		String msg=result>0?"등록성공":"등록실패";
+		
+		String msg=(result==diList.size()+pdiList.size()+1)?"등록성공":"등록실패";
 		String loc="/admin/productManager";
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
