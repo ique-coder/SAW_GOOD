@@ -4,5 +4,7 @@
 	<select id="selectAllList" resultType="funding" parameterType="int">
  		SELECT * FROM (SELECT ROWNUM RNUM , A.* FROM(SELECT * FROM FUNDING)A) WHERE RNUM BETWEEN 1 AND #{numPerPage} ORDER BY FDNO DESC
  	</select>
-  
+  	<select id="selectItem" resultType="funding" parameterType="int">
+  		SELECT * FROM FUNDING WHERE FDNO = #{fdNo}
+  	</select>
 </mapper>

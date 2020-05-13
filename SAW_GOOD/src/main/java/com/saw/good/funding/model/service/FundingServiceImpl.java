@@ -25,5 +25,12 @@ public class FundingServiceImpl implements FundingService{
 		return dao.selectList(session,numPerPage);
 	}
 
+
+	@Override
+	public Funding selectItem(int fdNo) {
+		
+		return dao.selectItem(session,fdNo);
+	}
+
 	
 }

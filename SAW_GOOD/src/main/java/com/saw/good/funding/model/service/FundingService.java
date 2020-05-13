@@ -9,4 +9,6 @@ public interface FundingService {
 	
 	List<Funding> selectList(int numPerPage);
 
+	Funding selectItem(int fdNo);
+
 }
