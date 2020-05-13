@@ -71,16 +71,16 @@ public class AdminProductDaoImpl implements AdminProductDao {
 	
 	//상품상세이미지 등록
 	@Override
-	public int insertDetailImg(SqlSession session,List<DetailImg> diList) {
+	public int insertDetailImg(SqlSession session,DetailImg di) {
 
-		return session.insert("product.insertDetailImg",diList);
+		return session.insert("product.insertDetailImg",di);
 	}
 
 	//상품상세페이지 이미지 등록
 	@Override
-	public int insertPageDetailImg(SqlSession session,List<PageDetailImg> pdiList) {
+	public int insertPageDetailImg(SqlSession session,PageDetailImg pdi) {
 		// TODO Auto-generated method stub
-		return session.insert("product.insertPageDetailImg",pdiList);
+		return session.insert("product.insertPageDetailImg",pdi);
 	}
 	
 	
