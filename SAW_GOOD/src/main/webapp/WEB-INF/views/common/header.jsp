@@ -47,7 +47,7 @@
           </div>
           <ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
-                    <a href="#" class="target"><span>SHOW ROOM</span></a>
+                    <a href="${path }/furniture/furniture.do" class="target"><span>SHOW ROOM</span></a>
                 </li>
                 <li class="col-md-3">
                     <a href="${path }/product/productList" class="target"><span>NEW ARRIVAL</span></a>
