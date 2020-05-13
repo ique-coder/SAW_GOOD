@@ -38,4 +38,9 @@
   	 UPDATE MEMBER SET BUSINESSNUMBER = #{businessNumber} WHERE USERID=#{userId}
   </update>
   
+  <!-- 로그인 정보 -->
+  <select id="loginMember" resultType="member" parameterType="member">
+		SELECT * FROM MEMBER WHERE USERID=#{userId}
+  </select>
+  
 </mapper>

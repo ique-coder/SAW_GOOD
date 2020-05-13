@@ -8,6 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.saw.good.admin.home.AdminProduct;
+import com.saw.good.product.model.vo.DetailImg;
+import com.saw.good.product.model.vo.PageDetailImg;
+import com.saw.good.product.model.vo.Product;
 
 @Repository
 public class AdminProductDaoImpl implements AdminProductDao {
@@ -58,6 +61,26 @@ public class AdminProductDaoImpl implements AdminProductDao {
 	public int countSearchProduct(SqlSession session, AdminProduct a) {
 		// TODO Auto-generated method stub
 		return session.selectOne("product.countSearchProduct", a);
+	}
+	//상품등록
+	@Override
+	public int insertProduct(SqlSession session,Product p) {
+		// TODO Auto-generated method stub
+		return session.insert("product.insertProduct",p);
+	}
+	
+	//상품상세이미지 등록
+	@Override
+	public int insertDetailImg(SqlSession session,DetailImg di) {
+
+		return session.insert("product.insertDetailImg",di);
+	}
+
+	//상품상세페이지 이미지 등록
+	@Override
+	public int insertPageDetailImg(SqlSession session,PageDetailImg pdi) {
+		// TODO Auto-generated method stub
+		return session.insert("product.insertPageDetailImg",pdi);
 	}
 	
 	

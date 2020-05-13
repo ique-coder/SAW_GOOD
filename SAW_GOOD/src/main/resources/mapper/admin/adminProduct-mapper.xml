@@ -86,5 +86,21 @@
 			AND PRODUCTPRICE BETWEEN 300000 AND 400000
 		</if>
 	</select>
+	
+	<insert id="insertProduct" parameterType="com.saw.good.product.model.vo.Product">
+		INSERT INTO NEWPRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,#{productName},#{productContent},
+		#{productPrice},#{productImg},#{category},#{category},
+		DEFAULT,DEFAULT,#{topImg}
+		,#{renamedProductImg},#{renamedTopImg})
+		<selectKey keyProperty="productNo" resultType="_int" order="AFTER">
+			SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<insert id="insertDetailImg" parameterType="com.saw.good.product.model.vo.DetailImg">
+		INSERT INTO DETAILIMG VALUES(#{productNo},#{diOriNameFile},#{diRenameFile})
+	</insert>
+	<insert id="insertPageDetailImg" parameterType="com.saw.good.product.model.vo.PageDetailImg">
+		INSERT INTO PAGEDETAILIMG VALUES(#{productNo},#{pdiOriNameFile},#{pdiRenameFile})
+	</insert>
 
 </mapper>

@@ -6,19 +6,7 @@
 		<typeAlias type="com.saw.good.funding.model.vo.Funding" alias="funding"/>
 		<typeAlias type="com.saw.good.admin.home.AdminProduct" alias="adproduct"/>
 		<typeAlias type="com.saw.good.product.model.vo.Product" alias="product"/>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<typeAlias type="com.saw.good.auction.model.vo.Auction" alias="auction"/>
+		<typeAlias type="com.saw.good.funding.model.vo.FDMember" alias="fdmember"/>
 	</typeAliases>
 	
 	

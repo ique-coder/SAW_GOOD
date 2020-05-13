@@ -27,7 +27,7 @@
                     </ul>
                     <!-- <!— 검색기능 —> -->
                     <span class="block-span">
-                        <input type="text" />
+                        <input type="text" id="search-text" name="searchText"/>
                         <button class="search-btn" id="search-btn">
                             <img src="${path }/resources/images/search-icon.png" width="20px" height="18px"/>
                         </button>
@@ -35,63 +35,59 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
-                        <c:forEach items="${list }" var="p" varStatus="vs">
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                	<a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p style="width:270px; height:50px;">
-                                    	<a href="#">${p['PRODUCTNAME'] }</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >${p['CATEGORY'] }</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>
-                                    <fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="0,000"/>원        
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <c:if test="${!vs.last and vs.count % 3 == 0 }">
-					<div class="row">
-                        <div class="col-auto">
-                            <div class="auctionProduct">
-                                <div class="productPoto">
-                                	<a href="#">
-                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-                                    </a>
-                                </div>
-                                <div class="proTitle">
-                                    <p style="width:270px; height:50px;">
-                                    	<a href="#">${p['PRODUCTNAME'] }</a>
-                                    </p>
-                                </div>
-                                <div class="boderbottom-Red">
-                                    <p class="pCategory" >${p['CATEGORY'] }</p>
-                                </div>
-                                <div class="finalPriceSmall">
-                                    <span class="nowPriceSmall">현재금액 : </span>96,000원
-                                    <span class="rightSmall">
-                                        <img src="${path }/resources/images/quick.PNG">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        </c:if>
+                    	<c:forEach items="${list }" var="p" varStatus="vs">
+	                        <div class="col-auto">
+	                            <div class="auctionProduct">
+	                                <div class="productPoto">
+	                                	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">
+	                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
+	                                    </a>
+	                                </div>
+	                                <div class="proTitle">
+	                                    <p style="width:270px; height:50px;">
+	                                    	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
+	                                    </p>
+	                                </div>
+	                                <div class="boderbottom-Red">
+	                                    <p class="pCategory" >${p['CATEGORY'] }</p>
+	                                </div>
+	                                <div class="finalPriceSmall">
+	                                    <span class="nowPriceSmall">현재금액 : </span>
+	                                    <fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="0,000"/>원        
+	                                    <span class="rightSmall">
+	                                        <img src="${path }/resources/images/quick.PNG">
+	                                    </span>
+	                                </div>
+	                            </div>
+	                        </div>
                         </c:forEach>
+                    </div>
+                    <div id="pagebar">
+                    	${pageBar }
                     </div>
                 </div>
             </div>           
         </div>
     </section>	
+    <script>
+    $(function(){    	
+    	$("#search-text").keypress(function(e){
+    		if(e.originalEvent.key=='Enter'){
+				if($("#search-text").val().trim()==""){
+					alert("검색어를 입력해주세요");
+					return false;
+				}
+				location.href="${path}/product/searchProduct?keyword="+$('#search-text').val();
+    		}
+    	})
+    	$("#search-btn").click(function(){
+    		if($("#search-text").val().trim()==""){
+				alert("검색어를 입력해주세요");
+				return false;
+			}
+    		location.href="${path}/product/searchProduct?keyword="+$('#search-text').val();
+    	})
+    })
+    </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
