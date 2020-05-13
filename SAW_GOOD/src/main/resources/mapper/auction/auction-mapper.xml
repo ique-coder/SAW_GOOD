@@ -3,6 +3,9 @@
 <mapper namespace="auction">
 	
 	<select id="selectAllList" resultType="auction">
- 		SELECT * FROM AUCTION
+ 		SELECT * FROM AUCTION WHERE ACSTATUS=1
+ 	</select>
+ 	<select id="countAuction" resultType="_int">
+ 		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1
  	</select>
 </mapper>

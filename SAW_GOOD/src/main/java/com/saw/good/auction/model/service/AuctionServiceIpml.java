@@ -3,6 +3,7 @@ package com.saw.good.auction.model.service;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,25 @@ import com.saw.good.auction.model.vo.Auction;
 public class AuctionServiceIpml implements AuctionService {
 	
 	@Autowired
-	SqlSession session;
+	private SqlSession session;
 	
 	@Autowired
-	AuctionDao dao;
-	
+	private AuctionDao dao;
+	@Autowired
+	private Logger logger;
+
+	//경매페이지 불러오기
 	@Override
-	public List<Auction> selectAcList() {
-		
-		return dao.selectAcList(session);
+	public List<Auction> selectAcList(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectAcList(session,cPage,numPerPage);
 	}
+
+	@Override
+	public int countAuction() {
+		// TODO Auto-generated method stub
+		return dao.countAuction(session);
+	}
+	
 
 }
