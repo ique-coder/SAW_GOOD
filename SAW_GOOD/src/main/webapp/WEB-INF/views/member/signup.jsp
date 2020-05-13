@@ -98,7 +98,7 @@
                                 <tr>
                                     <td>
                                         <button class="submit-btn" type="button" id="nextBtn">Next</button>
-                                        <button class="login-btn" type="button">login</button>
+                                        <button class="login-btn" type="button" onclick="location.href='${path}/'">home</button>
                                     </td>
                                 </tr> 
                             </table>

@@ -89,7 +89,8 @@
 	                </div>
 	                <button type="submit" id="buttonLogin">로그인</button>
 	            </form>
-	            <button type="button" id="buttonJoin">회원가입</button>
+	            <button type="button" id="buttonJoin" onclick="location.href='${path}/signup'">회원가입</button>
+	            
 	        </div>
 	    </div>
     </header>

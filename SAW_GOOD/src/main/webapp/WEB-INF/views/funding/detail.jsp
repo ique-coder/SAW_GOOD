@@ -51,20 +51,22 @@
                                 </tr>
                                <tr>
                                    <td>참여인원</td>
-                                    <td><p>00</p><i>명 참여</i></td>
+                                    <td><p><c:out value="${map.COUNT }"/></p><i>명 참여</i></td>
                                 </tr>
                                 <tr>
-                                    <td>PRICE</td> 
-                                    <td><p>500,000</p><i>원</i></td> 
+                                    <td>후원된 금액</td> 
+                                    <td><p><fmt:formatNumber value="${map.SUM }" type="number"/></p><i>원</i></td> 
                                 </tr>
                                 <tr>
                                     <td>참여율</td>
-                                    <td><p>50</p><i>% 달성</i></td>
+                                    <td><p>
+                                    		<fmt:formatNumber value="${map.SUM/f.targetPrice *100}" />
+                                    	</p><i>% 달성</i></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <svg width="100%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
-                                            <rect x="0" y="0" width="50%" height="3px" class="bar"/>
+                                            <rect x="0" y="0" width="${map.SUM/f.targetPrice *100}%" height="3px" class="bar"/>
                                         </svg>
                                     </td>
                                 </tr>

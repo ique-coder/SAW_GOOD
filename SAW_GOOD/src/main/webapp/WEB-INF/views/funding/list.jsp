@@ -79,31 +79,33 @@
 				<div class="row">
 					<div class="col-md-6" id="main-container">
 						<div id="main" class="main product-container">
-							<a href="${path }/funding/detail?fdNo=${list[0].fdNo}">
-							 <img src="${path }/resources/images/${list[0].mainImg}" class="images" />
+							<a href="${path }/funding/detail?fdNo=${highList[0].fdNo}">
+							 <img src="${path }/resources/images/${highList[0].mainImg}" class="images" />
 								<h1 class="text-deco text-position">
-									<c:out value="${list[0].title}" />
+									<c:out value="${highList[0].title}" />
 								</h1>
 								<p class="sub">
-									<c:out value="${list[0].designer}" />
+									<c:out value="${highList[0].designer}" />
 								</p>
 								<h5 class="text-position">
-									<c:out value="${list[0].subContent }"/>
+									<c:out value="${highList[0].subContent }"/>
 								</h5> 
 								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
-                                     <rect x="0" y="0" width="50%" height="3px" class="bar" />
+                                     <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
                                 </svg>
 								<div style="margin: 0 10%; height: 20px;">
 									<i><img></i> 
 									<span>
 										<b>
-											<fmt:parseNumber value="${list[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+											<fmt:parseNumber value="${highList[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 											${endDate-today}
 
 										</b>일 남음
 									</span> 
-									<span><b>1,203,400</b>원</span>
-									<span><b>200</b>%</span>
+									<span><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
+									<span><b>
+											<fmt:formatNumber value="${highList[0].sum/highList[0].targetPrice *100}" />
+										  </b>%</span>
 								</div>
 							</a>
 						</div>
@@ -111,7 +113,7 @@
 					
 					<!-- 펀딩 서브 제품-->
 					<div class="col-md-3 sub-container">
-						<c:forEach items="${list }" var ="item" begin="1" step="2" varStatus="status">
+						<c:forEach items="${highList }" var ="item" begin="1" step="2" varStatus="status">
 							<div class="sub-item">
 								<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
 								<img src="${path }/resources/images/${item.mainImg}" class="images" />
@@ -137,13 +139,13 @@
 											<th colspan="2"><svg width="100%" height="3px"
 													xmlns="http://w3.org/2000/svg" version="1.1"
 													class="bar-container">
-				                                        <rect x="0" y="0" width="50%"
+				                                        <rect x="0" y="0" width="${item.sum/item.targetPrice *100}%"
 														height="3px" class="bar" />
 				                                    </svg></th>
 										</tbody>
 										<tfoot>
-											<th>1,203,400원</th>
-											<td>200%</td>
+											<th><fmt:formatNumber value="${item.sum }"/></th>
+											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
 										</tfoot>
 									</table>
 								</a>
@@ -153,10 +155,10 @@
 					
 					<!-- 메인 옆 서브 -->
 					<div class="col-md-3 sub-container">
-						<c:forEach items="${list }" var ="item" begin="2" step="2">
+						<c:forEach items="${highList }" var ="item" varStatus="vs" begin="2" step="2">
 							<div class="sub-item">
-								<a href="${path }/funding/detail?fdNo=${item.fdNo}">
-								 <img src="${path }/resources/images/${item.mainImg}" class="images" />
+								<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
+								<img src="${path }/resources/images/${item.mainImg}" class="images" />
 									<table>
 										<thead>
 											<th colspan="2">
@@ -179,13 +181,13 @@
 											<th colspan="2"><svg width="100%" height="3px"
 													xmlns="http://w3.org/2000/svg" version="1.1"
 													class="bar-container">
-				                                        <rect x="0" y="0" width="50%"
+				                                        <rect x="0" y="0" width="${item.sum/item.targetPrice *100}%"
 														height="3px" class="bar" />
 				                                    </svg></th>
 										</tbody>
 										<tfoot>
-											<th>1,203,400원</th>
-											<td>200%</td>
+											<th><fmt:formatNumber value="${item.sum }"/></th>
+											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
 										</tfoot>
 									</table>
 								</a>
