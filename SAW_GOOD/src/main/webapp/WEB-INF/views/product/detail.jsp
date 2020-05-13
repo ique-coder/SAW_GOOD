@@ -18,12 +18,10 @@
             <div class="detailArea">
                 <div class="info">
                     <div class="headingArea">
-                        <h2>상품 제목입니다.</h2>
+                        <h2>${product.productName }</h2>
                     </div>
                     <div class="record_container">
-                        <div class="pro-name">
-                            상품명 입니다.
-                        </div>
+                        
                         <div class="pro-name" style="font-weight: 400;">
                             <div class="starRev">
                                 <span class="starR1 on">별1_왼쪽</span>
@@ -42,13 +40,15 @@
                             <span style="font-size:12px;color:#cc0000;font-weight:bold;">판매가</span>
                         </div>
                         <div class="record" style="width: 455px;">
-                            <strong style="font-size:12px;color:#cc0000;font-weight:bold;">3,700,500원</strong>
+                            <strong style="font-size:12px;color:#cc0000;font-weight:bold;">
+                            	<fmt:formatNumber value="${product.productPrice}" pattern="0,000"/>원
+                            </strong>
                         </div>
                         <div class="record">
                             <span style="font-size:12px;color:#555555;">브랜드</span>
                         </div>
                         <div class="record" style="width: 455px;">
-                            <strong style="font-size:12px;color:#555555;">브랜드명</strong>
+                            <strong style="font-size:12px;color:#555555;">${product.brand }</strong>
                         </div>
                         <div class="record">
                             <span style="font-size:12px;color:#555555;">배송비</span>
@@ -71,8 +71,10 @@
                         <div id="productPrice" class="productPrice">
                             <strong style="font-weight: bold; font-size: 12px; color: #353535;">총 상품 금액</strong>
                             <span style="font-size: 12px;">(수량) : </span>
-                            <strong style="font-weight: bold; font-size: 21px;">3,700,500원</strong>
-                            <span style="font-size: 12px;">(1개)</span>
+                            <strong style="font-weight: bold; font-size: 21px;">
+                            	<fmt:formatNumber value="${product.productPrice}" pattern="0,000"/>원
+                            </strong>
+                            (<span style="font-size: 12px;">1</span>개)
                         </div>
                         <div class="productAction">
                             <div class="product-button">
@@ -422,6 +424,12 @@
                 if($(".amount-area>input").attr("value")>1){
                     $(".fa-minus").removeAttr("style");
                 }
+                var price=$("#productPrice strong").eq(1).html();
+                var temp=parseInt(price.replace(/\,/g,''));
+                var total=temp+${product.productPrice};
+                
+                $("#productPrice strong").eq(1).html(total.toLocaleString()+"원");
+                $("#productPrice span:last").html(parseInt(cnt)+1);
             })
             $(".fa-minus").parent().click(function(e){
                 var cnt=$(".amount-area>input").attr("value");
@@ -435,6 +443,12 @@
                         $(".fa-minus").css("opacity", "0.4");
                     }
                     $(".amount-area>input").attr("value",cnt);
+                    var price=$("#productPrice strong").eq(1).html();
+                    var temp=parseInt(price.replace(/\,/g,''));
+                    var total=temp-${product.productPrice};
+                    
+                    $("#productPrice strong").eq(1).html(total.toLocaleString()+"원");
+                    $("#productPrice span:last").html(cnt);
                 }
             });
         });
