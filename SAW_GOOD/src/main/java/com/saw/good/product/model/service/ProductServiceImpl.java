@@ -33,5 +33,15 @@ public class ProductServiceImpl implements ProductService {
 	public Product selectProductView(int no) {
 		return dao.selectProductView(session, no);
 	}
+
+	@Override
+	public List<Map<String, String>> searchProduct(int cPage, int numPerPage, Map<String, String> map) {
+		return dao.searchProduct(session, cPage, numPerPage, map);
+	}
+
+	@Override
+	public int countSearchProduct(Map<String, String> map) {
+		return dao.countSearchProduct(session,map);
+	}
 	
 }

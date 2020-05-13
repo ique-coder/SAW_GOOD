@@ -27,7 +27,7 @@
                     </ul>
                     <!-- <!— 검색기능 —> -->
                     <span class="block-span">
-                        <input type="text" />
+                        <input type="text" id="search-text" name="searchText"/>
                         <button class="search-btn" id="search-btn">
                             <img src="${path }/resources/images/search-icon.png" width="20px" height="18px"/>
                         </button>
@@ -69,5 +69,25 @@
             </div>           
         </div>
     </section>	
+    <script>
+    $(function(){    	
+    	$("#search-text").keypress(function(e){
+    		if(e.originalEvent.key=='Enter'){
+				if($("#search-text").val().trim()==""){
+					alert("검색어를 입력해주세요");
+					return false;
+				}
+				location.href="${path}/product/searchProduct?keyword="+$('#search-text').val();
+    		}
+    	})
+    	$("#search-btn").click(function(){
+    		if($("#search-text").val().trim()==""){
+				alert("검색어를 입력해주세요");
+				return false;
+			}
+    		location.href="${path}/product/searchProduct?keyword="+$('#search-text').val();
+    	})
+    })
+    </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
