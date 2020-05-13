@@ -62,7 +62,7 @@
           <c:if test="${empty loginMember }">
 	          <ol class="col-md-3 row">
 	             <li class="col-md-4"><a href="${path }/signup">sign up</a></li>
-	             <li class="col-md-4"><a href="javascript:void(0)">login</a></li>
+	             <li class="col-md-4"><a href="javascript:void(0)" id="login">login</a></li>
 	          </ol>
           </c:if>
           <c:if test="${not empty loginMember }">
@@ -130,7 +130,7 @@
                    }
                 lastScrollTop = st;
            }
-           $("#header ol li:last a").click(function(){
+           $("#header ol li:last a#login").click(function(){
                var v=document.getElementById("modal_container");
                // v.style.transitionDelay="background-color 0.8s";
                $(".modal_container").css({
@@ -141,7 +141,7 @@
                $("section").removeAttr("style");
                $("#userId").focus();
                $(".modal_container").show(800);
-           })
+           });
            $("#autoLogin").click(function(){
                if($("input[id='autoLogin']").is(":checked")){
                    $("input:checkbox[id='saveId']").prop("checked",false);
@@ -165,6 +165,128 @@
 	           $(".modal_container").css("backgroundColor", "");
 	           $(".modal_container").delay(800).hide(0);
 	       }
+        $(function(){
+
+        	// 쿠키값을 가져온다.
+        	var cookie_user_id = getLogin();
+
+        	/**
+
+        	* 쿠키값이 존재하면 id에 쿠키에서 가져온 id를 할당한 뒤
+
+        	* 체크박스를 체크상태로 변경
+
+        	*/
+
+        	if(cookie_user_id != "") {
+	        	$("#userId").val(cookie_user_id);
+	        	$("#saveId").attr("checked", true);
+        	}
+
+        	// 아이디 저장 체크시
+        	$("#saveId").on("click", function(){
+	        	var _this = this;
+	        	var isRemember;
+
+	        	if($(this).is(":checked")) {
+        			isRemember = confirm("이 PC에 로그인 정보를 저장하시겠습니까? PC방등의 공공장소에서는 개인정보가 유출될 수 있으니 주의해주십시오.");
+
+        					
+
+        	if(!isRemember)    
+        		$(this).attr("checked", false);
+
+        		}
+        	});
+
+
+
+        	// 로그인 버튼 클릭시
+        	$("#buttonLogin").on("click", function(){
+
+        		if($("#saveId").is(":checked")){ // 저장 체크시
+        			saveLogin($("#userId").val());
+        		}else{ // 체크 해제시는 공백
+        			saveLogin("");
+        		}
+        	});
+        });
+
+
+
+        	/**
+
+        	* saveLogin
+
+        	* 로그인 정보 저장
+
+        	* @param id
+
+        	*/
+
+        	function saveLogin(id) {
+        		if(id != "") {
+        		// userid 쿠키에 id 값을 7일간 저장
+	        	setSave("userId", id, 7);
+	        	}else{
+	        	// userid 쿠키 삭제
+	        	setSave("userId", id, -1);
+        		}
+        	}
+
+
+
+        	/**
+
+        	* setSave
+
+        	* Cookie에 user_id를 저장
+
+        	* @param name
+
+        	* @param value
+
+        	* @param expiredays
+
+        	*/
+
+        	function setSave(name, value, expiredays) {
+
+        		var today = new Date();
+        		today.setDate( today.getDate() + expiredays );
+        		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + today.toGMTString() + ";"
+        	}
+
+
+
+        	/**
+
+        	* getLogin
+
+        	* 쿠키값을 가져온다.
+
+        	* @returns {String}
+
+        	*/
+
+        	function getLogin() {
+
+	        	// userid 쿠키에서 id 값을 가져온다.
+	        	var cook = document.cookie + ";";
+	        	var idx = cook.indexOf("userId", 0);
+	        	var val = "";
+
+	        	if(idx != -1) {
+		        	cook = cook.substring(idx, cook.length);
+		        	begin = cook.indexOf("=", 0) + 1;
+		        	end = cook.indexOf(";", begin);
+		        	val = unescape(cook.substring(begin, end));
+	        	}
+        	return val;
+        	}
+        	function fn_login_validate(){
+        		
+        	}
         
        
     </script>

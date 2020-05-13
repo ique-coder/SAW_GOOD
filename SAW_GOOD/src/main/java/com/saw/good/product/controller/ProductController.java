@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.PageFactory;
 import com.saw.good.product.model.service.ProductService;
+import com.saw.good.product.model.vo.Product;
 
 @Controller
 public class ProductController {
@@ -33,6 +34,15 @@ public class ProductController {
 		m.addObject("cPage", cPage);
 		m.setViewName("product/productList");
 		return m;
+	}
+	@RequestMapping("/product/productView")
+	public ModelAndView productView(int no,ModelAndView mv) {
+		
+		Product p=service.selectProductView(no);
+		
+		mv.addObject("product", p);
+		mv.setViewName("product/detail");
+		return mv;
 	}
 	
 }

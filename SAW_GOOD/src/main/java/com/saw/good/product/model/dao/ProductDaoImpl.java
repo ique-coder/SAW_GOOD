@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.product.model.vo.Product;
+
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
@@ -19,6 +21,11 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int countProduct(SqlSessionTemplate session) {
 		return session.selectOne("newProduct.countProduct");
+	}
+
+	@Override
+	public Product selectProductView(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.selectProductView",no);
 	}
 	
 }

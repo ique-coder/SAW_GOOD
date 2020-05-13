@@ -16,7 +16,7 @@
         width: 100%;
     }
     .headingArea{
-        padding: 0 0 10px 15px;
+        padding: 10px 0 10px 15px;
         margin: 0 0 15px;
         line-height: 1.6;
         border-top: 2px solid #000;
@@ -58,6 +58,7 @@
         vertical-align: middle;
         background: #fff;
         width: 100%;
+        font-size: 12px;
     }
     .productAction{
         padding: 10px 0 10px;
