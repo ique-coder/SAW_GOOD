@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.auction.model.dao.AuctionDao;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionSearch;
 @Service
 public class AuctionServiceIpml implements AuctionService {
 	
@@ -32,6 +33,20 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.countAuction(session);
 	}
+	//카테고리 리스트
+	@Override
+	public List<Auction> selectCtList(int cPage, int numPerPage, AuctionSearch category) {
+		// TODO Auto-generated method stub
+		return dao.selectCtList(session,cPage,numPerPage,category);
+	}
+
+	@Override
+	public int countCtAuction(AuctionSearch category) {
+		// TODO Auto-generated method stub
+		return dao.countCtAuction(session,category);
+	}
+	
+	
 	
 
 }
