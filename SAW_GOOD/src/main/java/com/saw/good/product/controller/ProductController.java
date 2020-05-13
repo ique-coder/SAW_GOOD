@@ -20,7 +20,7 @@ public class ProductController {
 	
 	@RequestMapping("/product/productList")
 	public ModelAndView memberManager(@RequestParam(value="cPage",defaultValue="1") int cPage,
-							@RequestParam(value="numPerPage",defaultValue="10") int numPerPage,
+							@RequestParam(value="numPerPage",defaultValue="9") int numPerPage,
 							ModelAndView m) {
 		
 		List<Map<String,String>> list =service.selectProduct(cPage,numPerPage);

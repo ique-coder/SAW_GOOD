@@ -22,4 +22,6 @@ public interface MemberService {
 	Member selectBusinessNumber(String bsNo);
 	
 	int updateBsNo(Member m);
+	
+	Member selectMember(Member m);
 }

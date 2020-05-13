@@ -63,6 +63,11 @@ public class MemberServiceImpl implements MemberService {
 
 		return dao.updateBsNo(session,m);
 	}
+
+	@Override
+	public Member selectMember(Member m) {
+		return dao.selectMember(session, m);
+	}
 	
 	
 

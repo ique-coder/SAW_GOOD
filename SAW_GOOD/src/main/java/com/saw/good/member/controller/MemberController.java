@@ -2,14 +2,21 @@ package com.saw.good.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.encrypt.AESEncrypt;
@@ -20,6 +27,7 @@ import com.saw.good.member.model.service.MemberService;
 import com.saw.good.member.model.vo.Member;
 
 @Controller
+@SessionAttributes(value= {"loginMember"})
 public class MemberController {
 	
 //	@Autowired
@@ -248,6 +256,71 @@ public class MemberController {
 			mv.setViewName("common/msg");
 //			
 			return mv;
+		}
+		//로그인 하기
+		@RequestMapping("/member/memberLogin")
+		public ModelAndView memberLogin(Member m, ModelAndView mv, 
+				HttpServletRequest request, HttpServletResponse response) {
+			
+			Member loginMember=service.selectMember(m);
+			
+			System.out.println(m);
+			String msg="";
+			String loc="";
+			//로그인로직 처리하기
+			if(loginMember!=null) {
+				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
+					//로그인성공
+					msg="로그인 성공!";
+					//로그인 값을 유지 -> session객체에 데이터 보관
+					//HttpSession session=request.getSession();//서블릿방식!
+//					session.setAttribute("loginMember", loginMember);
+					//model에 담겨있는 데이터를 session범위로 옮겨보자
+					//@SessionAttributes(value={"key값"}) -> class선언부 위에
+					mv.addObject("loginMember", loginMember);
+					
+					//cookie로 아이디 저장 유지하기
+					String saveId=request.getParameter("saveId");
+					System.out.println("saveId : "+saveId);
+					if(saveId!=null) {
+						//아이디를 쿠키에 저장하게함.
+						Cookie c=new Cookie("saveId",m.getUserId());
+						//쿠키의 유효기간설정 7일
+						c.setMaxAge(7*24*60*60);
+						response.addCookie(c);
+					}else {
+						//저장된 cookie값 지우고 check된것 해제
+						Cookie c=new Cookie("saveId",m.getUserId());
+						c.setMaxAge(0);
+						response.addCookie(c);
+					}
+				}else {
+					//패스워드가 일치하지 않음
+					msg="아이디 또는 비밀번호를 잘못 입력하셨습니다";
+				}
+			}else {
+				//아이디가 일치하지않음
+				msg="아이디 또는 비밀번호를 잘못 입력하셨습니다";
+			}
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		//로그아웃 처리
+		@RequestMapping("/member/logout")
+		public String logout(SessionStatus status) {
+			if(!status.isComplete()) {//세션이 완료(만료)됬니?
+				status.setComplete();//session을 종료시킴~
+			}
+			return "redirect:/";
+		}
+		//쿠키가져오기
+		@RequestMapping("/spring")
+		public String getCookie(@CookieValue(value="saveId", required=false)String saveId) {
+			
+			System.out.println("메인? ");
+			return "index";
 		}
 
 
