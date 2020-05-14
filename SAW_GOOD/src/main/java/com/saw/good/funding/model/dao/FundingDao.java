@@ -25,4 +25,8 @@ public interface FundingDao {
 
 	int insertFDMember(SqlSession session, FDMember m);
 
+	List<FDMember> selectFDMemberList(SqlSession session, int fdNo, int cPage, int numPerPage);
+
+	int selectFDMemberCount(SqlSession session, int fdNo);
+
 }
