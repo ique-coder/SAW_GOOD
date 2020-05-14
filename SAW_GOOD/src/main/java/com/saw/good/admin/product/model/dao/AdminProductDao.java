@@ -28,17 +28,15 @@ public interface AdminProductDao {
 	
 	//상품등록
 	int insertProduct(SqlSession session,Product p);
-
-	//상품상세이미지등록
+	//상품상세이미지등록및 수정
 	int insertDetailImg(SqlSession session,DetailImg di);
-	
-	//상품상제페이지 이미지 등록
-	
+	//상품상제페이지 이미지 등록및수정
 	int insertPageDetailImg(SqlSession session,PageDetailImg pdi);
+	
 	//상품 내용 수정
 	int updateProduct(SqlSession session,Product p);
 	//상품 상세이미지 수정
-	int updateDetailImg(SqlSession session,DetailImg di);
+	int deleteDetailImg(SqlSession session,int productNo);
 	//상품상세페이지 이미지 수정
-	int updatePageDetailImg(SqlSession session,PageDetailImg pdi);
+	int deletePageDetailImg(SqlSession session,int productNo);
 }

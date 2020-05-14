@@ -81,14 +81,13 @@ public class AdminProductDaoImpl implements AdminProductDao {
 		return session.insert("product.insertProduct",p);
 	}
 	
-	//상품상세이미지 등록
+	//상품상세이미지 등록 및 수정
 	@Override
 	public int insertDetailImg(SqlSession session,DetailImg di) {
-
 		return session.insert("product.insertDetailImg",di);
 	}
 
-	//상품상세페이지 이미지 등록
+	//상품상세페이지 이미지 등록 및 수정
 	@Override
 	public int insertPageDetailImg(SqlSession session,PageDetailImg pdi) {
 		// TODO Auto-generated method stub
@@ -102,20 +101,21 @@ public class AdminProductDaoImpl implements AdminProductDao {
 		return session.update("product.updateProduct",p);
 	}
 
+
 	//상품상제이미지 수정
 	@Override
-	public int updateDetailImg(SqlSession session, DetailImg di) {
+	public int deleteDetailImg(SqlSession session, int productNo) {
 		// TODO Auto-generated method stub
-		return session.update("product.updateDetailImg",di);
+		return session.delete("product.deleteDetailImg", productNo);
 	}
 
 	//상품상세페이지 이미지 수정
 	@Override
-	public int updatePageDetailImg(SqlSession session,PageDetailImg pdi) {
+	public int deletePageDetailImg(SqlSession session, int productNo) {
 		// TODO Auto-generated method stub
-		return session.update("product.updatePageDetailImg", pdi);
+		return session.delete("product.deletePageDetailImg", productNo);
 	}
-	
+
 	
 	
 	

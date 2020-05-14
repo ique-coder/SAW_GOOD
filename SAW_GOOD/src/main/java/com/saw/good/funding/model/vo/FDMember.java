@@ -11,6 +11,7 @@ public class FDMember {
 	String userId;
 	int partPrice;
 	String reword;
+
 	
 	public FDMember() {
 		super();
@@ -52,6 +53,4 @@ public class FDMember {
 	public String toString() {
 		return "FDMember [fdNo=" + fdNo + ", userId=" + userId + ", partPrice=" + partPrice + ", reword=" + reword+ "]";
 	}
-	
-	
 }

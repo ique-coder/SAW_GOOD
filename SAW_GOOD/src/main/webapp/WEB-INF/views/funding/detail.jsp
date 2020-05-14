@@ -13,7 +13,7 @@
         <i>
         	<c:out value="${f.category }"/>
         </i>
-        <h1><c:out value="${f.subContent }"/></h1>
+        <h1>${f.subContent }</h1> 
     </div>
     <section>
          <div class="container">
@@ -51,54 +51,62 @@
                                 </tr>
                                <tr>
                                    <td>참여인원</td>
-                                    <td><p><c:out value="${map.COUNT }"/></p><i>명 참여</i></td>
+                                    <td><p><c:out value="${f.count }"/></p><i>명 참여</i></td>
                                 </tr>
                                 <tr>
                                     <td>후원된 금액</td> 
-                                    <td><p><fmt:formatNumber value="${map.SUM }" type="number"/></p><i>원</i></td> 
+                                    <td><p><fmt:formatNumber value="${f.sum }" type="number"/></p><i>원</i></td> 
                                 </tr>
                                 <tr>
                                     <td>참여율</td>
                                     <td><p>
-                                    		<fmt:formatNumber value="${map.SUM/f.targetPrice *100}" />
+                                    		<fmt:formatNumber value="${f.sum/f.targetPrice *100}" />
                                     	</p><i>% 달성</i></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <svg width="100%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
-                                            <rect x="0" y="0" width="${map.SUM/f.targetPrice *100}%" height="3px" class="bar"/>
+                                            <rect x="0" y="0" width="${f.sum/f.targetPrice *100}%" height="3px" class="bar"/>
                                         </svg>
                                     </td>
                                 </tr>
                                 
                             </tbody>
-                            <tbody id="sub-info">
-                                <tr>
-                                    <td>0000원 이상</td> 
-                                    <td><p>의자 1개</p><i></i></td> 
-                                </tr>
-                                <tr>
-                                    <td>00000원 이상</td> 
-                                    <td><p>의자+테이블</p><i></i></td> 
-                                </tr>
-                                <tr>
-                                    <!-- <td>구매 수량</td> 
-                                    <td>
-                                        <button type="button">-</button>
-                                        <input type="text" value="1">
-                                        <button type="button">+</button>
-                                    </td> -->
-                                    <td></td>
-                                </tr>
-                            </tbody>
+                            
+	                            <tbody id="sub-info">
+	                                
+	                           
+	                                <tr>
+	                                
+	                                    <td>
+	                                        <input type="radio" name="partPrice" value="none" id="none">
+	                                        리워드를 선택하지 않고 후원하기
+	                                    </td>
+	                                    <td><input type="text" name="reword" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
+
+	                                </tr>
+	                                <c:forEach items="${reword }" var="r">
+	                                 <tr>
+	                                    <td>
+	                                        <input type="radio" name="partPrice" value="${r.minimum }">
+	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
+	                                       
+	                                        <input type="hidden" name="reword" value="${r.reword }"></td> 
+	                                    <td><p>${r.reword }</p><i></i></td> 
+	                                </tr>
+	                                
+	                                </c:forEach>
+	                            </tbody>
+                          
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                        <button id="buy-btn">프로젝트 밀어주기</button>
+                                        <button id="buy-btn" onclick="submin()" >프로젝트 밀어주기</button>
                                     </td>
                                    
                                 </tr>
                             </tfoot>
+                            
                         </table>
 
                     </div>
@@ -112,6 +120,7 @@
                     
                     <div class="detail-select" id="project">
                         <p>
+                        <h1>${f.subContent }</h1>
 							${f.detail }
                             
                         </p>
@@ -164,6 +173,7 @@
 
     </section> 
     <script>
+    
         function select(menu){
 
             var project = $("#project");
@@ -183,8 +193,25 @@
                         break;
             }
         }
-
-    
+        
+        $("input[name='partPrice']").click(function(){
+        	if($(this).val()=='none'){
+        		$("#input-price").attr("disabled",false);
+        	}else{
+        		$("#input-price").attr("disabled",true);
+        	}
+        })
+		function submin(){
+        	var reword=$("input[name='partPrice']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='partPrice']:checked").next().val();
+        	}
+        	location.href="${path}/funding/patronage/step1?reword="+reword+"&partPrice="+partPrice;
+		}
     </script>
 		
 		
