@@ -6,189 +6,11 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<link rel="stylesheet" href="${path }/resources/css/product/qnaWrite.css"/>
 <script type="text/javascript" src="${path }/resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
-<style>
-    /* 초기화 */
-    html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
-        text-decoration: none;
-        color: black;
-        font-family: "Noto Sans";
-    }
-    /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, 
-    footer, header, hgroup, menu, nav, section {
-        display: block;
-    }
-    body {
-        line-height: 1;
-        /* width:1366px;
-        height:auto;
-        margin:0 auto; */
-    }
-    ol, ul {
-        list-style: none;
-        
-    }
-    blockquote, q {
-        quotes: none;
-    }
-    blockquote:before, blockquote:after,
-    q:before, q:after {
-        content: '';
-        content: none;
-    }
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-    /* 초기화  */
-    .qna_title{
-        color: #222;
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 19px;
-        padding: 83px 0 52px 0;
-        text-align: center;
-    }
-    .prd-qnainfo{
-        zoom: 1;
-        overflow: hidden;
-        padding: 10px 0 10px 80px;
-        border: 3px solid #e0e0e0;
-        margin-top: 20px;
-    }
-    .prd-qnainfo dt{
-        left: -70px;
-        margin-right: -70px;
-        width: 60px;
-        height: 60px;
-    }
-    .prd-qnainfo dd, .prd-qnainfo dt{
-        position: relative;
-        float: left;
-    }
-    .prd-qnainfo dd ul {
-        padding: 15px 0 0 10px;
-        min-height: 45px;
-        height: 45px;
-        border-left: 1px solid #e0e0e0;
-    }
-    *, ::after, ::before {
-    box-sizing: content-box;
-    }
-    .prd-qnainfo dd ul li {
-    padding: 1px 0;
-    }
-    .prd-qnainfo dd ul li .tit {
-        display: inline-block;
-        width: 58px;
-    }
-    table.head tbody th, table.head tbody td{
-        padding-top: 6px;
-        padding-bottom: 6px;
-        line-height: 20px;
-        color: #565553;
-        border: 0 none;
-        float: left;
-    }
-    table.head tbody th{
-        width: 110px;
-        display: inline-block;
-    }
-    .title{
-        line-height: 25px;
-    }
-    .input-style{
-        margin-right: 5px;
-        padding: 2px 0 0 2px;
-        line-height: 17px;
-        border: 1px solid #dcdcdc;
-        width: 180px;
-    }
-    .contract table.tbl{
-	    background: #fff;
-	    width: 80%;
-	    border-collapse: collapse;
-    }
-    .contract table.tbl th{
-	    height: auto;
-	    padding: 5px 0 5px 5px;
-	    line-height: 16px;
-	    font-size: 11px;
-	    font-weight: bold;
-	    border: 1px #e0e0e0 solid;
-	    background-color:#f0f0f0;
-    }
-    .contract table.tbl td{
-    	height: auto;
-	    padding: 5px 0 5px 5px;
-	    line-height: 16px;
-	    font-size: 11px;
-	    text-align: center;
-	    border: 1px #e0e0e0 solid;
-    }
-    .txt{
-    	padding:0;
-    }
-    .btn-container{
-    	padding-top:10px;
-    	padding-bottom:80px;
-    }
-    .qna-write-btn, .qna-write-btn:focus{
-    	display: inline-block;
-	    width: 108px;
-	    height: 44px;
-	    line-height: 42px;
-	    text-align: center;
-	    font-family: 'Nanum GothicB';
-	    font-size: 12px;
-	    border: 1px #313131 solid;
-	    background: #313131;
-	    color: #fff;
-	    font-weight:bold;
-	    outline:none;
-    }
-</style>
-</head>
-<body>
+<section>
     <div class="container-fluid">
         <div class="container">
             <h3 class="qna_title">Q & A 게시판</h3>
@@ -273,7 +95,7 @@
                                             	<tr style="text-align:center;">
                                             		<th style="width:30%;">목적</th>
                                                     <th style="width:47.69%; border-left:none;">항목</th>
-                                                    <th style="width:20%; border-left:none;">보유기간</th>
+                                                    <th style="width:22.3%; border-left:none;">보유기간</th>
                                             	</tr>
                                             </thead>
                                             <tbody>
@@ -284,7 +106,7 @@
                                             		<td style="width:47.69%; border-top:none; border-right:none">
                                             			<div class="txt">이름, 비밀번호, 작성내용, IP Address</div>
                                             		</td>
-                                            		<td style="width:20%; border-top:none;">
+                                            		<td style="width:22.3%; border-top:none;">
                                             			<div class="txt">게시글 삭제 시</div>
                                             		</td>
                                             	</tr>
@@ -295,7 +117,7 @@
                                             		<td style="width:47.69%; border-top:none; border-right:none">
                                             			<div class="txt">연락처</div>
                                             		</td>
-                                            		<td style="width:20%; border-top:none;">
+                                            		<td style="width:22.3%; border-top:none;">
                                             			<div class="txt">게시글 삭제 시</div>
                                             		</td>
                                             	</tr>
@@ -322,8 +144,7 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</section>
 <script>
 	var oEditors = []; 
 	nhn.husky.EZCreator.createInIFrame({ 
@@ -351,27 +172,36 @@
 			var pass = $("#pass").val().trim();
 			if (selcatd == "") {
 				alert("제목을 선택해주세요."); 
+				$("#subhead").focus();
 				return false; 
 			}
 			if(writer==null||writer==""){
 				alert("작성자명을 입력해주세요.")
+				$("#writer").focus();
 				return false;
 			}
+			var passRule = /^[A-Za-z0-9]{4,12}$/g;//숫자와 문자 포함 형태의 4~12자리 이내의 암호 정규식
 			if(pass==null||pass==""){
 				alert("비밀번호를 입력해주세요.")
+				$("#pass").focus();
 				return false;
+			}else if(!passRule.test(pass)) {
+			    alert("비밀번호는 문자나 숫자를 포함한 4글자이상 12자리이하 입력해주세요.");
+			    $("#pass").focus();
+			    return false;
 			}
-			
-			if($("input[name='agree']:checked").val()=="N"){
-				alert("개인정보 수집·이용에 동의하신 후에 글을 작성 하실 수 있습니다.");
-				return false;
-			}
+
 			if(content == "" || content == null || content == '&nbsp;' ||
 				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
 				alert("본문을 작성해주세요."); 
 				oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱 
 				return false; 
 			} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다. 
+			
+			if($("input[name='agree']:checked").val()=="N"){
+				alert("개인정보 수집·이용에 동의하신 후에 글을 작성 하실 수 있습니다.");
+				return false;
+			}
 			var result = confirm("작성 하시겠습니까?"); 
 			if(result){ 
 				alert("작성 완료"); 
@@ -382,3 +212,4 @@
 			}); 
 		})
 </script>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

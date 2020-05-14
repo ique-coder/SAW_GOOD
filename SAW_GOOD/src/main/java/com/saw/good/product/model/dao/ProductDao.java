@@ -15,4 +15,6 @@ public interface ProductDao {
 	Product selectProductView(SqlSessionTemplate session, int no);
 	List<Map<String,String>> searchProduct(SqlSessionTemplate session,int cPage,int numPerPage,Map<String,String> map);
 	int countSearchProduct(SqlSessionTemplate session,Map<String,String> map);
+	List<Map<String,Object>> searchCategory(SqlSessionTemplate session, int cPage,int numPerPage,Map<String,Object> map);
+	int countSearchCategory(SqlSessionTemplate session, Map<String,Object> map);
 }
