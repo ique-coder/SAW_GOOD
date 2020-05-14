@@ -197,3 +197,119 @@ section span.underline::after{
 #review{
     display: none;
 }
+
+/* 댓글 */
+#insertText {
+    height: 70px;
+    overflow: auto;
+    padding: 5px;
+    resize: none;
+}
+#insertTextBtn {
+    height: 70px;
+    border: 0;
+    background-color: #51735D;
+    color: white;
+}
+
+.comment {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: solid 1px #ee987c;
+}
+.comment:last-child {
+    border-bottom:0;
+}
+.comment p {
+    display: block;
+    margin: 10px 0;
+}
+.commentUserId {
+    color: #51735D;
+    margin-right: 20px;
+}
+.commentUpdate {
+    float: right;
+    border-bottom: solid 1px #ee987c;
+    margin-left: 15px;
+}
+.commentDelete {
+    float: right;
+    border-bottom: solid 1px #ee987c;
+    margin-left: 15px;
+}
+.reComment {
+    float: right;
+    border-bottom: solid 1px #ee987c;
+}
+.commentUpdate:hover {
+    color: #ee987c;
+    cursor: pointer;
+}
+.commentDelete:hover {
+    color: #ee987c;
+    cursor: pointer;
+}
+.reComment:hover {
+    color: #ee987c;
+    cursor: pointer;
+}
+
+.reInsertText {
+    height: 70px;
+    overflow: auto;
+    padding: 5px;
+    resize: none;
+}
+.reInsertTextBtn {
+    height: 70px;
+    border: solid 1px #A69B8D;
+    background-color: #F2E8DC;
+}
+.reCommentInsertDiv{
+    margin:0;
+}
+.reCommentList {
+    margin:0;
+}
+.rereComment p {
+    display: block;
+}
+.reCommentList {
+    padding: 15px 0 0 0;
+}
+.comment .rereComment {
+    padding: 0 0 10px 20px;
+    border-bottom: solid 1px lightgray;
+}
+.comment .rereComment:last-child {
+    padding: 0 0 10px 20px;
+    border-bottom: 0;
+}
+.comment .rereComment:first-child {
+    padding: 10px 0 10px 20px;
+    border-bottom: 0;
+    border-top: solid 1px lightgray;
+}
+.reCommentUserId {
+    color: #51735D;
+    margin-right: 20px;
+}
+.reCommentDelete {
+    /* right: 0; */
+    float: right;
+    border-bottom: solid 1px #ee987c;
+    margin-left: 15px;
+}
+.reCommentUpdate {
+    float: right;
+    border-bottom: solid 1px #ee987c;
+}
+.reCommentDelete:hover {
+    color: #ee987c;
+    cursor: pointer;
+}
+.reCommentUpdate:hover {
+    color: #ee987c;
+    cursor: pointer;
+}

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="${path }/resources/css/funding/detail.css"/>
+<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=6"/>
 	
 	<div class="container-fluid col-md-12" id="detail-header">
     	<div class="bg-image" style="background-image: url(${path}/resources/images/signup2.jpg);"></div>
@@ -145,7 +145,13 @@
                             </ul>
                     </div>
                     <div class="detail-select" id="review">
-                        <ul class="lst_sponser">
+                        <div id="insertReview" class="col-md-12 row">
+                            <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
+                            <button id="insertTextBtn" class="col-md-2">등록</button>
+                            <div id="commentList" class="col-md-12">
+                            </div>
+                        </div>
+                        <!-- <ul class="lst_sponser">
                             <li>
                                 <span class="img_thm">
                                     <img src="" width="50" height="50" alt="wwiiw_img">
@@ -160,7 +166,7 @@
                                     <span class="price"><strong class="num">****</strong>별점</span>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </section>
@@ -173,7 +179,6 @@
 
     </section> 
     <script>
-    
         function select(menu){
 
             var project = $("#project");
@@ -193,6 +198,107 @@
                         break;
             }
         }
+
+
+        // 리뷰
+        // 로그인한 사람 아이디
+        let loginId = "{loginMember.userId}";
+        // 로그인 되어 있으면 클릭 가능, 아니면 안됨
+        $(function() {
+            if('${loginMember == null}'=='true') {
+                $("#insertReview").click(function() {
+                    console.log("되니?");
+                    alert("로그인을 해주세요!");
+                })
+            } else {
+                $("#insertTextBtn").click(function() {
+                    if($("#insertText").val() != null && $("#insertText").val() != '') {
+                        let time = new Date();
+                        time = formatDate(time);
+                        // 아이디, 작성 시간, 수정, 삭제 => p1
+                        let p1 = $("<p>").append($("<span>").addClass("commentUserId")
+                            .html('${loginMember.userId}'))
+                            .append($("<span>").addClass("commentTime").html(time))
+                            .append($("<span>").addClass("commentDelete").html('삭제'))
+                            .append($("<span>").addClass("commentUpdate").html('수정'))
+                            .append($("<span>").addClass("reComment").html("댓글"));
+                        // 내용 => p2
+                        let p2 = $("<p>").html($("#insertText").val());
+                        // 합친다.
+                        let div = $("<div>").addClass("comment").append(p1).append(p2);
+                    
+                        $("#commentList").append(div);
+                        $("#insertText").val('');
+                    } else {
+                        alert("댓글을 입력해주세요.");
+                    }
+                    // reCommentCheck(loginId);
+                    reCommentOk();
+                })
+            }
+        })
+
+        function formatDate(date) {
+            var year = date.getFullYear();              //yyyy
+            var month = (1 + date.getMonth());          //M
+            month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+            var day = date.getDate();                   //d
+            day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+            // let hour = date.getHours();
+            // let minutes = date.getMinutes();
+            // let seconds = date.getSeconds();
+            // return  year + '.' + month + '.' + day + "-" + hour + ":" + minutes + ":" + seconds;
+            return  year + '.' + month + '.' + day;
+        }
+
+        let reCommentCheckNum = 0;
+
+        // 대댓글 id 체크
+        // function reCommentCheck(id) {
+        //     if(id != "${f.userId}") {
+        //         $(".reComment").css("display","none");
+        //     }
+        // }
+        // reCommentCheck(loginId);
+        // 대댓글 달아주기
+        function reCommentOk() {
+            $(".reComment").off("click").on(
+					"click",
+					function() {
+                        
+                        // textarea 생성
+                        let reTextarea = $("<textarea>").attr({"class":"reInsertText col-md-10","cols":"30","rows":"10"});
+                            let reBtn = $("<button>").attr({"class":"reInsertTextBtn col-md-2"}).html("등록");
+                            let reDiv = $("<div>").attr({"class":"reCommentInsertDiv col-md-12 row"});
+                            reDiv.append(reTextarea).append(reBtn);
+                            $(this).parent().parent().append(reDiv);
+                            // let reDivList = $("<div>").attr({"class":"reCommentList col-md-12"});
+                            // $(this).parent().parent().append(reDivList);
+                        reCommentCheckNum++;
+                        $(".reInsertTextBtn").off("click").on(
+                            "click",
+                            function() {
+                                let time = new Date();
+                                time = formatDate(time);
+                                // 아이디, 작성 시간, 수정, 삭제 => p1
+                                let p1 = $("<p>").append($("<span>").addClass("reCommentUserId")
+                                    .html("담당자"))
+                                    .append($("<span>").addClass("reCommentTime").html(time))
+                                    .append($("<span>").addClass("reCommentDelete").html('삭제'))
+                                    .append($("<span>").addClass("reCommentUpdate").html('수정'));
+                                // 내용 => p2
+                                let p2 = $("<p>").html($(this).prev().val());
+                                // 합친다.
+                                let div = $("<div>").addClass("rereComment").append(p1).append(p2);
+
+                                $(this).parent().parent().append(div);
+
+                                $(this).prev().val('');
+                                $(this).parent().hide();
+                            })
+                    })
+        }
+        reCommentOk();
         
         $("input[name='partPrice']").click(function(){
         	if($(this).val()=='none'){
@@ -213,7 +319,8 @@
         	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
 		}
     </script>
-		
+
+    <script src="${path }/resources/js/funding/detail.js?ver=1"></script>
 		
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
