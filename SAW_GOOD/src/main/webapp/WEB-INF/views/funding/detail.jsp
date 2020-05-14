@@ -316,7 +316,7 @@
         	}else{
         		partPrice = $("input[name='partPrice']:checked").next().val();
         	}
-        	location.href="${path}/funding/patronage/step1?reword="+reword+"&partPrice="+partPrice;
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
 		}
     </script>
 
