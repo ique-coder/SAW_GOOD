@@ -1,6 +1,7 @@
 package com.saw.good.auction.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -15,4 +16,6 @@ public interface AuctionDao {
 	List<Auction> selectCtList(SqlSession session,int cPage, int numPerPage,AuctionSearch category);
 	int countCtAuction(SqlSession session, AuctionSearch category);
 	
+	List<Auction> searchAuction(SqlSession session,int cPage, int numPerPage, Map<String,String> map);
+	int countAcSearch(SqlSession session, Map<String,String> map);
 }

@@ -23,4 +23,25 @@
  		</foreach>
  		) 
  	</select>
+ 	
+ 	<select id="searchAuction" parameterType="map" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE 1=1
+ 		<if test='keyword != "ACALLSEARCH"'>
+ 			AND	${keyword} LIKE '%'||#{value}||'%'
+ 		</if>
+ 		<if test='keyword == "ACALLSEARCH"'>
+ 			AND	ACTITLE LIKE '%'||#{value}||'%' 
+ 			OR ACBRAND LIKE '%'||#{value}||'%' 
+ 		</if>
+ 	</select>
+ 	<select id="countAcSearch" parameterType="map" resultType="_int">
+ 		SELECT count(*) FROM AUCTION WHERE 1=1
+ 		<if test='keyword != "ACALLSEARCH"'>
+ 			AND	${keyword} LIKE '%'||#{value}||'%'
+ 		</if>
+ 		<if test='keyword == "ACALLSEARCH"'>
+ 			AND	ACTITLE LIKE '%'||#{value}||'%' 
+ 			OR ACBRAND LIKE '%'||#{value}||'%' 
+ 		</if>
+ 	</select>
 </mapper>
