@@ -57,6 +57,7 @@ public class FundingController {
 		mv.addObject("list",list);
 		mv.addObject("reword",reword);
 		mv.setViewName("funding/detail");
+		
 		return mv;
 	}
 	
