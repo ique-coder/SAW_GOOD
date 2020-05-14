@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.saw.good.funding.model.vo.FDMember;
+import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
 
 public interface FundingDao {
@@ -19,5 +20,7 @@ public interface FundingDao {
 	Map<String, Integer> selectPriceCount(SqlSession session, int fdNo);
 
 	List<Funding> selectHighList(SqlSession session, int high);
+
+	List<FDReword> selectRewordList(SqlSession session, int fdNo);
 
 }

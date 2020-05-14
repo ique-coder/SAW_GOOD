@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.saw.good.funding.model.vo.FDMember;
+import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
 
 @Repository
@@ -43,6 +44,12 @@ public class FundingDaoImpl implements FundingDao{
 	public Map<String, Integer> selectPriceCount(SqlSession session, int fdNo) {
 		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectPriceCount",fdNo);
+	}
+
+	@Override
+	public List<FDReword> selectRewordList(SqlSession session, int fdNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.selectRewordList", fdNo);
 	}
 	
 	

@@ -23,14 +23,21 @@
 	
 	<context:component-scan base-package="com.saw.good" />
 	
-	<!-- 인터셉터 -->
-	<!-- <interceptors>
+	
+	<interceptors>
+		<!-- <interceptor>
+			<mapping path="/member/*"/>
+			<beans:bean id="loggerInter" 
+			class="com.kh.spring.common.interceptor.LoggerInterceptor"/>
+		</interceptor> -->
+		<!-- 로그인 후 이용 가능한 인터셉터 -->
 		<interceptor>
-			<mapping path="/**"/>
-			<beans:bean id="loggerInter" class="com.saw.good.common.interceptor.LoggerInterceptor"/>
+			<mapping path="/funding/patronage/*"/>
+			<beans:bean id="loginCheck" 
+			class="com.saw.good.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
+	
 	</interceptors>
-	 -->
 	 
 	<!-- 파일업로드 resolver bean설정하기 -->
 	<beans:bean id="multipartResolver" 
