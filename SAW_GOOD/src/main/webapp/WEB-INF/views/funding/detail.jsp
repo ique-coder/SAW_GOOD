@@ -27,11 +27,15 @@
                     <div id="p-table" class="col-md-5" style="height: 700px;">
                         <caption>
                             <h5>
-                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
-								<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
+                            	<c:if test="${f.status== 1 }">
+	                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
+									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+									<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 											${endDate-today} 일 남음
-								
+								</c:if>
+								<c:if test="${f.status == 0 || f.status ==2 }">
+									마감된 펀딩
+								</c:if>
                             </h5>
                         </caption>
                         <table>
@@ -72,7 +76,7 @@
                                 </tr>
                                 
                             </tbody>
-                            
+                            <c:if test="${f.status == 1 }" >
 	                            <tbody id="sub-info">
 	                                
 	                           
@@ -97,7 +101,7 @@
 	                                
 	                                </c:forEach>
 	                            </tbody>
-                          
+                          	
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
@@ -106,7 +110,7 @@
                                    
                                 </tr>
                             </tfoot>
-                            
+                        </c:if>    
                         </table>
 
                     </div>
@@ -146,10 +150,15 @@
                     </div>
                     <div class="detail-select" id="review">
                         <div id="insertReview" class="col-md-12 row">
+                        <c:if test="${f.status == 2}">
                             <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
                             <button id="insertTextBtn" class="col-md-2">등록</button>
                             <div id="commentList" class="col-md-12">
                             </div>
+                        </c:if>
+                        <c:if test="${f.status == 1 || f.status == 0}">
+                        	<p>후기는 펀딩이 성공적으로 완료되면 남기실 수 있습니다.</p>   
+                        </c:if> 
                         </div>
                         <!-- <ul class="lst_sponser">
                             <li>
