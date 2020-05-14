@@ -43,5 +43,16 @@ public class ProductServiceImpl implements ProductService {
 	public int countSearchProduct(Map<String, String> map) {
 		return dao.countSearchProduct(session,map);
 	}
+
+	@Override
+	public List<Map<String,Object>> searchCategory(int cPage, int numPerPage, Map<String,Object> map) {
+		return dao.searchCategory(session, cPage, numPerPage, map);
+	}
+
+	@Override
+	public int countSearchCategory(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return dao.countSearchCategory(session, map);
+	}
 	
 }

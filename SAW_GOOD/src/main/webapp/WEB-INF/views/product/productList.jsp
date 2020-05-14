@@ -17,13 +17,13 @@
                 <div class="col-md-2">
                     <!-- <!— 서브네비게이션 바 —> -->
                     <ul class="category">          
-                        <li><a href="#">bed</a></li>
-                        <li><a href="#">sofa / chair</a></li>
-                        <li><a href="#">light</a></li>
-                        <li><a href="#">table / desk</a></li>
-                        <li><a href="#">carpet / lug</a></li>
-                        <li><a href="#">storage</a></li>
-                        <li><a href="#">others</a></li>
+                        <li><a href="${path }/product/productCategory?category=bed">bed</a></li>
+                        <li><a href="${path }/product/productCategory?category=sofa&category=chair">sofa / chair</a></li>
+                        <li><a href="${path }/product/productCategory?category=light">light</a></li>
+                        <li><a href="${path }/product/productCategory?category=table&category=desk">table / desk</a></li>
+                        <li><a href="${path }/product/productCategory?category=carpet&category=lug">carpet / lug</a></li>
+                        <li><a href="${path }/product/productCategory?category=storage">storage</a></li>
+                        <li><a href="${path }/product/productCategory?category=others">others</a></li>
                     </ul>
                     <!-- <!— 검색기능 —> -->
                     <span class="block-span">
@@ -35,32 +35,41 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
-                    	<c:forEach items="${list }" var="p" varStatus="vs">
-	                        <div class="col-auto">
-	                            <div class="auctionProduct">
-	                                <div class="productPoto">
-	                                	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">
-	                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
-	                                    </a>
-	                                </div>
-	                                <div class="proTitle">
-	                                    <p style="width:270px; height:50px;">
-	                                    	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
-	                                    </p>
-	                                </div>
-	                                <div class="boderbottom-Red">
-	                                    <p class="pCategory" >${p['CATEGORY'] }</p>
-	                                </div>
-	                                <div class="finalPriceSmall">
-	                                    <span class="nowPriceSmall">현재금액 : </span>
-	                                    <fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="0,000"/>원        
-	                                    <span class="rightSmall">
-	                                        <img src="${path }/resources/images/quick.PNG">
-	                                    </span>
-	                                </div>
-	                            </div>
-	                        </div>
-                        </c:forEach>
+                    	<c:if test="${not empty list }">
+	                    	<c:forEach items="${list }" var="p" varStatus="vs">
+		                        <div class="col-auto">
+		                            <div class="auctionProduct">
+		                                <div class="productPoto">
+		                                	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">
+		                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
+		                                    </a>
+		                                </div>
+		                                <div class="proTitle">
+		                                    <p style="width:270px; height:50px;">
+		                                    	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
+		                                    </p>
+		                                </div>
+		                                <div class="boderbottom-Red">
+		                                    <p class="pCategory" >${p['CATEGORY'] }</p>
+		                                </div>
+		                                <div class="finalPriceSmall">
+		                                    <span class="nowPriceSmall">현재금액 : </span>
+		                                    <fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="0,000"/>원        
+		                                    <span class="rightSmall">
+		                                        <img src="${path }/resources/images/quick.PNG">
+		                                    </span>
+		                                </div>
+		                            </div>
+		                        </div>
+	                        </c:forEach>
+	                     </c:if>
+	                     <c:if test="${empty list }">
+	                     	<div class="col-auto" style="width:100%;">
+	                     		<div style="text-align:center;">
+	                     			<h2 style="font-size:22px; font-weight:bold;">해당하는 상품이 존재하지 않습니다.</h2>
+	                     		</div>
+	                     	</div>
+	                     </c:if>
                     </div>
                     <div id="pagebar">
                     	${pageBar }
