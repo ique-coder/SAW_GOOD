@@ -6,16 +6,22 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.funding.model.service.FundingService;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
+import com.saw.good.member.model.vo.Member;
+import com.saw.good.payment.service.PaymentService;
 
 @Controller
 public class FundingController {
 
+	
+	PaymentService payservice;
+	
 	@Autowired
 	FundingService service;
 	
@@ -62,13 +68,26 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/patronage/step1")
-	public ModelAndView fundingPatronage(ModelAndView mv, FDReword r) {
-		System.out.println("1111");
-		System.out.println(r);
+	public ModelAndView fundingPatronage(ModelAndView mv,FDMember m ,@SessionAttribute ("loginMember") Member member) {
+	
 		//로그인 한 상태에서 후원할 수있도록 수정 
 		//결제 후 db에 추가하는 것
+		//m.setUserId((String)session.getAttribute("loginMember").get);
 		
+		m.setUserId(member.getUserId());
+		System.out.println(m);
+		int result = service.insertFDMember(m);
+		
+		if(result>0) {
+			System.out.println(" 구매성공" );
+		}else {
+			System.out.println(" 구매실패" );
+		}
 		return mv;
 	}
 	
+	@RequestMapping("/funding/patronage/step2")
+	public ModelAndView fundingPatronageEnd(ModelAndView mv) {
+		return mv;
+	}
 }

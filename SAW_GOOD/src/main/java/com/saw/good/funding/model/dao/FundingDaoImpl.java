@@ -51,6 +51,12 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.selectList("funding.selectRewordList", fdNo);
 	}
+
+	@Override
+	public int insertFDMember(SqlSession session, FDMember m) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertFDMember",m);
+	}
 	
 	
 	

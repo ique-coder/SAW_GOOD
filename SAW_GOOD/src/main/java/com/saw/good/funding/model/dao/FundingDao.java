@@ -23,4 +23,6 @@ public interface FundingDao {
 
 	List<FDReword> selectRewordList(SqlSession session, int fdNo);
 
+	int insertFDMember(SqlSession session, FDMember m);
+
 }
