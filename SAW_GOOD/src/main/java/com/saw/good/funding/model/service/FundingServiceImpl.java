@@ -62,6 +62,13 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return dao.selectRewordList(session,fdNo);
 	}
+
+
+	@Override
+	public int insertFDMember(FDMember m) {
+		
+		return dao.insertFDMember(session, m);
+	}
 	
 	
 	

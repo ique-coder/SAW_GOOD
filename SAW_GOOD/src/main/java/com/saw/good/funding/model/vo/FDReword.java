@@ -11,5 +11,5 @@ public class FDReword {
 
 	int fdNo;
 	String reword;
-	int minimum;
+	int partPrice;
 }
