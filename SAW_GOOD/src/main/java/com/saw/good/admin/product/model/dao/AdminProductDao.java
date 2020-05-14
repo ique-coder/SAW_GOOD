@@ -15,7 +15,9 @@ public interface AdminProductDao {
 	List<Map<String,String>> selectProduct(SqlSession session,int cPage,int numPerPage);
 	int countProduct(SqlSession session);
 	//상품 업데이트
-	Map<String,String> oneProduct(SqlSession session,int productno);
+	Product oneProduct(SqlSession session,int productno);
+	List<DetailImg> selectDetailImg(SqlSession session,int productno);
+	List<PageDetailImg> selectPageImg(SqlSession session,int productno);
 	//상품삭제
 	int deleteProduct(SqlSession session,int productno);
 	//선택삭제
@@ -26,11 +28,15 @@ public interface AdminProductDao {
 	
 	//상품등록
 	int insertProduct(SqlSession session,Product p);
-
-	//상품상세이미지등록
+	//상품상세이미지등록및 수정
 	int insertDetailImg(SqlSession session,DetailImg di);
-	
-	//상품상제페이지 이미지 등록
-	
+	//상품상제페이지 이미지 등록및수정
 	int insertPageDetailImg(SqlSession session,PageDetailImg pdi);
+	
+	//상품 내용 수정
+	int updateProduct(SqlSession session,Product p);
+	//상품 상세이미지 수정
+	int deleteDetailImg(SqlSession session,int productNo);
+	//상품상세페이지 이미지 수정
+	int deletePageDetailImg(SqlSession session,int productNo);
 }

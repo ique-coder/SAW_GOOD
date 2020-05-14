@@ -8,4 +8,5 @@
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT
 	</select>
+	
 </mapper>

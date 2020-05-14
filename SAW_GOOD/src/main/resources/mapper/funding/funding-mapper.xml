@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="funding">
-	<select id="selectAllList" resultType="funding" parameterType="int">
- 		SELECT * FROM (SELECT ROWNUM RNUM , A.* FROM(SELECT * FROM FUNDING)A) WHERE RNUM BETWEEN 1 AND #{numPerPage} ORDER BY FDNO DESC
+	<select id="selectHighList" resultType="funding" parameterType="int">
+		SELECT * FROM(SELECT ROWNUM RNUM , R.* FROM(SELECT A.* ,(SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO = B.FDNO) COUNT
+                                                               ,(SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM
+                                                     FROM FUNDING A ORDER BY SUM DESC) R)
+		WHERE RNUM BETWEEN 1 AND #{high}
+	
+	</select>
+
+	<select id="selectAllList" resultType="funding" >	
+ 		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+ 					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A ORDER BY ENDDATE
  	</select>
-  	<select id="selectItem" resultType="funding" parameterType="int">
-  		SELECT * FROM FUNDING WHERE FDNO = #{fdNo}
+  	<select id="selectItem" resultType="funding" parameterType="_int">
+  		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+  					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE FDNO = #{fdNo}
+  	</select>
+  	<select id="selectMemberList" resultType="fdmember" parameterType="_int">
+  		SELECT * FROM FDMEMBER WHERE FDNO = #{fdNo}
+  	</select>
+  	<select id="selectPriceCount" parameterType="_int" resultType="map">
+  	 	SELECT COUNT(*) as count ,SUM(PARTPRICE) as sum FROM FDMEMBER WHERE FDNO = #{fdNo}
+  	</select>
+  	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
+  		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
 </mapper>

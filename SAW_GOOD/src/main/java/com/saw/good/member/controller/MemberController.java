@@ -259,8 +259,7 @@ public class MemberController {
 		}
 		//로그인 하기
 		@RequestMapping("/member/memberLogin")
-		public ModelAndView memberLogin(Member m, ModelAndView mv, 
-				HttpServletRequest request, HttpServletResponse response) {
+		public ModelAndView memberLogin(Member m, ModelAndView mv) {
 			
 			Member loginMember=service.selectMember(m);
 			
@@ -270,30 +269,19 @@ public class MemberController {
 			//로그인로직 처리하기
 			if(loginMember!=null) {
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
-					//로그인성공
-					msg="로그인 성공!";
-					//로그인 값을 유지 -> session객체에 데이터 보관
-					//HttpSession session=request.getSession();//서블릿방식!
+					if(loginMember.isEmailAccess()) {
+						//로그인성공
+						msg="로그인 성공";
+						//로그인 값을 유지 -> session객체에 데이터 보관
+						//HttpSession session=request.getSession();//서블릿방식!
 //					session.setAttribute("loginMember", loginMember);
-					//model에 담겨있는 데이터를 session범위로 옮겨보자
-					//@SessionAttributes(value={"key값"}) -> class선언부 위에
-					mv.addObject("loginMember", loginMember);
-					
-					//cookie로 아이디 저장 유지하기
-					String saveId=request.getParameter("saveId");
-					System.out.println("saveId : "+saveId);
-					if(saveId!=null) {
-						//아이디를 쿠키에 저장하게함.
-						Cookie c=new Cookie("saveId",m.getUserId());
-						//쿠키의 유효기간설정 7일
-						c.setMaxAge(7*24*60*60);
-						response.addCookie(c);
+						//model에 담겨있는 데이터를 session범위로 옮겨보자
+						//@SessionAttributes(value={"key값"}) -> class선언부 위에
+						mv.addObject("loginMember", loginMember);			
 					}else {
-						//저장된 cookie값 지우고 check된것 해제
-						Cookie c=new Cookie("saveId",m.getUserId());
-						c.setMaxAge(0);
-						response.addCookie(c);
+						msg="이메일 인증을 진행해 주세요";
 					}
+					
 				}else {
 					//패스워드가 일치하지 않음
 					msg="아이디 또는 비밀번호를 잘못 입력하셨습니다";
@@ -314,13 +302,6 @@ public class MemberController {
 				status.setComplete();//session을 종료시킴~
 			}
 			return "redirect:/";
-		}
-		//쿠키가져오기
-		@RequestMapping("/spring")
-		public String getCookie(@CookieValue(value="saveId", required=false)String saveId) {
-			
-			System.out.println("메인? ");
-			return "index";
 		}
 
 

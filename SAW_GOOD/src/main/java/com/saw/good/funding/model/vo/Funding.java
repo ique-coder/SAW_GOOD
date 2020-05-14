@@ -16,7 +16,6 @@ public class Funding {
 	private Date endDate;
 	private String mainImg;
 	private int status;
-	private String category;
 	
 	public Funding() {
 		super();
@@ -24,36 +23,6 @@ public class Funding {
 	}
 	
 	
-	public Funding(int fdNo, String userId, String designer, String title, String subContent, String detail,
-			String fdSize, int targetPrice, Date enrollDate, Date endDate, String mainImg, int status,
-			String category) {
-		super();
-		this.fdNo = fdNo;
-		this.userId = userId;
-		this.designer = designer;
-		this.title = title;
-		this.subContent = subContent;
-		this.detail = detail;
-		this.fdSize = fdSize;
-		this.targetPrice = targetPrice;
-		this.enrollDate = enrollDate;
-		this.endDate = endDate;
-		this.mainImg = mainImg;
-		this.status = status;
-		this.category = category;
-	}
-
-
-	public String getCategory() {
-		return category;
-	}
-
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-
 	public Funding(int fdNo, String userId, String designer, String title, String subContent, String detail,
 			String fdSize, int targetPrice, Date enrollDate, Date endDate, String mainImg, int status) {
 		super();
@@ -214,7 +183,7 @@ public class Funding {
 		return "Funding [fdNo=" + fdNo + ", userId=" + userId + ", designer=" + designer + ", title=" + title
 				+ ", subContent=" + subContent + ", detail=" + detail + ", fdSize=" + fdSize + ", targetPrice="
 				+ targetPrice + ", enrollDate=" + enrollDate + ", endDate=" + endDate + ", mainImg=" + mainImg
-				+ ", status=" + status + ", category=" + category + "]";
+				+ ", status=" + status + "]";
 	}
 
 	
