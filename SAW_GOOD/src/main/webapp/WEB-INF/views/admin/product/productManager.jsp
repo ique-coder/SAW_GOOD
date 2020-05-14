@@ -401,8 +401,8 @@ label {
 					<tr>
 						<th>가구종류</th>
 						<td class="checking" style="position: relative;border-right:white"><input
-							type="checkbox" name="category" value="bad" id="ca1"><label
-							for="ca1">bad</label> <input type="checkbox" name="category"
+							type="checkbox" name="category" value="bed" id="ca1"><label
+							for="ca1">bed</label> <input type="checkbox" name="category"
 							value="sofa" id="ca2"><label for="ca2">sofa</label> <input
 							type="checkbox" name="category" value="chair" id="ca3"><label
 							for="ca3">chair</label> <input type="checkbox" name="category" value="light"
@@ -509,7 +509,7 @@ label {
 						<td>${p['PRODUCTNO'] }</td>
 						<td>
 							<img class="img-responsive productimg"
-							src="${path }/resources/images/${p['PRODUCTIMG'] }"/>
+							src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG'] }"/>
 						</td>
 						<td>
 							<p style="font-weight:bolder;font-size:18px;">${p['PRODUCTNAME'] }</p>
@@ -532,19 +532,6 @@ label {
 </div>
 </body>
 <script>
-	//가격 버튼 클릭시 히든태그 추가
-	/* $("input[name=productprice]").click(function() {
-		console.log($(this).val());
-		if ($(this).prop("checked")) {
-			$("#pricehd").remove();
-			$("#search").before($("<input>").attr({
-				"type" : "hidden",
-				"id" : "pricehd",
-				"value" : $(this).val() - 100000,
-				"name" : "productprice"
-			}))
-		}
-	}) */
 	//카테고리 클릭시 화면변경
 	$("input[name=category]").click(function() {
 		if ($("#newP").prop("checked")) {

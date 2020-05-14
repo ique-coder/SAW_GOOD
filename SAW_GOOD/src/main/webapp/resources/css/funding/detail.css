@@ -142,10 +142,14 @@ section>.container{
    height: 25px;
    background: none;
 }
-#sub-info input{
+/*  #sub-info input{
     width:50px;
     text-align: right;
-    
+     
+} */
+#input-price{
+	width:130px;
+	font-size:16px;
 }
 /* 장바구니, 구매버튼 */
 section tfoot button{
