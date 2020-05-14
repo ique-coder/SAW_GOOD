@@ -43,6 +43,7 @@ public class FundingController {
 	@RequestMapping("/funding/detail")
 	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
 		//제품, 사람수 총 참여가격 포함
+		
 		Funding f = service.selectItem(item.getFdNo());
 		//해당 제품에 참여한 사람 목록
 		List<FDMember> list = service.selectMemberList(item.getFdNo());
@@ -60,12 +61,12 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/patronage/step1")
-	public ModelAndView fundingPatronage(ModelAndView mv, FDMember m) {
-		
+	public ModelAndView fundingPatronage(ModelAndView mv, FDReword r) {
+		System.out.println("1111");
+		System.out.println(r);
 		//로그인 한 상태에서 후원할 수있도록 수정 
 		//결제 후 db에 추가하는 것
-		logger.debug("들어오냐구");
-		System.out.println(m);
+		
 		return mv;
 	}
 	
