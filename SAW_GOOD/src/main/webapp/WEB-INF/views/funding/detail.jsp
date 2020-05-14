@@ -79,19 +79,19 @@
 	                                <tr>
 	                                
 	                                    <td>
-	                                        <input type="radio" name="partPrice" value="none" id="none">
+	                                        <input type="radio" name="reword" value="none" id="none">
 	                                        리워드를 선택하지 않고 후원하기
 	                                    </td>
-	                                    <td><input type="text" name="reword" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
+	                                    <td><input type="text" name="partPrice" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
 
 	                                </tr>
 	                                <c:forEach items="${reword }" var="r">
 	                                 <tr>
 	                                    <td>
-	                                        <input type="radio" name="partPrice" value="${r.minimum }">
+	                                        <input type="radio" name="reword" value="${r.reword }">
 	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
 	                                       
-	                                        <input type="hidden" name="reword" value="${r.reword }"></td> 
+	                                        <input type="hidden" name="partPrice" value="${r.minimum }"></td> 
 	                                    <td><p>${r.reword }</p><i></i></td> 
 	                                </tr>
 	                                
@@ -308,15 +308,15 @@
         	}
         })
 		function submin(){
-        	var reword=$("input[name='partPrice']:checked").val();
+        	var reword=$("input[name='reword']:checked").val();
         	var partPrice ;
         	
         	if(reword=='none'){
         		partPrice = $("#input-price").val();
         	}else{
-        		partPrice = $("input[name='partPrice']:checked").next().val();
+        		partPrice = $("input[name='reword']:checked").next().val();
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&minimum="+partPrice;
 		}
     </script>
 
