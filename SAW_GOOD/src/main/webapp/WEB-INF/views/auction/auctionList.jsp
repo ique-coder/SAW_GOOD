@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auctionPage.css" />
-<link rel="stylesheet" href="css/auctionPage.css" type="text/css" />
+<!-- <link rel="stylesheet" href="css/auctionPage.css" type="text/css" /> -->
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date()%>" var="now" />
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
@@ -25,7 +25,7 @@
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
-				<option value="2">couch / chair</option>
+				<option value="2">sofa / chair</option>
 				<option value="3">table / desk</option>
 				<option value="4">carpet / lug</option>
 				<option value="5">storage</option>
@@ -61,15 +61,21 @@
 						<li><a href="${path }/auction/categoryList?category=storage">storage</a></li>
 						<li><a href="${path }/auction/categoryList?category=others">others</a></li>
 					</ul>
-					<!-- <!— 검색기능 —> -->
-					<span class="block-span"> <input type="text" />
-						<button>
-							<img src="${path }/resources/images/search-icon.png" width="20px"
-							height="18px" />
-						</button>
-					</span>
+					<select id="category2" name="keyword" class="selectStyle2">
+						<option value="ACALLSEARCH">전체검색</option>
+						<option value="ACTITLE">글 제목</option>
+						<option value="ACBRAND">브랜드</option>
+					</select>
+					<!-- 검색기능  -->
+					 <span class="block-span">
+                        <input type="text" id="search-Auction" name="searchAuction"/>
+                        <button class="search-Ac-btn" id="search-Ac-btn">
+                            <img src="${path }/resources/images/search-icon.png" width="20px" height="18px"/>
+                        </button>
+                    </span>
 				</div>
 				<div class="col-md-10">
+				<c:if test="${not empty list }">
 					<c:forEach items="${list }" varStatus="status" step="3">
 						<div class="row">
 							<!-- 열 -->
@@ -86,7 +92,8 @@
 										</div>
 										<div class="boderbottom-Red">
 											<p class="pCategory">
-											${item.acCategory }</p>
+											${item.acCategory } / ${item.acBrand }</p>
+										
 										</div>
 										<div class="finalPriceSmall">
 											<span class="nowPriceSmall">현재금액 : </span>
@@ -108,6 +115,14 @@
 						</div>
 					</c:forEach>
 					${pageBar }
+					</c:if>
+					<c:if test="${empty list }">
+	                     	<div class="col-auto" style="width:100%;">
+	                     		<div style="text-align:center;">
+	                     			<h2 style="font-size:22px; font-weight:bold;">해당하는 상품이 존재하지 않습니다.</h2>
+	                     		</div>
+	                     	</div>
+	                </c:if>
 				</div>
 			</div>
 		</div>
@@ -115,6 +130,26 @@
 
 
 </section>
+<script>
+    $(function(){    
+    	$("#search-Auction").keypress(function(e){
+    		if(e.originalEvent.key=='Enter'){
+				if($("#search-Auction").val().trim()==""){
+					alert("검색어를 입력해주세요");
+					return false;
+				}
+				location.href="${path}/auction/searchAuction?value="+$('#search-Auction').val()+"&keyword="+$("#category2").val();
+    		}
+    	})
+    	$("#search-Ac-btn").click(function(){
+    		if($("#search-Auction").val().trim()==""){
+				alert("검색어를 입력해주세요");
+				return false;
+			}
+    		location.href="${path}/auction/searchAuction?value="+$('#search-Auction').val()+"&keyword="+$("#category2").val();
+    	})
+    })
+    </script>
 
 
 

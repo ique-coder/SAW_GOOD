@@ -27,11 +27,15 @@
                     <div id="p-table" class="col-md-5" style="height: 700px;">
                         <caption>
                             <h5>
-                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
-								<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
+                            	<c:if test="${f.status== 1 }">
+	                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
+									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+									<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 											${endDate-today} 일 남음
-								
+								</c:if>
+								<c:if test="${f.status == 0 || f.status ==2 }">
+									마감된 펀딩
+								</c:if>
                             </h5>
                         </caption>
                         <table>
@@ -72,32 +76,32 @@
                                 </tr>
                                 
                             </tbody>
-                            
+                            <c:if test="${f.status == 1 }" >
 	                            <tbody id="sub-info">
 	                                
 	                           
 	                                <tr>
 	                                
 	                                    <td>
-	                                        <input type="radio" name="partPrice" value="none" id="none">
+	                                        <input type="radio" name="reword" value="none" id="none">
 	                                        리워드를 선택하지 않고 후원하기
 	                                    </td>
-	                                    <td><input type="text" name="reword" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
+	                                    <td><input type="text" name="partPrice" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
 
 	                                </tr>
 	                                <c:forEach items="${reword }" var="r">
 	                                 <tr>
 	                                    <td>
-	                                        <input type="radio" name="partPrice" value="${r.minimum }">
-	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
+	                                        <input type="radio" name="reword" value="${r.reword }">
+	                                        <fmt:formatNumber value="${r.partPrice }" type="number" />원
 	                                       
-	                                        <input type="hidden" name="reword" value="${r.reword }"></td> 
+	                                        <input type="hidden" name="partPrice" value="${r.partPrice }"></td> 
 	                                    <td><p>${r.reword }</p><i></i></td> 
 	                                </tr>
 	                                
 	                                </c:forEach>
 	                            </tbody>
-                          
+                          	
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
@@ -106,7 +110,7 @@
                                    
                                 </tr>
                             </tfoot>
-                            
+                        </c:if>    
                         </table>
 
                     </div>
@@ -114,7 +118,7 @@
                 <ul class="row">
                     <li class="col-md-4"><span class="underline" onclick="select(1);">프로젝트 소개</span></li>
                     <li class="col-md-4"><span onclick="select(2);">참여내역</span></li>
-                    <li class="col-md-4"><span onclick="select(3);">후기</span></li>
+                    <li class="col-md-4"><span onclick="select(3);">커뮤니티</span></li>
                 </ul>
                 <section>
                     
@@ -146,10 +150,12 @@
                     </div>
                     <div class="detail-select" id="review">
                         <div id="insertReview" class="col-md-12 row">
+                        
                             <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
                             <button id="insertTextBtn" class="col-md-2">등록</button>
                             <div id="commentList" class="col-md-12">
                             </div>
+                        
                         </div>
                         <!-- <ul class="lst_sponser">
                             <li>
@@ -308,13 +314,13 @@
         	}
         })
 		function submin(){
-        	var reword=$("input[name='partPrice']:checked").val();
+        	var reword=$("input[name='reword']:checked").val();
         	var partPrice ;
         	
         	if(reword=='none'){
         		partPrice = $("#input-price").val();
         	}else{
-        		partPrice = $("input[name='partPrice']:checked").next().val();
+        		partPrice = $("input[name='reword']:checked").next().val();
         	}
         	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
 		}
