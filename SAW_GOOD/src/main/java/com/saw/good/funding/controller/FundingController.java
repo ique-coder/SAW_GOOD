@@ -1,7 +1,6 @@
 package com.saw.good.funding.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.funding.model.service.FundingService;
 import com.saw.good.funding.model.vo.FDMember;
+import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
 
 @Controller
@@ -42,16 +42,30 @@ public class FundingController {
 	
 	@RequestMapping("/funding/detail")
 	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
-		
+		//제품, 사람수 총 참여가격 포함
 		Funding f = service.selectItem(item.getFdNo());
+		//해당 제품에 참여한 사람 목록
 		List<FDMember> list = service.selectMemberList(item.getFdNo());
-		Map<String,Integer> map = service.selectPriceCount(item.getFdNo());
+		//해당 제품에 참여한 사람 수 , 총 가격 / 비활성: 서브쿼리로 변경 
+		//Map<String,Integer> map = service.selectPriceCount(item.getFdNo());
+		
+		//리워드목록 불러오기
+		List<FDReword> reword = service.selectRewordList(item.getFdNo());
 		
 		mv.addObject("f",f);
 		mv.addObject("list",list);
-		mv.addObject("map",map);
-	
+		mv.addObject("reword",reword);
 		mv.setViewName("funding/detail");
+		return mv;
+	}
+	
+	@RequestMapping("/funding/patronage/step1")
+	public ModelAndView fundingPatronage(ModelAndView mv, FDMember m) {
+		
+		//로그인 한 상태에서 후원할 수있도록 수정 
+		//결제 후 db에 추가하는 것
+		logger.debug("들어오냐구");
+		System.out.println(m);
 		return mv;
 	}
 	
