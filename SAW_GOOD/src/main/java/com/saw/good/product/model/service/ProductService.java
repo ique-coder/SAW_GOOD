@@ -12,4 +12,6 @@ public interface ProductService {
 	Product selectProductView(int no);
 	List<Map<String,String>> searchProduct(int cPage,int numPerPage,Map<String,String> map);
 	int countSearchProduct(Map<String,String> map);
+	List<Map<String,Object>> searchCategory(int cPage,int numPerPage,Map<String,Object> map);
+	int countSearchCategory(Map<String,Object> map);
 }

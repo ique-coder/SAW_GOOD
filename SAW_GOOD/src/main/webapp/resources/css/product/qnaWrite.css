@@ -1,0 +1,105 @@
+
+    .qna_title{
+        color: #222;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 19px;
+        padding: 83px 0 52px 0;
+        text-align: center;
+    }
+    .prd-qnainfo{
+        zoom: 1;
+        overflow: hidden;
+        padding: 10px 0 10px 80px;
+        border: 3px solid #e0e0e0;
+        margin-top: 20px;
+    }
+    .prd-qnainfo dt{
+        left: -70px;
+        margin-right: -70px;
+        width: 60px;
+        height: 60px;
+    }
+    .prd-qnainfo dd, .prd-qnainfo dt{
+        position: relative;
+        float: left;
+    }
+    .prd-qnainfo dd ul {
+        padding: 15px 0 0 10px;
+        min-height: 45px;
+        height: 45px;
+        border-left: 1px solid #e0e0e0;
+    }
+    
+    .prd-qnainfo dd ul li {
+    padding: 1px 0;
+    }
+    .prd-qnainfo dd ul li .tit {
+        display: inline-block;
+        width: 58px;
+    }
+    table.head tbody th, table.head tbody td{
+        padding-top: 6px;
+        padding-bottom: 6px;
+        line-height: 20px;
+        color: #565553;
+        border: 0 none;
+        float: left;
+    }
+    table.head tbody th{
+        width: 110px;
+        display: inline-block;
+    }
+    .title{
+        line-height: 25px;
+    }
+    .input-style{
+        margin-right: 5px;
+        padding: 2px 0 0 2px;
+        line-height: 17px;
+        border: 1px solid #dcdcdc;
+        width: 180px;
+    }
+    .contract table.tbl{
+	    background: #fff;
+	    width: 80%;
+	    border-collapse: collapse;
+    }
+    .contract table.tbl th{
+	    height: auto;
+	    padding: 5px 0 5px 5px;
+	    line-height: 16px;
+	    font-size: 11px;
+	    font-weight: bold;
+	    border: 1px #e0e0e0 solid;
+	    background-color:#f0f0f0;
+    }
+    .contract table.tbl td{
+    	height: auto;
+	    padding: 5px 0 5px 5px;
+	    line-height: 16px;
+	    font-size: 11px;
+	    text-align: center;
+	    border: 1px #e0e0e0 solid;
+    }
+    .txt{
+    	padding:0;
+    }
+    .btn-container{
+    	padding-top:10px;
+    	padding-bottom:80px;
+    }
+    .qna-write-btn, .qna-write-btn:focus{
+    	display: inline-block;
+	    width: 108px;
+	    height: 44px;
+	    line-height: 42px;
+	    text-align: center;
+	    font-family: 'Nanum GothicB';
+	    font-size: 12px;
+	    border: 1px #313131 solid;
+	    background: #313131;
+	    color: #fff;
+	    font-weight:bold;
+	    outline:none;
+    }

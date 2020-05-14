@@ -1,8 +1,8 @@
 package com.saw.good.common;
 
-public class ProductFinderPage {
+public class ProductCategoryPage {
 	
-	public static String getPage(int totalData,int cPage,int numPerPage, String keyword ,String url) {
+public static String getPage(int totalData,int cPage,int numPerPage, String[] category ,String url) {
 		
 		String pageBar="";
 		
@@ -18,7 +18,7 @@ public class ProductFinderPage {
 		if(pageNo==1) {
 			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='javascript:fn_paging("+(pageNo-1)+","+numPerPage+","+keyword+")'><</a>";
+			pageBar+="<a href='javascript:fn_paging("+(pageNo-1)+","+numPerPage+","+category[0]+","+category[1]+")'><</a>";
 		}
 		
 		//페이지처리
@@ -27,7 +27,7 @@ public class ProductFinderPage {
 				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 
-				pageBar+="<a href='javascript:fn_paging("+pageNo+","+numPerPage+","+keyword+")'>"+pageNo+"</a>";
+				pageBar+="<a href='javascript:fn_paging("+pageNo+","+numPerPage+","+category[0]+","+category[1]+")'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -36,13 +36,13 @@ public class ProductFinderPage {
 		if(pageNo>totalPage) {
 			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+","+numPerPage+","+keyword+")'>></a>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+","+numPerPage+","+category[0]+","+category[1]+")'>></a>";
 		}
 		
 		pageBar+="</div>";
 		pageBar+="<script>";
-		pageBar+="function fn_paging(cPage,numPerPage,keyword){";
-		pageBar+="location.href='"+url+"?cPage='+cPage+'&numPerPage='+numPerPage+'&keyword='+keyword";
+		pageBar+="function fn_paging(cPage,numPerPage,category1,category2){";
+		pageBar+="location.href='"+url+"?cPage='+cPage+'&numPerPage='+numPerPage+'&category='+category1+'&category='+category2";
 		pageBar+="}";
 		pageBar+="</script>";
 		

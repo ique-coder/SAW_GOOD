@@ -8,5 +8,29 @@
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT
 	</select>
-	
+
+	<select id="selectProductView" resultType="product" parameterType="_int">
+		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{no}
+	</select>
+	<select id="searchProduct" parameterType="map" resultType="map">
+ 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNAME LIKE '%'||#{keyword}||'%' AND STATUS='N'
+ 	</select>
+ 	
+ 	<select id="countSearchProduct" parameterType="map" resultType="_int">
+ 		SELECT COUNT(*) FROM NEWPRODUCT WHERE PRODUCTNAME LIKE '%'||#{keyword}||'%' AND STATUS='N'
+ 	</select>
+ 	
+ 	<select id="searchCategory" parameterType="map" resultType="map">
+ 		SELECT * FROM NEWPRODUCT WHERE CATEGORY IN
+ 		<foreach collection="category" item="ca" index="i" open="(" close=")" separator=",">
+				#{ca}
+		</foreach>
+ 	</select>
+ 	<select id="countSearchCategory" parameterType="map" resultType="_int">
+ 		SELECT COUNT(*) FROM NEWPRODUCT WHERE CATEGORY IN
+ 		<foreach collection="category" item="ca" index="i" open="(" close=")" separator=",">
+				#{ca}
+		</foreach>
+ 	</select>
+
 </mapper>
