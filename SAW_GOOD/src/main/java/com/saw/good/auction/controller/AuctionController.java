@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.auction.model.service.AuctionService;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.common.PageFactory;
 
 
@@ -22,12 +23,30 @@ public class AuctionController {
 	
 	@Autowired
 	Logger logger;
+	
 	@RequestMapping("/auction/list")
 	public ModelAndView auctionList(ModelAndView mv,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage",defaultValue="6") int numPerPage) {
 		List<Auction> list = service.selectAcList(cPage,numPerPage);
 		int totalData=service.countAuction();
+		System.out.println(totalData);
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		mv.addObject("list",list);
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("cPage", cPage);
+		mv.setViewName("auction/auctionList");
+		return mv;
+		
+	}
+	@RequestMapping("/auction/categoryList")
+	public ModelAndView auctionList(ModelAndView mv,AuctionSearch category,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="6") int numPerPage) {
+		System.out.println(category);
+		List<Auction> list = service.selectCtList(cPage,numPerPage,category);
+		int totalData=service.countCtAuction(category);
 		System.out.println(totalData);
 		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
 		mv.addObject("list",list);
