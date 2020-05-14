@@ -53,13 +53,13 @@
 				<div class="col-md-2">
 					<!-- <!— 서브네비게이션 바 —> -->
 					<ul class="category">
-						<li><a href="#">bed</a></li>
-						<li><a href="#">couch / chair</a></li>
-						<li><a href="#">light</a></li>
-						<li><a href="#">table / desk</a></li>
-						<li><a href="#">carpet / lug</a></li>
-						<li><a href="#">storage</a></li>
-						<li><a href="#">others</a></li>
+						<li><a href="${path }/auction/categoryList?category=bed">bed</a></li>
+						<li><a href="${path }/auction/categoryList?category=sofa&category=chair">sofa / chair</a></li>
+						<li><a href="${path }/auction/categoryList?category=light">light</a></li>
+						<li><a href="${path }/auction/categoryList?category=table&category=desk">table / desk</a></li>
+						<li><a href="${path }/auction/categoryList?category=carpet&category=lug">carpet / lug</a></li>
+						<li><a href="${path }/auction/categoryList?category=storage">storage</a></li>
+						<li><a href="${path }/auction/categoryList?category=others">others</a></li>
 					</ul>
 					<!-- <!— 검색기능 —> -->
 					<span class="block-span"> <input type="text" />
