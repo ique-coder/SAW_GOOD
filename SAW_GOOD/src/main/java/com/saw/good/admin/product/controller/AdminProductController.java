@@ -64,12 +64,18 @@ public class AdminProductController {
 	@RequestMapping("/admin/productUpdate")
 	public ModelAndView productUpdate(int productno,ModelAndView m) {
 		
-		Map<String,String> pro=service.oneProduct(productno);
+		Product pro=service.oneProduct(productno);
+		List<DetailImg> detailImg=service.selectDetailImg(productno);
+		List<PageDetailImg> pageImg=service.selectPageImg(productno);
 		
 		m.addObject("product", pro);
+		m.addObject("detailImg", detailImg);
+		m.addObject("pageImg", pageImg);
 		m.setViewName("admin/product/productUpdate");
 		return m;
 	}
+	
+
 	//상품 삭제
 	@RequestMapping("/admin/productDelete")
 	public ModelAndView deleteProduct(int productno,ModelAndView m) {
@@ -103,7 +109,7 @@ public class AdminProductController {
 	public ModelAndView searchProduct(AdminProduct a,ModelAndView m,HttpServletRequest request,
 			@RequestParam(value="category",defaultValue="") String[] category,@RequestParam(value="brand",defaultValue="") String[] brand,
 			@RequestParam(value="productprice",defaultValue="0") int productprice,@RequestParam(value="produtname",defaultValue="") String productname,
-			@RequestParam(value="cPage",defaultValue="1") int cPage,@RequestParam(value="numPerPage",defaultValue="1") int numPerPage) {
+			@RequestParam(value="cPage",defaultValue="1") int cPage,@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
 		//통합검색
 		List<Map<String,String>> list=service.searchProduct(cPage,numPerPage,a);
 		int totalData=service.countSearchProduct(a);
@@ -293,15 +299,228 @@ public class AdminProductController {
 			}
 		}
 		
-		String msg=result>0?"등록성공":"등록실패";
-		String loc=result>0?"/admin/productManager":"/admin/productRegist";
+		String msg=(result>0)?"등록성공":"등록실패";
+		String loc=(result>0)?"/admin/productManager":"/admin/productRegist";
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.setViewName("admin/common/msg");
 		return mv;
 	}
 	
+	@RequestMapping("/admin/productUpdateEnd")
+	public ModelAndView productUpdateEnd(ModelAndView mv,
+			MultipartHttpServletRequest request,HttpSession session) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+		
+		//상품 정보들
+		int productno=Integer.parseInt(request.getParameter("productno"));
+		System.out.println("번호 : "+request.getParameter("productno"));
+		
+		//원래 상품번호에 등록된 이미지들
+		Product orip=service.oneProduct(productno);
+		
+		String productName=request.getParameter("productName");
+		int productPrice=Integer.parseInt(request.getParameter("productPrice"));
+		String productContent=request.getParameter("productContent");
+		String brand=request.getParameter("brand");
+		String category=request.getParameter("category");
+		String originalpd="";
+		String renamepd="";
+		String originaltp="";
+		String renametp="";
+
+		Product p= new Product(productno,productName,productContent,productPrice,
+				originalpd,category,brand,0,null,originaltp,renamepd,renametp);
+		
+		//경로지정
+		String path=session.getServletContext().getRealPath("/resources/upload/newproduct");
+		File fileDir = new File(path); 
+		if (!fileDir.exists()) { fileDir.mkdirs(); }
+		
+		MultipartFile pdImg=request.getFile("productImg");
+		
+		if(pdImg.isEmpty()) {
+			p.setProductImg(orip.getProductImg());
+			p.setRenamedProductImg(orip.getRenamedProductImg());
+		}else {
+			int rnd=(int)(Math.random()*1000);
+			originalpd=pdImg.getOriginalFilename();
+			String ext=originalpd.substring(originalpd.lastIndexOf("."));
+			renamepd=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			p.setProductImg(originalpd);
+			p.setRenamedProductImg(renamepd);
+			try {
+				pdImg.transferTo(new File(fileDir+"/"+renamepd));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		MultipartFile tpImg=request.getFile("topImg");
+		System.out.println("탑이미지"+tpImg.isEmpty());
+		if(tpImg.isEmpty()) {
+			p.setTopImg(orip.getTopImg());
+			p.setRenamedTopImg(orip.getRenamedTopImg());
+		}else {
+			int rnd=(int)(Math.random()*1000);
+			originaltp=tpImg.getOriginalFilename();
+			String ext=originaltp.substring(originaltp.lastIndexOf("."));
+			renametp=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			p.setTopImg(originaltp);
+			p.setRenamedProductImg(renametp);
+			try {
+				pdImg.transferTo(new File(fileDir+"/"+renametp));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		List<DetailImg> oriDi=service.selectDetailImg(productno);
+		List<DetailImg> diList=new ArrayList();
+		List<MultipartFile> detailImg=request.getFiles("detailImg");
+		System.out.println("디테일"+detailImg.get(0));
+		if(detailImg.get(0).getSize()>0 && !detailImg.isEmpty() ) {
+			for(MultipartFile mf:detailImg) {
+				if(!mf.isEmpty()) {
+					int rnd=(int)(Math.random()*1000);
+					String originaldi=mf.getOriginalFilename();
+					String ext=originaldi.substring(originaldi.lastIndexOf("."));
+					String renamedi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+					try {
+						mf.transferTo(new File(fileDir+"/"+renamedi));
+					}catch(IOException e){
+						e.printStackTrace();
+					}
+					DetailImg di=new DetailImg();
+					di.setProductNo(productno);
+					di.setDiOriNameFile(originaldi);
+					di.setDiRenameFile(renamedi);
+					diList.add(di);
+				}
+			}
+		}else {
+			for(DetailImg di: oriDi) {
+				diList.add(di);
+			}
+		}
+		
+			
+		List<PageDetailImg> oripdi=service.selectPageImg(productno);
+		List<PageDetailImg> pdiList=new ArrayList();
+		List<MultipartFile> detailPageImg=request.getFiles("detailPageImg");
+		System.out.println("패이지"+detailPageImg.get(0).getSize());
+		if(detailPageImg.get(0).getSize()>0 && !detailPageImg.isEmpty()) {
+			for(MultipartFile mf : detailPageImg) {
+				if(!mf.isEmpty()) {
+					int rnd=(int)(Math.random()*1000);
+					String originalpdi=mf.getOriginalFilename();
+					String ext=originalpdi.substring(originalpdi.lastIndexOf("."));
+					String renamepdi=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+					try {
+						mf.transferTo(new File(fileDir+"/"+renamepdi));
+					}catch(IOException e){
+						e.printStackTrace();
+					}
+					
+					PageDetailImg pdi=new PageDetailImg();
+					pdi.setProductNo(productno);
+					pdi.setPdiOriNameFile(originalpdi);
+					pdi.setPdiRenameFile(renamepdi);
+					pdiList.add(pdi);
+				}
+			}
+			
+		}else{
+			for(PageDetailImg pdi : oripdi) {
+				pdiList.add(pdi);
+			}
+		}
+		
+		int result=0;
+		try {
+			result=service.updateProduct(p,diList,pdiList);
+		}catch(RuntimeException e){
+			File pdf=new File(fileDir+"/"+renamepd);
+			if(pdf.exists()) {
+				pdf.delete();
+			}
+			File tpf=new File(fileDir+"/"+renametp);
+			if(tpf.exists()) {
+				tpf.delete();
+			}
+			for(DetailImg di : diList) {
+				File delete=new File(fileDir+"/"+di.getDiRenameFile());
+				if(delete.exists()) {
+					delete.delete();
+				}
+			}
+			for(PageDetailImg pdi : pdiList) {
+				File delete=new File(fileDir+"/"+pdi.getPdiRenameFile());
+				if(delete.exists()) {
+					delete.delete();
+				}
+			}
+		}
+		
+		//모든 업데이트가 끝난후 원래있던 파일 삭제
+		if(!pdImg.isEmpty()) {
+			File prof=new File(fileDir+"/"+orip.getRenamedProductImg());
+			if(prof.exists()) {
+				prof.delete();
+			}
+		}
+		if(!tpImg.isEmpty()) {
+			File topf=new File(fileDir+"/"+orip.getRenamedTopImg());
+			if(topf.exists()) {
+				topf.delete();
+			}
+		}
+
+		if(detailImg.get(0).getSize()>0) {
+			for(DetailImg di : oriDi) {
+				File delf = new File(fileDir+"/"+di.getDiRenameFile());
+				if(delf.exists()) {
+					delf.delete();
+				}
+			}
+		}
+		
+		if(detailPageImg.get(0).getSize()>0 ) {
+			for(PageDetailImg pdi : oripdi) {
+				File delf = new File(fileDir+"/"+pdi.getPdiRenameFile());
+				if(delf.exists()) {
+					delf.delete();
+				}
+			}
+		}
+		
+		String msg=result>0?"등록성공":"등록실패";
+		String loc="/admin/productManager";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("admin/common/msg");
+		return mv;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
 
 	
 	

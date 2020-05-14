@@ -41,10 +41,23 @@ public class AdminProductServiceImpl implements AdminProductService{
 	
 	//상품업데이트
 	@Override
-	public Map<String, String> oneProduct(int productno) {
+	public Product oneProduct(int productno) {
 		// TODO Auto-generated method stub
 		return dao.oneProduct(session,productno);
 	}
+
+	@Override
+	public List<DetailImg> selectDetailImg(int productno) {
+		// TODO Auto-generated method stub
+		return dao.selectDetailImg(session,productno);
+	}
+
+	@Override
+	public List<PageDetailImg> selectPageImg(int productno) {
+		// TODO Auto-generated method stub
+		return dao.selectPageImg(session,productno);
+	}
+	
 	//상품삭제
 
 	@Override
@@ -76,7 +89,8 @@ public class AdminProductServiceImpl implements AdminProductService{
 	@Override
 	public int insertProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList) throws RuntimeException  {
 		// TODO Auto-generated method stub
-		int result=dao.insertProduct(session,p);
+		int result=0;
+		result=dao.insertProduct(session,p);
 		if(result==0) {
 			throw new RuntimeException();
 		}
@@ -101,6 +115,36 @@ public class AdminProductServiceImpl implements AdminProductService{
 		}
 		return result;
 	}
+
+	@Override
+	public int updateProduct(Product p, List<DetailImg> diList, List<PageDetailImg> pdiList) throws RuntimeException {
+		// TODO Auto-generated method stub
+		int result=0;
+		result=dao.updateProduct(session, p);
+		if(result==0) {
+			throw new RuntimeException();
+		}
+		//삭제하고 등록
+		if(!diList.isEmpty()) {
+			for(DetailImg di : diList) {
+				result+=dao.updateDetailImg(session, di);
+				if(result==0) {
+					throw new RuntimeException();
+				}
+
+			}
+		}
+		if(!pdiList.isEmpty()) {
+			for(PageDetailImg pdi : pdiList) {
+				result+=dao.updatePageDetailImg(session,pdi);
+				if(result==0) {
+					throw new RuntimeException();
+				}
+			}
+		}
+		return result;
+	}
+	
 
 	
 	
