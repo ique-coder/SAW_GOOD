@@ -8,6 +8,7 @@
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT
 	</select>
+
 	<select id="selectProductView" resultType="product" parameterType="_int">
 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{no}
 	</select>
@@ -31,4 +32,5 @@
 				#{ca}
 		</foreach>
  	</select>
+
 </mapper>

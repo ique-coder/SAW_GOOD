@@ -4,12 +4,21 @@
 	<select id="selectProduct" resultType="map">
 		SELECT * FROM NEWPRODUCT WHERE STATUS='N'
 	</select>
+	
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT WHERE STATUS='N'
 	</select>
-	<select id="oneProduct" resultType="map" parameterType="_int">
+	
+	<select id="oneProduct" resultType="product" parameterType="_int">
 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{productno}
 	</select>
+	<select id="selectDetailImg" resultType="detailImg" parameterType="_int">
+		SELECT * FROM DETAILIMG WHERE PRODUCTNO=#{productno}
+	</select>
+	<select id="selectPageImg" resultType="pageImg" parameterType="_int">
+		SELECT * FROM PAGEDETAILIMG WHERE PRODUCTNO=#{productno}
+	</select>
+	
 	<update id="deleteProduct" parameterType="_int">
 		UPDATE NEWPRODUCT SET STATUS='Y' WHERE PRODUCTNO=#{productno}
 	</update>
@@ -21,7 +30,6 @@
 		</foreach>
 	</update>
 	
-
 	<select id="searchProduct" parameterType="adproduct" resultType="map">
 		SELECT * FROM NEWPRODUCT WHERE 1=1
 		<if test="productname!=null and productname !=''">
@@ -87,20 +95,48 @@
 		</if>
 	</select>
 	
-	<insert id="insertProduct" parameterType="com.saw.good.product.model.vo.Product">
+	<insert id="insertProduct" parameterType="product">
 		INSERT INTO NEWPRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,#{productName},#{productContent},
-		#{productPrice},#{productImg},#{category},#{category},
+		#{productPrice},#{productImg},#{category},#{brand},
 		DEFAULT,DEFAULT,#{topImg}
 		,#{renamedProductImg},#{renamedTopImg})
 		<selectKey keyProperty="productNo" resultType="_int" order="AFTER">
 			SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
-	<insert id="insertDetailImg" parameterType="com.saw.good.product.model.vo.DetailImg">
+	<insert id="insertDetailImg" parameterType="detailImg">
 		INSERT INTO DETAILIMG VALUES(#{productNo},#{diOriNameFile},#{diRenameFile})
 	</insert>
-	<insert id="insertPageDetailImg" parameterType="com.saw.good.product.model.vo.PageDetailImg">
+	<insert id="insertPageDetailImg" parameterType="pageImg">
 		INSERT INTO PAGEDETAILIMG VALUES(#{productNo},#{pdiOriNameFile},#{pdiRenameFile})
 	</insert>
+
+	<update id="updateProduct" parameterType="product">
+		UPDATE NEWPRODUCT SET PRODUCTNAME=#{productName},PRODUCTCONTENT=#{productContent}
+		,PRODUCTPRICE=#{productPrice},PRODUCTIMG=#{productImg},CATEGORY=#{category},TOPIMG=#{topImg},
+		RENAMEDPRODUCTIMG=#{renamedProductImg},RENAMEDTOPIMG=#{renamedTopImg} WHERE PRODUCTNO=#{productNo}
+	</update>
+	<delete id="deleteDetailImg" parameterType="_int">
+		DELETE FROM DETAILIMG WHERE PRODUCTNO=#{productNo}
+	</delete>
+	<delete id="deletePageDetailImg" parameterType="_int">
+		DELETE FROM PAGEDETAILIMG WHERE PRODUCTNO=#{productNo}
+	</delete>
+	<!-- <update id="updateDetailImg" parameterType="detailImg">
+		UPDATE DETAILIMG SET DIORINAMEFILE=#{diOriNameFile},DIRENAMEFILE=#{diRenameFile} WHERE PRODUCTNO=#{productNo}
+	</update>
+	<update id="updatePageDetailImg" parameterType="pageImg">
+		UPDATE PAGEDETAILIMG SET PDIORINAMEFILE=#{pdiOriNameFile},PDIRENAMEFILE=#{pdiRenameFile} WHERE PRODUCTNO=#{productNo}
+	</update> -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

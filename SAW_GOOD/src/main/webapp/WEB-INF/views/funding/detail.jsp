@@ -6,14 +6,14 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="${path }/resources/css/funding/detail.css"/>
+<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=6"/>
 	
 	<div class="container-fluid col-md-12" id="detail-header">
     	<div class="bg-image" style="background-image: url(${path}/resources/images/signup2.jpg);"></div>
         <i>
         	<c:out value="${f.category }"/>
         </i>
-        <h1><c:out value="${f.subContent }"/></h1>
+        <h1>${f.subContent }</h1> 
     </div>
     <section>
          <div class="container">
@@ -51,52 +51,62 @@
                                 </tr>
                                <tr>
                                    <td>참여인원</td>
-                                    <td><p>00</p><i>명 참여</i></td>
+                                    <td><p><c:out value="${f.count }"/></p><i>명 참여</i></td>
                                 </tr>
                                 <tr>
-                                    <td>PRICE</td> 
-                                    <td><p>500,000</p><i>원</i></td> 
+                                    <td>후원된 금액</td> 
+                                    <td><p><fmt:formatNumber value="${f.sum }" type="number"/></p><i>원</i></td> 
                                 </tr>
                                 <tr>
                                     <td>참여율</td>
-                                    <td><p>50</p><i>% 달성</i></td>
+                                    <td><p>
+                                    		<fmt:formatNumber value="${f.sum/f.targetPrice *100}" />
+                                    	</p><i>% 달성</i></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <svg width="100%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
-                                            <rect x="0" y="0" width="50%" height="3px" class="bar"/>
+                                            <rect x="0" y="0" width="${f.sum/f.targetPrice *100}%" height="3px" class="bar"/>
                                         </svg>
                                     </td>
                                 </tr>
                                 
                             </tbody>
-                            <tbody id="sub-info">
-                                <tr>
-                                    <td>0000원 이상</td> 
-                                    <td><p>의자 1개</p><i></i></td> 
-                                </tr>
-                                <tr>
-                                    <td>00000원 이상</td> 
-                                    <td><p>의자+테이블</p><i></i></td> 
-                                </tr>
-                                <tr>
-                                    <!-- <td>구매 수량</td> 
-                                    <td>
-                                        <button type="button">-</button>
-                                        <input type="text" value="1">
-                                        <button type="button">+</button>
-                                    </td> -->
-                                    <td></td>
-                                </tr>
-                            </tbody>
+                            
+	                            <tbody id="sub-info">
+	                                
+	                           
+	                                <tr>
+	                                
+	                                    <td>
+	                                        <input type="radio" name="partPrice" value="none" id="none">
+	                                        리워드를 선택하지 않고 후원하기
+	                                    </td>
+	                                    <td><input type="text" name="reword" id="input-price" placeholder="숫자만 입력" disabled="true"></td>
+
+	                                </tr>
+	                                <c:forEach items="${reword }" var="r">
+	                                 <tr>
+	                                    <td>
+	                                        <input type="radio" name="partPrice" value="${r.minimum }">
+	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
+	                                       
+	                                        <input type="hidden" name="reword" value="${r.reword }"></td> 
+	                                    <td><p>${r.reword }</p><i></i></td> 
+	                                </tr>
+	                                
+	                                </c:forEach>
+	                            </tbody>
+                          
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                        <button id="buy-btn">프로젝트 밀어주기</button>
+                                        <button id="buy-btn" onclick="submin()" >프로젝트 밀어주기</button>
                                     </td>
                                    
                                 </tr>
                             </tfoot>
+                            
                         </table>
 
                     </div>
@@ -110,6 +120,7 @@
                     
                     <div class="detail-select" id="project">
                         <p>
+                        <h1>${f.subContent }</h1>
 							${f.detail }
                             
                         </p>
@@ -134,7 +145,13 @@
                             </ul>
                     </div>
                     <div class="detail-select" id="review">
-                        <ul class="lst_sponser">
+                        <div id="insertReview" class="col-md-12 row">
+                            <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
+                            <button id="insertTextBtn" class="col-md-2">등록</button>
+                            <div id="commentList" class="col-md-12">
+                            </div>
+                        </div>
+                        <!-- <ul class="lst_sponser">
                             <li>
                                 <span class="img_thm">
                                     <img src="" width="50" height="50" alt="wwiiw_img">
@@ -149,7 +166,7 @@
                                     <span class="price"><strong class="num">****</strong>별점</span>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </section>
@@ -182,9 +199,128 @@
             }
         }
 
-    
+
+        // 리뷰
+        // 로그인한 사람 아이디
+        let loginId = "{loginMember.userId}";
+        // 로그인 되어 있으면 클릭 가능, 아니면 안됨
+        $(function() {
+            if('${loginMember == null}'=='true') {
+                $("#insertReview").click(function() {
+                    console.log("되니?");
+                    alert("로그인을 해주세요!");
+                })
+            } else {
+                $("#insertTextBtn").click(function() {
+                    if($("#insertText").val() != null && $("#insertText").val() != '') {
+                        let time = new Date();
+                        time = formatDate(time);
+                        // 아이디, 작성 시간, 수정, 삭제 => p1
+                        let p1 = $("<p>").append($("<span>").addClass("commentUserId")
+                            .html('${loginMember.userId}'))
+                            .append($("<span>").addClass("commentTime").html(time))
+                            .append($("<span>").addClass("commentDelete").html('삭제'))
+                            .append($("<span>").addClass("commentUpdate").html('수정'))
+                            .append($("<span>").addClass("reComment").html("댓글"));
+                        // 내용 => p2
+                        let p2 = $("<p>").html($("#insertText").val());
+                        // 합친다.
+                        let div = $("<div>").addClass("comment").append(p1).append(p2);
+                    
+                        $("#commentList").append(div);
+                        $("#insertText").val('');
+                    } else {
+                        alert("댓글을 입력해주세요.");
+                    }
+                    // reCommentCheck(loginId);
+                    reCommentOk();
+                })
+            }
+        })
+
+        function formatDate(date) {
+            var year = date.getFullYear();              //yyyy
+            var month = (1 + date.getMonth());          //M
+            month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+            var day = date.getDate();                   //d
+            day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+            // let hour = date.getHours();
+            // let minutes = date.getMinutes();
+            // let seconds = date.getSeconds();
+            // return  year + '.' + month + '.' + day + "-" + hour + ":" + minutes + ":" + seconds;
+            return  year + '.' + month + '.' + day;
+        }
+
+        let reCommentCheckNum = 0;
+
+        // 대댓글 id 체크
+        // function reCommentCheck(id) {
+        //     if(id != "${f.userId}") {
+        //         $(".reComment").css("display","none");
+        //     }
+        // }
+        // reCommentCheck(loginId);
+        // 대댓글 달아주기
+        function reCommentOk() {
+            $(".reComment").off("click").on(
+					"click",
+					function() {
+                        
+                        // textarea 생성
+                        let reTextarea = $("<textarea>").attr({"class":"reInsertText col-md-10","cols":"30","rows":"10"});
+                            let reBtn = $("<button>").attr({"class":"reInsertTextBtn col-md-2"}).html("등록");
+                            let reDiv = $("<div>").attr({"class":"reCommentInsertDiv col-md-12 row"});
+                            reDiv.append(reTextarea).append(reBtn);
+                            $(this).parent().parent().append(reDiv);
+                            // let reDivList = $("<div>").attr({"class":"reCommentList col-md-12"});
+                            // $(this).parent().parent().append(reDivList);
+                        reCommentCheckNum++;
+                        $(".reInsertTextBtn").off("click").on(
+                            "click",
+                            function() {
+                                let time = new Date();
+                                time = formatDate(time);
+                                // 아이디, 작성 시간, 수정, 삭제 => p1
+                                let p1 = $("<p>").append($("<span>").addClass("reCommentUserId")
+                                    .html("담당자"))
+                                    .append($("<span>").addClass("reCommentTime").html(time))
+                                    .append($("<span>").addClass("reCommentDelete").html('삭제'))
+                                    .append($("<span>").addClass("reCommentUpdate").html('수정'));
+                                // 내용 => p2
+                                let p2 = $("<p>").html($(this).prev().val());
+                                // 합친다.
+                                let div = $("<div>").addClass("rereComment").append(p1).append(p2);
+
+                                $(this).parent().parent().append(div);
+
+                                $(this).prev().val('');
+                                $(this).parent().hide();
+                            })
+                    })
+        }
+        reCommentOk();
+        
+        $("input[name='partPrice']").click(function(){
+        	if($(this).val()=='none'){
+        		$("#input-price").attr("disabled",false);
+        	}else{
+        		$("#input-price").attr("disabled",true);
+        	}
+        })
+		function submin(){
+        	var reword=$("input[name='partPrice']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='partPrice']:checked").next().val();
+        	}
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
+		}
     </script>
-		
+
+    <script src="${path }/resources/js/funding/detail.js?ver=1"></script>
 		
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
