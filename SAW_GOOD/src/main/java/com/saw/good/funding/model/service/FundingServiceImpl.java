@@ -69,6 +69,21 @@ public class FundingServiceImpl implements FundingService{
 		
 		return dao.insertFDMember(session, m);
 	}
+
+
+	@Override
+	public List<FDMember> selectFDMemberList(int fdNo, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectFDMemberList(session,fdNo,cPage,numPerPage);
+	}
+
+
+	@Override
+	public int selectFDMemberCount(int fdNo) {
+		// TODO Auto-generated method stub
+		return dao.selectFDMemberCount(session,fdNo);
+	}
+	
 	
 	
 	

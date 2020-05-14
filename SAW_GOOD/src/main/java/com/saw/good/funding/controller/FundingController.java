@@ -1,14 +1,19 @@
 package com.saw.good.funding.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.saw.good.common.PageFactory;
 import com.saw.good.funding.model.service.FundingService;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
@@ -90,4 +95,24 @@ public class FundingController {
 	public ModelAndView fundingPatronageEnd(ModelAndView mv) {
 		return mv;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/funding/detail/partList.ajax")
+	public Map<String,Object> fundingPartList(ModelAndView mv ,@RequestParam int fdNo, @RequestParam int cPage) {
+		
+		int numPerPage = 5;
+		System.out.println(fdNo+" "+cPage);
+		
+		List<FDMember> list = service.selectFDMemberList(fdNo,cPage,numPerPage);
+	
+		int count = service.selectFDMemberCount(fdNo);
+		
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		map.put("pageBar", PageFactory.getPageForAjax(count,cPage,numPerPage));
+		map.put("count",count);
+		return map;
+		
+	}
+	
 }
