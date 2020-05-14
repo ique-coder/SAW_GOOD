@@ -1,6 +1,8 @@
 package com.saw.good.auction.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,30 @@ public class AuctionController {
 		return mv;
 		
 	}
+	@RequestMapping("/auction/searchAuction")
+	public ModelAndView searchAuction(String keyword,String value,ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="6") int numPerPage) {
+		Map<String,String> map = new HashMap();
+		map.put("keyword",keyword);
+		map.put("value",value);
+		
+		System.out.println(map);
+		List<Auction> list = service.searchAuction(cPage,numPerPage,map);
+		int totalData=service.countAcSearch(map);
+		System.out.println(list);
+		System.out.println(totalData);
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		mv.addObject("list",list);
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("cPage", cPage);
+		mv.setViewName("auction/auctionList");
+		return mv;
+	}
+	
+	
+	
 	@RequestMapping("/auction/categoryList")
 	public ModelAndView auctionList(ModelAndView mv,AuctionSearch category,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,

@@ -56,7 +56,7 @@ div.main{
 /* 회원사진 밑 정보 */
 .profilePhoto{
     padding-top: 60px;
-    padding-left: 170px;
+    padding-left: 30%;
 
 }
 /* 회원정보 변경 */
@@ -114,14 +114,14 @@ div.main{
 #btnDiv{
  /*    text-align: center; */
     padding-top: 25px;
-     padding-left: 160px;
+     padding-left: 30%;
 }
 /* 비밀번호 변경 버튼 스타일 */
 .pwd-btn{
 	
 	display : block;
     padding: 0 20px 0 20px;
-    width: 250px;
+    width: 230px;
     height: 40px;
     border: 0;
     border-radius: 7px;
@@ -134,7 +134,7 @@ div.main{
 .seller-btn{
 	display : block;
     padding: 0 20px 0 20px;
-    width: 250px;
+    width: 230px;
     height: 40px;
     border: 0;
     border-radius: 7px;
@@ -147,7 +147,7 @@ div.main{
 .poto-btn{
 	display : block;
     padding: 0 20px 0 20px;
-    width: 250px;
+    width: 230px;
     height: 40px;
     border: 0;
     border-radius: 7px;
