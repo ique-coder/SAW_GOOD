@@ -101,7 +101,7 @@
                 <tr>
                     <th>썸네일</th>
                     <td>
-                        <input type="file" name="productImg" id="thumbImg">
+                        <input type="file" name="productImg" id="thumbImg" required>
                         <div id="thumb" style="display: inline-block;">
                          </div>
                     </td>
@@ -109,7 +109,7 @@
                 <tr>
                     <th>탑이미지</th>
                     <td>
-                        <input type="file" name="topImg" id="topImg">
+                        <input type="file" name="topImg" id="topImg" required>
                         <div id="top" style="display: inline-block;">
                          </div>
                     </td>
@@ -117,7 +117,7 @@
                 <tr>
                     <th>상세이미지</th>
                     <td>
-                        <input type="file" name="detailImg" id="detailImg" multiple>
+                        <input type="file" name="detailImg" id="detailImg" multiple required>
                         <div id="detail" style="display: inline-block;">
                          </div>
                     </td>
@@ -125,7 +125,7 @@
                 <tr>
                     <th>상세페이지이미지</th>
                     <td>
-                        <input type="file" name="detailPageImg" id="detailPageImg" multiple>
+                        <input type="file" name="detailPageImg" id="detailPageImg" multiple required>
                         <div id="detailPage" style="display: inline-block;">
                          </div>
                     </td>
@@ -152,6 +152,7 @@
 		function preViewFnc(e){
 			var files=e.target.files;
 			var fileArr=Array.prototype.slice.call(files);
+			$("#thumb").find($("img")).remove();
 			fileArr.forEach(function(f){
 				if(!f.type.match("image.*")){
 					alert("이미지 파일만 등록해주세요!");
@@ -172,6 +173,7 @@
 		function preViewFnc2(e){
 			var files=e.target.files;
 			var fileArr=Array.prototype.slice.call(files);
+			$("#top").find($("img")).remove();
 			fileArr.forEach(function(f){
 				if(!f.type.match("image.*")){
 					alert("이미지 파일만 등록해주세요!");
@@ -194,7 +196,7 @@
 		function multiPreViewFnc(e){
 			var files=e.target.files;
 			var fileArr=Array.prototype.slice.call(files);
-			console.log(fileArr);
+			$("#detail").find($("img")).remove();
 			fileArr.forEach(function(f){
 				if(!f.type.match("image.*")){
 					alert("이미지 파일만 등록해주세요!");
@@ -217,7 +219,7 @@
 		function multiPreViewFnc2(e){
 			var files=e.target.files;
 			var fileArr=Array.prototype.slice.call(files);
-			console.log(fileArr);
+			$("#detailPage").find($("img")).remove();
 			fileArr.forEach(function(f){
 				if(!f.type.match("image.*")){
 					alert("이미지 파일만 등록해주세요!");
@@ -237,34 +239,6 @@
 			});
 		}
 		
-		/* $("#insertPro").click(function(){
-			console.log("클릭");
-			const fd=new FormData();
-			fd.append("productImg",$("[name=productImg]")[0].files[0]);
-			fd.append("topImg",$("[name=topImg]")[0].files[0]);
-			$.each($("[name=detailImg]")[0].files,function(index,item){
-				fd.append("detailImg"+index,item);
-			})
-			fd.append("productName",$("[name=productName]").val());
-			fd.append("productPrice",$("[name=productPrice]").val());
-			fd.append("productContent",$("[name=productContent]").val());
-			
-			$.ajax({
-				url:"${path}/admin/productRegistEnd",
-				data:fd,
-				type:"post",
-				processData:false,
-				contentType:false,
-				success:function(data){
-					alert("성공");
-					location.replace("${path}/admin/productManager");
-				},
-				error:function(r,e,m){
-					alert("공지사항 등록을 실패하였습니다. 확장자를 확인해주세요");
-				}
-			})
-			
-		}) */
 	</script>
 	
     

@@ -40,11 +40,17 @@
 			border: 1px solid #303030;
 
         }
+        .preViewImg{
+        	width:100px;
+        	height:100px;
+        }
 </style>
 <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
         <h2 id="titeltwo">Product Update</h2>
         <div class="container-fluid">
+        <form action="${path }/admin/productUpdateEnd" method="post" enctype="multipart/form-data">
+        	<input type="hidden" name="productno" value="${product.productNo }"/>
             <table id="product-tbl" class="table-responsive-md">
                 <colgroup>
                     <col width="20%">
@@ -52,57 +58,201 @@
                 </colgroup>
                 <tr>
                     <th>상품이름</th>
-                    <td><input type="text" name="title" value="${product['PRODUCTNAME'] }"></td>
+                    <td><input type="text" name="productName" value="${product.productName }" required></td>
                 </tr>
                 <tr>
                     <th>상품가격</th>
-                    <td><input type="number" name="price" value="${product['PRODUCTPRICE'] }"><span>원</span></td>
+                    <td><input type="number" name="productPrice" value="${product.productPrice }" required><span>원</span></td>
                 </tr>
                 <tr>
                     <th>상품정보</th>
-                    <td><textarea id="text">${product['PRODUCTCONTENT'] }</textarea></td>
+                    <td><textarea id="text" name="productContent">${product.productContent }</textarea></td>
                 </tr>
                 <tr>
                     <th>가구별 카테고리</th>
                     <td>
-                        <select id="furniture" style="width:100px">
-                            <option value="bad" ${product['CATEGORY']=='bad'?"selected":""}>bad</option>
-                            <option value="sofa" ${product['CATEGORY']=='sofa'?"selected":""}>sofa</option>
-                            <option value="chair" ${product['CATEGORY']=='chair'?"selected":""}>chair</option>
-                            <option value="table" ${product['CATEGORY']=='table'?"selected":""}>table</option>
+                        <select id="category" name="category" style="width:100px">
+                            <option value="bed" ${product.category=='bed'?"selected":""}>bed</option>
+                            <option value="sofa" ${product.category=='sofa'?"selected":""}>sofa</option>
+                            <option value="chair" ${product.category=='chair'?"selected":""}>chair</option>
+                            <option value="light" ${product.category=='light'?"selected":""}>light</option>
+                            <option value="table" ${product.category=='table'?"selected":""}>table</option>
+                            <option value="desk" ${product.category=='desk'?"selected":""}>desk</option>
+                            <option value="carpet" ${product.category=='carpet'?"selected":""}>carpet</option>
+                            <option value="lug" ${product.category=='lug'?"selected":""}>lug</option>
+                            <option value="storage" ${product.category=='storage'?"selected":""}>storage</option>
+                            <option value="others" ${product.category=='others'?"selected":""}>others</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>브랜드 카테고리</th>
                     <td>
-                        <select id="brand" style="width:100px">
-                            <option value="에이스" ${product['BRAND']=='에이스'?"selected":""}>에이스</option>
-                            <option value="한샘" ${product['BRAND']=='한샘'?"selected":""}>한샘</option>
-                            <option value="이케아" ${product['BRAND']=='이케아'?"selected":""}>이케아</option>
-                            <option value="파로마" ${product['BRAND']=='파로마'?"selected":""}>파로마</option>
+                        <select id="brand" name="brand" style="width:100px">
+                            <option value="에이스" ${product.brand=='에이스'?"selected":""}>에이스</option>
+                            <option value="한샘" ${product.brand=='한샘'?"selected":""}>한샘</option>
+                            <option value="이케아" ${product.brand=='이케아'?"selected":""}>이케아</option>
+                            <option value="파로마" ${product.brand=='파로마'?"selected":""}>파로마</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>썸네일</th>
                     <td>
-                        <input type="file" name="upfile" multiple>
-                        <div style="display: inline-block;">
-                            <img src="${path }/resources/images/${product['PRODUCTIMG']}" attr="" width="100px" height="100px"/>
+                        <input type="file" name="productImg" id="thumbImg">
+                        <div id="thumb" style="display: inline-block;">
+                        	<c:if test="${product.renamedProductImg !=null }">
+                            	<img src="${path }/resources/upload/newproduct/${product.renamedProductImg}" class="preViewImg"/>
+                            </c:if>
                         </div>
+                    </td>
+                </tr>
+                 <tr>
+                    <th>탑이미지</th>
+                    <td>
+                        <input type="file" name="topImg" id="topImg">
+                        <div id="top" style="display: inline-block;">
+                        	<c:if test="${product.renamedTopImg != null }">
+                        		<img src="${path }/resources/upload/newproduct/${product.renamedTopImg}" class="preViewImg"/>
+                        	</c:if>
+                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>상세이미지</th>
+                    <td>
+                        <input type="file" name="detailImg" id="detailImg" multiple>
+                        <div id="detail" style="display: inline-block;">
+                        	<c:if test="${not empty detailImg }">
+	                        	<c:forEach items="${detailImg }" var="di" >
+	                        		<img src="${path }/resources/upload/newproduct/${di.diRenameFile}" class="preViewImg"/>
+	                        	</c:forEach>
+	                        </c:if>
+                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>상세페이지이미지</th>
+                    <td>
+                        <input type="file" name="detailPageImg" id="detailPageImg" multiple>
+                        <div id="detailPage" style="display: inline-block;">
+                        	<c:if test="${not empty pageImg }">
+	                        	<c:forEach items="${pageImg }" var="pi" >
+	                        		<img src="${path }/resources/upload/newproduct/${pi.pdiRenameFile}" class="preViewImg"/>
+	                        	</c:forEach>
+	                        </c:if>
+                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: right; padding:30px 30px 0 0; border:0;" colspan="2">
-                        <button type="button" class="btn-black">등록</button>
+                        <button type="submit" class="btn-black">등록</button>
                     </td>
                 </tr>
             </table>
+            </form>
         </div>
 	  </div>
-	  </div>
-	  </div>
+<script>
+	var viewImg;
+	
+	$(function(){
+		$("#thumbImg").on("change",preViewFnc);
+		$("#topImg").on("change",preViewFnc2);
+		$("#detailImg").on("change",multiPreViewFnc);
+		$("#detailPageImg").on("change",multiPreViewFnc2);
+	})
+	
+	function preViewFnc(e){
+		var files=e.target.files;
+		var fileArr=Array.prototype.slice.call(files);
+		$("#thumb").find($("img")).remove();
+		fileArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지 파일만 등록해주세요!");
+				$("#thumbImg").val("");
+				$("#thumb").find($("img")).remove();
+				return;
+			}
+			viewImg=f;
+			var reader=new FileReader();
+			reader.onload=function(e){
+				console.log(e.target);
+				$("#thumb").append($("<img>").attr({"src":e.target.result,
+					"class":"preViewImg"}));
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+	function preViewFnc2(e){
+		var files=e.target.files;
+		var fileArr=Array.prototype.slice.call(files);
+		$("#top").find($("img")).remove();
+		fileArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지 파일만 등록해주세요!");
+				$("#topImg").val("");
+				$("#top").find($("img")).remove();
+				return;
+			}
+			viewImg=f;
+			var reader=new FileReader();
+			reader.onload=function(e){
+				console.log(e);
+				$("#top").append($("<img>").attr({"src":e.target.result,
+					"class":"preViewImg"}));
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+	
+	var multiView=[];
+	function multiPreViewFnc(e){
+		var files=e.target.files;
+		var fileArr=Array.prototype.slice.call(files);
+		$("#detail").find($("img")).remove();
+		fileArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지 파일만 등록해주세요!");
+				$("#detailImg").val("");
+				$("#detail").find($("img")).remove();
+				return;
+			}
+			multiView.push(f);
+			
+			var reader=new FileReader();
+			reader.onload=function(e){
+				console.log(e);
+				$("#detail").append($("<img>").attr({"src":e.target.result,
+					"class":"preViewImg"}));
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+	
+	function multiPreViewFnc2(e){
+		var files=e.target.files;
+		var fileArr=Array.prototype.slice.call(files);
+		$("#detailPage").find($("img")).remove();
+		fileArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지 파일만 등록해주세요!");
+				$("#detailPageImg").val("");
+				$("#detailPage").find($("img")).remove();
+				return;
+			}
+			multiView.push(f);
+			
+			var reader=new FileReader();
+			reader.onload=function(e){
+				console.log(e);
+				$("#detailPage").append($("<img>").attr({"src":e.target.result,
+					"class":"preViewImg"}));
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+</script>
 	
 		
     
