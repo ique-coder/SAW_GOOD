@@ -39,5 +39,16 @@ public class ProductDaoImpl implements ProductDao {
 	public int countSearchProduct(SqlSessionTemplate session, Map<String, String> map) {
 		return session.selectOne("newProduct.countSearchProduct", map);
 	}
+
+	@Override
+	public List<Map<String,Object>> searchCategory(SqlSessionTemplate session, int cPage, int numPerPage, Map<String,Object> map) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return session.selectList("newProduct.searchCategory", map, rb);
+	}
+
+	@Override
+	public int countSearchCategory(SqlSessionTemplate session, Map<String,Object> map) {
+		return session.selectOne("newProduct.countSearchCategory", map);
+	}
 	
 }

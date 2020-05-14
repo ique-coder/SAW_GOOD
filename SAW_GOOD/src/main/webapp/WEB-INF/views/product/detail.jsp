@@ -200,6 +200,15 @@
                                 <option value="4">
                                     ★★★★ 맘에 들어요
                                 </option>
+                                <option value="3">
+                                    ★★★ 보통이에요
+                                </option>
+                                <option value="2">
+                                    ★★ 그냥 그래요
+                                </option>
+                                <option value="1">
+                                    ★ 별로에요
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -378,7 +387,7 @@
                           </tbody>
                     </table>
                     <p class="base-btn">
-                        <a href="#" class="write-btn">글쓰기</a>
+                        <a href="${path }/qna/qnaForm" class="write-btn">글쓰기</a>
                     </p>
                 </div>
             </div>
