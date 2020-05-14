@@ -4,7 +4,7 @@
 	<select id="selectHighList" resultType="funding" parameterType="int">
 		SELECT * FROM(SELECT ROWNUM RNUM , R.* FROM(SELECT A.* ,(SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO = B.FDNO) COUNT
                                                                ,(SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM
-                                                     FROM FUNDING A ORDER BY SUM DESC) R)
+                                                     FROM FUNDING A WHERE STATUS =1 ORDER BY SUM DESC) R)
 		WHERE RNUM BETWEEN 1 AND #{high}
 	
 	</select>
@@ -12,7 +12,7 @@
 	<select id="selectAllList" resultType="funding" >	
  		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
  					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
-		FROM FUNDING A ORDER BY ENDDATE
+		FROM FUNDING A WHERE STATUS = 1 ORDER BY ENDDATE
  	</select>
   	<select id="selectItem" resultType="funding" parameterType="_int">
   		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
