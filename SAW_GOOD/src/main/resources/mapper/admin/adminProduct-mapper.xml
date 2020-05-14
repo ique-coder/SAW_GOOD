@@ -117,12 +117,18 @@
 		,PRODUCTPRICE=#{productPrice},PRODUCTIMG=#{productImg},CATEGORY=#{category},TOPIMG=#{topImg},
 		RENAMEDPRODUCTIMG=#{renamedProductImg},RENAMEDTOPIMG=#{renamedTopImg} WHERE PRODUCTNO=#{productNo}
 	</update>
-	<update id="updateDetailImg" parameterType="detailImg">
+	<delete id="deleteDetailImg" parameterType="_int">
+		DELETE FROM DETAILIMG WHERE PRODUCTNO=#{productNo}
+	</delete>
+	<delete id="deletePageDetailImg" parameterType="_int">
+		DELETE FROM PAGEDETAILIMG WHERE PRODUCTNO=#{productNo}
+	</delete>
+	<!-- <update id="updateDetailImg" parameterType="detailImg">
 		UPDATE DETAILIMG SET DIORINAMEFILE=#{diOriNameFile},DIRENAMEFILE=#{diRenameFile} WHERE PRODUCTNO=#{productNo}
 	</update>
 	<update id="updatePageDetailImg" parameterType="pageImg">
 		UPDATE PAGEDETAILIMG SET PDIORINAMEFILE=#{pdiOriNameFile},PDIRENAMEFILE=#{pdiRenameFile} WHERE PRODUCTNO=#{productNo}
-	</update>
+	</update> -->
 	
 	
 	

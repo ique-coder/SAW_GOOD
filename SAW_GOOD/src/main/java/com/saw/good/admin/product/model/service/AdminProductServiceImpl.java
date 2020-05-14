@@ -120,26 +120,31 @@ public class AdminProductServiceImpl implements AdminProductService{
 	public int updateProduct(Product p, List<DetailImg> diList, List<PageDetailImg> pdiList) throws RuntimeException {
 		// TODO Auto-generated method stub
 		int result=0;
-		result=dao.updateProduct(session, p);
+		result+=dao.updateProduct(session, p);
 		if(result==0) {
 			throw new RuntimeException();
 		}
 		//삭제하고 등록
 		if(!diList.isEmpty()) {
+			int num=1;
+			dao.deleteDetailImg(session,p.getProductNo());
 			for(DetailImg di : diList) {
-				result+=dao.updateDetailImg(session, di);
-				if(result==0) {
+				result+=dao.insertDetailImg(session,di);
+				if(result<num+1) {
 					throw new RuntimeException();
 				}
-
+				num++;
 			}
 		}
 		if(!pdiList.isEmpty()) {
+			int num=1;
+			dao.deletePageDetailImg(session,p.getProductNo());
 			for(PageDetailImg pdi : pdiList) {
-				result+=dao.updatePageDetailImg(session,pdi);
-				if(result==0) {
+				result+=dao.insertPageDetailImg(session,pdi);
+				if(result<diList.size()+num+1) {
 					throw new RuntimeException();
 				}
+				num++;
 			}
 		}
 		return result;
