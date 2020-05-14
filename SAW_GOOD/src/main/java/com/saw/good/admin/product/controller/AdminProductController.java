@@ -367,7 +367,7 @@ public class AdminProductController {
 			String ext=originaltp.substring(originaltp.lastIndexOf("."));
 			renametp=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
 			p.setTopImg(originaltp);
-			p.setRenamedProductImg(renametp);
+			p.setRenamedTopImg(renametp);
 			try {
 				tpImg.transferTo(new File(fileDir+"/"+renametp));
 			}catch(IOException e) {

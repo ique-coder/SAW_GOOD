@@ -28,4 +28,9 @@
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
   		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
+  	
+  	<insert id="insertFDMember" parameterType="fdmember" >
+  		INSERT INTO FDMEMBER(FDNO,USERID,PARTPRICE,REWORD,PARTDATE,PURSTATUS) 
+  		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)
+  	</insert>
 </mapper>

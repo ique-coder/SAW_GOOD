@@ -93,9 +93,9 @@
 	                                 <tr>
 	                                    <td>
 	                                        <input type="radio" name="reword" value="${r.reword }">
-	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
+	                                        <fmt:formatNumber value="${r.partPrice }" type="number" />원
 	                                       
-	                                        <input type="hidden" name="partPrice" value="${r.minimum }"></td> 
+	                                        <input type="hidden" name="partPrice" value="${r.partPrice }"></td> 
 	                                    <td><p>${r.reword }</p><i></i></td> 
 	                                </tr>
 	                                
@@ -118,7 +118,7 @@
                 <ul class="row">
                     <li class="col-md-4"><span class="underline" onclick="select(1);">프로젝트 소개</span></li>
                     <li class="col-md-4"><span onclick="select(2);">참여내역</span></li>
-                    <li class="col-md-4"><span onclick="select(3);">후기</span></li>
+                    <li class="col-md-4"><span onclick="select(3);">커뮤니티</span></li>
                 </ul>
                 <section>
                     
@@ -150,15 +150,12 @@
                     </div>
                     <div class="detail-select" id="review">
                         <div id="insertReview" class="col-md-12 row">
-                        <c:if test="${f.status == 2}">
+                        
                             <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
                             <button id="insertTextBtn" class="col-md-2">등록</button>
                             <div id="commentList" class="col-md-12">
                             </div>
-                        </c:if>
-                        <c:if test="${f.status == 1 || f.status == 0}">
-                        	<p>후기는 펀딩이 성공적으로 완료되면 남기실 수 있습니다.</p>   
-                        </c:if> 
+                        
                         </div>
                         <!-- <ul class="lst_sponser">
                             <li>
@@ -325,7 +322,7 @@
         	}else{
         		partPrice = $("input[name='reword']:checked").next().val();
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&minimum="+partPrice;
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
 		}
     </script>
 

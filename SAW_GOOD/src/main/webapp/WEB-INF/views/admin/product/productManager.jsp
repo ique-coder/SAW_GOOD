@@ -381,7 +381,7 @@ label {
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td colspan="2"><input type="text" name="produtname"></td>
+						<td colspan="2"><input type="text" name="productname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>
