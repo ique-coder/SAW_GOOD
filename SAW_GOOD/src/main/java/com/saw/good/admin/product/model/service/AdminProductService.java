@@ -13,7 +13,10 @@ public interface AdminProductService {
 	List<Map<String,String>> selectProduct(int cPage,int numPerPage);
 	int countProduct();
 	//수정페이지 이동
-	Map<String,String> oneProduct(int productno);
+	Product oneProduct(int productno);
+	//수정상품이미지 불러오기
+	List<DetailImg> selectDetailImg(int productno);
+	List<PageDetailImg> selectPageImg(int productno);
 	//상품삭제
 	int deleteProduct(int productno);
 	//선택삭제
@@ -24,5 +27,7 @@ public interface AdminProductService {
 	int countSearchProduct(AdminProduct a);
 	//상품등록
 	int insertProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList);
+	//상품업데이트
+	int updateProduct(Product p,List<DetailImg> diList,List<PageDetailImg> pdiList);
 	
 }
