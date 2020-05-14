@@ -88,7 +88,7 @@
 									<c:out value="${highList[0].designer}" />
 								</p>
 								<h5 class="text-position">
-									<c:out value="${highList[0].subContent }"/>
+									${highList[0].subContent }
 								</h5> 
 								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
                                      <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
@@ -144,7 +144,7 @@
 				                                    </svg></th>
 										</tbody>
 										<tfoot>
-											<th><fmt:formatNumber value="${item.sum }"/></th>
+											<th><fmt:formatNumber value="${item.sum }"/>원</th>
 											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
 										</tfoot>
 									</table>
@@ -186,7 +186,7 @@
 				                                    </svg></th>
 										</tbody>
 										<tfoot>
-											<th><fmt:formatNumber value="${item.sum }"/></th>
+											<th><fmt:formatNumber value="${item.sum }"/>원</th>
 											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
 										</tfoot>
 									</table>
@@ -250,13 +250,13 @@
 											<th colspan="2"><svg width="100%" height="3px"
 													xmlns="http://w3.org/2000/svg" version="1.1"
 													class="bar-container">
-				                                        <rect x="0" y="0" width="50%"
+				                                        <rect x="0" y="0" width="${item.sum/item.targetPrice *100}%"
 														height="3px" class="bar" />
 				                                    </svg></th>
 										</tbody>
 										<tfoot>
-											<th>1,203,400원</th>
-											<td>200%</td>
+											<th><fmt:formatNumber value="${item.sum }"/>원</th>
+											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
 										</tfoot>
 									</table>
 								</a>

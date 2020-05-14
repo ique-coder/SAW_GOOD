@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.funding.model.dao.FundingDao;
 import com.saw.good.funding.model.vo.FDMember;
+import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
 
 @Service
@@ -54,6 +55,14 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return dao.selectPriceCount(session,fdNo);
 	}
+
+
+	@Override
+	public List<FDReword> selectRewordList(int fdNo) {
+		// TODO Auto-generated method stub
+		return dao.selectRewordList(session,fdNo);
+	}
+	
 	
 	
 	
