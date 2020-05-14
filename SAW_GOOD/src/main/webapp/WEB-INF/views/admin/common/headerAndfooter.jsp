@@ -99,7 +99,7 @@ div.footer {
 					<li class="menu"><a href="${path }/admin/funding"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
 					<div></div>
-					<li class="menu"><a href="#"><span class="fa fa-font mr-3"></span>
+					<li class="menu"><a href="${path }/admin/auction"><span class="fa fa-font mr-3"></span>
 							Auction</a></li>
 					<div></div>
 					<li class="menu"><a href="#"><span
