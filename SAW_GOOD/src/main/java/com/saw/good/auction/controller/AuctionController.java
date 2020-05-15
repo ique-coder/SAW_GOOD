@@ -63,9 +63,7 @@ public class AuctionController {
 		mv.setViewName("auction/auctionList");
 		return mv;
 	}
-	
-	
-	
+
 	@RequestMapping("/auction/categoryList")
 	public ModelAndView auctionList(ModelAndView mv,AuctionSearch category,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
@@ -84,9 +82,10 @@ public class AuctionController {
 		
 	}
 	
-//	@RequestMapping("/funding/detail")
-//	public ModelAndView fundingDetail(ModelAndView mv) {
-//		mv.setViewName("funding/detail");
-//		return mv;
-//	}
+	@RequestMapping("/auction/detail")
+	public ModelAndView auctionDetail(ModelAndView mv) {
+		System.out.println("들어옴?");
+		mv.setViewName("auction/auctionDetail");
+		return mv;
+	}
 }

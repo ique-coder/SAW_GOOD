@@ -19,7 +19,7 @@ import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
 import com.saw.good.member.model.vo.Member;
-import com.saw.good.payment.service.PaymentService;
+import com.saw.good.payment.model.service.PaymentService;
 
 @Controller
 public class FundingController {

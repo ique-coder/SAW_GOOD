@@ -83,32 +83,34 @@
 								end="${status.index+2}">
 								<div class="col-md-4">
 									<div class="auctionProduct">
-										<div class="productPoto">
-											<img src="${path }/resources/images/${item.acMainImg}.jpg"
-												style="width: 100%; height: 220px;">
-										</div>
-										<div class="proTitle">
-											<p>${item.acTitle }</p>
-										</div>
-										<div class="boderbottom-Red">
-											<p class="pCategory">
-											${item.acCategory } / ${item.acBrand }</p>
-										
-										</div>
-										<div class="finalPriceSmall">
-											<span class="nowPriceSmall">현재금액 : </span>
-											<c:if test="${item.acNowPrice>0 }">
-												${item.acNowPrice }원 
-											</c:if>
-											<c:if test="${item.acNowPrice==0 }">
-												입찰금액 없음
-											</c:if>
+										<a href="${path }/auction/detail?acBoardNo=${item.acBoardNo}"> 
+											<div class="productPoto">
+												<img src="${path }/resources/images/${item.acMainImg}.jpg"
+													style="width: 100%; height: 220px;">
+											</div>
+											<div class="proTitle">
+												<p>${item.acTitle }</p>
+											</div>
+											<div class="boderbottom-Red">
+												<p class="pCategory">
+												${item.acCategory } / ${item.acBrand }</p>
 											
-											<span class="rightSmall">
-											<fmt:parseNumber value="${item.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
-											${acEndDate-today }일 남음
-											</span>
-										</div>
+											</div>
+											<div class="finalPriceSmall">
+												<span class="nowPriceSmall">현재금액 : </span>
+												<c:if test="${item.acNowPrice>0 }">
+													${item.acNowPrice }원 
+												</c:if>
+												<c:if test="${item.acNowPrice==0 }">
+													입찰금액 없음
+												</c:if>
+												
+												<span class="rightSmall">
+												<fmt:parseNumber value="${item.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
+												${acEndDate-today }일 남음
+												</span>
+											</div>
+										</a>	
 									</div>
 								</div>
 							</c:forEach>
