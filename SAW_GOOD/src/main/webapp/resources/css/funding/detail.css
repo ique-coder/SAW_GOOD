@@ -65,11 +65,16 @@ section>.container{
 }
 /* 상품 설명 */
 #p-table h5{
-    font-size: 35px;
+    font-size: 20px;
     text-align: right;
+   position:relative;
 }
+#p-table h5>img{
+   position: relative;top:2px;
+}
+
 #p-table>table{
-    margin-top: 20px;
+    margin-top: 5px;
     border-top: 2px black solid;
     width: 100%;
 }

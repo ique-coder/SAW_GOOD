@@ -6,8 +6,9 @@ div{
     height: 100%;
     position: relative;
 }
-button{
+button,input[type='button'],input[type='submit']{
 	background:none;
+	outline:none;
 }
 #section{
 	margin-top:60px;
@@ -39,10 +40,19 @@ button{
 	height:40px;
 }
 #search-area button{
-	background:  #51735D;
-	border:none;
+	color:  #51735D;
+	border:1px solid  #E1E0E1;;
 	border-radius:3px;
 	height:40px;
+}
+#search-area button:hover{
+	border: 1px solid #51735D;
+	outline:none;
+	background-color:none;
+	margin-bottom:5px;
+	border-radius:3px;
+	color:#51735D;
+	margin:0;
 }
 .padding{
     padding: 20px;
@@ -168,14 +178,35 @@ button{
     position: relative;
     border-radius: 2px;
 }
-
-
+/* 글쓰기 버튼 */
+#enroll-container{
+	display: block;
+    /* border-bottom: solid 1px #E1E0E1; */
+    position: relative;
+    padding: 0 10px;
+}
+#enroll-container>input[type='button']{
+	width:100%;
+	height:30px;
+	border: 1px solid  #E1E0E1;
+	outline:none;
+	background-color:none;
+	margin-bottom:5px;
+	border-radius:3px;
+	color:#ee987c;
+	
+}
+#enroll-container>input[type='button']:hover{
+	background-color:rgba(238,152,124,0.1);
+	border: 1px solid  #ee987c;
+}
 /* 네비바 설정 */
+
 .block-span{
     display: block;
     border-bottom: solid 1px #E1E0E1;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     position: relative;
 }
 .block-span>button{
