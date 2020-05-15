@@ -3,7 +3,7 @@
 <mapper namespace="newProduct">
 	
 	<select id="selectProduct" resultType="map">
-		SELECT * FROM NEWPRODUCT
+		SELECT * FROM NEWPRODUCT ORDER BY PRODUCTNO DESC
 	</select>
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT
@@ -13,7 +13,7 @@
 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{no}
 	</select>
 	<select id="searchProduct" parameterType="map" resultType="map">
- 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNAME LIKE '%'||#{keyword}||'%' AND STATUS='N'
+ 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNAME LIKE '%'||#{keyword}||'%' AND STATUS='N' ORDER BY PRODUCTNO DESC
  	</select>
  	
  	<select id="countSearchProduct" parameterType="map" resultType="_int">
@@ -25,6 +25,7 @@
  		<foreach collection="category" item="ca" index="i" open="(" close=")" separator=",">
 				#{ca}
 		</foreach>
+		ORDER BY PRODUCTNO DESC
  	</select>
  	<select id="countSearchCategory" parameterType="map" resultType="_int">
  		SELECT COUNT(*) FROM NEWPRODUCT WHERE CATEGORY IN
@@ -32,5 +33,32 @@
 				#{ca}
 		</foreach>
  	</select>
-
+	
+	<insert id="insertQna" parameterType="map">
+		INSERT INTO NEWPRODUCTQNA VALUES(SEQ_PROQNA_NO.NEXTVAL,#{writer},#{productNo},#{subhead},#{content},
+		default,default,null,default,#{pass})
+	</insert>
+	
+	<select id="selectProductQna" resultType="productQna" parameterType="_int">
+		SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} ORDER BY WRITEDATE DESC
+	</select>
+	<select id="countQna" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTQNA
+	</select>
+	<select id="selectQnaCheck" resultType="productQna" parameterType="_int">
+		SELECT * FROM NEWPRODUCTQNA WHERE QNANO = #{no}
+	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

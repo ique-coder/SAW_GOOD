@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.product.model.dao.ProductDao;
 import com.saw.good.product.model.vo.Product;
+import com.saw.good.product.model.vo.ProductQna;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -53,6 +54,26 @@ public class ProductServiceImpl implements ProductService {
 	public int countSearchCategory(Map<String,Object> map) {
 		// TODO Auto-generated method stub
 		return dao.countSearchCategory(session, map);
+	}
+
+	@Override
+	public int insertQna(Map map) {
+		return dao.insertQna(session, map);
+	}
+
+	@Override
+	public List<ProductQna> selectProductQna(int no,int cPage,int numPerPage) {
+		return dao.selectProductQna(session, no, cPage, numPerPage);
+	}
+
+	@Override
+	public int countQna() {
+		return dao.countQna(session);
+	}
+
+	@Override
+	public ProductQna selectQnaCheck(int no) {
+		return dao.selectQnaCheck(session,no);
 	}
 	
 }

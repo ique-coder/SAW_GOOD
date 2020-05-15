@@ -259,13 +259,15 @@ public class MemberController {
 		}
 		//로그인 하기
 		@RequestMapping("/member/memberLogin")
-		public ModelAndView memberLogin(Member m, ModelAndView mv) {
+		public ModelAndView memberLogin(Member m, ModelAndView mv, HttpServletRequest request) {
 			
 			Member loginMember=service.selectMember(m);
 			
 			System.out.println(m);
 			String msg="";
-			String loc="";
+			//String loc="";
+			String referer=request.getHeader("referer");
+			System.out.println(referer);
 			//로그인로직 처리하기
 			if(loginMember!=null) {
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
@@ -291,7 +293,8 @@ public class MemberController {
 				msg="아이디 또는 비밀번호를 잘못 입력하셨습니다";
 			}
 			mv.addObject("msg", msg);
-			mv.addObject("loc", loc);
+			//mv.addObject("loc", loc);
+			mv.addObject("referer", referer);
 			mv.setViewName("common/msg");
 			return mv;
 		}
