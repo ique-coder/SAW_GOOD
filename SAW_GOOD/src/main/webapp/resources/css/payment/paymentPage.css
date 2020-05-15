@@ -175,9 +175,19 @@ section>.container {
 	padding: 10px;
 	text-align: center;
 	vertical-align: middle;
-	font-weight: bolder;
+	 font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color : rgb(60, 60,60);
 }
-
+td>p{
+	font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color : rgb(255, 130, 130);
+}
 .productList tr th {
 	border-bottom: 1px solid #b5b5b5;
 	padding: 10px;

@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet"
 	href="${path }/resources/css/payment/paymentPage.css" />
@@ -29,40 +30,43 @@
 				<li class="active">주문결제</li>
 				<li>주문완료</li>
 			</ul>
+			<form action="${path }/payment/paymentComplete">
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-8">
 					<div style="padding: 0 0 0 30px">
-						<p
-							style="font-size: 16px; font-weight: bold; margin-bottom: 30px;">구매상품</p>
+						<p style="font-size: 16px; font-weight: bold; margin-bottom: 30px;">구매상품</p>
+						
 						<table class="productList checking">
 							<colgroup>
-
 								<col width="30%" />
 								<col width="10%" />
 								<col width="auto" />
 								<col width="10%" />
 								<col width="15%" />
 							</colgroup>
-
 							<tr>
-
 								<th>이미지</th>
 								<th>브랜드</th>
 								<th>상품정보</th>
 								<th>수량</th>
-								<th>가격</th>
-
+								<th>총 가격</th>
 							</tr>
-							<tr>
-								<td><img class="img-responsive imgheight"
-									src="http://placehold.it/600x500" width="100%" /></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-
-
+							<c:forEach items="${list }" var="p" varStatus="vs">
+								<tr>
+									<td><img class="img-responsive imgheight"
+										src="${path}/resources/upload/newproduct/${p['PRODUCTIMG']}" width="100%"/></td>
+									<td>${p['BRAND'] }</td>
+	                                <td>${p['PRODUCTNAME'] }</br>
+	                                	<p>기본가격 : 
+	                                	<fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="#,###" />
+	                                	원</p>
+	                                </td>
+									<td>${p['CARTCOUNT'] }</td>
+									<td>
+									<fmt:formatNumber value="${p['CARTTOTALPRICE'] }" pattern="#,###" />
+									원</td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 
@@ -87,7 +91,7 @@
 									<!-- 이름 바디 입력창 -->
 									<td class="input-box-medium">
 										<div style="padding-top: 9px;">
-											<input class="pilsu" name="userName" id="userName"
+											<input class="pilsu" name="odName" id="userName"
 												placeholder="이름을 입력해주세요.">
 										</div>
 									</td>
@@ -101,7 +105,7 @@
 											<!-- 연락처 첫번째 칸 -->
 											<li>
 												<div class="input-box-medium">
-													<input class="pilsu" name="userPhone" id="userPhone"
+													<input class="pilsu" name="odPhone" id="userPhone"
 														maxlength="12" placeholder="전화번호 입력 '-'생략">
 												</div>
 											</li>
@@ -115,7 +119,7 @@
 									<!-- 이메일 입력창 -->
 									<td>
 										<div class="input-box-large">
-											<input type="email" class="pilsu" name="userEmail"
+											<input type="email" class="pilsu" name="odEmail"
 												id="userEmail" placeholder="이메일 입력">
 										</div>
 									</td>
@@ -147,7 +151,7 @@
 									<!-- 받으시는 분 바디 입력창 -->
 									<td class="input-box-medium">
 										<div style="padding-top: 9px;">
-											<input class="pilsu" name="userName2" id="userName2"
+											<input class="pilsu" name="rcName" id="userName2"
 												placeholder="이름을 입력해주세요.">
 										</div>
 									</td>
@@ -161,7 +165,7 @@
 											<!-- 연락처 첫번째 칸 -->
 											<li>
 												<div class="input-box-medium">
-													<input class="pilsu" name="userPhone2" id="userPhone2"
+													<input class="pilsu" name="rcName" id="userPhone2"
 														maxlength="12" placeholder="전화번호 입력 '-'생략">
 												</div>
 											</li>
@@ -177,7 +181,7 @@
 										<div class="input-box-medium">
 											<!-- 우편번호 입력란 (입력되면 안됨) -->
 
-											<input class="pilsu" name="userPost" id="postcode"
+											<input class="pilsu" name="rcPostCode" id="rcPostCode"
 												placeholder="우편번호" value />
 											<!--readonly-->
 
@@ -188,14 +192,14 @@
 											조회</button> <!-- 주소 1 -->
 										<div class="addrBox">
 											<div>
-												<input class="pilsu" name="userAddr" id="address"
+												<input class="pilsu" name="rcAddress1" id="rcAddress1"
 													placeholder="기본 주소를 검색해주세요.(우편번호 조회)" />
 												<!--readonly-->
 											</div>
 										</div> <!-- 주소 상세입력(동,호수) -->
 										<div class="addrBox">
 											<div>
-												<input class="pilsu" name="detailAddress" id="detailAddress"
+												<input class="pilsu" name="rcAddress2" id="rcAddress2"
 													placeholder="상세주소를 입력해주세요.">
 											</div>
 										</div>
@@ -222,7 +226,7 @@
 										<div class="addrBox" style="padding: 0;">
 											<!-- 배송메세지 입력창 -->
 											<div>
-												<input name="userAddr" class=""
+												<input name="deliveryMsg" class=""
 													placeholder="배송메세지를 입력해 주세요.">
 											</div>
 										</div>
@@ -250,25 +254,40 @@
 					</div>
 
 				</div>
-				<div class="col-md-3 payment">
+				<div class="col-md-4 payment">
 					<div class="bx_total">
 						<h3>결제금액</h3>
 						<ul>
 							<li><strong>총 상품 금액</strong>
 								<p>
-									<em id="counterTotal">152,000</em>원
+									<em id="counterTotal">
+								    <c:set var="totalPrice" value="0"/>
+									<c:forEach items="${list }" var="pm" varStatus="vs">
+										<fmt:parseNumber type="number" value="${pm['CARTTOTALPRICE'] }" var="o"/>
+										<c:set var="totalPrice" value="${totalPrice+o }"/>
+									</c:forEach>
+										<fmt:formatNumber value="${totalPrice}" pattern="#,###" />
+									</em>원
 								</p></li>
 							<li><strong>배송비</strong>
 								<p>
-									<span>+</span><em id="counterTotdeliveryamt">0</em>원
+									<span>+ </span><em id="counterTotdeliveryamt">
+										<fmt:formatNumber value="${10000}" pattern="#,###" />
+									</em>원
 								</p></li>
 							<li class="total"><strong>총 결제금액</strong>
 								<p>
-									<em id="counterTotalAmt">152,000</em>원
+								<input type="hidden" id="payTotalPrice" value="${totalPrice+10000 }"/> 
+									<em id="counterTotalAmt">
+										<fmt:formatNumber value="${totalPrice+10000 }" pattern="#,###" />
+									</em>원
 								</p></li>
 							<li class="point"><strong>포인트 적립</strong>
-								<p>
-									<em id="counterTotalcybermoney">1,520</em>p
+								<p><span>+</span>
+									<em id="counterTotalcybermoney">
+										<fmt:parseNumber var="point" value="${totalPrice/100 }" integerOnly="true" />
+										<fmt:formatNumber value="${point }" pattern="#,###" />
+									</em>P
 								</p></li>
 						</ul>
 						<!-- 약관동의-->
@@ -288,15 +307,15 @@
 									</label>
 								</div>
 							</span>
-							<button type="button" name="button" onclick="paymentBt()"
+							<button type="button" name="button" onclick="paymentBtn()"
 								id="paymentBt" class="btn_order">결제하기</button>
 						</div>
 					</div>
 
 				</div>
-
+			
 			</div>
-
+			</form>
 		</div>
 	</div>
 </section>
@@ -608,17 +627,17 @@
 								extraAddr = ' (' + extraAddr + ')';
 							}
 							// 조합된 참고항목을 해당 필드에 넣는다.
-							document.getElementById("detailAddress").value = extraAddr;
+							document.getElementById("rcAddress2").value = extraAddr;
 
 						} else {
-							document.getElementById("detailAddress").value = '';
+							document.getElementById("rcAddress2").value = '';
 						}
 
 						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('postcode').value = data.zonecode;
-						document.getElementById("address").value = addr;
+						document.getElementById('rcPostCode').value = data.zonecode;
+						document.getElementById("rcAddress1").value = addr;
 						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("detailAddress").focus();
+						document.getElementById("rcAddress2").focus();
 						for (let i = 0; i < inputPilsu.length; i++) {
 							if ($(inputPilsu[i]).val() != "") {
 								//input에 값이 있을때 if 들어감
@@ -656,7 +675,7 @@
 	}
 	//결제창 스크롤이벤트
 	$(function() {
-		console.log(agreeWon);
+	
 		const oriheight = $(".bx_total").height();
 		const offleft = $(".payment").offset().left + 30;
 		$(window).scroll(function() {
@@ -678,7 +697,7 @@
 		})
 	})
 	//결제 스크립트
-	function paymentBt() {
+	function paymentBtn() {
 		if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == ""
 				|| $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == ""
 				|| $(inputPilsu[4]).val() == "" || $(inputPilsu[5]).val() == ""
@@ -737,15 +756,14 @@
 				$("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
 
 				var IMP = window.IMP; // 생략가능
-				var payChoice = "card"; //선태된 결제방법의 값
-				var payAmount = 10000;//가격
+				var payChoice = $("#payChoice").val(); //선태된 결제방법의 값
+				var payAmount = $("#payTotalPrice").val();//가격
 				var userName = $("#userName").val();//이름
 				var userEmail = $("#userEmail").val();//이메일
-				var userAddr = $("#address").val() + ' '
-						+ $("#detailAddress").val();//주소
-				var postcode = $("#postcode").val();//우편번호
-				var userPhone = $(inputPilsu[1]).val() + '-'
-						+ $(inputPilsu[2]).val() + '-' + $(inputPilsu[3]).val();
+				var userAddr = $("#rcAddress1").val() + ' '
+						+ $("#rcAddress2").val();//주소
+				var postcode = $("#rcPostCode").val();//우편번호
+				var userPhone = $("#userPhone").val();
 				IMP.init('imp39029830');
 				IMP
 						.request_pay(
