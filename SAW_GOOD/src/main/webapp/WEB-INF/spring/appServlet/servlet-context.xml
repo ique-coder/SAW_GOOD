@@ -36,7 +36,11 @@
 			<beans:bean id="loginCheck" 
 			class="com.saw.good.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
-	
+		<interceptor>
+			<mapping path="/funding/enroll/*"/>
+			<beans:bean id="statusCheck" 
+			class="com.saw.good.common.interceptor.StatusCheckInterceptor"/>
+		</interceptor>
 	</interceptors>
 	 
 	<!-- 파일업로드 resolver bean설정하기 -->

@@ -115,4 +115,11 @@ public class FundingController {
 		
 	}
 	
+	@RequestMapping("/funding/enroll/step1")
+	public ModelAndView enrollFunding(ModelAndView mv) {
+		
+		mv.setViewName("funding/enrollView");
+		return mv;
+	}
+	
 }

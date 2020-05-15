@@ -17,7 +17,7 @@
 <section>
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/auction/funding main2.jpeg">
-		<h3>AUCTION</h3>
+		<h3>CATCH YOUR CHANCE</h3>
 	</div>
 	<!-- 전체 컨테이너 div -->
 	<div id="search-area" class="container" style="border: 0;">
