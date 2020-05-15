@@ -27,13 +27,14 @@
                     <div id="p-table" class="col-md-5" style="height: 700px;">
                         <caption>
                             <h5>
+	                        	<img src="${path }/resources/images/common/clock.png" width="18px" height="18px">
                             	<c:if test="${f.status== 1 }">
 	                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
 									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 									<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 											${endDate-today} 일 남음
 								</c:if>
-								<c:if test="${f.status == 0 || f.status ==2 }">
+								<c:if test="${f.status != 1 }">
 									마감된 펀딩
 								</c:if>
                             </h5>
@@ -194,8 +195,10 @@
         var cPage = 1;
         
         function partlist(cPage){
+        	//매개변수로 넘어온 값을 cPage로 , 다른 탭을 클릭하더라도 이전에 보던 페이지 유지하기 위해
         	this.cPage = cPage;
         	var perchase = $("#purchase");
+        	//로딩 이미지 보이기
         	perchase.append("<div class='loading-bar'>"
         					+"<img src='${path}/resources/images/common/loading_bar.gif'/>"
         					+"</div>");
@@ -205,13 +208,24 @@
         		data:{fdNo:"${f.fdNo}",cPage:cPage},
         		async:false,
         		success:function(data){
+        			//div 내용 비워주기
         			perchase.html("");
+        			//로딩 이미지 숨기기
         			$(".loading-container").hide();
         			perchase.append(' <p class="tx_total">총 <strong class="num">'+data.count+'</strong>개의 참여내역과 응원메시지가 있습니다.</p>');
         			let div = $("<div class='userList'>");
         			for(let i =0; i<data.list.length;i++){
-        			
+        				//날짜 형변환해주기
+        				var format = new Date(data.list[i].partDate);
         				
+        				var date = format.getFullYear()+"년 "
+        							+("0"+ format.getMonth()).slice(-2)+"월 "
+        							+("0"+format.getDate()).slice(-2)+"일 "
+        							+("0"+format.getHours()).slice(-2)+" : "
+        							+("0"+format.getMinutes()).slice(-2);
+        				//돈 ,찍어주기
+        				var money = Number(data.list[i].partPrice).toLocaleString();
+        				//프로필 사진 설정
         				var profile = "";
         				if(data.list[i].profile!=null){
         					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images'+data.list[i].profile+'" width="50" height="50" alt="'+data.list.userId+'"></div>';
@@ -223,8 +237,8 @@
                        				+'<li>'+profile
                        					+'<div class="sponser_info">'
                            					+'<p><span class="wordBreak">'+data.list[i].userId+'님이 프로젝트의 성공을 응원합니다.</span></p>'
-                        					+'<span class="date">'+data.list[i].partDate+'</span>'
-                        					+'<div><span class="price"><strong class="num">'+data.list[i].partPrice+'</strong>원 참여</span></div>'
+                        					+'<span class="date">'+date+'</span>'
+                        					+'<div><span class="price"><strong class="num">'+money+'</strong>원 참여</span></div>'
                         				+'</li></ul>';
                           
         				
