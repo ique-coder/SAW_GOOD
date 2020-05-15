@@ -142,22 +142,7 @@
                             </div>
                         
                         </div>
-                        <!-- <ul class="lst_sponser">
-                            <li>
-                                <span class="img_thm">
-                                    <img src="" width="50" height="50" alt="wwiiw_img">
-                                </span>
-                                <div class="sponser_info">
-                                    <p>
-                                        <span class="wordBreak">상품 후기</span>
-                                    </p>
-                                    <span class="date">2020.05.10 20:31</span>
-                                <div>                    
-                                    <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                    <span class="price"><strong class="num">****</strong>별점</span>
-                                </div>
-                            </li>
-                        </ul> -->
+                        
                     </div>
 
                 </section>

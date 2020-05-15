@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class FDReword {
+@NoArgsConstructor
 
+public class FDSubImg {
+	
 	int fdNo;
-	String reword;
-	int partPrice;
+	String subImg;
+	String oriName;
+
 }
