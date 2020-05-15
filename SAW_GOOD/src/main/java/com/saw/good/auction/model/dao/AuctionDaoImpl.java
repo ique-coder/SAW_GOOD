@@ -1,6 +1,7 @@
 package com.saw.good.auction.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +39,21 @@ public class AuctionDaoImpl implements AuctionDao {
 		return session.selectOne("auction.countCtAuction",category);
 	}
 
+	@Override
+	public List<Auction> searchAuction(SqlSession session, int cPage, int numPerPage, Map<String,String> map) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("auction.searchAuction",map,rb);
+	}
+
+	@Override
+	public int countAcSearch(SqlSession session, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.countAcSearch",map);
+	}
+	
+
+	
 
 	
 	

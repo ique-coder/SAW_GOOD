@@ -1,0 +1,607 @@
+.top_menu1 {
+	list-style-type: none;
+	text-align: right;
+}
+
+.top_menu1>li {
+	display: inline;
+	padding: 2px 5px;
+	border-right: 2px solid #51735D;
+}
+
+.top_menu1>li>a, .top_menu1>li>a:hover {
+	text-decoration: none;
+	color: black;
+	font-size: 14px;
+}
+
+div.container {
+	/* padding: 20px; */
+	border: 50px solid #F2E8DC;
+	box-sizing: content-box;
+}
+
+.top_menu1>li:last-of-type {
+	border: 0;
+}
+
+.top_menu2 {
+	padding: 0;
+	margin-top: 15px;
+	/* position: fixed; */
+	border-bottom: 1px solid lightgray;
+}
+
+.top_menu3 {
+	list-style-type: none;
+	height: 100%;
+	transition-duration: 2s;
+}
+
+.top_menu3>li {
+	display: inline-block;
+	padding: 2px 5px;
+	height: 100%;
+	margin: 0 50px;
+}
+
+.top_menu3>li>a {
+	height: 100%;
+	display: inline-block;
+	text-decoration: none;
+	color: black;
+	padding: 20px 0;
+	font-size: 18px;
+}
+
+.top_menu3>li>a:hover {
+	border-bottom: 3px solid #51735D;
+}
+
+.top_menu3>li>a:hover #nav_bottom {
+	display: block;
+}
+
+nav {
+	height: 100%;
+}
+
+.sub_menu {
+	display: none;
+	border-bottom: 1px solid lightgray;
+	position: fixed;
+	width: 100%;
+	height: 62px;
+	left: 0;
+	padding: 20px 0;
+}
+
+.sub_menu2 {
+	list-style-type: none;
+	left: 812px;
+	position: relative;
+}
+
+.sub_menu2>li {
+	display: inline;
+	padding-right: 57px;
+}
+
+ul li:hover .sub_menu {
+	display: block;
+}
+
+/* .container{
+        padding: 0;
+    } */
+section {
+	margin-top: 60px;
+}
+
+section>.container {
+	/* padding: 20px; */
+	border: 50px solid #F2E8DC;
+	box-sizing: content-box;
+}
+
+/* 서브타이틀 */
+#subtitle {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#subtitle>h1 {
+	font-size: 40px;
+	padding-bottom: 30px;
+	font-weight: lighter;
+}
+
+/* 단계 */
+.shoppingbag {
+	margin-top: 40px;
+}
+
+.shoppingbag .step {
+	width: 305px;
+	margin: -48px auto 80px auto;
+	text-align: center;
+}
+
+.shoppingbag .step li {
+	display: inline;
+	font-size: 14px;
+	color: #a1a1a1;
+	position: relative;
+}
+
+.shoppingbag .step li+li:before {
+	content: '';
+	width: 7px;
+	height: 7px;
+	border-top: 1px solid #a1a1a1;
+	border-right: 1px solid #a1a1a1;
+	display: inline-block;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	/* transform: rotate(45deg); */
+	position: absolute;
+	top: 0;
+	left: 10px;
+	bottom: 0;
+	margin: auto;
+}
+
+.shoppingbag .step li+li {
+	padding-left: 37px;
+}
+
+.shoppingbag .step li.active {
+	color: #000;
+	font-weight: bolder;
+}
+
+/* 장바구니 테이블 */
+.productList {
+	width: 100%;
+	margin-bottom: 10px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.productList tr td {
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+	text-align: center;
+	vertical-align: middle;
+	 font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color : rgb(60, 60,60);
+}
+td>p{
+	font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color : rgb(255, 130, 130);
+}
+.productList tr th {
+	border-bottom: 1px solid #b5b5b5;
+	padding: 10px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+/* 사진크기 */
+.imgheight {
+	max-width: 50%;
+	height: auto;
+}
+/* 삭제버튼 */
+.btn-black {
+	padding: 0 30px;
+	line-height: 50px;
+	font-size: 15px;
+	color: #fff;
+	text-align: center;
+	background-color: #303030;
+	border: 1px solid #303030;
+}
+
+/* 왼쪽 결제창 */
+.bx_total {
+	-webkit-font-smoothing: antialiased;
+	font-family: "ProximaNova-Light", "yg740";
+	font-size: 12px;
+	box-sizing: border-box;
+	outline: none;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.shoppingbag .bx_total h3 {
+	-webkit-font-smoothing: antialiased;
+	box-sizing: border-box;
+	outline: none;
+	font-style: normal;
+	margin: 0;
+	font-weight: normal;
+	background-color: white;
+	height: 70px;
+	padding-top: 27px;
+	border: 1px solid rgb(220, 220, 220);
+	border-bottom: 1px solid #ababab;
+	font-family: "yg750";
+	font-size: 18px;
+	text-align: center;
+}
+
+.shoppingbag .bx_total ul {
+	-webkit-font-smoothing: antialiased;
+	font-family: "ProximaNova-Light", "yg740";
+	font-size: 12px;
+	box-sizing: border-box;
+	outline: none;
+	font-weight: normal;
+	font-style: normal;
+	margin: 0;
+	border: 1px solid rgb(220, 220, 220);
+	border-top: white;
+	border-bottom: white;
+	background-color: white;
+	padding: 23px 0;
+}
+
+.shoppingbag .bx_total li {
+	margin: 8px 20px 0 20px;
+	color: #333;
+	overflow: hidden;
+}
+
+.shoppingbag .bx_total li.total {
+	margin-top: 20px;
+	padding-top: 18px;
+	border-top: 1px solid #d9d9d9;
+}
+
+.shoppingbag .bx_total li.point {
+	margin-top: 10px;
+	color: #666;
+	overflow: visible;
+}
+
+.shoppingbag .btn_order {
+	width: 100%;
+	height: 70px;
+	background-color: #fafafa;
+	border-top: 1px solid rgb(220, 220, 220);
+	font-family: "yg750";
+	font-size: 18px;
+	line-height: 70px;
+	color: rgb(173, 173, 173);
+	overflow: hidden;
+	outline: none;
+}
+
+button {
+	width: auto;
+	border: 0;
+	padding: 0;
+	background: none;
+	font-weight: normal;
+}
+
+.shoppingbag .bx_total li.point:after {
+	display: block;
+	clear: both;
+	content: '';
+}
+
+.shoppingbag .bx_total li strong {
+	float: left;
+	font-size: 14px;
+}
+
+.shoppingbag .bx_total li strong, .shoppingbag .bx_total li p {
+	display: inline-block;
+}
+
+.shoppingbag .bx_total li p {
+	width: 114px;
+	text-align: right;
+	font-family: "ProximaNova-Regular";
+	font-size: 14px;
+	float: right;
+}
+
+.shoppingbag .bx_total li.total em {
+	font-size: 20px;
+	color: #ff6160;
+}
+
+.shoppingbag .bx_total li p em {
+	margin-right: 5px;
+	font-size: 18px;
+}
+
+/* 스크롤 이벤트 */
+.payment {
+	padding: 30px;
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+/* 약관동의 div */
+.agree {
+	background-color: #fafafa;
+	border: 1px solid rgb(220, 220, 220);
+}
+/* 약관내용 */
+.agree-content {
+	display: block;
+	color: #666;
+	padding: 20px;
+	line-height: 1.67em;
+	font-size: 11px;
+}
+/* 약관 동의합니다 체크박스 */
+#poliyce-ckbox {
+	padding-top: 10px;
+	display: block;
+}
+/* 주문자 및 배송지정보 */
+.bottomInform {
+	/* display: inline-block; */
+	width: 100%;
+	display: none;
+	padding-left: 30px;
+}
+/* 주문자 및 배송지정보 마진top 20px */
+.bottomInform>table {
+	margin-top: 20px;
+}
+
+/* 주문자 문구 크기 및 설정 */
+.bottomInform>table>thead>tr>th {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 50px;
+	text-align: left;
+}
+
+/* 주문자 및 배송지정보 바텀 라인 */
+.bottomInform>table>tbody>tr {
+	border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* 주문자 (이름/연락처/이메일 테이블헤더) */
+.bottomInform>table>tbody>tr>th {
+	font-size: 13px;
+	/* border-bottom: 1px solid rgb(218, 218, 218); */
+	font-weight: normal;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+/* 주문자 (이름/연락처/이메일 테이블바디) */
+.bottomInform>table>tbody>tr>td {
+	font-size: 13px;
+	padding: 10px;
+	/* border-bottom: 1px solid rgb(218, 218, 218); */
+}
+
+.bottomInform>table>tbody>tr.choice>td {
+	line-height: 50px;
+}
+
+/* 주문자 및 배송지정보 필수 항목 별표 색상 */
+.bottomInform>table>tbody>tr>th>span {
+	color: red;
+}
+
+/* 이름 입력칸 크기 */
+.input-box-medium {
+	display: inline-block;
+	width: 195px;
+	position: relative;
+}
+
+/* 입력창 설정값 */
+.input-box-medium>div>input {
+	width: 175px;
+	height: 34px;
+	padding: 0 10px;
+	line-height: 34px;
+	border: 0;
+	outline: 1px solid rgb(220, 220, 220);
+	font-size: 12px;
+}
+
+.input-box-medium>input {
+	width: 175px;
+	height: 34px;
+	padding: 0 10px;
+	line-height: 34px;
+	border: 0;
+	outline: 1px solid rgb(220, 220, 220);
+	font-size: 12px;
+}
+
+.input-box-medium>div {
+	width: 100%;
+	position: relative;
+}
+
+/* 연락처 입력칸 */
+.phone-numbers {
+	display: table;
+	/* width: 100%; */
+	width: 300px;
+}
+
+/* 연락쳐 - 경계선 */
+ul.phone-numbers>li.line {
+	width: 5%;
+	padding: 0 6px;
+	padding-left: 16px;
+	line-height: 34px;
+	text-align: center;
+}
+
+/* 연락처 크기 및 설정 */
+ul.phone-numbers>li {
+	display: table-cell;
+	width: 30%;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+
+/* 연락처 디스플레이 */
+.input-box-small {
+	display: inline-block;
+	position: relative;
+}
+
+/* 연락처 입력란 설정 */
+.input-box-small>input {
+	/* position:relative; */
+	width: 100%;
+	height: 34px;
+	padding: 0;
+	padding-left: 10px;
+	line-height: 34px;
+	border: 0;
+	outline: 1px solid rgb(220, 220, 220);
+	font-size: 12px;
+}
+
+/* 이메일 입력란 설정 */
+.input-box-large {
+	width: 280px;
+	display: inline-block;
+	position: relative;
+}
+
+/* 이메일 입력란 설정2 */
+.input-box-large>input {
+	/* position:relative; */
+	width: 100%;
+	height: 34px;
+	padding: 0;
+	padding-left: 10px;
+	line-height: 34px;
+	border: 0;
+	outline: 1px solid rgb(220, 220, 220);
+	font-size: 12px;
+}
+
+/* 주소 입력창 */
+.bottomInform>table>tbody>tr>td.addr {
+	padding: 10px 10px;
+}
+
+.addr>div.input-box-medium {
+	display: inline-block;
+	padding: 0;
+	width: 195px;
+	position: relative;
+}
+
+.addrBox {
+	width: 560px;
+	padding-top: 7px;
+}
+
+/* .addrBox>div.in{
+                position: relative;
+                width: 100%;
+                padding: 0;
+            } */
+/* 주소 입력창 설정 */
+.addrBox>div>input {
+	width: 550px;
+	height: 34px;
+	padding: 0;
+	padding-left: 10px;
+	line-height: 34px;
+	border: 0;
+	outline: 1px solid rgb(220, 220, 220);
+	font-size: 12px;
+}
+
+/* 다음 버튼 */
+.btn-black-medium {
+	padding: 0 30px;
+	line-height: 42px;
+	font-size: 15px;
+	color: #fff;
+	text-align: center;
+	background-color: #303030;
+	border: 1px solid #303030;
+}
+
+/* 주문자와 동일버튼 */
+.btn-white {
+	padding: 0 12px;
+	line-height: 32px;
+	font-size: 11px;
+	color: #191919;
+	text-align: center;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+/* 택배 radio버튼 설정 */
+div.radio {
+	padding-top: 7px;
+}
+
+div.radio>input {
+	width: 15px;
+	height: 15px;
+	vertical-align: middle;
+}
+
+/* 택배 radio버튼 label설정 */
+div.radio>label {
+	position: relative;
+	/* display: block; */
+	padding-left: 5px;
+	outline: 0;
+	/* line-height: 16px;  */
+	font-size: 15px;
+	user-select: none;
+	vertical-align: middle;
+}
+
+.categoryStyle {
+	font-size: 13px;
+	background: none;
+	border: 1px solid #9d9d9d;
+	border-radius: 3px;
+	width: 150px;
+	height: 30px;
+}
+/* 에러클래스 */
+input.error {
+	outline: red solid 1px !important;
+	margin-bottom: 10px;
+}
+
+span.error {
+	color: red;
+	font-size: 11px;
+	display: block;
+	/* padding-bottom:  !important;  */
+}

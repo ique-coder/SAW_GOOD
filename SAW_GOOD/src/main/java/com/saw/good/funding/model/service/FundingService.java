@@ -22,4 +22,10 @@ public interface FundingService {
 
 	List<FDReword> selectRewordList(int fdNo);
 
+	int insertFDMember(FDMember m);
+
+	List<FDMember> selectFDMemberList(int fdNo, int cPage, int numPerPage);
+
+	int selectFDMemberCount(int fdNo);
+
 }
