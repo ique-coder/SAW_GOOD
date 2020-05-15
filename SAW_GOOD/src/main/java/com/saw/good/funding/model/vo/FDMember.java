@@ -17,6 +17,6 @@ public class FDMember {
 	String reword;
 	Date partDate;
 	int purStatus;
-
+	String profile;
 	
 }

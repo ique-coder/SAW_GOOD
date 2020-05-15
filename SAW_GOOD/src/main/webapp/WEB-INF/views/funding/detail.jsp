@@ -130,23 +130,7 @@
                         </p>
                     </div>
                     <div class="detail-select" id="purchase">
-                        <p class="tx_total">총 <strong class="num">280</strong>개의 참여내역과 응원메시지가 있습니다.</p>
-                            <ul class="lst_sponser">
-                                <li>
-                                    <span class="img_thm">
-                                        <img src="" width="50" height="50" alt="wwiiw_img">
-                                    </span>
-                                    <div class="sponser_info">
-                                        <p>
-                                            <span class="wordBreak">이 프로젝트의 성공을 응원합니다.</span>
-                                        </p>
-                                        <span class="date">2020.05.10 20:31</span>
-                                    <div>                    
-                                        <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                        <span class="price"><strong class="num">45,000</strong>원 참여</span>
-                                    </div>
-                                </li>
-                            </ul>
+                      
                     </div>
                     <div class="detail-select" id="review">
                         <div id="insertReview" class="col-md-12 row">
@@ -199,11 +183,63 @@
                 case 1: project.css("display","block");
                         break;
                 case 2: purchase.css("display","block");
+                		partlist(cPage);
                         break;
                 case 3: review.css("display","block");
                         break;
             }
         }
+        
+        //참여 내역클릭시 내역 불러오기
+        var cPage = 1;
+        
+        function partlist(cPage){
+        	this.cPage = cPage;
+        	var perchase = $("#purchase");
+        	perchase.append("<div class='loading-bar'>"
+        					+"<img src='${path}/resources/images/common/loading_bar.gif'/>"
+        					+"</div>");
+        	
+        	 $.ajax({
+        		url:"${path}/funding/detail/partList.ajax",
+        		data:{fdNo:"${f.fdNo}",cPage:cPage},
+        		async:false,
+        		success:function(data){
+        			perchase.html("");
+        			$(".loading-container").hide();
+        			perchase.append(' <p class="tx_total">총 <strong class="num">'+data.count+'</strong>개의 참여내역과 응원메시지가 있습니다.</p>');
+        			let div = $("<div class='userList'>");
+        			for(let i =0; i<data.list.length;i++){
+        			
+        				
+        				var profile = "";
+        				if(data.list[i].profile!=null){
+        					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images'+data.list[i].profile+'" width="50" height="50" alt="'+data.list.userId+'"></div>';
+        					 
+        				}else{
+        					profile = '<div class="emptyProfile"></div>';
+        				}
+        				var tag = '<ul class="lst_sponser">'
+                       				+'<li>'+profile
+                       					+'<div class="sponser_info">'
+                           					+'<p><span class="wordBreak">'+data.list[i].userId+'님이 프로젝트의 성공을 응원합니다.</span></p>'
+                        					+'<span class="date">'+data.list[i].partDate+'</span>'
+                        					+'<div><span class="price"><strong class="num">'+data.list[i].partPrice+'</strong>원 참여</span></div>'
+                        				+'</li></ul>';
+                          
+        				
+        				div.append(tag);
+        				
+        			}
+        			perchase.append(div);
+        			perchase.append(data.pageBar);
+        			
+        		}
+        	}) 
+        	
+        }
+        
+        
 
 
         // 리뷰

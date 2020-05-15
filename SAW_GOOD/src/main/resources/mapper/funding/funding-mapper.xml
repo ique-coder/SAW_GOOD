@@ -33,4 +33,10 @@
   		INSERT INTO FDMEMBER(FDNO,USERID,PARTPRICE,REWORD,PARTDATE,PURSTATUS) 
   		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)
   	</insert>
+  	<select id="selectFDMemberList" parameterType="_int" resultType="fdmember" >
+		SELECT F.* ,M.PROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE
+	</select>
+	<select id="selectFDMemberCount" parameterType="_int" resultType="int">
+	 	SELECT COUNT(*) FROM FDMEMBER WHERE FDNO=#{fdNo}
+	</select>
 </mapper>

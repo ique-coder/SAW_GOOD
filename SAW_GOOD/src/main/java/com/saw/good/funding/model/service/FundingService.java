@@ -24,4 +24,8 @@ public interface FundingService {
 
 	int insertFDMember(FDMember m);
 
+	List<FDMember> selectFDMemberList(int fdNo, int cPage, int numPerPage);
+
+	int selectFDMemberCount(int fdNo);
+
 }
