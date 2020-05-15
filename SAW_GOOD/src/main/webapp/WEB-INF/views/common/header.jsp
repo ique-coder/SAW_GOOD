@@ -56,7 +56,7 @@
                     <a href="${path }/funding/list" class="target"><span>FUNDING</span></a>
                 </li>
                 <li class="col-md-3">
-                    <a href="#" class="target"><span>AUCTION</span></a>
+                    <a href="${path }/auction/list" class="target"><span>AUCTION</span></a>
                 </li>
           </ul>
           <c:if test="${empty loginMember }">

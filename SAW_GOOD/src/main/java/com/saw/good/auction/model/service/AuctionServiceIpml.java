@@ -1,6 +1,7 @@
 package com.saw.good.auction.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -45,6 +46,22 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.countCtAuction(session,category);
 	}
+
+	@Override
+	public List<Auction> searchAuction(int cPage, int numPerPage, Map<String,String> map) {
+		// TODO Auto-generated method stub
+		return dao.searchAuction(session,cPage,numPerPage,map);
+	}
+
+	@Override
+	public int countAcSearch(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.countAcSearch(session,map);
+	}
+	
+	
+	
+	
 	
 	
 	
