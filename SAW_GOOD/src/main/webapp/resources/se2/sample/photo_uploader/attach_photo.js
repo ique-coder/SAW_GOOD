@@ -579,7 +579,7 @@
  	function setPhotoToEditor(oFileInfo){
 		if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
 			//스마트 에디터 플러그인을 통해서 넣는 방법 (oFileInfo는 Array)
-			opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', [oFileInfo]);
+			opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', ["<img style='max-width:640px;' src='oFileInfo[0].sFileURL+' />"]);
 			//본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
 			//opener.nhn.husky.PopUpManager.setCallback(window, 'PASTE_HTML', [oFileInfo]);
 		}
