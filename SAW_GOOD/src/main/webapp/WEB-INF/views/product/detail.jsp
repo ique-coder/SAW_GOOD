@@ -368,7 +368,7 @@
 	                            				<input type="button" value="확인" class="check_btn" onclick="qna_rock(${q.qnaNo},'${q.content }');"/>
 	                            			</div>
 	                            			<div class="reply-box">
-	                            				
+	                            				 
 	                            			</div>
 	                            		</div>
 	                            	</td>
