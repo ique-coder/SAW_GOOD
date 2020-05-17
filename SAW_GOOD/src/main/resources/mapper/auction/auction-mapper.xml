@@ -44,4 +44,12 @@
  			OR ACBRAND LIKE '%'||#{value}||'%' 
  		</if>
  	</select>
+ 	
+ 	<select id="selectDtAuction" parameterType="auction" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo}
+ 	</select>
+ 	
+ 	<select id="selectAcMember" parameterType="auction" resultType="map">
+ 		SELECT * FROM AUCTIONMEMBER ORDER BY BIDPRICE DESC
+ 	</select>
 </mapper>

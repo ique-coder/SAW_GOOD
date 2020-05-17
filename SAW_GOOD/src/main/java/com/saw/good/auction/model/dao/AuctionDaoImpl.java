@@ -51,6 +51,18 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("auction.countAcSearch",map);
 	}
+
+	@Override
+	public Auction selectDtAuction(SqlSession session, Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.selectDtAuction",acBoardNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAcMember(SqlSession session, Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectAcMember",acBoardNo);
+	}
 	
 
 	

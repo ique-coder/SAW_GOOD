@@ -58,6 +58,18 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.countAcSearch(session,map);
 	}
+
+	@Override
+	public Auction selectDtAuction(Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return dao.selectDtAuction(session,acBoardNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAcMember(Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAcMember(session,acBoardNo);
+	}
 	
 	
 	
