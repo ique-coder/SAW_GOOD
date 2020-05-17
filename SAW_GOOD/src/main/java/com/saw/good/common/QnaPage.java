@@ -1,24 +1,25 @@
 package com.saw.good.common;
 
-public class ProductFinderPage {
-	
-	public static String getPage(int totalData,int cPage,int numPerPage, String keyword ,String url) {
+public class QnaPage {
+
+public static String getPage(int no,int totalData,int cPage,int numPerPage, String url) {
 		
 		String pageBar="";
+		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
 		
 		int pageBarSize=5;
 		
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
-		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
+		
 		
 		pageBar+="<div id='pageBar'>";
 		//이전
 		if(pageNo==1) {
 			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='javascript:fn_paging("+(pageNo-1)+","+numPerPage+",\""+keyword+"\")'><</a>";
+			pageBar+="<a href='javascript:fn_paging("+no+","+(pageNo-1)+","+numPerPage+")'><</a>";
 		}
 		
 		//페이지처리
@@ -27,7 +28,7 @@ public class ProductFinderPage {
 				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 
-				pageBar+="<a href='javascript:fn_paging("+pageNo+","+numPerPage+",\""+keyword+"\")'>"+pageNo+"</a>";
+				pageBar+="<a href='javascript:fn_paging("+no+","+pageNo+","+numPerPage+")'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -36,18 +37,17 @@ public class ProductFinderPage {
 		if(pageNo>totalPage) {
 			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+","+numPerPage+",\""+keyword+"\")'>></a>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+no+","+pageNo+","+numPerPage+")'>></a>";
 		}
 		
 		pageBar+="</div>";
 		pageBar+="<script>";
-		pageBar+="function fn_paging(cPage,numPerPage,keyword){";
-		pageBar+="location.href='"+url+"?cPage='+cPage+'&numPerPage='+numPerPage+'&keyword='+keyword";
+		pageBar+="function fn_paging(no,cPage,numPerPage){";
+		pageBar+="location.href='"+url+"?no='+no+'&cPage='+cPage+'&numPerPage='+numPerPage";
 		pageBar+="}";
 		pageBar+="</script>";
 		
 		return pageBar;
-		
 	}
 	
 }

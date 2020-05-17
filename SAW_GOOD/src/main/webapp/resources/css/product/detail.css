@@ -1,4 +1,27 @@
-.detail_top{
+	.qna-reply-container{
+		padding-bottom: 15px;
+		padding-left: 80px;
+		padding-right: 15px;
+		padding-top: 15px;
+	}
+	.reply-box{
+		border-top: 1px solid #e7e7e7;
+	    width: 920px;
+	    margin: 0 auto;
+	}
+	.qna_check{
+		width:130px !important;
+		height:30px;
+		background-color: rgb(223, 230, 221);
+	    border: none;
+	    border-bottom: black 1px solid;
+	    outline: none;
+	    padding: 10px;
+	}
+	.box_cnt{
+		display: none;
+	}
+	.detail_top{
         list-style-type: none;
         text-align: right;
         margin-bottom: 30px;
@@ -311,7 +334,7 @@
     }
     .review-photo{
         margin-left: -15px;
-        width: 335px;
+        width: 355px;
         height: 81px;
         overflow: hidden;
     }
@@ -327,7 +350,7 @@
         height: 75px;
         position: relative;
         display: inline-block;
-        padding: 0 5px 10px 5px;
+        margin: 0 5px 10px 5px;
     }
     .img-wrap{
         position: relative;
@@ -338,7 +361,7 @@
     }
     .img-size{
         width: 100%;
-        height: auto;
+        height: 100%;
         min-width: 50px;
     }
     select{

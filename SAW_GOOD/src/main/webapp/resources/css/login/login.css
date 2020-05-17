@@ -42,6 +42,7 @@
     }
     .saveId{
         float: left;
+        margin-bottom: 16px;
     }
     /* 회원가입, 로그인 버튼 */
     #login button{
