@@ -81,10 +81,19 @@ public class AuctionController {
 		return mv;
 		
 	}
-	
+	//상품 디테일 기본정보 가져오기
 	@RequestMapping("/auction/detail")
-	public ModelAndView auctionDetail(ModelAndView mv) {
-		System.out.println("들어옴?");
+	public ModelAndView auctionDetail(ModelAndView mv, Auction ac) {
+
+		//상품 디테일 기본정보 가져오기
+		Auction acinfo=service.selectDtAuction(ac);
+		
+		//경매 랭크 불러오기
+		List<Map<String,String>> acMem=service.selectAcMember(ac);
+		System.out.println(acMem);
+		System.out.println(acinfo);
+		mv.addObject("a",acinfo);
+		mv.addObject("am",acMem);
 		mv.setViewName("auction/auctionDetail");
 		return mv;
 	}

@@ -18,4 +18,8 @@ public interface AuctionDao {
 	
 	List<Auction> searchAuction(SqlSession session,int cPage, int numPerPage, Map<String,String> map);
 	int countAcSearch(SqlSession session, Map<String,String> map);
+	
+	Auction selectDtAuction(SqlSession session,Auction acBoardNo);
+	
+	List<Map<String, String>> selectAcMember(SqlSession session,Auction acBoardNo);
 }
