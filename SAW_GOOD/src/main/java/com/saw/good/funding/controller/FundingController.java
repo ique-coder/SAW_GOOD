@@ -1,5 +1,6 @@
 package com.saw.good.funding.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,18 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/patronage/step1")
+	public ModelAndView fundingPatronageEnd(ModelAndView mv , FDMember m) {
+		
+		List<FDMember> list = new ArrayList();
+		
+		 list.add(m);
+		
+		 mv.addObject("list",list);
+		 mv.setViewName("payment/payment");
+		return mv;
+	}
+	
+	@RequestMapping("/funding/patronage/step2")
 	public ModelAndView fundingPatronage(ModelAndView mv,FDMember m ,@SessionAttribute ("loginMember") Member member) {
 	
 		//로그인 한 상태에서 후원할 수있도록 수정 
@@ -80,7 +93,7 @@ public class FundingController {
 		//m.setUserId((String)session.getAttribute("loginMember").get);
 		
 		m.setUserId(member.getUserId());
-		System.out.println(m);
+		
 		int result = service.insertFDMember(m);
 		
 		if(result>0) {
@@ -91,10 +104,7 @@ public class FundingController {
 		return mv;
 	}
 	
-	@RequestMapping("/funding/patronage/step2")
-	public ModelAndView fundingPatronageEnd(ModelAndView mv) {
-		return mv;
-	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/funding/detail/partList.ajax")

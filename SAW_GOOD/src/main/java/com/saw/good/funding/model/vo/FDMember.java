@@ -18,5 +18,5 @@ public class FDMember {
 	Date partDate;
 	int purStatus;
 	String profile;
-	
+	String img;
 }

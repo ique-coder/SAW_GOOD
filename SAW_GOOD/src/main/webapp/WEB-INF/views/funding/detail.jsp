@@ -357,7 +357,7 @@
         	}else{
         		partPrice = $("input[name='reword']:checked").next().val();
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
 		}
     </script>
 
