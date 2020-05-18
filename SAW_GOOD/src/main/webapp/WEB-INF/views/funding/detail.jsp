@@ -7,7 +7,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet"
-	href="${path }/resources/css/funding/detail.css?ver=2" />
+	href="${path }/resources/css/funding/detail.css?ver=3" />
 
 <div class="container-fluid col-md-12" id="detail-header">
 	<div class="bg-image"
@@ -158,27 +158,101 @@
 						<textarea name="" id="insertText" class="col-md-10" cols="30"
 							rows="10"></textarea>
 						<button id="insertTextBtn" class="col-md-2">등록</button>
-						<div id="commentList" class="col-md-12"></div>
+						<div id="commentList" class="col-md-12">
+							<c:forEach var="c" items="${commentList}">
+								<c:choose>
+									<c:when test="${c.status == '1'}">
+										<div class="comment delete">
+                                            <p>
+                                                <span class="commentUserId">${c.userId}</span>
+				                                <span class="commentTime">${c.commentDate }</span>
+                                            </p>
+				                           	<p>삭제된 댓글입니다.</p>
+											<div class="reCommentInserDiv col-md-12 row" style="display:none">
+												<textarea class="reInsertText col-md-10" rows="10" cols="30"></textarea>
+												<button class="reInsertTextBtn col-md-2" name="${c.seq_fc_no }">등록</button>
+											</div>
+											<div class="reCommentList">
+												<c:forEach var="cr" items="${reCommentList }">
+													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
+														<c:choose>
+															<c:when test="${cr.status == 1}">
+																<div class="rereComment delete">
+                                                                    <p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																	</p>
+																	<p>삭제된 댓글입니다.</p>
+                                                                </div>
+															</c:when>
+															<c:otherwise>
+																<div class="rereComment">
+																	<p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
+																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
+																	</p>
+																	<p>${cr.commentText }</p>
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</div>
+				                        </div>
+									</c:when>
+									<c:otherwise>
+										<div class="comment">
+				                            <p>
+				                                <span class="commentUserId">${c.userId}</span>
+				                                <span class="commentTime">${c.commentDate }</span>
+				                                <span class="commentDelete" name="${c.seq_fc_no }">삭제</span>
+				                                <span class="commentUpdate" name="${c.seq_fc_no }">수정</span>
+				                                <span class="reComment">댓글</span>
+				                            </p>
+											<p>
+												${c.commentText }
+											</p>
+											<div class="reCommentInserDiv col-md-12 row" style="display:none">
+												<textarea class="reInsertText col-md-10" rows="10" cols="30"></textarea>
+												<button class="reInsertTextBtn col-md-2" name="${c.seq_fc_no }">등록</button>
+											</div>
+											<div class="reCommentList">
+												<c:forEach var="cr" items="${reCommentList }">
+													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
+														<c:choose>
+															<c:when test="${cr.status == '1'}">
+																<div class="rereComment delete">
+                                                                    <p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																	</p>
+																	<p>삭제된 댓글입니다.</p>
+                                                                </div>
+															</c:when>
+															<c:otherwise>
+																<div class="rereComment">
+																	<p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
+																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
+																	</p>
+																	<p>${cr.commentText }</p>
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</div>
+				                        </div>
+									</c:otherwise>
+								</c:choose>
+	                    	</c:forEach>
+						</div>
                     </div>
-                    <c:forEach var="comment" items="${commentList}">
-                    	
-                    </c:forEach>
-					<!-- <ul class="lst_sponser">
-                            <li>
-                                <span class="img_thm">
-                                    <img src="" width="50" height="50" alt="wwiiw_img">
-                                </span>
-                                <div class="sponser_info">
-                                    <p>
-                                        <span class="wordBreak">상품 후기</span>
-                                    </p>
-                                    <span class="date">2020.05.10 20:31</span>
-                                <div>                    
-                                    <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                    <span class="price"><strong class="num">****</strong>별점</span>
-                                </div>
-                            </li>
-                        </ul> -->
+                    
 				</div>
 
 			</section>
@@ -219,10 +293,7 @@
         // 로그인 되어 있으면 클릭 가능, 아니면 안됨
         $(function() {
             if('${loginMember == null}'=='true') {
-                $("#insertReview").click(function() {
-                    console.log("되니?");
-                    alert("로그인을 해주세요!");
-                })
+                $("#review").addClass("noLogin").html("로그인 후 이용하실 수 있습니다.");
             } else {
                 $("#insertTextBtn").click(function() {
                     if($("#insertText").val() != null && $("#insertText").val() != '') {
@@ -451,6 +522,50 @@
         reCommentOk();
         reCommentInsert();
         commentBtnsFunction();
+
+        $(".reCommentDelete").off("click").on("click",function() {
+                                                
+                                                let nowThis = $(this);
+                                                let thisNo = $(this).attr('name');
+                                                $.ajax({
+                                                    url : "${path}/funding/reCommentDelete.do",
+                                                    type : "POST",
+                                                    data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo},
+                                                    success(data) {
+                                                        nowThis.parent().parent().addClass("deleteComment");
+                                                        deleteCheck();
+                                                    }
+                                                })
+                                            })
+                                            $(".reCommentUpdate").off("click").on("click",function() {
+                                                let nowThis = $(this);
+                                                nowThis.parent().next().hide();
+                                                let reUpdateTextbox = $("<textarea>").addClass("updateTextbox col-md-10").val(nowThis.parent().next().html());
+                                                let reUpdateTextBtn = $("<button>").addClass("reUpdateTextBtn col-md-2").html("수정");
+                                                let reUpdateDiv = $("<div>").addClass("updateDiv col-md-12 row").append(reUpdateTextbox).append(reUpdateTextBtn);
+                                                nowThis.parent().append(reUpdateDiv);
+
+                                                let thisNo = $(this).attr('name');
+
+                                                $(".reUpdateTextBtn").off("click").on("click", function() {
+                                                    let nowThis = $(this);
+                                                    if(nowThis.prev().val() != null && nowThis.prev().val() != '') {
+                                                        $.ajax({
+                                                            url : "${path}/funding/reCommentUpdate.do",
+                                                            type : "POST",
+                                                            data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo, commentText:nowThis.prev().val()},
+                                                            success(data) {
+                                                                nowThis.parent().parent().next().show();
+                                                                nowThis.parent().parent().next().html(data.comment.commentText);
+                                                                nowThis.parent().remove();
+                                                            }
+                                                        })
+                                                        
+                                                    } else {
+                                                        alert("수정 내용을 입력해주세요.");
+                                                    }
+                                                })
+                                            })
 
         $("input[name='partPrice']").click(function(){
         	if($(this).val()=='none'){

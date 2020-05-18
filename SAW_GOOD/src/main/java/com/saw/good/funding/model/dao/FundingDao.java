@@ -25,5 +25,7 @@ public interface FundingDao {
 	List<FDReword> selectRewordList(SqlSession session, int fdNo);
 	
 	List<Comment> selectComment(SqlSession session, int fdNo);
+	
+	List<Comment> selectReComment(SqlSession session, int fdNo);
 
 }

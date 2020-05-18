@@ -24,5 +24,6 @@ public interface FundingService {
 	List<FDReword> selectRewordList(int fdNo);
 	
 	List<Comment> selectComment(int fdNo);
+	List<Comment> selectReComment(int fdNo);
 
 }

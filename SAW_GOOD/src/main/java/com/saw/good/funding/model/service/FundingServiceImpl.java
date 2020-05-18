@@ -69,6 +69,12 @@ public class FundingServiceImpl implements FundingService{
 	public List<Comment> selectComment(int fdNo) {
 		return dao.selectComment(session, fdNo);
 	}
+
+
+	@Override
+	public List<Comment> selectReComment(int fdNo) {
+		return dao.selectReComment(session, fdNo);
+	}
 	
 	
 	

@@ -33,6 +33,9 @@
   	
   	
   	<select id="selectComment" resultType="comment" parameterType="_int">
-  		SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo}
+  		SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo} ORDER BY SEQ_FC_NO DESC
+  	</select>
+  	<select id="selectReComment" resultType="comment" parameterType="_int">
+  		SELECT * FROM FUNDINGCOMMENTRE WHERE FDNO = #{fdNo} ORDER BY SEQ_FCR_NO DESC
   	</select>
 </mapper>

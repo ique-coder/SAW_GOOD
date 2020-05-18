@@ -54,12 +54,16 @@ public class FundingController {
 		//리워드목록 불러오기
 		List<FDReword> reword = service.selectRewordList(item.getFdNo());
 		
-		//댓글 리스트 가져오기 - castle
+		// 댓글 리스트 가져오기 - castle
 		List<Comment> commentList = service.selectComment(item.getFdNo());
+		// re댓글 리스트 가져오기 - castle
+		List<Comment> reCommentList = service.selectReComment(item.getFdNo());
 		
 		mv.addObject("f",f);
 		mv.addObject("list",list);
 		mv.addObject("reword",reword);
+		mv.addObject("commentList", commentList);
+		mv.addObject("reCommentList", reCommentList);
 		mv.setViewName("funding/detail");
 		return mv;
 	}

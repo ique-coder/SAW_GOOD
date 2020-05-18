@@ -57,6 +57,13 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Comment> selectComment(SqlSession session, int fdNo) {
 		return session.selectList("funding.selectComment", fdNo);
 	}
+
+	@Override
+	public List<Comment> selectReComment(SqlSession session, int fdNo) {
+		return session.selectList("funding.selectReComment", fdNo);
+	}
+	
+	
 	
 	
 	
