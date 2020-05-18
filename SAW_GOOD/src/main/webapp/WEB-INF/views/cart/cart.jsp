@@ -488,8 +488,8 @@ input[type="number"]::-webkit-inner-spin-button {
                     <li>주문결제</li>
                     <li>주문완료</li>
                 </ul>
+                <form action="${path }/payment/paymentView" id="cartFrm">
                 <div class="row">
-                <form action="${path }/payment/paymentView">
                     <div class="col-md-9">
                         <div  style="padding:0 0 0 30px">
                         <p style="font-size: 20px; margin-bottom: 10px;">기본상품 <span>(0)</span></p>
@@ -522,7 +522,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	                                <td class="quantity">
 										<div class="inputquantity">
 											<div class="inputquantity2">
-												<input type="hidden" id="realprice" value="${c['CARTTOTALPRICE'] }"/>
+												<input type="hidden" class="realprice" value="${c['CARTTOTALPRICE'] }"/>
 												<button type="button" class="minus"
 													style="display: table-cell;">-</button>
 												<input type="number" class="pdQuantity" name="pdQuantity"
@@ -534,7 +534,8 @@ input[type="number"]::-webkit-inner-spin-button {
 										</div>	
 									</td>
 	                                <td class="format-Price">
-	                                ${c['CARTTOTALPRICE'] }</td>
+	                                ${c['CARTTOTALPRICE'] }
+	                                </td>
 	                            </tr>
 	                           
 	                            </c:forEach>
@@ -545,7 +546,7 @@ input[type="number"]::-webkit-inner-spin-button {
                             </c:choose>
                         </table>
                         <div style="padding-bottom:20px;">
-                            <button type="button" class="btn-black">선택상품 삭제</button>
+                            <button type="button" class="btn-black" onclick="cartSubmit();">선택상품 삭제</button>
                         </div>
                     </div>
                		</div>
@@ -555,7 +556,7 @@ input[type="number"]::-webkit-inner-spin-button {
                             <ul>
                                 <li>
                                     <strong>총상품 금액</strong>
-                                    <p><em id="counterTotal" class="format-Price">152000</em></p>
+                                    <p><em id="counterTotal" class="format-Price"></em></p>
                                 </li>
                                 <li>
                                     <strong>배송비</strong>
@@ -563,14 +564,14 @@ input[type="number"]::-webkit-inner-spin-button {
                                 </li>
                                 <li class="total">
                                     <strong>총 결제금액</strong>
-                                    <p><em id="counterTotalAmt" class="format-Price">162000</em></p>
+                                    <p><em id="counterTotalAmt" class="format-Price"></em></p>
                                 </li>
                             </ul>
-                            <button type="submit" name="button" onclick="" class="btn_order">선택상품 주문하기</button>
+                            <button type="button" class="btn_order" onclick="cartSubmit();">선택상품 주문하기</button>
                         </div>
                     </div>
-                    </form>
                 </div>
+               </form>
             </div>
         </div>
     </section>
@@ -736,6 +737,35 @@ input[type="number"]::-webkit-inner-spin-button {
    				$("#counterTotdeliveryamt").text(stAlltotalP);
    			}
    		}) */
+   		
+   		/* 더블클릭 방지 */
+   		var click=false;
+        
+        function doubleClickNo(){
+        	if(click){
+        		return click;
+        	}else{
+        		click = true;
+        		return false;
+        	}
+        }
+   		
+   		/* 카트 결제페이지로 이동 */
+   		function cartSubmit(){
+   			if(doubleClickNo()) return;
+   			console.log("나와")
+   			$(".productNo:checked").each(function(index,item){
+   				var price=parseInt($(item).parent().next().next().next().next().next().text().replace(/\,/gi,""));
+   				$(item).parent().parent().append($("<input>").attr({
+   					"type":"hidden","name":"cartTotalP","value":price
+   					}))
+    		})
+    		setTimeout(function(){
+        			click=false;
+        		},2000)
+        	$(".cartFrm").submit();
+   		}
+    		
    		
     </script>
 
