@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 
 public interface AuctionDao {
@@ -18,4 +19,14 @@ public interface AuctionDao {
 	
 	List<Auction> searchAuction(SqlSession session,int cPage, int numPerPage, Map<String,String> map);
 	int countAcSearch(SqlSession session, Map<String,String> map);
+	
+	Auction selectDtAuction(SqlSession session,Auction acBoardNo);
+	
+	List<Map<String, String>> selectAcMember(SqlSession session,Auction acBoardNo);
+	
+	
+	Auction selectNowPrice(SqlSession session,Auction a);
+	
+	
+	int insertBidPrice(SqlSession session,AuctionMember am);
 }

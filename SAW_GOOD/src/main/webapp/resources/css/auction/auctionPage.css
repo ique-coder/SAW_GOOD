@@ -210,6 +210,7 @@ div.boderbottom-Red{
 }
 .auctionProduct{
     margin-bottom: 20px;
+    padding : 10px;
 }
 /* 페이지바 */
 #pageBar {
@@ -238,4 +239,7 @@ div.boderbottom-Red{
 #pageBar>span.cPage {
 	border: 1px solid #191919;
 	color: #191919;
+}
+.auctionProduct:hover{
+	box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
 }

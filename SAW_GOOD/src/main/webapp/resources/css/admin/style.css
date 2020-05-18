@@ -8225,7 +8225,7 @@ h1, h2, h3, h4, h5,
     margin-bottom: 20px;
     font-weight: 700; }
     #sidebar h1 .logo {
-      color: #fff; }
+      color: black; }
   #sidebar ul.components {
     padding: 0; }
   #sidebar ul li {
@@ -8237,7 +8237,7 @@ h1, h2, h3, h4, h5,
     #sidebar ul li a {
       padding: 10px 0;
       display: block;
-      color: rgba(255, 255, 255, 0.6);
+      color: black;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
       #sidebar ul li a:hover {
         color: #fff; }

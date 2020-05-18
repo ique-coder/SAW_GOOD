@@ -44,4 +44,21 @@
  			OR ACBRAND LIKE '%'||#{value}||'%' 
  		</if>
  	</select>
+ 	
+ 	<select id="selectDtAuction" parameterType="auction" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo}
+ 	</select>
+ 	
+ 	<select id="selectAcMember" parameterType="auction" resultType="map">
+ 		SELECT * FROM AUCTIONMEMBER ORDER BY BIDPRICE DESC
+ 	</select>
+ 	<select id="selectNowPrice" parameterType="auction" resultType="auction">
+ 		SELECT ACNOWPRICE,ACSTARTPRICE FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} 
+ 	</select>
+ 	
+ 	
+ 	<insert id="insertBidPrice" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+ 		INSERT INTO AUCTIONMEMBER (#{acBoardNo},#{userId},#{bidPrice},SYSDATE,1)
+ 	</insert>
+ 	
 </mapper>
