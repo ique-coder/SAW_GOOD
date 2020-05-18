@@ -22,5 +22,7 @@ public interface FundingDao {
 	List<Funding> selectHighList(SqlSession session, int high);
 
 	List<FDReword> selectRewordList(SqlSession session, int fdNo);
+	
+	
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fundingReview">
+	
+	<select id="insertReview" parameterType="comment" resultType="_int">
+		insert into fundingcomment values(
+			seq_fc_no.nextval, #{userId}, #{fdNo}, sysdate, #{commentText}, 0
+		)
+	</select>
+	<select id="reInsertReview" parameterType="comment" resultType="_int">
+		insert into fundingcommentre values(
+			seq_fcr_no.nextval, #{seq_fc_no}, #{userId}, #{fdNo}, sysdate, #{commentText}, 0
+		)
+	</select> 
+	
+	<select id="InsertReturn" parameterType="comment" resultType="comment">
+		select rnum.* from 
+			(select ROWNUM r, b.* from 
+				(select * 
+					from fundingcomment a 
+					where a.fdno = #{fdNo} 
+					order by a.seq_fc_no desc
+				) b
+			) rnum
+		where r=1
+	</select>
+
+</mapper>
