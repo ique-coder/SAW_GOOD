@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Funding {
 
 	private int fdNo;
@@ -27,5 +27,10 @@ public class Funding {
 	private int sum;
 	private String category;
 	
+	int day;
+	private String[] item;
+	private String[] partPrice;
+	private String[] reword;
+	private String[] size;
 	
 }
