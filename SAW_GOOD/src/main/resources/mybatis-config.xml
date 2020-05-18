@@ -12,7 +12,7 @@
 		<typeAlias type="com.saw.good.auction.model.vo.Auction" alias="auction"/>
 		<typeAlias type="com.saw.good.funding.model.vo.FDReword" alias="fdreword"/>
 		<typeAlias type="com.saw.good.product.model.vo.ProductQna" alias="productQna"/>
-		
+		<typeAlias type="com.saw.good.funding.model.vo.FDSubImg" alias="fdsubimg"/>
 		
 	</typeAliases>
 </configuration>

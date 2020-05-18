@@ -175,7 +175,18 @@
                         break;
             }
         }
-        
+        //결제
+        function submin(){
+        	var reword=$("input[name='reword']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='reword']:checked").next().val();
+        	}
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
+		}
         //참여 내역클릭시 내역 불러오기
         var cPage = 1;
         
@@ -341,24 +352,22 @@
         }
         reCommentOk();
         
-        $("input[name='partPrice']").click(function(){
+        $("input[name='reword']").click(function(){
         	if($(this).val()=='none'){
         		$("#input-price").attr("disabled",false);
         	}else{
         		$("#input-price").attr("disabled",true);
         	}
         })
-		function submin(){
-        	var reword=$("input[name='reword']:checked").val();
-        	var partPrice ;
+        $("#input-price").blur(function(){
         	
-        	if(reword=='none'){
-        		partPrice = $("#input-price").val();
-        	}else{
-        		partPrice = $("input[name='reword']:checked").next().val();
+        	var reg =/\d/g;
+        	if(!reg.test($("#input-price").val())){
+        		alert("숫자만 입력해주세요");
+        		$("#input-price").val("");
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
-		}
+        })
+		
     </script>
 
     <script src="${path }/resources/js/funding/detail.js?ver=1"></script>

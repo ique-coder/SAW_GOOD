@@ -73,6 +73,10 @@
 							height="18px" />
 					</button>
 				</span>
+				<span id="enroll-container"> 
+						<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
+
+				</span>
 			</div>
 
 			<div class="col-md-10">
@@ -271,8 +275,5 @@
 
 
 <script src="${path }/resources/js/funding/list.js"></script>
-<script>
-	
-</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
