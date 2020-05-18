@@ -9,7 +9,6 @@
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
 	integerOnly="true" var="today"></fmt:parseNumber>
 <jsp:include page="/WEB-INF/views/admin/common/headerAndfooter.jsp" />
-
 <style>
 /* 섹션(본문) */
 #titeltwo {
@@ -98,29 +97,6 @@ div.subcategory>input:checked+label {
 	border-bottom-color: #eee;
 }
 
-/* 검색창  disagree*/
-#searchDisAg {
-	width: 100%;
-}
-
-#searchDisAg_userid {
-	width: 100%;
-	display: inline-block;
-}
-
-#searchDisAg_title {
-	display: none;
-	width: 100%;
-}
-#searchDisAg_designer{
-	display: none;
-	width: 100%;
-}
-
-#searchDisAg_enrollDate {
-	display: none;
-	width: 100%;
-}
 /* 검색창 Agree */
 #searchAgTbl{
 	width:100%;
@@ -333,11 +309,6 @@ label {
 	cursor: pointer;
 	display: inline-block;
 }
-
-/* 펀딩승인완료 숨기기 */
-#fundingAgree{
-	display:none;
-}
 /* 페이지바 */
 #pageBar {
 	width: 100%;
@@ -368,138 +339,19 @@ label {
 }
 
 </style>
-
-<!-- Page Content  -->
 <div id="content" class="p-4 p-md-5 pt-5">
 	<h2 id="titeltwo">Funding Manager</h2>
 	<div class="container-fluid" style="padding-bottom: 40px" id="category">
 		<div class="row">
 			<div class="col-sm-6 subcategory">
-				<input type="radio" name="category" value="disagree"  id="disagree" checked/> <label
+				<input type="radio" name="category" value="disagree"  id="disagree"/> <label
 					for="category">승인대기</label>
 			</div>
 			<div class="col-sm-6 subcategory">
-				<input type="radio" name="category" id="agree" value="agree"/> <label
+				<input type="radio" name="category" id="agree" value="agree" checked/> <label
 					for="category">승인완료</label>
 			</div>
 		</div>
-	</div>
-	<div id="fundingDisAgree">
-	<div class="container-fluid" style="margin-bottom: 30px;">
-		<div class="row">
-			<div class="col-md-6"></div>
-			<div class="col-md-6">
-				<table id="searchDisAg" style="text-align: right">
-					<colgroup>
-						<col width="30%">
-						<col width="auto">
-					</colgroup>
-					<tr>
-						<td><i class="fas fa-search"></i> <select name="searchDisAg_Type"
-							style="padding: 3px; margin-left: 10px" id="searchDisAg_Type">
-								<option value="userid">작성자</option>
-								<option value="designer">디자이너</option>
-								<option value="title">펀딩이름</option>
-								<option value="enrollDate">등록일</option>
-						</select></td>
-						<td style="text-align: left; padding-left: 10px">
-							<div id="searchDisAg_userid">
-								<form action="#" method="post">
-									<input type="hidden" name="searchType" value="userid"> <input
-										type="text" name="keyword" placeholder="작성자를 입력해주세요"
-										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
-								</form>
-							</div>
-							<div id="searchDisAg_designer">
-								<form action="#" method="post">
-									<input type="hidden" name="searchType" value="designer"> <input
-										type="text" name="keyword" placeholder="디자이너를 입력해주세요"
-										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
-								</form>
-							</div>
-							<div id="searchDisAg_title">
-								<form action="#" method="post">
-									<input type="hidden" name="searchType" value="title">
-									<input type="text" name="keyword" placeholder="제목을 입력해주세요"
-										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
-								</form>
-							</div>
-							<div id="searchDisAg_enrollDate">
-								<form action="#" method="post">
-									<input type="hidden" name="searchType" value="enrollDate"> 
-									<input type="date" name="keyword" style="width: 80%"/>
-									<button type="submit" class="btn-black">검색</button>
-								</form>
-							</div>
-						</td>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="col-md-12" style="height: auto;">
-			<form action="#" method="post">
-				<div class="row">
-					<div class="col-md-8">
-						<button class="btn-black" type="button">승인</button>
-						<button class="btn-black" type="button">거부</button>
-					</div>
-					<div class="col-md-4"
-						style="text-align: right; padding-bottom: 20px;">
-						<select name="agreement" style="font-size: 14px;">
-							<option value="10">10개씩보기</option>
-							<option value="20">20개씩보기</option>
-							<option value="30">30개씩보기</option>
-						</select>
-					</div>
-				</div>
-				<table class="fundingAg checking">
-					<colgroup>
-						<col width="5%">
-						<col width="5%">
-						<col width="15%">
-						<col width="30%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="15%">
-					</colgroup>
-
-					<tr>
-						<th scope="col"><input type="checkbox" name="fundcheck"
-							id="allck"><label for="allck"></label></th>
-						<th scope="col">번호</th>
-						<th scope="col"></th>
-						<th scope="col">제목</th>
-						<th scope="col">디자이너</th>
-						<th scope="col">작성자</th>
-						<th scope="col">등록일</th>
-						<th scope="col">승인여부</th>
-					</tr>
-					<c:forEach items="${fundingDisAgree }" var="dag" varStatus="vs">
-						<tr>
-							<td><input type="checkbox" name="fundcheck" id="fund${vs.count }"><label
-								for="fund${vs.count }"></label></td>
-							<td>${ dag['FDNO']}</td>
-							<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
-							<td><a href="${path }/admin/fundingView?FDNO=${ dag['FDNO']}">${dag['TITLE']}</a></td>
-							<td>${dag['DESIGNER']}</td>
-							<td>${dag['USERID']}</td>
-							<td><fmt:formatDate value="${dag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
-							<td>
-								<button class="btn-black" type="button">승인</button>
-								<button class="btn-black" type="button">거부</button>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</form>
-			${disAgPageBar }
-		</div>
-	</div>
 	</div>
 	<!-- 펀딩승인완료 -->
 	<div id="fundingAgree">
@@ -665,20 +517,6 @@ label {
 </div>
 <script>
 	$(function() {
-		$("#searchDisAg_Type").change(function() {
-			let val = $("#searchDisAg_Type").val();
-			let title = $("#searchDisAg_title");
-			let userid = $("#searchDisAg_userid");
-			let date = $("#searchDisAg_enrollDate");
-			let designer=$("#searchDisAg_designer")
-			title.hide();
-			userid.hide();
-			date.hide();
-			designer.hide();
-			$("#searchDisAg_" + val).css("display", "inline-block");
-		})
-	})
-	$(function() {
 		$("#searchAg_Type").change(function() {
 			let val = $("#searchAg_Type").val();
 			let title = $("#searchAg_title");
@@ -690,18 +528,6 @@ label {
 			$("#searchAg_" + val).css("display", "inline");
 		})
 	})
-	//화면 나누기
-	$("#agree").click(function(){
-		console.log("들어와")
-		$("#fundingAgree").css("display","block");
-		$("#fundingDisAgree").css("display","none");
-	})
-	$("#disagree").click(function(){
-		console.log("들어와")
-		$("#fundingAgree").css("display","none");
-		$("#fundingDisAgree").css("display","block");
-	})
-	
 	//승인된 펀딩 검색기능
 	$("#submitSearchAg").click(function(){
 		console.log($("#searchAg_Type").val());
@@ -709,8 +535,20 @@ label {
 		$("#removeType").find($("#searchAg_"+type)).siblings($("#searchAg_"+type)).not($("select[id=searchAg_Type]")).remove();
 		$("#searchAgFrm").submit();
 	})
-	
-
+	//비동의 페이지
+	$("#disagree").click(function(){
+		location.replace("${path}/admin/fundingDisAgreeList");
+	})
+	var click=false;
+        
+    function doubleClickNo(){
+       	if(click){
+        	return click;
+        }else{
+        	click = true;
+        	return false;
+        }
+    }
 </script>
 
 

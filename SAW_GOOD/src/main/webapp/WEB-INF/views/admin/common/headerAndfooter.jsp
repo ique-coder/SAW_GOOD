@@ -96,7 +96,7 @@ div.footer {
 					<li class="menu"><a href="${path }/admin"><span
 							class="fa fa-chart-bar mr-3"></span>DashBoard</a></li>
 					<div></div>
-					<li class="menu"><a href="${path }/admin/funding"><span
+					<li class="menu"><a href="${path }/admin/fundingDisAgreeList"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
 					<div></div>
 					<li class="menu"><a href="${path }/admin/auction"><span class="fa fa-font mr-3"></span>
