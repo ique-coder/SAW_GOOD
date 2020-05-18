@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
+import com.saw.good.funding.model.vo.FDSubImg;
 import com.saw.good.funding.model.vo.Funding;
 
 @Repository
@@ -70,6 +71,33 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectFDMemberCount", fdNo);
 	}
+
+	@Override
+	public int insertFunding(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertFunding", f);
+	}
+
+	
+	@Override
+	public int insertFDSubImg(SqlSession session, FDSubImg fs) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertFDSubImg",fs);
+	}
+
+	@Override
+	public int deleteFunding(SqlSession session, int fdNo) {
+		// TODO Auto-generated method stub
+		return session.delete("funding.deleteFunding", fdNo);
+	}
+
+	@Override
+	public int insertFDReword(SqlSession session, FDReword fr) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertFDReword",fr);
+	}
+	
+	
 	
 	
 	

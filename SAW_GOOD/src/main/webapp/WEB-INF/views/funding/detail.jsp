@@ -142,22 +142,7 @@
                             </div>
                         
                         </div>
-                        <!-- <ul class="lst_sponser">
-                            <li>
-                                <span class="img_thm">
-                                    <img src="" width="50" height="50" alt="wwiiw_img">
-                                </span>
-                                <div class="sponser_info">
-                                    <p>
-                                        <span class="wordBreak">상품 후기</span>
-                                    </p>
-                                    <span class="date">2020.05.10 20:31</span>
-                                <div>                    
-                                    <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                    <span class="price"><strong class="num">****</strong>별점</span>
-                                </div>
-                            </li>
-                        </ul> -->
+                        
                     </div>
 
                 </section>
@@ -190,7 +175,18 @@
                         break;
             }
         }
-        
+        //결제
+        function submin(){
+        	var reword=$("input[name='reword']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='reword']:checked").next().val();
+        	}
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
+		}
         //참여 내역클릭시 내역 불러오기
         var cPage = 1;
         
@@ -356,24 +352,22 @@
         }
         reCommentOk();
         
-        $("input[name='partPrice']").click(function(){
+        $("input[name='reword']").click(function(){
         	if($(this).val()=='none'){
         		$("#input-price").attr("disabled",false);
         	}else{
         		$("#input-price").attr("disabled",true);
         	}
         })
-		function submin(){
-        	var reword=$("input[name='reword']:checked").val();
-        	var partPrice ;
+        $("#input-price").blur(function(){
         	
-        	if(reword=='none'){
-        		partPrice = $("#input-price").val();
-        	}else{
-        		partPrice = $("input[name='reword']:checked").next().val();
+        	var reg =/\d/g;
+        	if(!reg.test($("#input-price").val())){
+        		alert("숫자만 입력해주세요");
+        		$("#input-price").val("");
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
-		}
+        })
+		
     </script>
 
     <script src="${path }/resources/js/funding/detail.js?ver=1"></script>

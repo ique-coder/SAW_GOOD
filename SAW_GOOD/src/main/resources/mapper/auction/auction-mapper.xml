@@ -52,4 +52,13 @@
  	<select id="selectAcMember" parameterType="auction" resultType="map">
  		SELECT * FROM AUCTIONMEMBER ORDER BY BIDPRICE DESC
  	</select>
+ 	<select id="selectNowPrice" parameterType="auction" resultType="auction">
+ 		SELECT ACNOWPRICE,ACSTARTPRICE FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} 
+ 	</select>
+ 	
+ 	
+ 	<insert id="insertBidPrice" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+ 		INSERT INTO AUCTIONMEMBER (#{acBoardNo},#{userId},#{bidPrice},SYSDATE,1)
+ 	</insert>
+ 	
 </mapper>
