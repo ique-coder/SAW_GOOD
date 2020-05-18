@@ -327,9 +327,16 @@ section span.underline::after{
     padding: 0;
     border: solid 1px black;
 }
-.deleteComment {
+/* .deleteComment {
     text-align: center;
     /* font-size: 30px; */
     background-color: rgb(236, 236, 236);
     border: solid 1px lightgray;
+} */
+.noLogin{
+    margin: 20px;
+    padding:20px;
+    font-size: 20px;
+    background-color: rgb(236, 236, 236);
+    /* color: #ee987c; */
 }
