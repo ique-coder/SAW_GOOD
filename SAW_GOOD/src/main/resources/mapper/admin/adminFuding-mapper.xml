@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="funding">
-
+<mapper namespace="adFunding">
+	<select id="selectFundingDisAgree" resultType="map">
+		SELECT * FROM FUNDING WHERE STATUS=0
+	</select>
+	<select id="selectFundingAgree" resultType="map">
+		SELECT * FROM FUNDING WHERE STATUS=1
+	</select>
+	<select id="countFundingDisAgree" resultType="_int">
+		SELECT COUNT(*) FROM FUNDING WHERE STATUS=0
+	</select>
+	<select id="countFundingAgree" resultType="_int">
+		SELECT COUNT(*) FROM FUNDING WHERE STATUS=1
+	</select>
+	<select id="sumPartPrice" resultType="map">
+		SELECT FDNO,SUM(PARTPRICE) AS PARTPRICE FROM FDMEMBER GROUP BY FDNO ORDER BY FDNO
+	</select>
 </mapper>
