@@ -58,7 +58,6 @@
 			<div class="col-md-2">
 				<!-- 서브네비게이션 바 -->
 				<ul class="category">
-					<li><a href="#">all</a></li>
 					<li><a href="#">bed</a></li>
 					<li><a href="#">couch / chair</a></li>
 					<li><a href="#">light</a></li>
@@ -74,14 +73,12 @@
 							height="18px" />
 					</button>
 				</span>
-				<%-- <c:if test="${sessionScope.loginMember.status}"> --%>
-					<span id="enroll-container"> 
+				<span id="enroll-container"> 
 						<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
-							
-					</span>
-				<%-- </c:if> --%>
+
+				</span>
 			</div>
-			
+
 			<div class="col-md-10">
 				<div class="row">
 					<div class="col-md-6" id="main-container">
@@ -101,20 +98,13 @@
                                      <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
                                 </svg>
 								<div style="margin: 0 10%; height: 20px;">
-									<i><img src="${path }/resources/images/common/clock.png" width="13px" height="13px"></i> 
+									<i><img></i> 
 									<span>
-									<c:if test="${highList[0].status== 1 }">
 										<b>
 											<fmt:parseNumber value="${highList[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 											${endDate-today}
 
 										</b>일 남음
-									</c:if>
-									<c:if test="${highList[0].status != 1 }">
-										<b>
-											마감된 펀딩
-										</b>
-									</c:if>
 									</span> 
 									<span><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
 									<span><b>
@@ -143,18 +133,10 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
-												<span><img src="${path }/resources/images/common/clock.png" width="10px" height="10px"></span>
-											
-											<c:if test="${item.status == 1 }">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
-											</c:if>
-											<c:if test="${item.status != 1 }">
-												<b>
-													마감된 펀딩
-												</b>
-											</c:if>
+											
 											</td>
 										</tr>
 										<tbody>
@@ -193,17 +175,9 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
-												<span><img src="${path }/resources/images/common/clock.png" width="10px" height="10px"></span>
-												<c:if test="${item.status == 1 }">
-													<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-													${endDate-today}
-													일 남음
-												</c:if>
-												<c:if test="${item.status != 1 }">
-													<b>
-														마감된 펀딩
-													</b>
-												</c:if>
+												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+												${endDate-today}
+												일 남음
 											
 											</td>
 										</tr>
@@ -270,17 +244,10 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
-												<span><img src="${path }/resources/images/common/clock.png" width="10px" height="10px"></span>
-												<c:if test="${item.status eq 1 }">
-													<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-													${endDate-today}
-													일 남음
-												</c:if>
-												<c:if test="${item.status != 1 }">
-													<b>
-														마감된 펀딩
-													</b>
-												</c:if>
+												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+												${endDate-today}
+												일 남음
+											
 											</td>
 										</tr>
 										<tbody>
@@ -308,8 +275,5 @@
 
 
 <script src="${path }/resources/js/funding/list.js"></script>
-<script>
-	
-</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
