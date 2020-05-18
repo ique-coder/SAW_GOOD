@@ -28,4 +28,11 @@
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
   		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
+  	
+  	
+  	
+  	
+  	<select id="selectComment" resultType="comment" parameterType="_int">
+  		SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo}
+  	</select>
 </mapper>

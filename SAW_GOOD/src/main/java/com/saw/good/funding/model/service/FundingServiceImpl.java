@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.funding.model.dao.FundingDao;
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
@@ -62,6 +63,14 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return dao.selectRewordList(session,fdNo);
 	}
+
+
+	@Override
+	public List<Comment> selectComment(int fdNo) {
+		return dao.selectComment(session, fdNo);
+	}
+	
+	
 	
 	
 	

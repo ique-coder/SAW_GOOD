@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
@@ -51,6 +52,13 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.selectList("funding.selectRewordList", fdNo);
 	}
+
+	@Override
+	public List<Comment> selectComment(SqlSession session, int fdNo) {
+		return session.selectList("funding.selectComment", fdNo);
+	}
+	
+	
 	
 	
 	

@@ -159,7 +159,10 @@
 							rows="10"></textarea>
 						<button id="insertTextBtn" class="col-md-2">등록</button>
 						<div id="commentList" class="col-md-12"></div>
-					</div>
+                    </div>
+                    <c:forEach var="comment" items="${commentList}">
+                    	
+                    </c:forEach>
 					<!-- <ul class="lst_sponser">
                             <li>
                                 <span class="img_thm">
@@ -226,7 +229,7 @@
                         let content = $("#insertText").val();
                         let status = "insert";
                         $.ajax({
-                            url : "${path}/funding/commentAjax.do",
+                            url : "${path}/funding/commentInsert.do",
                             type : "POST",
                             data : {commentStatus:status, userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:1},
                             success(data) {
@@ -310,26 +313,25 @@
         }
         function reCommentInsert() {
             $(".reInsertTextBtn").off("click").on("click", function() {
-                                if($(this).prev().val() != null && $(this).prev().val() != '') {
+                if($(this).prev().val() != null && $(this).prev().val() != '') {
                                     
                                     let parentNo = $(this).attr('name');
                                     let content = $(this).prev().val();
-                                    let status = "reInsert";
-
                                     let nowThis = $(this);
+
                                     $.ajax({
-                                        url : "${path}/funding/commentAjax.do",
+                                        url : "${path}/funding/reCommentInsert.do",
                                         type : "POST",
-                                        data : {commentStatus:status, userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:parentNo},
+                                        data : {userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:parentNo},
                                         success(data) {
-                                            let retime = new Date();
+                                            let retime = data.comment.commentDate;
                                             retime = formatDate(retime);
                                             // 아이디, 작성 시간, 수정, 삭제 => p1
                                             let p1 = $("<p>").append($("<span>").addClass("reCommentUserId")
                                                 .html("담당자"))
                                                 .append($("<span>").addClass("reCommentTime").html(retime))
-                                                .append($("<span>").addClass("reCommentDelete").html('삭제'))
-                                                .append($("<span>").addClass("reCommentUpdate").html('수정'));
+                                                .append($("<span>").addClass("reCommentDelete").html('삭제').attr('name',data.comment.seq_fcr_no))
+                                                .append($("<span>").addClass("reCommentUpdate").html('수정').attr('name',data.comment.seq_fcr_no));
                                             // 내용 => p2
                                             let p2 = $("<p>").html(nowThis.prev().val());
                                             nowThis.parent().next().show();
@@ -342,20 +344,43 @@
 
                                             // 버튼 기능들
                                             $(".reCommentDelete").off("click").on("click",function() {
-                                                nowThis.parent().parent().addClass("deleteComment").html("삭제된 댓글입니다.");
+                                                
+                                                let nowThis = $(this);
+                                                let thisNo = $(this).attr('name');
+                                                $.ajax({
+                                                    url : "${path}/funding/reCommentDelete.do",
+                                                    type : "POST",
+                                                    data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo},
+                                                    success(data) {
+                                                        nowThis.parent().parent().addClass("deleteComment");
+                                                        deleteCheck();
+                                                    }
+                                                })
                                             })
                                             $(".reCommentUpdate").off("click").on("click",function() {
+                                                let nowThis = $(this);
                                                 nowThis.parent().next().hide();
                                                 let reUpdateTextbox = $("<textarea>").addClass("updateTextbox col-md-10").val(nowThis.parent().next().html());
                                                 let reUpdateTextBtn = $("<button>").addClass("reUpdateTextBtn col-md-2").html("수정");
                                                 let reUpdateDiv = $("<div>").addClass("updateDiv col-md-12 row").append(reUpdateTextbox).append(reUpdateTextBtn);
                                                 nowThis.parent().append(reUpdateDiv);
 
+                                                let thisNo = $(this).attr('name');
+
                                                 $(".reUpdateTextBtn").off("click").on("click", function() {
+                                                    let nowThis = $(this);
                                                     if(nowThis.prev().val() != null && nowThis.prev().val() != '') {
-                                                        nowThis.parent().parent().next().show();
-                                                        nowThis.parent().parent().next().html(nowThis.prev().val());
-                                                        nowThis.parent().remove();
+                                                        $.ajax({
+                                                            url : "${path}/funding/reCommentUpdate.do",
+                                                            type : "POST",
+                                                            data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo, commentText:nowThis.prev().val()},
+                                                            success(data) {
+                                                                nowThis.parent().parent().next().show();
+                                                                nowThis.parent().parent().next().html(data.comment.commentText);
+                                                                nowThis.parent().remove();
+                                                            }
+                                                        })
+                                                        
                                                     } else {
                                                         alert("수정 내용을 입력해주세요.");
                                                     }
@@ -372,26 +397,45 @@
 
 
         function commentBtnsFunction() {
-            // 완료하면 아이디 검사하기
 
             // 삭제
             $(".commentDelete").off("click").on("click",function() {
-                $(this).parent().parent().addClass("deleteComment").html("삭제된 댓글입니다.");
+                let nowThis = $(this);
+                let parentNo = $(this).attr('name');
+                $.ajax({
+                    url : "${path}/funding/commentDelete.do",
+                    type : "POST",
+                    data : {userId:loginId, fdNo:fdNo, seq_fc_no:parentNo},
+                    success(data) {
+                        nowThis.parent().parent().addClass("deleteComment");
+                        deleteCheck();
+                    }
+                })
+                
             })
             // 수정
             $(".commentUpdate").off("click").on("click",function() {
-
                 $(this).parent().next().hide();
                 let updateTextbox = $("<textarea>").addClass("updateTextbox col-md-10").val($(this).parent().next().html());
-                let updateTextBtn = $("<button>").addClass("updateTextBtn col-md-2").html("수정");
+                let updateTextBtn = $("<button>").addClass("updateTextBtn col-md-2").attr('name',$(this).attr('name')).html("수정");
                 let updateDiv = $("<div>").addClass("updateDiv col-md-12 row").append(updateTextbox).append(updateTextBtn);
                 $(this).parent().append(updateDiv);
 
                 $(".updateTextBtn").off("click").on("click", function() {
                     if($(this).prev().val() != null && $(this).prev().val() != '') {
-                        $(this).parent().parent().next().show();
-                        $(this).parent().parent().next().html($(this).prev().val());
-                        $(this).parent().remove();
+                        let nowThis = $(this);
+                        let parentNo = $(this).attr('name');
+                        $.ajax({
+                            url : "${path}/funding/commentUpdate.do",
+                            type : "POST",
+                            data : {userId:loginId, fdNo:fdNo, commentText:nowThis.prev().val(), seq_fc_no:parentNo},
+                            success(data) {
+                                nowThis.parent().parent().next().show();
+                                nowThis.parent().parent().next().html(data.comment.commentText);
+                                nowThis.parent().remove();
+                            }
+                        })
+
                     } else {
                         alert("수정 내용을 입력해주세요.");
                     }
@@ -399,6 +443,11 @@
             })
         }
 
+        function deleteCheck() {
+            $(".deleteComment").html("삭제된 댓글입니다.");
+        }
+
+        deleteCheck();
         reCommentOk();
         reCommentInsert();
         commentBtnsFunction();

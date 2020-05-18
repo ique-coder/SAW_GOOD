@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.funding.model.service.FundingService;
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.Funding;
@@ -52,6 +53,9 @@ public class FundingController {
 		
 		//리워드목록 불러오기
 		List<FDReword> reword = service.selectRewordList(item.getFdNo());
+		
+		//댓글 리스트 가져오기 - castle
+		List<Comment> commentList = service.selectComment(item.getFdNo());
 		
 		mv.addObject("f",f);
 		mv.addObject("list",list);
