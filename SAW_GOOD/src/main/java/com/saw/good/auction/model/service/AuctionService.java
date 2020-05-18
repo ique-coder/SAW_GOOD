@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 
 public interface AuctionService {
@@ -24,4 +25,11 @@ public interface AuctionService {
 	
 	//경매페이지 참여자 랭크
 	List<Map<String,String>> selectAcMember(Auction acBoardNo);
+	
+	//경매 입찰 금액
+	int insertBidPrice(AuctionMember am);
+	
+	//경매 현재금액 가져오기
+	Auction selectNowPrice(Auction a);
+	
 }

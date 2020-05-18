@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 
 @Repository
@@ -62,6 +63,20 @@ public class AuctionDaoImpl implements AuctionDao {
 	public List<Map<String, String>> selectAcMember(SqlSession session, Auction acBoardNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("auction.selectAcMember",acBoardNo);
+	}
+
+
+	
+	@Override
+	public Auction selectNowPrice(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.selectNowPrice",a);
+	}
+
+	@Override
+	public int insertBidPrice(SqlSession session, AuctionMember am) {
+		// TODO Auto-generated method stub
+		return session.insert("auction.insertBidPrice",am);
 	}
 	
 

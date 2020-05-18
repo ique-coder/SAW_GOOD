@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.auction.model.dao.AuctionDao;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 @Service
 public class AuctionServiceIpml implements AuctionService {
@@ -70,6 +71,23 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectAcMember(session,acBoardNo);
 	}
+	//경매 현재금액 가져오기
+		@Override
+		public Auction selectNowPrice(Auction a) {
+			// TODO Auto-generated method stub
+			return dao.selectNowPrice(session,a);
+		}
+		
+		
+	
+
+	//최고입찰금액 업뎃
+	@Override
+	public int insertBidPrice(AuctionMember am) {
+		// TODO Auto-generated method stub
+		return dao.insertBidPrice(session,am);
+	}
+	
 	
 	
 	

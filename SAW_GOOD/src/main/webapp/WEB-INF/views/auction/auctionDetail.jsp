@@ -63,7 +63,7 @@
                             </div>
                             <div class="row">
                                 <div class="record col-md-3">
-                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격/단위</span>
+                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격/최소증감액</span>
                                     <span>즉시입찰 가격</span>
                                     <span>입찰건수</span>
                                     <span>카테고리</span>
@@ -101,13 +101,16 @@
 
                             <div class="productAction">
                                 <div class="product-button">
-                                	<c:if test="${acEndDate-today > 0 }">
-	                                    <button class="buy-btn">입찰하기</button>
+                                	<c:if test="${acEndDate-today > 0 && loginMember != null }">
+	                                    <button type="button" class="buy-btn" 
+	                                    data-toggle="modal" data-target="#bidModal">입찰하기</button>
 	                                 	<button class="cart-btn">즉시입찰</button>
                                     </c:if>
-                                    <c:if test="${acEndDate-today < 0 }">
+                                    <c:if test="${acEndDate-today < 0 && loginMember != null } ">
 	                                    	경매가 종료되었습니다.
-	               
+                                    </c:if>
+                                    <c:if test="${loginMember == null }">
+	      									 <button type="button" class="buy-btn" id="loginModal" style="width:300px;" >로그인</button>
                                     </c:if>
                                 </div>
                             </div>
@@ -361,9 +364,61 @@
 
 
         </div>
+        <div class="modal fade" id="bidModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" style="border: 0; padding-bottom: 0;">
+					<h5 class="modal-title modifyTitle" id="exampleModalLabel">&nbsp
+						${a.acProName } : 입찰금액</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="acMemberBid" action="${path}/auction/bidUpdate"
+					method="post">
+					<div class="modal-body" style="padding-bottom: 0;">
+						<div>
+							<input type="text" class="form-control" name="bidPrice"
+								id="bidPrice" placeholder=" 최고입찰금액초과  + 단위금액 입력" style="border-radius: 7px;"
+								required>
+							<span id="bidNowCk"></span>
+						</div>
+					</div>
+					<input type="hidden" name="userId" value="${loginMember.userId }">
+					<input type="hidden" name="acBoardNo" value="${a.acBoardNo }">
+					<div class="modal-footer" style="border: 0;">
+						<button type="button" class="bid-btn" onclick="bidUpdate();">입찰</button>
+						<button type="button" class="cancel-btn" data-dismiss="modal">취소</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
 
 
     </section>
+    <script>
+    	function bidUpdate(){
+    		$("#acMemberBid").submit();
+    	}
+    	
+    	$("#loginModal").click(function(){
+            var v=document.getElementById("modal_container");
+            // v.style.transitionDelay="background-color 0.8s";
+            $(".modal_container").css({
+                right:"0",
+                "z-index":"9998",
+                backgroundColor:"rgba(0,0,0,0.5)"
+            });
+            $("section").removeAttr("style");
+            $("#userId").focus();
+            $(".modal_container").show(800);
+        });
+    
+    </script>
 
 
 
