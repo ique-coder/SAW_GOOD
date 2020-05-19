@@ -79,14 +79,22 @@ public class AuctionServiceIpml implements AuctionService {
 		return dao.selectFsPrice(session,ac);
 	}
 
-		//경매 현재금액 가져오기
-		@Override
-		public Auction selectNowPrice(Auction a) {
-			// TODO Auto-generated method stub
-			return dao.selectNowPrice(session,a);
-		}
+	//경매 현재금액 가져오기
+	@Override
+	public Auction selectNowPrice(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.selectNowPrice(session,a);
+	}
 
-	//최고입찰멤버 업뎃
+	
+	//현재 최고입찰자
+	@Override
+	public AuctionMember selectFsMem(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.selectFsMem(session,a);
+	}
+
+	//조건문 통과 후 최고입찰멤버 인서트
 	@Override
 	public int insertBidPrice(AuctionMember am) {
 		// TODO Auto-generated method stub

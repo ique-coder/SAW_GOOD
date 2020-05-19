@@ -57,6 +57,11 @@
  	SELECT BIDPRICE FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE RN=1
  
  	 </select>
+ 	 
+ 	  <select id="selectFsMem" parameterType="auction" resultType="com.saw.good.auction.model.vo.AuctionMember">
+ 	SELECT USERID FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE RN=1
+ 
+ 	 </select>
  	
  	<select id="selectNowPrice" parameterType="auction" resultType="auction">
  		SELECT ACNOWPRICE,ACSTARTPRICE FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} 
