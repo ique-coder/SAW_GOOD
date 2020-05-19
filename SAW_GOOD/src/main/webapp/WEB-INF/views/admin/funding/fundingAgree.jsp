@@ -357,7 +357,7 @@ label {
 	<div id="fundingAgree">
 	<div class="container-fluid" style="margin-bottom: 30px;">
 		<div class="col-sm-12">
-				<form id="searchAgFrm" action="${path }/admin/searchFundingAg" method="get">
+				<form id="searchAgFrm" action="${path }/admin/fundingAgreeSearch" method="get">
 				<table id="searchAgTbl" class="checking">
 					<colgroup>
 						<col width="15%">
@@ -420,8 +420,8 @@ label {
 					<tr>
 						<th>만료일</th>
 						<td>
-							<input type="radio" name="dd" id="expire"><label for="expire">expried</label>
-							<input type="radio" name="dd" id="nonexpire"><label for="nonexpire">not expried</label>
+							<input type="radio" name="hasexpired" value="y" id="expire"><label for="expire">expried</label>
+							<input type="radio" name="hasexpired" value="n" id="nonexpire"><label for="nonexpire">not expried</label>
 						</td>
 					</tr>
 					<tr>
@@ -526,13 +526,14 @@ label {
 			$("#searchAg_" + val).css("display", "inline");
 		})
 	})
+	
 	//승인된 펀딩 검색기능
 	$("#submitSearchAg").click(function(){
-		console.log($("#searchAg_Type").val());
 		var type=$("#searchAg_Type").val();
 		$("#removeType").find($("#searchAg_"+type)).siblings($("#searchAg_"+type)).not($("select[id=searchAg_Type]")).remove();
 		$("#searchAgFrm").submit();
 	})
+	
 	//비동의 페이지
 	$("#disagree").click(function(){
 		location.replace("${path}/admin/fundingDisAgreeList");

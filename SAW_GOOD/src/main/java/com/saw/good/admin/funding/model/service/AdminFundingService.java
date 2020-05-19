@@ -17,6 +17,9 @@ public interface AdminFundingService {
 	//비동의 펀딩 검색
 	List<Map<String,String>> searchFundingDAg(int cPage,int numPerPage,Map<String,String> map);
 	int countsearchFundingDAg(Map<String,String> map);
+	//동의펀딩 검색 및 페이징처리
+	List<Map<String,String>> fundingAgreeSearch(Map<String,Object> map,int cPage,int numPerPage);
+	int countsearchFundingAg(Map<String,Object> map);
 	
 	//동의 거부
 	int updateAgreeFunding(int fdno);

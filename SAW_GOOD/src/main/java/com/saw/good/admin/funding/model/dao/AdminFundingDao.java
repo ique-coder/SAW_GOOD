@@ -18,6 +18,11 @@ public interface AdminFundingDao {
 	//비동의 펀딩 검색
 	List<Map<String,String>> searchFundingDAg(SqlSession session,int cPage,int numPerPage,Map<String,String> map);
 	int countsearchFundingDAg(SqlSession session,Map<String,String> map);
+	
+	//동의 펀딩 검색 및 페이징처리
+	List<Map<String,String>> fundingAgreeSearch(SqlSession session,Map<String,Object> map,int cPage,int numPerPage);
+	int countsearchFundingAg(SqlSession session,Map<String,Object> map);
+	
 	//동의 거부
 	int updateAgreeFunding(SqlSession session,int fdno);
 	int updateDisAgreeFunding(SqlSession session,int fdno);

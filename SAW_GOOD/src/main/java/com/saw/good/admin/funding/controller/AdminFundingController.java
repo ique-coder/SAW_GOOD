@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,6 +89,92 @@ public class AdminFundingController {
 		mv.addObject("cPage",cPage);
 		mv.addObject("numPerPage", numPerPage);
 		mv.setViewName("admin/funding/fundingAgree");
+		return mv;
+	}
+	@RequestMapping("/admin/fundingAgreeSearch")
+	public ModelAndView fundingAgreeSearch(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="searchType",defaultValue="") String searchType,
+			@RequestParam(value="keyword",defaultValue="") String keyword,
+			@RequestParam(value="category",defaultValue="") String[] category,
+			@RequestParam(value="hasexpired",defaultValue="") String hasexpired,
+			@RequestParam(value="enrollDate",defaultValue="") String enrollDate,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
+		
+		Map<String,Object> map=new HashMap();
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
+		map.put("category",category);
+		map.put("hasexpired",hasexpired);
+		
+		List<Map<String,String>> fundingAgree=service.fundingAgreeSearch(map,cPage,numPerPage);
+		int agTotal=service.countsearchFundingAg(map);
+		
+		String agPageBar="";
+		int totalPage=(int)Math.ceil((double)agTotal/numPerPage);
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		agPageBar+="<div id='pageBar'>";
+		//이전
+		if(pageNo==1) {
+			agPageBar+="<span><</span>";
+		}else {
+			agPageBar+="<a href='"+request.getContextPath()+"/admin/fundingAgreeSearch?cPage="+(pageNo-1)+"&numPerPage="+numPerPage;
+			agPageBar+="&searchType="+searchType;
+			agPageBar+="&keyword="+keyword;
+			for(String c : category) {
+				agPageBar+="&category="+c;
+			}
+			agPageBar+="&enrollDate="+enrollDate;
+			agPageBar+="&hasexpired="+hasexpired;
+			agPageBar+="'><</a> ";
+		}
+		//숫자
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(pageNo==cPage) {
+				agPageBar+="<span class='cPage'>"+pageNo+"</span>";
+			}else {
+				agPageBar+="<a href='"+request.getContextPath()+"/admin/fundingAgreeSearch?cPage="+pageNo+"&numPerPage="+numPerPage;
+				agPageBar+="&searchType="+searchType;
+				agPageBar+="&keyword="+keyword;
+				for(String c : category) {
+					agPageBar+="&category="+c;
+				}
+				agPageBar+="&enrollDate="+enrollDate;
+				agPageBar+="&hasexpired="+hasexpired;
+				agPageBar+="'>"+pageNo+"</a> ";
+			}
+			pageNo++;
+		}
+		
+		//다음
+		if(pageNo>totalPage) {
+			agPageBar+="<span>></span>";
+		}else {
+			agPageBar+="<a href='"+request.getContextPath()+"/admin/fundingAgreeSearch?cPage="+pageNo+"&numPerPage="+numPerPage;
+			agPageBar+="&searchType="+searchType;
+			agPageBar+="&keyword="+keyword;
+			for(String c : category) {
+				agPageBar+="&category="+c;
+			}
+			agPageBar+="&enrollDate="+enrollDate;
+			agPageBar+="&hasexpired="+hasexpired;
+			agPageBar+="'>></a>";
+		}
+		agPageBar+="</div>";
+		
+		mv.addObject("fundingAgree",fundingAgree );
+		mv.addObject("agPageBar", agPageBar);
+		mv.addObject("cPage",cPage);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("searchType", searchType);
+		mv.addObject("keyword", keyword);
+		mv.addObject("category",category );
+		mv.addObject("hasexpired", hasexpired);
 		return mv;
 	}
 
