@@ -50,7 +50,7 @@
  	</select>
  	
  	<select id="selectAcMember" parameterType="auction" resultType="map">
- 		SELECT * FROM (SELECT ROWNUM,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=1 ORDER BY BIDPRICE DESC)A ) WHERE ROWNUM BETWEEN 1 AND 5
+ 		SELECT * FROM (SELECT ROWNUM,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE ROWNUM BETWEEN 1 AND 5
  		 	</select>
  	
 	 <select id="selectFsPrice" parameterType="auction" resultType="_int">

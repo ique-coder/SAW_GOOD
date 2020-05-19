@@ -95,7 +95,7 @@
 			padding-top:20px;
 		}
 
-		.btn-agree {
+		#btn-agree {
 			padding: 0 30px;
 			line-height: 42px;
 			font-size: 15px;
@@ -114,14 +114,19 @@
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/funding/${funding['MAINIMG']}" width="99%"
-								style="height:500px;" />
+							<img class="img-reponsive img-thumbnail" src="${path }/resources/images/chair.jpg" width="99%"
+								style="height:500px" ; />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
-								<c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
-								</c:forEach>
+								<li><img src="${path }/resources/images/chair.jpg" /></li>
+								<li><img src="${path }/resources/images/sidebar.jpg" /></li>
+								<li><img src="${path }/resources/images/table.jpg" /></li>
+								<li><img src="${path }/resources/images/table2.jpg" /></li>
+								<li><img src="${path }/resources/images/chair.jpg" /></li>
+								<li><img src="${path }/resources/images/sidebar.jpg" /></li>
+								<li><img src="${path }/resources/images/table.jpg" /></li>
+								<li><img src="${path }/resources/images/table2.jpg" /></li>
 							</ul>
 						</div>
 					</div>
@@ -139,7 +144,7 @@
 								<li>
 									<p class="funding_tit"><span> - </span> 작성자 </p>
 									<p class="funding_con">
-										<strong> ${funding['USERID'] } </strong>
+										<strong> front-fuck </strong>
 									</p>
 								</li>
 								<li>
@@ -182,14 +187,15 @@
 								</li>
 							</ul>
 							<div id="button">
-								<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
-								<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+								<button type="button" id="btn-agree">승인</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-</div>
+		</div>
+	</div>
+	</div>
 	<script>
 		$(function () {
 			$(".multiple_slider").bxSlider({
@@ -204,21 +210,7 @@
 			})
 
 		})
-	$(".changeImg").click(function(){
-			var subsrc=$(this).attr("src");
-			var mainsrc=$(this).parents("div.controls").prev().find("#mainImg").attr("src");
-			$(this).parents("div.controls").prev().find("#mainImg").attr("src",subsrc);
-			$(this).attr("src",mainsrc);
-		})
-	//동의
-	$("#fd-Ag").click(function(){
-		var val=$(this).val();
-		location.replace("${path}/admin/agreeFunding?fdno="+val);
-	})
-	$("#fd-disAg").click(function(){
-		var val=$(this).val();
-		location.replace("${path}/admin/disAgreeFunding?fdno="+val);
-	})
+
 	</script>
 
 

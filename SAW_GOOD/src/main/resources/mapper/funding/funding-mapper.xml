@@ -29,6 +29,15 @@
   		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
   	
+  	
+  	
+  	
+  	<select id="selectComment" resultType="comment" parameterType="_int">
+  		SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo} ORDER BY SEQ_FC_NO DESC
+  	</select>
+  	<select id="selectReComment" resultType="comment" parameterType="_int">
+  		SELECT * FROM FUNDINGCOMMENTRE WHERE FDNO = #{fdNo} ORDER BY SEQ_FCR_NO DESC
+  	</select>
   	<insert id="insertFDMember" parameterType="fdmember" >
   		INSERT INTO FDMEMBER(FDNO,USERID,PARTPRICE,REWORD,PARTDATE,PURSTATUS) 
   		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)

@@ -273,7 +273,7 @@
                             <tbody>
                             	<c:forEach items="${am }" var="rank" varStatus="vs">
 	                                <tr>
-	                                    <td class="con">${rank['ROWNUM'] }</td>
+	                                    <td class="con">${vs.index +1}</td>
 	                                    <td class="con">${rank['USERID'] }</td>
 	                                    <td class="con">${rank['BIDPRICE'] }원</td>
 	                                    <td class="con">

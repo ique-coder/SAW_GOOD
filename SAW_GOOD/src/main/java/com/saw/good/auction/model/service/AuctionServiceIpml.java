@@ -86,7 +86,6 @@ public class AuctionServiceIpml implements AuctionService {
 		return dao.selectNowPrice(session,a);
 	}
 
-	
 	//현재 최고입찰자
 	@Override
 	public AuctionMember selectFsMem(Auction a) {
@@ -100,14 +99,13 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.insertBidPrice(session,am);
 	}
-	//최고입츨 금액 업뎃
+
+	//최고입찰금액 업뎃
 	@Override
 	public int updateNowPrice(Auction a) {
 		// TODO Auto-generated method stub
-		return dao.updateNowPrice(session,a);
+		return dao.updateNowPrice(session, a);
 	}
-	
-	
 	
 	
 	

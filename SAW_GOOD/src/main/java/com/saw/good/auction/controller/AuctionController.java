@@ -43,7 +43,7 @@ public class AuctionController {
 		mv.addObject("cPage", cPage);
 		mv.setViewName("auction/auctionList");
 		return mv;
-		
+	
 	}
 	@RequestMapping("/auction/searchAuction")
 	public ModelAndView searchAuction(String keyword,String value,ModelAndView mv,
@@ -93,8 +93,8 @@ public class AuctionController {
 	
 		//경매 랭크 불러오기
 		List<Map<String,String>> acMem=service.selectAcMember(ac);
-//		System.out.println(acMem);
-//		System.out.println(acinfo);
+		System.out.println(acMem);
+		System.out.println(acinfo);
 
 		mv.addObject("a",acinfo);
 		mv.addObject("am",acMem);
@@ -148,6 +148,9 @@ public class AuctionController {
 		mv.addObject("loc",loc);
 		mv.addObject("msg",msg);
 		mv.setViewName("common/msg");
+		//if(startPrice)
+		//int result = service.insertBidPrice(am);
+		//System.out.println(am);
 		return mv;
 	}
 }
