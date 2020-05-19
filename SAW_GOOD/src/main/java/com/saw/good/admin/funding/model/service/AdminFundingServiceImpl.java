@@ -70,14 +70,26 @@ public class AdminFundingServiceImpl implements AdminFundingService {
 		// TODO Auto-generated method stub
 		return dao.countsearchFundingDAg(session,map);
 	}
-	
+	//동의펀딩 검색 및 페이징처리
+
+	@Override
+	public List<Map<String, String>> fundingAgreeSearch(Map<String, Object> map, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.fundingAgreeSearch(session, map, cPage, numPerPage);
+	}
+
+	@Override
+	public int countsearchFundingAg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.countsearchFundingAg(session, map);
+	}
 	//동의 거부
 	@Override
 	public int updateAgreeFunding(int fdno) {
 		// TODO Auto-generated method stub
 		return dao.updateAgreeFunding(session,fdno);
 	}
-
+	
 	@Override
 	public int updateDisAgreeFunding(int fdno) {
 		// TODO Auto-generated method stub
