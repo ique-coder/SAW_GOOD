@@ -73,11 +73,32 @@ public class AuctionDaoImpl implements AuctionDao {
 		return session.selectOne("auction.selectNowPrice",a);
 	}
 
+	
+
+	@Override
+	public AuctionMember selectFsMem(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.selectFsMem",a);
+	}
+
 	@Override
 	public int insertBidPrice(SqlSession session, AuctionMember am) {
 		// TODO Auto-generated method stub
 		return session.insert("auction.insertBidPrice",am);
 	}
+
+	@Override
+	public int selectFsPrice(SqlSession session, Auction ac) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.selectFsPrice",ac);
+	}
+
+	@Override
+	public int updateNowPrice(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.updateNowPrice",a);
+	}
+	
 	
 
 	

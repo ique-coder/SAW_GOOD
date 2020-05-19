@@ -226,7 +226,7 @@
 	$("#fd-disAg").click(function(){
 		var val=$(this).val();
 		location.replace("${path}/admin/disAgreeFunding?fdno="+val);
-	})
+		})
 	</script>
 
 
