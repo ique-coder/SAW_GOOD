@@ -68,12 +68,6 @@ public class AuctionDaoImpl implements AuctionDao {
 
 	
 	@Override
-	public int selectFsPrice(SqlSession session, Auction ac) {
-		// TODO Auto-generated method stub
-		return session.selectOne("auction.selectFsPrice",ac);
-	}
-
-	@Override
 	public Auction selectNowPrice(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
 		return session.selectOne("auction.selectNowPrice",a);
@@ -83,12 +77,6 @@ public class AuctionDaoImpl implements AuctionDao {
 	public int insertBidPrice(SqlSession session, AuctionMember am) {
 		// TODO Auto-generated method stub
 		return session.insert("auction.insertBidPrice",am);
-	}
-
-	@Override
-	public int updateNowPrice(SqlSession session, Auction a) {
-		// TODO Auto-generated method stub
-		return session.update("auction.updateNowPrice",a);
 	}
 	
 
