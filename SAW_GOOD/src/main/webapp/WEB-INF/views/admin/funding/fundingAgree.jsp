@@ -357,7 +357,7 @@ label {
 	<div id="fundingAgree">
 	<div class="container-fluid" style="margin-bottom: 30px;">
 		<div class="col-sm-12">
-				<form id="searchAgFrm" action="${path }/admin/searchFundingAg" method="get">
+				<form id="searchAgFrm" action="${path }/admin/fundingAgreeSearch" method="get">
 				<table id="searchAgTbl" class="checking">
 					<colgroup>
 						<col width="15%">
@@ -420,8 +420,8 @@ label {
 					<tr>
 						<th>만료일</th>
 						<td>
-							<input type="radio" name="dd" id="expire"><label for="expire">expried</label>
-							<input type="radio" name="dd" id="nonexpire"><label for="nonexpire">not expried</label>
+							<input type="radio" name="hasexpired" value="y" id="expire"><label for="expire">expried</label>
+							<input type="radio" name="hasexpired" value="n" id="nonexpire"><label for="nonexpire">not expried</label>
 						</td>
 					</tr>
 					<tr>
@@ -481,31 +481,29 @@ label {
 							for="fundAg${vs.count }"></label></td>
 						<td>${fag['FDNO'] }</td>
 						<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
-						<td><a href="${path }/admin/fundingView?FDNO=${fag['FDNO'] }">${fag['TITLE']}</a></td>
+						<td><a href="${path }/admin/fundingView?fdno=${fag['FDNO'] }">${fag['TITLE']}</a></td>
 						<td>${fag['DESIGNER'] }</td>
 						<td>${fag['USERID'] }</td>
 						<td><fmt:formatDate value="${fag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
 						<td><fmt:formatDate value="${fag['ENDDATE']}" pattern="yyyy-MM-dd"/>
 						</td>
-						<c:forEach items="${targetPrice }" var="tp">
-							<c:choose>
-								<c:when test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
-									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
-									</td>
-								</c:when>
-								<c:when test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
-									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
-									</td>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${EndDate-today > 0 }">
+						<c:if test="${EndDate-today >= 0 }">
 							<td>
 								<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>진행중</button>
 							</td>
 						</c:if>
+						<c:forEach items="${targetPrice }" var="tp">
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
+									<td>
+										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
+									</td>
+								</c:if>
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
+									<td>
+										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
+									</td>
+								</c:if>
+						</c:forEach>
 					</tr>
 					</c:forEach>
 				</table>
@@ -528,13 +526,14 @@ label {
 			$("#searchAg_" + val).css("display", "inline");
 		})
 	})
+	
 	//승인된 펀딩 검색기능
 	$("#submitSearchAg").click(function(){
-		console.log($("#searchAg_Type").val());
 		var type=$("#searchAg_Type").val();
 		$("#removeType").find($("#searchAg_"+type)).siblings($("#searchAg_"+type)).not($("select[id=searchAg_Type]")).remove();
 		$("#searchAgFrm").submit();
 	})
+	
 	//비동의 페이지
 	$("#disagree").click(function(){
 		location.replace("${path}/admin/fundingDisAgreeList");
