@@ -58,6 +58,8 @@
 			<div class="col-md-2">
 				<!-- 서브네비게이션 바 -->
 				<ul class="category">
+					<li><a href="${path }/funding/list/run?fStatus=1">진행중인 프로젝트</a></li>
+					<li><a href="${path }/funding/list/run?fStatus=2">지난 프로젝트</a></li>
 					<li><a href="${path }/funding/list">all</a></li>
 					<li><a href="${path }/funding/list/category?category1=bed">bed</a></li>
 					<li><a href="${path }/funding/list/category?category1=sofa&category2=chair">sofa / chair</a></li>
@@ -74,10 +76,11 @@
 							height="18px" />
 					</button>
 				</span>
-				<span id="enroll-container"> 
-						<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
-
-				</span>
+				<c:if test="${ not empty loginMember  }">
+					<span id="enroll-container"> 
+							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
+					</span>
+				</c:if>
 			</div>
 			<div class="col-md-10" id="item-container">
 				<c:forEach items="${list }" varStatus="status" step="4">
@@ -141,15 +144,21 @@
 
 <script>
 	var cPage = 2;
-	
+	var flag;
 	$(window).scroll(function(){
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			if( '${category.category2}'!=''){
-				requestData2(cPage);
-				
-			}else{
-				requestData1(cPage);
+			if('${category.category1}'!=''){
+				if( '${category.category2}'!=''){
+					requestData2(cPage);
+					
+				}else{
+					requestData1(cPage);
+				}
+			}else if('${status}'!=''){
+				requestData3(cPage);
 			}
+			
+			
 			cPage++;
 		}
 		
@@ -169,6 +178,18 @@
 		$.ajax({
 			url:"${path}/funding/list/category.ajax",
 			data:{cPage:cPage,category1:"${category.category1}",category2:"${category.category2}"},
+    		async:false,
+    		success:function(data){
+    		
+    			paging(data);
+    			
+			}
+		})
+	}
+	function requestData3(cPage){
+		$.ajax({
+			url:"${path}/funding/list/run.ajax",
+			data:{cPage:cPage,fStatus:"${status}"},
     		async:false,
     		success:function(data){
     		
@@ -197,6 +218,7 @@
 					
 					var result = Math.floor((endDate-today)/(60*24*60*1000));
 					
+					var money = addComma(data.list[i+j].sum);
 					div.append('<div class="sub-item">'
 										+'<a href="${path }/funding/detail?fdNo='+ data.list[i+j].fdNo+ '">'
 										+'<img src="${path }/resources/images/'+data.list[i+j].mainImg+'" class="images" />'
@@ -212,8 +234,8 @@
 														+'<svg width="100%" height="3px"xmlns="http://w3.org/2000/svg" version="1.1"class="bar-container">'
 						                                   +'<rect x="0" y="0" width="'+ (data.list[i+j].sum)/(data.list[i+j].targetPrice)*100+'%" height="3px" class="bar" /></svg></th>'
 						                        +'</tr></tbody><tfoot>'
-												+'<tr><th>'+data.list[i+j].sum+'원</th>'
-													+'<td>'+(data.list[i+j].sum)/(data.list[i+j].targetPrice)*100+'%</td>'
+												+'<tr><th>'+ money+'원</th>'
+													+'<td>'+Math.floor((data.list[i+j].sum)/(data.list[i+j].targetPrice)*100)+'%</td>'
 											+'</tr></tfoot></table></a></div>');
 					
 					row.append(div);
@@ -222,6 +244,11 @@
 				
 			} 
 		}
+	}
+	
+	function addComma(num) {
+		  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+		  return num.toString().replace(regexp, ',');
 	}
 			
 	

@@ -79,5 +79,10 @@
 		
 		ORDER BY ENDDATE
 	</select>
+	<select id="selectStatusList" parameterType="_int" resultType="funding">
+		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+ 					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE STATUS = #{status} AND APPR = 1 ORDER BY ENDDATE
+	</select>
 	
 </mapper>

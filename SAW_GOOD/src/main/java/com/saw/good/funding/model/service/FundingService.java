@@ -36,6 +36,13 @@ public interface FundingService {
 
 	List<Funding> selectCategoryList(Map map, int cPage, int numPerPage);
 
+	List<Comment> selectComment(int fdNo);
+
+	List<Comment> selectReComment(int fdNo);
+
+
+	List<Funding> selectList(int status, int cPage, int numPerPage);
+
 
 
 }

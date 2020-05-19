@@ -135,8 +135,15 @@ public class FundingServiceImpl implements FundingService{
 		
 		return dao.selectCategoryList(session,map,cPage, numPerPage);
 	}
-	
-	
+
+
+	@Override
+	public List<Funding> selectList(int status,int cPage,int numPerPage) {
+		
+		return dao.selectList(session,status,cPage,numPerPage);
+	}
+
+
 	
 	
 	

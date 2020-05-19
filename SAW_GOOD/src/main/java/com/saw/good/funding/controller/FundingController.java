@@ -338,11 +338,37 @@ public class FundingController {
 									@RequestParam (required = false, defaultValue="1") int cPage) {
 		
 		int numPerPage = 4;
-		System.out.println(category);
+		
 		List<Funding> list = service.selectCategoryList(category,cPage,numPerPage);
 		
 		Map<String,Object> map = new HashMap();
 		map.put("list",list);
 		return map;
+	}
+	@RequestMapping("/funding/list/run")
+	public ModelAndView FundingStatus (ModelAndView mv, int fStatus,
+										@RequestParam (required = false, defaultValue="1") int cPage
+										) {
+		System.out.println(fStatus);
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(fStatus,cPage,numPerPage);
+		mv.addObject("list",list);
+		mv.addObject("status",fStatus);
+		mv.setViewName("funding/searchList");
+		return mv;
+	}
+	@RequestMapping("/funding/list/run.ajax")
+	@ResponseBody
+	public Map<String,Object> FundingStatusAjax (ModelAndView mv, int fStatus ,
+												@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(fStatus,cPage,numPerPage);
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		return map;
+		
 	}
 }

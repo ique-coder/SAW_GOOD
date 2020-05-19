@@ -58,6 +58,8 @@
 			<div class="col-md-2">
 				<!-- 서브네비게이션 바 -->
 				<ul class="category">
+					<li><a href="${path }/funding/list/run?fStatus=1">진행중인 프로젝트</a></li>
+					<li><a href="${path }/funding/list/run?fStatus=2">지난 프로젝트</a></li>
 					<li><a href="${path }/funding/list">all</a></li>
 					<li><a href="${path }/funding/list/category?category1=bed">bed</a></li>
 					<li><a href="${path }/funding/list/category?category1=sofa&category2=chair">sofa / chair</a></li>
@@ -74,10 +76,12 @@
 							height="18px" />
 					</button>
 				</span>
-				<span id="enroll-container"> 
-						<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
-
-				</span>
+				<c:if test="${ not empty loginMember  }">
+					<span id="enroll-container"> 
+							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
+					</span>
+				</c:if>
+				
 			</div>
 
 			<div class="col-md-10">

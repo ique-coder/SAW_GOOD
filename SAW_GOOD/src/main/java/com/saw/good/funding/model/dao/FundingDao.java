@@ -45,6 +45,8 @@ public interface FundingDao {
 
 	List<Funding> selectCategoryList(SqlSession session, Map map, int cPage, int numPerPage);
 
+	List<Funding> selectList(SqlSession session, int status, int cPage, int numPerPage);
+
 
 
 }
