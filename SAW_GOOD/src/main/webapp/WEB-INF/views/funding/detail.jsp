@@ -611,7 +611,7 @@
                                                             url : "${path}/funding/reCommentUpdate.do",
                                                             type : "POST",
                                                             data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo, commentText:nowThis.prev().val()},
-                                                            success(data) {
+                                                            success : function(data) {
                                                                 nowThis.parent().parent().next().show();
                                                                 nowThis.parent().parent().next().html(data.comment.commentText);
                                                                 nowThis.parent().remove();
