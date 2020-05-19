@@ -359,12 +359,24 @@
         		$("#input-price").attr("disabled",true);
         	}
         })
+
+		function submin(){
+        	var reword=$("input[name='reword']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='reword']:checked").next().val();
+          }
+    }
         $("#input-price").blur(function(){
         	
         	var reg =/\d/g;
         	if(!reg.test($("#input-price").val())){
         		alert("숫자만 입력해주세요");
         		$("#input-price").val("");
+
         	}
         })
 		
