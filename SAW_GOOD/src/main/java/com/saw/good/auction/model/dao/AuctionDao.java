@@ -22,6 +22,8 @@ public interface AuctionDao {
 	
 	Auction selectDtAuction(SqlSession session,Auction acBoardNo);
 	
+	int countBid(SqlSession session,Auction a);
+	
 	List<Map<String, String>> selectAcMember(SqlSession session,Auction acBoardNo);
 	
 	AuctionMember selectFsMem(SqlSession session,Auction a);
@@ -33,4 +35,6 @@ public interface AuctionDao {
 	int insertBidPrice(SqlSession session,AuctionMember am);
 	
 	int updateNowPrice(SqlSession session,Auction a);
+	
+	int updateStAuction(SqlSession session,Auction a);
 }

@@ -1,7 +1,7 @@
 package com.saw.good.member.model.service;
 
-import java.util.List;
-
+import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.member.model.vo.Member;
 
 public interface MemberService {
@@ -24,4 +24,12 @@ public interface MemberService {
 	int updateBsNo(Member m);
 	
 	Member selectMember(Member m);
+	
+	//옥션에서 포인트 돌려주는 로직
+	int updateMemPoint(AuctionMember am);
+	//옥션에서 포인트 가져오는 로직
+	int updateMemAPoint(AuctionMember am);
+	
+	//옥션에서 포인트 가져오는 로직
+	int updateMemAPoint(Auction a);
 }

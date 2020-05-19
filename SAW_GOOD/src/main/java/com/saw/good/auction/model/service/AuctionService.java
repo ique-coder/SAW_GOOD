@@ -23,6 +23,9 @@ public interface AuctionService {
 	//상품 디테일 가져오기
 	Auction selectDtAuction(Auction acBoardNo);
 	
+	//입찰 건수가져오기
+	int countBid(Auction a);
+	
 	//경매페이지 참여자 랭크
 	List<Map<String,String>> selectAcMember(Auction acBoardNo);
 
@@ -41,7 +44,8 @@ public interface AuctionService {
 	//경매페이지 최고금액 업데이트
 		int updateNowPrice(Auction a);
 	
-	
+	//경매페이지 경매 종료
+		int updateStAuction(Auction a);
 	
 
 }
