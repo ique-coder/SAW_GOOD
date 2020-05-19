@@ -14,6 +14,7 @@ public interface AdminFundingDao {
 	int countFundingAgree(SqlSession session);
 	//목표금액에 도달했는지 확인하기위해 참여인원 총 금액 가져오기
 	List<Map<String,String>> sumPartPrice(SqlSession session);
+	Map<String,String> sumPartPrice(SqlSession session,int fdno);
 	//비동의 펀딩 검색
 	List<Map<String,String>> searchFundingDAg(SqlSession session,int cPage,int numPerPage,Map<String,String> map);
 	int countsearchFundingDAg(SqlSession session,Map<String,String> map);

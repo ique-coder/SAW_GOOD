@@ -16,6 +16,9 @@
 	<select id="sumPartPrice" resultType="map">
 		SELECT FDNO,SUM(PARTPRICE) AS PARTPRICE FROM FDMEMBER GROUP BY FDNO ORDER BY FDNO
 	</select>
+	<select id="sumPartPriceOne" resultType="map" parameterType="_int">
+		SELECT FDNO,SUM(PARTPRICE) AS PARTPRICE FROM FDMEMBER WHERE FDNO=#{fdno} GROUP BY FDNO
+	</select>
 	
 	<select id="searchFundingDAg" parameterType="map" resultType="map">
 		SELECT * FROM FUNDING WHERE 1=1 

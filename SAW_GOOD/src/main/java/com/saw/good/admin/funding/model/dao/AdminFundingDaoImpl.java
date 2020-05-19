@@ -43,6 +43,12 @@ public class AdminFundingDaoImpl implements AdminFundingDao {
 	}
 
 	@Override
+	public Map<String, String> sumPartPrice(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adFunding.sumPartPriceOne",fdno);
+	}
+
+	@Override
 	public List<Map<String, String>> searchFundingDAg(SqlSession session, int cPage, int numPerPage, Map<String,String> map) {
 		// TODO Auto-generated method stub
 		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);

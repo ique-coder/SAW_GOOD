@@ -52,6 +52,12 @@ public class AdminFundingServiceImpl implements AdminFundingService {
 		return dao.sumPartPrice(session);
 	}
 	
+	@Override
+	public Map<String, String> sumPartPrice(int fdno) {
+		// TODO Auto-generated method stub
+		return dao.sumPartPrice(session, fdno);
+	}
+
 	//비동의 펀딩 검색
 	@Override
 	public List<Map<String, String>> searchFundingDAg(int cPage, int numPerPage, Map<String,String> map) {

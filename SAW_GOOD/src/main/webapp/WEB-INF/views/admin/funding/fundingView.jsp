@@ -143,48 +143,55 @@
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 펀딩제목 <span> / </span> 번호 </p>
+									<p class="funding_tit"><span> - </span> 디자이너 </p>
 									<p class="funding_con">
-										<strong> chair product
-											<span> / </span>
-											123123
-										</strong>
+										<strong> ${funding['DESIGNER'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 가격 <span> / </span> 목표가격</p>
+									<p class="funding_tit"><span> - </span> 펀딩제목 </p>
 									<p class="funding_con">
-										<strong> 300,000원
-											<span> / </span>
-											10,000,000원
-										</strong>
+										<strong> ${funding['TITLE'] } </strong>
+									</p>
+								</li>
+								<li>
+									<p class="funding_tit"><span> - </span> 목표가격</p>
+									<p class="funding_con">
+										<strong><fmt:formatNumber value="${funding['TARGETPRICE'] }"/>원</strong>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 현재가격 </p>
 									<p class="funding_con">
-										<strong>
-											5,700,000원
-										</strong>
+										<c:choose>
+											<c:when test="${empty partPrice }">
+												<strong>0원</strong>
+											</c:when>
+											<c:when test="${not empty partPrice }">
+												<strong> <fmt:formatNumber value="${partPrice['PARTPRICE'] }"/>원 </strong>
+											</c:when>
+										</c:choose>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 등록날짜 </p>
 									<p class="funding_con">
-										<strong> 2020-04-30 </strong>
+										<strong> <fmt:formatDate value="${funding['ENROLLDATE'] }" pattern="yyyy-MM-dd"/> </strong>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 만료날짜 </p>
 									<p class="funding_con">
-										<strong> 2020-05-26 </strong>
+										<strong> <fmt:formatDate value="${funding['ENDDATE'] }" pattern="yyyy-MM-dd"/>  </strong>
 									</p>
 								</li>
 							</ul>
-							<div id="button">
-								<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
-								<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
-							</div>
+							<c:if test="${funding['APPR'] == 0 }">
+								<div id="button">
+									<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
+									<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -204,6 +211,7 @@
 			})
 
 		})
+	//이미지변경
 	$(".changeImg").click(function(){
 			var subsrc=$(this).attr("src");
 			var mainsrc=$(this).parents("div.controls").prev().find("#mainImg").attr("src");

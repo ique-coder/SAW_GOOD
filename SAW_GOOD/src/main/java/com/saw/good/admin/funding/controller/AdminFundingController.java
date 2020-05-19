@@ -60,8 +60,11 @@ public class AdminFundingController {
 		
 		String disAgPageBar =FinderPageFactory.getPage(disAgTotal, cPage, numPerPage, searchType, keyword, "fundingDisAgreeSearch");
 		
+		List<Map<String,String>> targetPrice=service.sumPartPrice();
+		
 		mv.addObject("fundingDisAgree", fundingDisAgree);
 		mv.addObject("disAgPageBar", disAgPageBar);
+		mv.addObject("targetPrice", targetPrice);
 		mv.addObject("cPage",cPage);
 		mv.addObject("numPerPage", numPerPage);
 		mv.addObject("searchType", searchType);
@@ -147,8 +150,11 @@ public class AdminFundingController {
 		
 		Map<String,String> fd=service.selectOneFunding(fdno);
 		List<Map<String, String>> subImg=service.selectSubImg(fdno);
+		Map<String,String> partPrice=service.sumPartPrice(fdno);
+		
 		mv.addObject("funding", fd);
 		mv.addObject("subImg", subImg);
+		mv.addObject("partPrice", partPrice);
 		mv.setViewName("admin/funding/fundingView");
 		return mv;
 	}

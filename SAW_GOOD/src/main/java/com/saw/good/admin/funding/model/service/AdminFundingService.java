@@ -12,6 +12,7 @@ public interface AdminFundingService {
 	int countFundingAgree();
 	//펀딩 합산금액
 	List<Map<String,String>> sumPartPrice();
+	Map<String,String> sumPartPrice(int fdno);
 	
 	//비동의 펀딩 검색
 	List<Map<String,String>> searchFundingDAg(int cPage,int numPerPage,Map<String,String> map);
@@ -28,4 +29,6 @@ public interface AdminFundingService {
 	//펀딩보기
 	Map<String,String> selectOneFunding(int fdno);
 	List<Map<String, String>> selectSubImg(int fdno);
+	
+	
 }
