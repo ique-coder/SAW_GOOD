@@ -269,7 +269,7 @@
                             url : "${path}/funding/commentInsert.do",
                             type : "POST",
                             data : {commentStatus:status, userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:1},
-                            success(data) {
+                            success : function(data) {
                                 if(data.check) {
                                     let time = data.comment.commentDate;
                                     console.log(time);
@@ -360,7 +360,7 @@
                                         url : "${path}/funding/reCommentInsert.do",
                                         type : "POST",
                                         data : {userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:parentNo},
-                                        success(data) {
+                                        success : function(data) {
                                             let retime = data.comment.commentDate;
                                             retime = formatDate(retime);
                                             // 아이디, 작성 시간, 수정, 삭제 => p1
@@ -443,7 +443,7 @@
                     url : "${path}/funding/commentDelete.do",
                     type : "POST",
                     data : {userId:loginId, fdNo:fdNo, seq_fc_no:parentNo},
-                    success(data) {
+                    success : function(data) {
                         nowThis.parent().parent().addClass("deleteComment");
                         deleteCheck();
                     }
@@ -466,7 +466,7 @@
                             url : "${path}/funding/commentUpdate.do",
                             type : "POST",
                             data : {userId:loginId, fdNo:fdNo, commentText:nowThis.prev().val(), seq_fc_no:parentNo},
-                            success(data) {
+                            success : function(data) {
                                 nowThis.parent().parent().next().show();
                                 nowThis.parent().parent().next().html(data.comment.commentText);
                                 nowThis.parent().remove();
@@ -497,7 +497,7 @@
                                                     url : "${path}/funding/reCommentDelete.do",
                                                     type : "POST",
                                                     data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo},
-                                                    success(data) {
+                                                    success : function(data) {
                                                         nowThis.parent().parent().addClass("deleteComment");
                                                         deleteCheck();
                                                     }
