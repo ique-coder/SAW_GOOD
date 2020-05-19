@@ -206,7 +206,7 @@
         		success:function(data){
         			//div 내용 비워주기
         			perchase.html("");
-        			//로딩 이미지 숨기기
+        			//로딩 이미지 숨기기 
         			$(".loading-container").hide();
         			perchase.append(' <p class="tx_total">총 <strong class="num">'+data.count+'</strong>개의 참여내역과 응원메시지가 있습니다.</p>');
         			let div = $("<div class='userList'>");
