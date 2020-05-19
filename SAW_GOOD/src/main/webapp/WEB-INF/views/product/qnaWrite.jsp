@@ -18,18 +18,20 @@
                 <dl class="prd-qnainfo">
                     <dt>
                         <a href="#">
-                            <img src="http://placehold.it/150x70" style="width: 100%; height:100%">
+                            <img src="${path}/resources/upload/newproduct/${product.renamedProductImg}" style="width: 100%; height:100%">
                         </a>
                     </dt>
                     <dd style="width: 100%;">
                         <ul style="font-size: 12px; line-height: 1.25; color: #333; letter-spacing: 0.4px;">
                             <li>
                                 <span class="tit">상 품 명 : </span>
-                                <span>상품 이름 </span>
+                                <span>${product.productName } </span>
                             </li>
                             <li>
                                 <span class="tit">상품가격 : </span>
-                                <strong style="font-weight: bold;">42,700원</strong>
+                                <strong style="font-weight: bold;">
+									<fmt:formatNumber value="${product.productPrice}" pattern="0,000"/>원
+								</strong>
                             </li>
                         </ul>
                     </dd>
@@ -37,6 +39,7 @@
             </div>
             <div style="margin-top: 10px;">
             	<form id="boardWriteForm" action="${path }/qna/qnaBoardEnd" method="post" enctype="multipart/form-data">
+            		<input type="hidden" name="productNo" value="${product.productNo }"/>
 	                <table class="head" style="width: 100%;">
 	                    <tbody style="background-color: #f7f7f7; border: 1px #e0e0e0 solid;">
 	                        <tr>
@@ -204,9 +207,8 @@
 			}
 			var result = confirm("작성 하시겠습니까?"); 
 			if(result){ 
-				alert("작성 완료"); 
 				$("#boardWriteForm").submit(); 
-				}else{ 
+				}else{
 					return false; 
 				} 
 			}); 

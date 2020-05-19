@@ -27,11 +27,16 @@
                     <div id="p-table" class="col-md-5" style="height: 700px;">
                         <caption>
                             <h5>
-                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
-								<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
+	                        	<img src="${path }/resources/images/common/clock.png" width="18px" height="18px">
+                            	<c:if test="${f.status== 1 }">
+	                            	<c:set value="<%=new java.util.Date() %>" var="now"/>
+									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+									<fmt:parseNumber value="${f.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 											${endDate-today} 일 남음
-								
+								</c:if>
+								<c:if test="${f.status != 1 }">
+									마감된 펀딩
+								</c:if>
                             </h5>
                         </caption>
                         <table>
@@ -72,7 +77,7 @@
                                 </tr>
                                 
                             </tbody>
-                            
+                            <c:if test="${f.status == 1 }" >
 	                            <tbody id="sub-info">
 	                                
 	                           
@@ -89,15 +94,15 @@
 	                                 <tr>
 	                                    <td>
 	                                        <input type="radio" name="reword" value="${r.reword }">
-	                                        <fmt:formatNumber value="${r.minimum }" type="number" />원
+	                                        <fmt:formatNumber value="${r.partPrice }" type="number" />원
 	                                       
-	                                        <input type="hidden" name="partPrice" value="${r.minimum }"></td> 
+	                                        <input type="hidden" name="partPrice" value="${r.partPrice }"></td> 
 	                                    <td><p>${r.reword }</p><i></i></td> 
 	                                </tr>
 	                                
 	                                </c:forEach>
 	                            </tbody>
-                          
+                          	
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
@@ -106,7 +111,7 @@
                                    
                                 </tr>
                             </tfoot>
-                            
+                        </c:if>    
                         </table>
 
                     </div>
@@ -114,7 +119,7 @@
                 <ul class="row">
                     <li class="col-md-4"><span class="underline" onclick="select(1);">프로젝트 소개</span></li>
                     <li class="col-md-4"><span onclick="select(2);">참여내역</span></li>
-                    <li class="col-md-4"><span onclick="select(3);">후기</span></li>
+                    <li class="col-md-4"><span onclick="select(3);">커뮤니티</span></li>
                 </ul>
                 <section>
                     
@@ -126,47 +131,18 @@
                         </p>
                     </div>
                     <div class="detail-select" id="purchase">
-                        <p class="tx_total">총 <strong class="num">280</strong>개의 참여내역과 응원메시지가 있습니다.</p>
-                            <ul class="lst_sponser">
-                                <li>
-                                    <span class="img_thm">
-                                        <img src="" width="50" height="50" alt="wwiiw_img">
-                                    </span>
-                                    <div class="sponser_info">
-                                        <p>
-                                            <span class="wordBreak">이 프로젝트의 성공을 응원합니다.</span>
-                                        </p>
-                                        <span class="date">2020.05.10 20:31</span>
-                                    <div>                    
-                                        <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                        <span class="price"><strong class="num">45,000</strong>원 참여</span>
-                                    </div>
-                                </li>
-                            </ul>
+                      
                     </div>
                     <div class="detail-select" id="review">
                         <div id="insertReview" class="col-md-12 row">
+                        
                             <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
                             <button id="insertTextBtn" class="col-md-2">등록</button>
                             <div id="commentList" class="col-md-12">
                             </div>
+                        
                         </div>
-                        <!-- <ul class="lst_sponser">
-                            <li>
-                                <span class="img_thm">
-                                    <img src="" width="50" height="50" alt="wwiiw_img">
-                                </span>
-                                <div class="sponser_info">
-                                    <p>
-                                        <span class="wordBreak">상품 후기</span>
-                                    </p>
-                                    <span class="date">2020.05.10 20:31</span>
-                                <div>                    
-                                    <span class="nick"><a style="text-decoration:none">wwiiw님</a></span>
-                                    <span class="price"><strong class="num">****</strong>별점</span>
-                                </div>
-                            </li>
-                        </ul> -->
+                        
                     </div>
 
                 </section>
@@ -193,11 +169,87 @@
                 case 1: project.css("display","block");
                         break;
                 case 2: purchase.css("display","block");
+                		partlist(cPage);
                         break;
                 case 3: review.css("display","block");
                         break;
             }
         }
+        //결제
+        function submin(){
+        	var reword=$("input[name='reword']:checked").val();
+        	var partPrice ;
+        	
+        	if(reword=='none'){
+        		partPrice = $("#input-price").val();
+        	}else{
+        		partPrice = $("input[name='reword']:checked").next().val();
+        	}
+        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
+		}
+        //참여 내역클릭시 내역 불러오기
+        var cPage = 1;
+        
+        function partlist(cPage){
+        	//매개변수로 넘어온 값을 cPage로 , 다른 탭을 클릭하더라도 이전에 보던 페이지 유지하기 위해
+        	this.cPage = cPage;
+        	var perchase = $("#purchase");
+        	//로딩 이미지 보이기
+        	perchase.append("<div class='loading-bar'>"
+        					+"<img src='${path}/resources/images/common/loading_bar.gif'/>"
+        					+"</div>");
+        	
+        	 $.ajax({
+        		url:"${path}/funding/detail/partList.ajax",
+        		data:{fdNo:"${f.fdNo}",cPage:cPage},
+        		async:false,
+        		success:function(data){
+        			//div 내용 비워주기
+        			perchase.html("");
+        			//로딩 이미지 숨기기
+        			$(".loading-container").hide();
+        			perchase.append(' <p class="tx_total">총 <strong class="num">'+data.count+'</strong>개의 참여내역과 응원메시지가 있습니다.</p>');
+        			let div = $("<div class='userList'>");
+        			for(let i =0; i<data.list.length;i++){
+        				//날짜 형변환해주기
+        				var format = new Date(data.list[i].partDate);
+        				
+        				var date = format.getFullYear()+"년 "
+        							+("0"+ format.getMonth()).slice(-2)+"월 "
+        							+("0"+format.getDate()).slice(-2)+"일 "
+        							+("0"+format.getHours()).slice(-2)+" : "
+        							+("0"+format.getMinutes()).slice(-2);
+        				//돈 ,찍어주기
+        				var money = Number(data.list[i].partPrice).toLocaleString();
+        				//프로필 사진 설정
+        				var profile = "";
+        				if(data.list[i].profile!=null){
+        					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images'+data.list[i].profile+'" width="50" height="50" alt="'+data.list.userId+'"></div>';
+        					 
+        				}else{
+        					profile = '<div class="emptyProfile"></div>';
+        				}
+        				var tag = '<ul class="lst_sponser">'
+                       				+'<li>'+profile
+                       					+'<div class="sponser_info">'
+                           					+'<p><span class="wordBreak">'+data.list[i].userId+'님이 프로젝트의 성공을 응원합니다.</span></p>'
+                        					+'<span class="date">'+date+'</span>'
+                        					+'<div><span class="price"><strong class="num">'+money+'</strong>원 참여</span></div>'
+                        				+'</li></ul>';
+                          
+        				
+        				div.append(tag);
+        				
+        			}
+        			perchase.append(div);
+        			perchase.append(data.pageBar);
+        			
+        		}
+        	}) 
+        	
+        }
+        
+        
 
 
         // 리뷰
@@ -300,13 +352,14 @@
         }
         reCommentOk();
         
-        $("input[name='partPrice']").click(function(){
+        $("input[name='reword']").click(function(){
         	if($(this).val()=='none'){
         		$("#input-price").attr("disabled",false);
         	}else{
         		$("#input-price").attr("disabled",true);
         	}
         })
+
 		function submin(){
         	var reword=$("input[name='reword']:checked").val();
         	var partPrice ;
@@ -315,9 +368,18 @@
         		partPrice = $("#input-price").val();
         	}else{
         		partPrice = $("input[name='reword']:checked").next().val();
+          }
+    }
+        $("#input-price").blur(function(){
+        	
+        	var reg =/\d/g;
+        	if(!reg.test($("#input-price").val())){
+        		alert("숫자만 입력해주세요");
+        		$("#input-price").val("");
+
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice;
-		}
+        })
+		
     </script>
 
     <script src="${path }/resources/js/funding/detail.js?ver=1"></script>

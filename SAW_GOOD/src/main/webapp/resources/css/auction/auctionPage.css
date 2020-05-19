@@ -86,6 +86,14 @@ section>.container{
 	width:150px;
 	height:40px;
 }
+.selectStyle2{
+	font-size:13px;
+	background:none;
+	border: 1px solid #9d9d9d;
+	border-radius:3px;
+	width:150px;
+	height:25px;
+}
 #search-area{
 	padding:0px;
 	margin-top:30px;
@@ -105,6 +113,7 @@ section>.container{
 }
 .category{
     margin: 0;
+    margin-bottom: 15px;
     padding: 10px 0;
     list-style: none;
     border-top: 1px solid #E1E0E1;
@@ -201,6 +210,7 @@ div.boderbottom-Red{
 }
 .auctionProduct{
     margin-bottom: 20px;
+    padding : 10px;
 }
 /* 페이지바 */
 #pageBar {
@@ -229,4 +239,7 @@ div.boderbottom-Red{
 #pageBar>span.cPage {
 	border: 1px solid #191919;
 	color: #191919;
+}
+.auctionProduct:hover{
+	box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
 }

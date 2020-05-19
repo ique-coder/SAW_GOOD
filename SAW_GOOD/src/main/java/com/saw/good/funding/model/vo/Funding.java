@@ -27,5 +27,10 @@ public class Funding {
 	private int sum;
 	private String category;
 	
+	int day;
+	private String[] item;
+	private String[] partPrice;
+	private String[] reword;
+	private String[] size;
 	
 }

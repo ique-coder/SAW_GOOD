@@ -12,12 +12,12 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		
+		String refer=request.getHeader("Referer");
 		if(session.getAttribute("loginMember")==null) {
-			request.setAttribute("msg", "로그인 후 이용할 수 있습니.");
-			request.setAttribute("referer", request.getHeader("Referer"));
-			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			
+			request.setAttribute("msg", "로그인 후 이용할 수 있습니다.");
+			request.setAttribute("referer", "/"+refer.substring(refer.indexOf("good")));
+			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
+			.forward(request, response);
 			return false;
 		}
 		else{

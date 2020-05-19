@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.saw.good.product.model.vo.Product;
+import com.saw.good.product.model.vo.ProductQna;
 
 public interface ProductService {
 	
@@ -14,4 +15,8 @@ public interface ProductService {
 	int countSearchProduct(Map<String,String> map);
 	List<Map<String,Object>> searchCategory(int cPage,int numPerPage,Map<String,Object> map);
 	int countSearchCategory(Map<String,Object> map);
+	int insertQna(Map map);
+	List<ProductQna> selectProductQna(int no,int cPage,int numPerPage);
+	int countQna();
+	ProductQna selectQnaCheck(int no);
 }

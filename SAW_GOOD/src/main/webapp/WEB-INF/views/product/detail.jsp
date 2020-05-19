@@ -145,56 +145,28 @@
                 <form id="review-message" method="post" action="${path }/review/reviewEnd">
                 <div class="review-container">
                     <div>
-                            <textarea class="review-message">1</textarea>
+                            <textarea class="review-message" name="reContent" id="reContent" placeholder="고객님의 소중한 제품 리뷰를 남겨주세요"></textarea>
                     </div>
                     <div class="review-photo" >
                         <ul class="ul-photo">
-                            <li>
-                                <div class="img-wrap">
-                                    <img class="img-size" src="http://placehold.it/600x500">
-                                    <div class="img-remove">
-                                        삭제
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img-wrap">
-                                    <img class="img-size" src="http://placehold.it/600x500">
-                                    <div class="img-remove">
-                                        삭제
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img-wrap">
-                                    <img class="img-size" src="http://placehold.it/600x500">
-                                    <div class="img-remove">
-                                        삭제
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img-wrap">
-                                    <img class="img-size" src="http://placehold.it/600x500">
-                                    <div class="img-remove">
-                                        삭제
-                                    </div>
-                                </div>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="review-submit">
-                    <div class="review-camara" style="cursor: pointer;">
+                    <div class="review-camara" style="cursor: pointer;" onclick="file.click();">
                         <span class="review-img">
                             <i class="fas fa-camera"></i>
+                            <form id="uploadForm" method="post" enctype="multipart/form-data">
+								<input type="file" name="file" id="file" accept="image/*" style="display:none"/>
+							</form>
                             <div class="review-txt"> + 사진추가</div>
                         </span>
                     </div>
                     <div style="margin: 0 300px 0 213px;">
                         <div class="review-score">
                             <select name="star" id="star">
-                                <option value="5">
+                                <option value="5" selected>
                                     ★★★★★ 아주 좋아요
                                 </option>
                                 <option value="4">
@@ -351,7 +323,7 @@
                 <div class="test review" style="line-height: 18px;">
                     <h3>Q&A</h3>
                     <p class="desc">상품에 대해 궁금한 점을 해결해 드립니다.</p>
-                    <table class="table" style="margin-top: 10px;">
+                    <table class="table" style="margin-top: 10px; font-size: 12px; text-align:center;">
                         <colgroup>
                             <col style="width:70px;">
                             <col style="width:auto">
@@ -369,26 +341,53 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>John</td>
-                              <td>Doe</td>
-                              <td>john@example.com</td>
-                            </tr>
-                            <tr>
-                              <td>Mary</td>
-                              <td>Moe</td>
-                              <td>mary@example.com</td>
-                            </tr>
-                            <tr>
-                              <td>July</td>
-                              <td>Dooley</td>
-                              <td>july@example.com</td>
-                            </tr>
+                          <c:if test="${not empty qna }">
+	                          <c:forEach items="${qna }" var="q" varStatus="vs">
+	                          	<tr class="nbg">
+	                              <td><c:out value="${q.qnaNo }"/></td>
+	                              <td style="text-align:left;">
+	                              	<a href="javascript:void(0)">
+	                              		<i class="fas fa-lock"></i> <c:out value="${q.title }"/>
+	                              	</a>
+	                              </td>
+	                              <td><c:out value="${q.userId }"/></td>
+	                              <td><c:out value="${q.writeDate }"/></td>
+	                              <td><c:out value="${q.readCount }"/></td>
+	                            </tr>
+	                            <tr class="box_cnt" id="qna_block${vs.count }">
+	                            	<td colspan="5">
+	                            		<div style="text-align:left;">
+	                            			<div class="qna-reply-container">
+	                            				<div style="padding: 15px 15px 15px 80px;line-height: 20px;width: 250px;">
+	                            					<span style="color: red;">비공개 글 입니다.</span>
+	                            					<br>
+	                            						글 작성시 입력한 비밀번호를 입력해주세요.
+	                            					<br>
+	                            				</div>
+	                            				<input type="password" size="15" id="qna_check" name="qna_check" class="qna_check">
+	                            				<input type="button" value="확인" class="check_btn" onclick="qna_rock(${q.qnaNo},'${q.content }');"/>
+	                            			</div>
+	                            			<div class="reply-box">
+	                            				 
+	                            			</div>
+	                            		</div>
+	                            	</td>
+	                            </tr>
+	          				  </c:forEach>
+          				  </c:if>
+          				  <c:if test="${empty qna }">
+          				  	<tr>
+          				  		<td colspan="5" style="text-align:center;">등록된 게시물이 존재하지 않습니다.</td>
+          				  	</tr>
+          				  </c:if>
                           </tbody>
                     </table>
                     <p class="base-btn">
-                        <a href="${path }/qna/qnaForm" class="write-btn">글쓰기</a>
+                        <a href="${path }/qna/qnaForm?no=${product.productNo}" class="write-btn">글쓰기</a>
                     </p>
+                    <div id="pagebar" style="clear:both;">
+                    	${pageBar }
+                    </div>
                 </div>
             </div>
             <a href="#" class="gotop" style="text-align: center;">
@@ -460,25 +459,112 @@
                     $("#productPrice span:last").html(cnt);
                 }
             });
+            var img=1;
+            var preview = 
             $(".review-photo").hide();
-            $(".review-camara").click(function(){
+            $("#file").change({param_img : img},function(event){            	
             	$(".review-photo").show();
-            	e.preventDefault();
-
-            	$('#file').click();
-
-            	$.ajax({ 
-            		url: "${path}/review/image", 
-            		type: 'post', 
-            		dataType : 'json', 
-            		success : function (data) { 
-            			createImages(data) 
-            			
-            		} 
-            	});
-
+            	var get_file = event.target.files;
+                var image = document.createElement('img');
+            
+                /* FileReader 객체 생성 */
+                var reader = new FileReader();
+         
+                /* reader 시작시 함수 구현 */
+                reader.onload = (function (aImg) {
+                    return function (event) {
+                        /* base64 인코딩 된 스트링 데이터 */
+                        aImg.src = event.target.result;
+                        $(aImg).addClass("img-size");
+                    }
+                })(image)
+         
+                if(get_file){
+                    /* 
+                        get_file[0] 을 읽어서 read 행위가 종료되면 loadend 이벤트가 트리거 되고 
+                        onload 에 설정했던 return 으로 넘어간다.
+                                                이와 함게 base64 인코딩 된 스트링 데이터가 result 속성에 담겨진다.
+                    */
+                    reader.readAsDataURL(get_file[0]);
+                }
+                
+            	if(!$(".ul-photo").children().is("li")){
+	            	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
+	            	var img = $(div).children().children(".img-wrap")
+            		$(img).append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
+            	}else if($(".ul-photo").children().is("li")){
+                	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
+                	var img = $(div).children().children(".img-wrap")
+            		$(img).last().append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
+            	}
+            	
             })
-        });
+            $("#reContent").click(function(){
+            	if(${loginMember eq null or loginMember == ""}){            		
+            		var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+            		if(result){            			
+            			$("#header ol li:last a#login").click();
+            		}
+            		$("#reContent").blur();
+            	}
+            })
+            
+            $("#file").click(function(){
+            	if($(".ul-photo").children("li").length == 4){
+            		alert("리뷰 사진은 최대 4장까지 첨부가능합니다.");
+            		return false;
+            	}
+            })
+            $(".nbg").click(function(){
+            	//console.log($(event.target).parent().parent().next().find('.qna-reply-container').html());
+            	$(event.target).parent().parent().next().slideDown(500);
+            	$(".box_cnt").not($(event.target).parent().parent().next()).slideUp(
+	                  500);
+            });
+            
+        	$(".check_btn").click(function(){
+    		if($(this).prev().val().trim()==""){
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}
+    	})
+     });
+        function qna_rock(no, content){
+        	var div = $(event.target).parent().parent().children().eq(0);
+    		var temp = $(div).html();
+        	
+        	$.ajax({
+        		url:"${path}/qna/qnaRock",
+        		type:"POST",
+    			data:{"pass":$(event.target).prev().val(),
+    				  "no":no,
+    				  "content":content},
+    			success:function(data){
+    				console.log(data);
+    				if(!data.flag && data.pass != ""){
+    					alert("비밀번호가 일치하지 않습니다.");
+    				}else{
+    					$(div).html(data.content);
+    				}
+    				
+    			},
+    			error : function(request, status) {
+					
+					if (request.status == 404)
+						//$("#content").append(request.status);
+						alert("페이지를 찾을 수 없습니다.");
+				}
+    			
+    		});
+      		
+        }
+        function delete_img(){
+        	$(event.target).parent().remove();
+        	if(!$(".ul-photo").children().is("li")){
+        		$(".review-photo").css("display","none");
+        	}
+        }
+        
     </script>
 </body>
 </html>

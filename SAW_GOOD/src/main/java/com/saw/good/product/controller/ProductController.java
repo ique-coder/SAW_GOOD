@@ -1,24 +1,29 @@
 package com.saw.good.product.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.PageFactory;
 import com.saw.good.common.ProductCategoryPage;
 import com.saw.good.common.ProductFinderPage;
+import com.saw.good.common.QnaPage;
 import com.saw.good.product.model.service.ProductService;
 import com.saw.good.product.model.vo.Product;
+import com.saw.good.product.model.vo.ProductQna;
 
 @Controller
 public class ProductController {
@@ -43,11 +48,20 @@ public class ProductController {
 		return m;
 	}
 	@RequestMapping("/product/productView")
-	public ModelAndView productView(int no,ModelAndView mv) {
+	public ModelAndView productView(@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage,
+			int no,ModelAndView mv) {
 		
 		Product p=service.selectProductView(no);
+		List<ProductQna> pq=service.selectProductQna(no,cPage,numPerPage);
+		int totalQna=service.countQna();
+		String pageBar=QnaPage.getPage(no,totalQna, cPage, numPerPage, "productView");
 		
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("cPage", cPage);
 		mv.addObject("product", p);
+		mv.addObject("qna", pq);
 		mv.setViewName("product/detail");
 		return mv;
 	}
@@ -103,13 +117,58 @@ public class ProductController {
 		return mv;
 	}
 	@RequestMapping("/qna/qnaForm")
-	public String qnaForm(Product p) {
-		return "product/qnaWrite";
+	public ModelAndView qnaForm(int no, ModelAndView mv) {
+		
+		Product p=service.selectProductView(no);
+		
+		mv.addObject("product", p);
+		mv.setViewName("product/qnaWrite");
+		return mv;
 	}
-	@RequestMapping("/photo/upload")
-	public ModelAndView photoUpload(ModelAndView mv) {
+	@RequestMapping("/qna/qnaBoardEnd")
+	public ModelAndView photoUpload(ModelAndView mv, @RequestParam Map map) {
+		
+		int result = service.insertQna(map);
+		
+		String msg=(result>0)?"등록성공":"등록실패";
+		String loc=(result>0)?"/product/productView?no="+map.get("productNo"):"/qna/qnaForm";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	@RequestMapping("/qna/qnaRock")
+	@ResponseBody
+	public ModelAndView qnaRock(@RequestParam(value="pass") String pass, int no,
+				String content, HttpServletResponse response, ModelAndView mv) {
+		
+		ProductQna qna=service.selectQnaCheck(no);
+		boolean flag = false;
+		if(pass.equals(qna.getQnaPass())) {
+			flag = true;
+		}
+		response.setCharacterEncoding("UTF-8");
+		mv.addObject("flag", flag);
+		mv.addObject("pass", pass);
+		mv.addObject("content", content);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	@RequestMapping("/review/reviewEnd")
+	public ModelAndView imgUpload(ModelAndView mv, 
+			MultipartHttpServletRequest request, Map map) {
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+		System.out.println(map);
+		//파일 불러오기
+		MultipartFile reviewImg=request.getFile("file");
+		
+		mv.addObject("img", reviewImg);
+		//mv.addObject("file", file);
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}
 	
 }
+

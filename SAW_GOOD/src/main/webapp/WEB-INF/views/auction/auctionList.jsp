@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auctionPage.css" />
-<link rel="stylesheet" href="css/auctionPage.css" type="text/css" />
+<!-- <link rel="stylesheet" href="css/auctionPage.css" type="text/css" /> -->
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date()%>" var="now" />
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
@@ -17,7 +17,7 @@
 <section>
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/auction/funding main2.jpeg">
-		<h3>AUCTION</h3>
+		<h3>CATCH YOUR CHANCE</h3>
 	</div>
 	<!-- 전체 컨테이너 div -->
 	<div id="search-area" class="container" style="border: 0;">
@@ -25,7 +25,7 @@
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
-				<option value="2">couch / chair</option>
+				<option value="2">sofa / chair</option>
 				<option value="3">table / desk</option>
 				<option value="4">carpet / lug</option>
 				<option value="5">storage</option>
@@ -61,15 +61,21 @@
 						<li><a href="${path }/auction/categoryList?category=storage">storage</a></li>
 						<li><a href="${path }/auction/categoryList?category=others">others</a></li>
 					</ul>
-					<!-- <!— 검색기능 —> -->
-					<span class="block-span"> <input type="text" />
-						<button>
-							<img src="${path }/resources/images/search-icon.png" width="20px"
-							height="18px" />
-						</button>
-					</span>
+					<select id="category2" name="keyword" class="selectStyle2">
+						<option value="ACALLSEARCH">전체검색</option>
+						<option value="ACTITLE">글 제목</option>
+						<option value="ACBRAND">브랜드</option>
+					</select>
+					<!-- 검색기능  -->
+					 <span class="block-span">
+                        <input type="text" id="search-Auction" name="searchAuction"/>
+                        <button class="search-Ac-btn" id="search-Ac-btn">
+                            <img src="${path }/resources/images/search-icon.png" width="20px" height="18px"/>
+                        </button>
+                    </span>
 				</div>
 				<div class="col-md-10">
+				<c:if test="${not empty list }">
 					<c:forEach items="${list }" varStatus="status" step="3">
 						<div class="row">
 							<!-- 열 -->
@@ -77,37 +83,48 @@
 								end="${status.index+2}">
 								<div class="col-md-4">
 									<div class="auctionProduct">
-										<div class="productPoto">
-											<img src="${path }/resources/images/${item.acMainImg}.jpg"
-												style="width: 100%; height: 220px;">
-										</div>
-										<div class="proTitle">
-											<p>${item.acTitle }</p>
-										</div>
-										<div class="boderbottom-Red">
-											<p class="pCategory">
-											${item.acCategory }</p>
-										</div>
-										<div class="finalPriceSmall">
-											<span class="nowPriceSmall">현재금액 : </span>
-											<c:if test="${item.acNowPrice>0 }">
-												${item.acNowPrice }원 
-											</c:if>
-											<c:if test="${item.acNowPrice==0 }">
-												입찰금액 없음
-											</c:if>
+										<a href="${path }/auction/detail?acBoardNo=${item.acBoardNo}"> 
+											<div class="productPoto">
+												<img src="${path }/resources/images/${item.acMainImg}.jpg"
+													style="width: 100%; height: 220px;">
+											</div>
+											<div class="proTitle">
+												<p>${item.acTitle }</p>
+											</div>
+											<div class="boderbottom-Red">
+												<p class="pCategory">
+												${item.acCategory } / ${item.acBrand }</p>
 											
-											<span class="rightSmall">
-											<fmt:parseNumber value="${item.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
-											${acEndDate-today }일 남음
-											</span>
-										</div>
+											</div>
+											<div class="finalPriceSmall">
+												<span class="nowPriceSmall">현재금액 : </span>
+												<c:if test="${item.acNowPrice>0 }">
+													${item.acNowPrice }원 
+												</c:if>
+												<c:if test="${item.acNowPrice==0 }">
+													입찰금액 없음
+												</c:if>
+												
+												<span class="rightSmall">
+												<fmt:parseNumber value="${item.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
+												${acEndDate-today }일 남음
+												</span>
+											</div>
+										</a>	
 									</div>
 								</div>
 							</c:forEach>
 						</div>
 					</c:forEach>
 					${pageBar }
+					</c:if>
+					<c:if test="${empty list }">
+	                     	<div class="col-auto" style="width:100%;">
+	                     		<div style="text-align:center;">
+	                     			<h2 style="font-size:22px; font-weight:bold;">해당하는 상품이 존재하지 않습니다.</h2>
+	                     		</div>
+	                     	</div>
+	                </c:if>
 				</div>
 			</div>
 		</div>
@@ -115,6 +132,26 @@
 
 
 </section>
+<script>
+    $(function(){    
+    	$("#search-Auction").keypress(function(e){
+    		if(e.originalEvent.key=='Enter'){
+				if($("#search-Auction").val().trim()==""){
+					alert("검색어를 입력해주세요");
+					return false;
+				}
+				location.href="${path}/auction/searchAuction?value="+$('#search-Auction').val()+"&keyword="+$("#category2").val();
+    		}
+    	})
+    	$("#search-Ac-btn").click(function(){
+    		if($("#search-Auction").val().trim()==""){
+				alert("검색어를 입력해주세요");
+				return false;
+			}
+    		location.href="${path}/auction/searchAuction?value="+$('#search-Auction').val()+"&keyword="+$("#category2").val();
+    	})
+    })
+    </script>
 
 
 

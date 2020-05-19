@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Data
 public class Member {
 
 	private String userId;
@@ -18,7 +16,7 @@ public class Member {
 	private String address2;
 	private String profile;
 	private int point;
-	private boolean status;
+	private int status;
 	private boolean emailAccess;
 	private String businessNumber;
 	public Member() {
@@ -26,7 +24,7 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 	public Member(String userId, String password, String userName, String email, String phone, String postCode,
-			String address1, String address2, String profile, int point, boolean status, boolean emailAccess,
+			String address1, String address2, String profile, int point, int status, boolean emailAccess,
 			String businessNumber) {
 		super();
 		this.userId = userId;
@@ -103,10 +101,10 @@ public class Member {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public boolean isEmailAccess() {
@@ -129,5 +127,5 @@ public class Member {
 				+ ", businessNumber=" + businessNumber + "]";
 	}
 	
-
 }
+
