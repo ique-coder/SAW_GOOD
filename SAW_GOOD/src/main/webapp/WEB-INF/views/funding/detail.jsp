@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=6"/>
+<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=7"/>
 	
 <div class="container-fluid col-md-12" id="detail-header">
     <div class="bg-image" style="background-image: url(${path}/resources/images/signup2.jpg);"></div>
@@ -139,6 +139,97 @@
                         <textarea name="" id="insertText" class="col-md-10" cols="30" rows="10"></textarea>
                         <button id="insertTextBtn" class="col-md-2">등록</button>
                         <div id="commentList" class="col-md-12">
+                        	<c:forEach var="c" items="${commentList}">
+								<c:choose>
+									<c:when test="${c.status == '1'}">
+										<div class="comment delete">
+                                            <p>
+                                                <span class="commentUserId">${c.userId}</span>
+				                                <span class="commentTime">${c.commentDate }</span>
+                                            </p>
+				                           	<p>삭제된 댓글입니다.</p>
+											<div class="reCommentInserDiv col-md-12 row" style="display:none">
+												<textarea class="reInsertText col-md-10" rows="10" cols="30"></textarea>
+												<button class="reInsertTextBtn col-md-2" name="${c.seq_fc_no }">등록</button>
+											</div>
+											<div class="reCommentList">
+												<c:forEach var="cr" items="${reCommentList }">
+													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
+														<c:choose>
+															<c:when test="${cr.status == 1}">
+																<div class="rereComment delete">
+                                                                    <p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																	</p>
+																	<p>삭제된 댓글입니다.</p>
+                                                                </div>
+															</c:when>
+															<c:otherwise>
+																<div class="rereComment">
+																	<p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
+																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
+																	</p>
+																	<p>${cr.commentText }</p>
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</div>
+				                        </div>
+									</c:when>
+									<c:otherwise>
+										<div class="comment">
+				                            <p>
+				                                <span class="commentUserId">${c.userId}</span>
+				                                <span class="commentTime">${c.commentDate }</span>
+				                                <span class="commentDelete" name="${c.seq_fc_no }">삭제</span>
+				                                <span class="commentUpdate" name="${c.seq_fc_no }">수정</span>
+				                                <span class="reComment">댓글</span>
+				                            </p>
+											<p>
+												${c.commentText }
+											</p>
+											<div class="reCommentInserDiv col-md-12 row" style="display:none">
+												<textarea class="reInsertText col-md-10" rows="10" cols="30"></textarea>
+												<button class="reInsertTextBtn col-md-2" name="${c.seq_fc_no }">등록</button>
+											</div>
+											<div class="reCommentList">
+												<c:forEach var="cr" items="${reCommentList }">
+													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
+														<c:choose>
+															<c:when test="${cr.status == '1'}">
+																<div class="rereComment delete">
+                                                                    <p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																	</p>
+																	<p>삭제된 댓글입니다.</p>
+                                                                </div>
+															</c:when>
+															<c:otherwise>
+																<div class="rereComment">
+																	<p>
+																		<span class="reCommentUserId">담당자</span>
+																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
+																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
+																	</p>
+																	<p>${cr.commentText }</p>
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</div>
+				                        </div>
+									</c:otherwise>
+								</c:choose>
+	                    	</c:forEach>
                         </div>
                     
                     </div>
@@ -533,8 +624,6 @@
                                                 })
                                             })
 
-        $("input[name='partPrice']").click(function(){
-        
         $("input[name='reword']").click(function(){
         	if($(this).val()=='none'){
         		$("#input-price").attr("disabled",false);

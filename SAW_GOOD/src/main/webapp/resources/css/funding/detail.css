@@ -287,15 +287,15 @@ section span.underline::after{
     padding: 0 0 10px 20px;
     border-bottom: solid 1px lightgray;
 }
-.comment .rereComment:first-child {
-    padding: 5px 0 10px 20px;
-    border-top: solid 1px lightgray;
-}
 .comment .rereComment:last-child {
     padding: 0 0 10px 20px;
     border-bottom: 0;
 }
-
+.comment .rereComment:first-child {
+    padding: 10px 0 10px 20px;
+    border-bottom: 0;
+    border-top: solid 1px lightgray;
+}
 .reCommentUserId {
     color: #51735D;
     margin-right: 20px;
@@ -318,32 +318,6 @@ section span.underline::after{
     color: #ee987c;
     cursor: pointer;
 }
-.updateDiv {
-    padding: 0;
-    margin: 5px 0;
-}
-.updateTextbox {
-    height: 60px;
-    resize: none;
-    padding:5px;
-}
-.updateTextBtn{
-    height: 60px;
-    padding: 0;
-    border: solid 1px black;
-}
-/* .deleteComment {
-    text-align: center;
-    /* font-size: 30px; */
-    background-color: rgb(236, 236, 236);
-    border: solid 1px lightgray;
-} */
-.noLogin{
-    margin: 20px;
-    padding:20px;
-    font-size: 20px;
-    background-color: rgb(236, 236, 236);
-    /* color: #ee987c; */
 /* 로딩바 */
 .loading-bar{
 	
