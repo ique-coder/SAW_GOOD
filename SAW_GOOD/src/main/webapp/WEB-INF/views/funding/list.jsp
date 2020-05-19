@@ -58,13 +58,14 @@
 			<div class="col-md-2">
 				<!-- 서브네비게이션 바 -->
 				<ul class="category">
-					<li><a href="#">bed</a></li>
-					<li><a href="#">couch / chair</a></li>
-					<li><a href="#">light</a></li>
-					<li><a href="#">table / desk</a></li>
-					<li><a href="#">carpet / lug</a></li>
-					<li><a href="#">storage</a></li>
-					<li><a href="#">others</a></li>
+					<li><a href="${path }/funding/list">all</a></li>
+					<li><a href="${path }/funding/list/category?category=bed">bed</a></li>
+					<li><a href="${path }/funding/list/category?category=sofa.chair">sofa / chair</a></li>
+					<li><a href="${path }/funding/list/category?category=light">light</a></li>
+					<li><a href="${path }/funding/list/category?category=table.desk">table / desk</a></li>
+					<li><a href="${path }/funding/list/category?category=carpet.lug">carpet / lug</a></li>
+					<li><a href="${path }/funding/list/category?category=storage">storage</a></li>
+					<li><a href="${path }/funding/list/category?category=others">others</a></li>
 				</ul>
 				<!-- 검색기능 -->
 				<span class="block-span"> <input type="text" />

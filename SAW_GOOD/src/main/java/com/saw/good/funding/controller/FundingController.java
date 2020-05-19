@@ -255,4 +255,10 @@ public class FundingController {
 //		return mv;
 	}
 	
+	@RequestMapping("/funding/list/category")
+	public ModelAndView categoryList(ModelAndView mv, ) {
+		
+	}
+	
+	
 }
