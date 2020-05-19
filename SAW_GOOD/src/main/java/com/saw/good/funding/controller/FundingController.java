@@ -256,9 +256,10 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/list/category")
-	public ModelAndView categoryList(ModelAndView mv ) {
+	public ModelAndView categoryList(ModelAndView mv , @RequestParam String category1 , @RequestParam() String category) {
 		
-	return mv;
+		
+		return mv;
 		
 	}
 	
