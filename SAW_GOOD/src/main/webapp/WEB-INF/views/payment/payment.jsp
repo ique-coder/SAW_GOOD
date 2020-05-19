@@ -54,7 +54,7 @@
 							<c:forEach items="${list }" var="p" varStatus="vs">
 								<tr>
 									<td><img class="img-responsive imgheight"
-										src="${path}/resources/upload/newproduct/${p['PRODUCTIMG']}" width="100%"/></td>
+										src="${path}/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG']}" width="100%"/></td>
 									<td>${p['BRAND'] }</td>
 	                                <td>${p['PRODUCTNAME'] }</br>
 	                                	<p>기본가격 : 

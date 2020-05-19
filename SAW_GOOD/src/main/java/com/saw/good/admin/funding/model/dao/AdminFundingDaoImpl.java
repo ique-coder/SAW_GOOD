@@ -41,6 +41,67 @@ public class AdminFundingDaoImpl implements AdminFundingDao {
 		// TODO Auto-generated method stub
 		return session.selectList("adFunding.sumPartPrice");
 	}
+
+	@Override
+	public Map<String, String> sumPartPrice(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adFunding.sumPartPriceOne",fdno);
+	}
+
+	@Override
+	public List<Map<String, String>> searchFundingDAg(SqlSession session, int cPage, int numPerPage, Map<String,String> map) {
+		// TODO Auto-generated method stub
+		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("adFunding.searchFundingDAg",map,rowBounds);
+	}
+
+	@Override
+	public int countsearchFundingDAg(SqlSession session,Map<String,String> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adFunding.countsearchFundingDAg", map);
+	}
+
+	@Override
+	public int updateAgreeFunding(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateAgreeFunding", fdno);
+	}
+
+	@Override
+	public int updateDisAgreeFunding(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateDisAgreeFunding", fdno);
+	}
+
+	@Override
+	public int updateCheckAgree(SqlSession session, Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateCheckAgree", map);
+	}
+
+	@Override
+	public int updateCheckDisAgree(SqlSession session, Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateCheckDisAgree", map);
+	}
+
+	@Override
+	public Map<String, String> selectOneFunding(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adFunding.selectOneFunding", fdno);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSubImg(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.selectList("adFunding.selectSubImg", fdno);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

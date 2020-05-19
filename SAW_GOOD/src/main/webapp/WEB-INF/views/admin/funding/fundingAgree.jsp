@@ -481,31 +481,29 @@ label {
 							for="fundAg${vs.count }"></label></td>
 						<td>${fag['FDNO'] }</td>
 						<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
-						<td><a href="${path }/admin/fundingView?FDNO=${fag['FDNO'] }">${fag['TITLE']}</a></td>
+						<td><a href="${path }/admin/fundingView?fdno=${fag['FDNO'] }">${fag['TITLE']}</a></td>
 						<td>${fag['DESIGNER'] }</td>
 						<td>${fag['USERID'] }</td>
 						<td><fmt:formatDate value="${fag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
 						<td><fmt:formatDate value="${fag['ENDDATE']}" pattern="yyyy-MM-dd"/>
 						</td>
-						<c:forEach items="${targetPrice }" var="tp">
-							<c:choose>
-								<c:when test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
-									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
-									</td>
-								</c:when>
-								<c:when test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
-									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
-									</td>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${EndDate-today > 0 }">
+						<c:if test="${EndDate-today >= 0 }">
 							<td>
 								<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>진행중</button>
 							</td>
 						</c:if>
+						<c:forEach items="${targetPrice }" var="tp">
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
+									<td>
+										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
+									</td>
+								</c:if>
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
+									<td>
+										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
+									</td>
+								</c:if>
+						</c:forEach>
 					</tr>
 					</c:forEach>
 				</table>

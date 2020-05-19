@@ -68,6 +68,7 @@
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
 	             <li class="col-md-4"><a href="${path }/signup">my page</a></li>
+	             <li class="col-md-4"><a href="${path }/payment/cart">cart</a></li>
 	             <li class="col-md-4"><a href="${path }/member/logout">logout</a></li>
 	          </ol>
           </c:if>
