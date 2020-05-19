@@ -4,7 +4,7 @@
 	<select id="selectHighList" resultType="funding" parameterType="int">
 		SELECT * FROM(SELECT ROWNUM RNUM , R.* FROM(SELECT A.* ,(SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO = B.FDNO) COUNT
                                                                ,(SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM
-                                                     FROM FUNDING A ORDER BY SUM DESC) R)
+                                                     FROM FUNDING A WHERE STATUS =1 AND APPR = 1 ORDER BY SUM DESC) R)
 		WHERE RNUM BETWEEN 1 AND #{high}
 	
 	</select>
@@ -12,12 +12,12 @@
 	<select id="selectAllList" resultType="funding" >	
  		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
  					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
-		FROM FUNDING A ORDER BY ENDDATE
+		FROM FUNDING A WHERE STATUS = 1 AND APPR = 1 ORDER BY ENDDATE
  	</select>
   	<select id="selectItem" resultType="funding" parameterType="_int">
   		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
   					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
-		FROM FUNDING A WHERE FDNO = #{fdNo}
+		FROM FUNDING A WHERE FDNO = #{fdNo} AND APPR = 1 
   	</select>
   	<select id="selectMemberList" resultType="fdmember" parameterType="_int">
   		SELECT * FROM FDMEMBER WHERE FDNO = #{fdNo}
@@ -38,4 +38,33 @@
   	<select id="selectReComment" resultType="comment" parameterType="_int">
   		SELECT * FROM FUNDINGCOMMENTRE WHERE FDNO = #{fdNo} ORDER BY SEQ_FCR_NO DESC
   	</select>
+  	<insert id="insertFDMember" parameterType="fdmember" >
+  		INSERT INTO FDMEMBER(FDNO,USERID,PARTPRICE,REWORD,PARTDATE,PURSTATUS) 
+  		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)
+  	</insert>
+  	<select id="selectFDMemberList" parameterType="_int" resultType="fdmember" >
+		SELECT F.* ,M.PROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE
+	</select>
+	<select id="selectFDMemberCount" parameterType="_int" resultType="int">
+	 	SELECT COUNT(*) FROM FDMEMBER WHERE FDNO=#{fdNo}
+	</select>
+	
+	<insert id="insertFunding" parameterType="funding">
+	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,FDSIZE,TARGETPRICE,ENROLLDATE,MAINIMG,STATUS,CATEGORY,ENDDATE,APPR) 
+                          VALUES (FDSEQ.NEXTVAL, #{userId},#{designer},#{title}, #{subContent},#{detail},
+                          #{fdSize},#{targetPrice},SYSDATE, 'funding/upload/'+#{mainImg},0 , #{category},SYSDATE+#{day},0)
+          <selectKey keyProperty="fdNo" resultType="int" order="AFTER">
+          	SELECT FDSEQ.CURRVAL FROM DUAL
+          </selectKey>           
+	</insert>
+	<insert id="insertFDSubImg" parameterType="fdsubImg">
+		INSERT INTO FDSUBIMG (FDNO,SUBIMG,ORINAME) VALUES (#{fdNo},#{subImg},#{oriName})
+	</insert> 
+	<delete id="deleteFunding" parameterType="_int">
+	 	DELETE FROM FUNDING WHERE FDNO = #{fdNo}
+	</delete>
+	<insert id="insertFDReword" parameterType="fdreword">
+	 	INSERT INTO FDREWORD (FDNO,REWORD,PARTPRICE) VALUES (#{fdNo},#{reword},#{partPrice})
+	
+	</insert>
 </mapper>

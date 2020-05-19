@@ -1,6 +1,8 @@
 package com.saw.good.auction.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.auction.model.service.AuctionService;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.common.PageFactory;
 
@@ -40,6 +43,28 @@ public class AuctionController {
 		return mv;
 		
 	}
+	@RequestMapping("/auction/searchAuction")
+	public ModelAndView searchAuction(String keyword,String value,ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="6") int numPerPage) {
+		Map<String,String> map = new HashMap();
+		map.put("keyword",keyword);
+		map.put("value",value);
+		
+		System.out.println(map);
+		List<Auction> list = service.searchAuction(cPage,numPerPage,map);
+		int totalData=service.countAcSearch(map);
+		System.out.println(list);
+		System.out.println(totalData);
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		mv.addObject("list",list);
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("numPerPage", numPerPage);
+		mv.addObject("cPage", cPage);
+		mv.setViewName("auction/auctionList");
+		return mv;
+	}
+
 	@RequestMapping("/auction/categoryList")
 	public ModelAndView auctionList(ModelAndView mv,AuctionSearch category,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
@@ -57,10 +82,55 @@ public class AuctionController {
 		return mv;
 		
 	}
+	//상품 디테일 기본정보 가져오기
+	@RequestMapping("/auction/detail")
+	public ModelAndView auctionDetail(ModelAndView mv, Auction ac) {
+		
+		//상품 디테일 기본정보 가져오기
+		Auction acinfo=service.selectDtAuction(ac);
 	
-//	@RequestMapping("/funding/detail")
-//	public ModelAndView fundingDetail(ModelAndView mv) {
-//		mv.setViewName("funding/detail");
-//		return mv;
-//	}
+		//경매 랭크 불러오기
+		List<Map<String,String>> acMem=service.selectAcMember(ac);
+		System.out.println(acMem);
+		System.out.println(acinfo);
+	
+		mv.addObject("a",acinfo);
+		mv.addObject("am",acMem);
+		mv.setViewName("auction/auctionDetail");
+		return mv;
+	}
+	//입찰 시작해보즈아
+	@RequestMapping("/auction/bidUpdate")
+	public ModelAndView updateBidPrice(ModelAndView mv, AuctionMember am,Auction a) {
+	
+		Auction ac = service.selectNowPrice(a);
+		int bidPrice = am.getBidPrice();
+		int startPrice = ac.getAcStartPrice();
+		int nowPrice = ac.getAcNowPrice();
+		System.out.println(bidPrice);
+		System.out.println(startPrice);
+		System.out.println(nowPrice);
+		//최고금액 업데이트하기
+		String msg = "";
+		String loc = "/auction/detail?acBoardNo="+a.getAcBoardNo();
+		if(bidPrice > startPrice && bidPrice > nowPrice) {
+				int result = service.insertBidPrice(am);
+				if(result > 0) {
+					//경매 입찰금액
+					int afp=service.selectFsPrice(a);
+					a.setAcNowPrice(afp);					
+					//최고입찰금액 업데이트
+					int result2 = service.updateNowPrice(a);
+					msg="입찰에 성공하였습니다.";
+				}else {
+					msg="입찰에 실패하였습니다. 관리자에게 문의하세요.";
+				}
+		}else {
+			msg="입찰에 실패하였습니다. 금액을 확인해주세요.";
+		}
+		mv.addObject("loc",loc);
+		mv.addObject("msg",msg);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 }

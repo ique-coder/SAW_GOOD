@@ -15,27 +15,27 @@ public class AdminMemberDaoImpl implements AdminMemberDao{
 	public List<Map<String, String>> selectMember(SqlSession session,int cPage,int numPerPage) {
 		// TODO Auto-generated method stub
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
-		return session.selectList("member.selectMember", null, rb);
+		return session.selectList("admember.selectMember", null, rb);
 	}
 
 	@Override
 	public int countMember(SqlSession session) {
 		// TODO Auto-generated method stub
-		return session.selectOne("member.countMember");
+		return session.selectOne("admember.countMember");
 	}
 	
 	//멤버삭제
 	@Override
 	public int deleteMember(SqlSession session, String id) {
 		// TODO Auto-generated method stub
-		return session.update("member.deleteMember", id);
+		return session.update("admember.deleteMember", id);
 	}
 	//선택삭제
 	
 	@Override
 	public int checkdeleteMember(SqlSession session, List<String> mb) {
 		// TODO Auto-generated method stub
-		return session.update("member.checkDelete", mb);
+		return session.update("admember.checkDelete", mb);
 	}
 	
 	//서치멤버 페이징처리
@@ -44,14 +44,14 @@ public class AdminMemberDaoImpl implements AdminMemberDao{
 			Map<String, String> map) {
 		// TODO Auto-generated method stub
 		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("member.searchMember", map, rowBounds);
+		return session.selectList("admember.searchMember", map, rowBounds);
 	}
 
 
 	@Override
 	public int countSearchMember(SqlSession session, Map<String, String> map) {
 		// TODO Auto-generated method stub
-		return session.selectOne("member.countSearchMember", map);
+		return session.selectOne("admember.countSearchMember", map);
 	}
 	
 	

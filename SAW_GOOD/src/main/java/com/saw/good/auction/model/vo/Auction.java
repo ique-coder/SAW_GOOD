@@ -11,6 +11,7 @@ public class Auction {
 	private int acStartPrice;
 	private int acStepPrice;
 	private int acNowPrice;
+	private int acImdPrice;
 	private String acStatusRank;
 	private String acCategory;
 	private String acBrand;
@@ -27,8 +28,9 @@ public class Auction {
 		// TODO Auto-generated constructor stub
 	}
 	public Auction(int acBoardNo, String userId, String acTitle, String acProName, int acStartPrice, int acStepPrice,
-			int acNowPrice, String acStatusRank, String acCategory, String acBrand, String acMainImg, String acProSize,
-			String acComent, Date acStartDate, Date acEndDate, String acBuyDate, String acProUrl, String acStatus) {
+			int acNowPrice, int acImdPrice, String acStatusRank, String acCategory, String acBrand, String acMainImg,
+			String acProSize, String acComent, Date acStartDate, Date acEndDate, String acBuyDate, String acProUrl,
+			String acStatus) {
 		super();
 		this.acBoardNo = acBoardNo;
 		this.userId = userId;
@@ -37,6 +39,7 @@ public class Auction {
 		this.acStartPrice = acStartPrice;
 		this.acStepPrice = acStepPrice;
 		this.acNowPrice = acNowPrice;
+		this.acImdPrice = acImdPrice;
 		this.acStatusRank = acStatusRank;
 		this.acCategory = acCategory;
 		this.acBrand = acBrand;
@@ -90,6 +93,12 @@ public class Auction {
 	}
 	public void setAcNowPrice(int acNowPrice) {
 		this.acNowPrice = acNowPrice;
+	}
+	public int getAcImdPrice() {
+		return acImdPrice;
+	}
+	public void setAcImdPrice(int acImdPrice) {
+		this.acImdPrice = acImdPrice;
 	}
 	public String getAcStatusRank() {
 		return acStatusRank;
@@ -161,10 +170,10 @@ public class Auction {
 	public String toString() {
 		return "Auction [acBoardNo=" + acBoardNo + ", userId=" + userId + ", acTitle=" + acTitle + ", acProName="
 				+ acProName + ", acStartPrice=" + acStartPrice + ", acStepPrice=" + acStepPrice + ", acNowPrice="
-				+ acNowPrice + ", acStatusRank=" + acStatusRank + ", acCategory=" + acCategory + ", acBrand=" + acBrand
-				+ ", acMainImg=" + acMainImg + ", acProSize=" + acProSize + ", acComent=" + acComent + ", acStartDate="
-				+ acStartDate + ", acEndDate=" + acEndDate + ", acBuyDate=" + acBuyDate + ", acProUrl=" + acProUrl
-				+ ", acStatus=" + acStatus + "]";
+				+ acNowPrice + ", acImdPrice=" + acImdPrice + ", acStatusRank=" + acStatusRank + ", acCategory="
+				+ acCategory + ", acBrand=" + acBrand + ", acMainImg=" + acMainImg + ", acProSize=" + acProSize
+				+ ", acComent=" + acComent + ", acStartDate=" + acStartDate + ", acEndDate=" + acEndDate
+				+ ", acBuyDate=" + acBuyDate + ", acProUrl=" + acProUrl + ", acStatus=" + acStatus + "]";
 	}
 	
 	

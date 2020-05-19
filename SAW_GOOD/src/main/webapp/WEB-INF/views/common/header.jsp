@@ -56,7 +56,7 @@
                     <a href="${path }/funding/list" class="target"><span>FUNDING</span></a>
                 </li>
                 <li class="col-md-3">
-                    <a href="#" class="target"><span>AUCTION</span></a>
+                    <a href="${path }/auction/list" class="target"><span>AUCTION</span></a>
                 </li>
           </ul>
           <c:if test="${empty loginMember }">
@@ -82,9 +82,8 @@
 	                <input id="password" type="password" name="password" placeholder="password">
 	                <div style="margin-bottom: 16px;">
 	                    <label class="saveId"><input type="checkbox" name="saveId" id="saveId" value="saveId">아이디저장</label>
-	                    <label><input type="checkbox" name="autoLogin" id="autoLogin" value="autoLogin">자동로그인</label>
 	                </div>
-	                <div style="text-align: left;">
+	                <div style="text-align: left; clear:both;">
 	                    <a href="#">아이디 / 비밀번호 찾기</a>
 	                </div>
 	                <button type="submit" id="buttonLogin">로그인</button>

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.saw.good.product.model.vo.Product;
+import com.saw.good.product.model.vo.ProductQna;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -49,6 +50,27 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int countSearchCategory(SqlSessionTemplate session, Map<String,Object> map) {
 		return session.selectOne("newProduct.countSearchCategory", map);
+	}
+
+	@Override
+	public int insertQna(SqlSessionTemplate session, Map map) {
+		return session.insert("newProduct.insertQna", map);
+	}
+
+	@Override
+	public List<ProductQna> selectProductQna(SqlSessionTemplate session, int no,int cPage,int numPerPage) {
+		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("newProduct.selectProductQna", no, rowBounds);
+	}
+
+	@Override
+	public int countQna(SqlSessionTemplate session) {
+		return session.selectOne("newProduct.countQna");
+	}
+
+	@Override
+	public ProductQna selectQnaCheck(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.selectQnaCheck", no);
 	}
 	
 }

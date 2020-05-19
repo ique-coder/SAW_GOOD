@@ -65,11 +65,16 @@ section>.container{
 }
 /* 상품 설명 */
 #p-table h5{
-    font-size: 35px;
+    font-size: 20px;
     text-align: right;
+   position:relative;
 }
+#p-table h5>img{
+   position: relative;top:2px;
+}
+
 #p-table>table{
-    margin-top: 20px;
+    margin-top: 5px;
     border-top: 2px black solid;
     width: 100%;
 }
@@ -339,4 +344,93 @@ section span.underline::after{
     font-size: 20px;
     background-color: rgb(236, 236, 236);
     /* color: #ee987c; */
+/* 로딩바 */
+.loading-bar{
+	
+}
+.loading-bar>img{
+	width:30px;height:30px;
+	position:absolute;
+	left:49%;
+}
+.profile{
+	border-radius:25px;
+}
+/* 후원내역 */
+
+.lst_sponser{
+	border-top:1px #d5d5d5 solid;
+	margin:30px 0;
+	height:100px;
+	position:relative;
+}
+.lst_sponser:first-child{
+	border-top:1px #737374 solid;
+}
+.lst_sponser>li{
+	margin:30px;
+	height:60px;
+	position:relative;
+}
+.emptyProfile{
+	width:50px;
+	height:50px;
+	border-radius:25px;
+	display:inline-block;
+	margin:5px 0;
+	/* background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); */
+	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+.sponser_info{
+	display:inline-block;
+	height:50px;
+	font-size:1p5x;
+	position:absolute;
+	top:5px;
+	margin-left:30px;
+}
+.wordBreak{
+	color:#666666;
+	font-size:16px;
+	
+}
+.date{
+	color:#888888;
+	display:block;
+	font-size:15px;
+	margin:10px 0;
+}
+.num{
+	color:#3C5946;
+	font-weight:600;
+	font-size:16px;
+	margin: 0 3px 0 0;
+}
+/* 페이지바*/
+#pageBar {
+	width: 100%; 
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #d5d5d5;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+}
+/* 페이지바 cpage span */
+#pageBar>span.cPage {
+	border: 1px solid  #ee987c ;
+	color:  #ee987c;
 }

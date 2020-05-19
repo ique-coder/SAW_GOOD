@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
+import com.saw.good.funding.model.vo.FDSubImg;
 import com.saw.good.funding.model.vo.Funding;
 
 public interface FundingDao {
@@ -27,5 +28,19 @@ public interface FundingDao {
 	List<Comment> selectComment(SqlSession session, int fdNo);
 	
 	List<Comment> selectReComment(SqlSession session, int fdNo);
+
+	int insertFDMember(SqlSession session, FDMember m);
+
+	List<FDMember> selectFDMemberList(SqlSession session, int fdNo, int cPage, int numPerPage);
+
+	int selectFDMemberCount(SqlSession session, int fdNo);
+
+	int insertFunding(SqlSession session, Funding f);
+
+	int insertFDSubImg(SqlSession session, FDSubImg fs);
+
+	int deleteFunding(SqlSession session, int fdNo);
+
+	int insertFDReword(SqlSession session, FDReword fr);
 
 }

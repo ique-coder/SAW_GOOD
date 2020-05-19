@@ -20,7 +20,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="${path }/resources/css/admin/style.css?ver=0">
+<link rel="stylesheet" href="${path }/resources/css/admin/style.css?ver=9">
 
 <!-- IonIcons -->
 <link rel="stylesheet"
@@ -96,10 +96,10 @@ div.footer {
 					<li class="menu"><a href="${path }/admin"><span
 							class="fa fa-chart-bar mr-3"></span>DashBoard</a></li>
 					<div></div>
-					<li class="menu"><a href="${path }/admin/funding"><span
+					<li class="menu"><a href="${path }/admin/fundingDisAgreeList"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
 					<div></div>
-					<li class="menu"><a href="#"><span class="fa fa-font mr-3"></span>
+					<li class="menu"><a href="${path }/admin/auction"><span class="fa fa-font mr-3"></span>
 							Auction</a></li>
 					<div></div>
 					<li class="menu"><a href="#"><span

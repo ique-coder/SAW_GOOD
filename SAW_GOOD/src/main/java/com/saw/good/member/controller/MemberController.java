@@ -90,7 +90,7 @@ public class MemberController {
 		if(result>0) {
 			
 			boolean flag = sendEmail(m2);
-			if(flag) msg="회원가입 성공! 메일보내기 성공!";
+			if(flag) msg="회원가입 되었습니다. 메일을 확인해 주세요.";
 			else msg="회원가입은 성공했으나 메일보내기에 실패하였습니다. 관리자에게 문의하세요.";
 			
 		}else {
@@ -259,17 +259,19 @@ public class MemberController {
 		}
 		//로그인 하기
 		@RequestMapping("/member/memberLogin")
-		public ModelAndView memberLogin(Member m, ModelAndView mv) {
+		public ModelAndView memberLogin(Member m, ModelAndView mv, HttpServletRequest request) {
 			
 			Member loginMember=service.selectMember(m);
 			
 			System.out.println(m);
 			String msg="";
-			String loc="";
+			//String loc="";
+			String referer=request.getHeader("referer");
+			System.out.println(referer);
 			//로그인로직 처리하기
 			if(loginMember!=null) {
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
-					if(loginMember.isEmailAccess()) {
+					if(loginMember.isEmailAccess()&&loginMember.getStatus()!=0) {
 						//로그인성공
 						msg="로그인 성공";
 						//로그인 값을 유지 -> session객체에 데이터 보관
@@ -278,7 +280,10 @@ public class MemberController {
 						//model에 담겨있는 데이터를 session범위로 옮겨보자
 						//@SessionAttributes(value={"key값"}) -> class선언부 위에
 						mv.addObject("loginMember", loginMember);			
-					}else {
+					}else if(loginMember.getStatus()==0) {
+						msg="탈퇴한 회원입니다.";
+					}
+					else {
 						msg="이메일 인증을 진행해 주세요";
 					}
 					
@@ -291,7 +296,8 @@ public class MemberController {
 				msg="아이디 또는 비밀번호를 잘못 입력하셨습니다";
 			}
 			mv.addObject("msg", msg);
-			mv.addObject("loc", loc);
+			//mv.addObject("loc", loc);
+			mv.addObject("referer", referer);
 			mv.setViewName("common/msg");
 			return mv;
 		}

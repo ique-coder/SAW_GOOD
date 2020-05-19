@@ -18,7 +18,7 @@ public class ProductFinderPage {
 		if(pageNo==1) {
 			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='javascript:fn_paging("+(pageNo-1)+","+numPerPage+","+keyword+")'><</a>";
+			pageBar+="<a href='javascript:fn_paging("+(pageNo-1)+","+numPerPage+",\""+keyword+"\")'><</a>";
 		}
 		
 		//페이지처리
@@ -27,7 +27,7 @@ public class ProductFinderPage {
 				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 
-				pageBar+="<a href='javascript:fn_paging("+pageNo+","+numPerPage+","+keyword+")'>"+pageNo+"</a>";
+				pageBar+="<a href='javascript:fn_paging("+pageNo+","+numPerPage+",\""+keyword+"\")'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -36,7 +36,7 @@ public class ProductFinderPage {
 		if(pageNo>totalPage) {
 			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+","+numPerPage+","+keyword+")'>></a>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+","+numPerPage+",\""+keyword+"\")'>></a>";
 		}
 		
 		pageBar+="</div>";

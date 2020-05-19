@@ -119,36 +119,6 @@ div.subcategory>input:checked+label {
 	padding: 10px;
 }
 
-#search_id {
-	width: 100%;
-	display: inline-block;
-}
-
-#search_name {
-	display: none;
-	width: 100%;
-}
-
-#search_email {
-	display: none;
-	width: 100%;
-}
-
-#search_phone {
-	display: none;
-	width: 100%;
-}
-
-#search_addr {
-	display: none;
-	width:100%;
-}
-
-#search_date {
-	display: none;
-	width:100%;
-}
-
 div[id^="search"]>input[type="text"] {
 	padding: 2px 0;
 }
@@ -381,7 +351,7 @@ label {
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td colspan="2"><input type="text" name="produtname"></td>
+						<td colspan="2"><input type="text" name="productname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>

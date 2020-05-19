@@ -5,11 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class FDReword {
 
 	int fdNo;
 	String reword;
-	int minimum;
+	int partPrice;
 }
