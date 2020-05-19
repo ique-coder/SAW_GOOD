@@ -50,15 +50,25 @@
  	</select>
  	
  	<select id="selectAcMember" parameterType="auction" resultType="map">
- 		SELECT * FROM AUCTIONMEMBER ORDER BY BIDPRICE DESC
- 	</select>
+ 		SELECT * FROM (SELECT ROWNUM,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=1 ORDER BY BIDPRICE DESC)A ) WHERE ROWNUM BETWEEN 1 AND 5
+ 		 	</select>
+ 	
+	 <select id="selectFsPrice" parameterType="auction" resultType="_int">
+ 	SELECT BIDPRICE FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE RN=1
+ 
+ 	 </select>
+ 	
  	<select id="selectNowPrice" parameterType="auction" resultType="auction">
  		SELECT ACNOWPRICE,ACSTARTPRICE FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} 
  	</select>
  	
  	
  	<insert id="insertBidPrice" parameterType="com.saw.good.auction.model.vo.AuctionMember">
- 		INSERT INTO AUCTIONMEMBER (#{acBoardNo},#{userId},#{bidPrice},SYSDATE,1)
+ 		INSERT INTO AUCTIONMEMBER VALUES(#{acBoardNo},#{userId},#{bidPrice},SYSDATE,1)
  	</insert>
+ 	
+ 	<update id="updateNowPrice" parameterType="auction">
+ 		UPDATE AUCTION SET ACNOWPRICE = #{acNowPrice} WHERE ACBOARDNO = #{acBoardNo}
+ 	</update>
  	
 </mapper>
