@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.PageFactory;
 import com.saw.good.funding.model.service.FundingService;
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;
@@ -59,6 +60,55 @@ public class FundingController {
 		
 	}
 	
+//	@RequestMapping("/funding/detail")
+//	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
+//		//제품, 사람수 총 참여가격 포함
+//		
+//		Funding f = service.selectItem(item.getFdNo());
+//		//해당 제품에 참여한 사람 목록
+//		List<FDMember> list = service.selectMemberList(item.getFdNo());
+//		//해당 제품에 참여한 사람 수 , 총 가격 / 비활성: 서브쿼리로 변경 
+//		//Map<String,Integer> map = service.selectPriceCount(item.getFdNo());
+//		
+//		//리워드목록 불러오기
+//		List<FDReword> reword = service.selectRewordList(item.getFdNo());
+//		
+//		// 댓글 리스트 가져오기 - castle
+//		List<Comment> commentList = service.selectComment(item.getFdNo());
+//		// re댓글 리스트 가져오기 - castle
+//		List<Comment> reCommentList = service.selectReComment(item.getFdNo());
+//		
+//		mv.addObject("f",f);
+//		mv.addObject("list",list);
+//		mv.addObject("reword",reword);
+//		mv.addObject("commentList", commentList);
+//		mv.addObject("reCommentList", reCommentList);
+//		mv.setViewName("funding/detail");
+//
+//		if(f!=null) {
+//			
+//			//해당 제품에 참여한 사람 목록
+//			List<FDMember> list = service.selectMemberList(item.getFdNo());
+//			//해당 제품에 참여한 사람 수 , 총 가격 / 비활성: 서브쿼리로 변경 
+//			//Map<String,Integer> map = service.selectPriceCount(item.getFdNo());
+//			
+//			//리워드목록 불러오기
+//			List<FDReword> reword = service.selectRewordList(item.getFdNo());
+//			
+//			mv.addObject("f",f);
+//			mv.addObject("list",list);
+//			mv.addObject("reword",reword);
+//			mv.setViewName("funding/detail");
+//			
+//			
+//		}else {
+//			mv.addObject("msg", "존재하지않는 게시글입니다.");
+//			mv.addObject("loc", "funding/list");
+//			mv.setViewName("common/msg");
+//		}
+//		return mv;
+//	}
+	
 	@RequestMapping("/funding/detail")
 	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
 		//제품, 사람수 총 참여가격 포함
@@ -74,9 +124,16 @@ public class FundingController {
 			//리워드목록 불러오기
 			List<FDReword> reword = service.selectRewordList(item.getFdNo());
 			
+			// 댓글 리스트 가져오기 - castle
+			List<Comment> commentList = service.selectComment(item.getFdNo());
+			// re댓글 리스트 가져오기 - castle
+			List<Comment> reCommentList = service.selectReComment(item.getFdNo());
+			
 			mv.addObject("f",f);
 			mv.addObject("list",list);
 			mv.addObject("reword",reword);
+			mv.addObject("commentList", commentList);
+			mv.addObject("reCommentList", reCommentList);
 			mv.setViewName("funding/detail");
 			
 			

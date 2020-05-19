@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;

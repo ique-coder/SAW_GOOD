@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.auction.model.service.AuctionService;
@@ -16,6 +17,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.common.PageFactory;
+import com.saw.good.member.model.vo.Member;
 
 
 @Controller
@@ -41,7 +43,7 @@ public class AuctionController {
 		mv.addObject("cPage", cPage);
 		mv.setViewName("auction/auctionList");
 		return mv;
-		
+	
 	}
 	@RequestMapping("/auction/searchAuction")
 	public ModelAndView searchAuction(String keyword,String value,ModelAndView mv,
@@ -85,14 +87,15 @@ public class AuctionController {
 	//상품 디테일 기본정보 가져오기
 	@RequestMapping("/auction/detail")
 	public ModelAndView auctionDetail(ModelAndView mv, Auction ac) {
-
+		
 		//상품 디테일 기본정보 가져오기
 		Auction acinfo=service.selectDtAuction(ac);
-		
+	
 		//경매 랭크 불러오기
 		List<Map<String,String>> acMem=service.selectAcMember(ac);
 		System.out.println(acMem);
 		System.out.println(acinfo);
+
 		mv.addObject("a",acinfo);
 		mv.addObject("am",acMem);
 		mv.setViewName("auction/auctionDetail");
@@ -100,16 +103,51 @@ public class AuctionController {
 	}
 	//입찰 시작해보즈아
 	@RequestMapping("/auction/bidUpdate")
-	public ModelAndView updateBidPrice(ModelAndView mv, AuctionMember am,Auction a) {
-	
+	public ModelAndView updateBidPrice(ModelAndView mv, AuctionMember am,Auction a, @SessionAttribute ("loginMember") Member m) {
+		System.out.println(m);
+		//현재 상품정보 확인하기
 		Auction ac = service.selectNowPrice(a);
 		int bidPrice = am.getBidPrice();
 		int startPrice = ac.getAcStartPrice();
 		int nowPrice = ac.getAcNowPrice();
-		System.out.println(bidPrice);
-		System.out.println(startPrice);
-		System.out.println(nowPrice);
+		int userPoint = m.getPoint();
+		
+		AuctionMember am2 = service.selectFsMem(a);
 		//최고금액 업데이트하기
+		System.out.println(am2.getUserId());
+		String msg = "";
+		String loc = "/auction/detail?acBoardNo="+a.getAcBoardNo();
+		if(!(m.getUserId().equals(am2.getUserId()))) {
+			if(bidPrice >= startPrice && bidPrice > nowPrice) {
+				if(userPoint>nowPrice) {
+					int result = service.insertBidPrice(am);
+					if(result > 0) {
+						//경매 입찰금액
+						int afp=service.selectFsPrice(a);
+						a.setAcNowPrice(afp);					
+						//최고입찰금액 업데이트
+						int result2 = service.updateNowPrice(a);
+						if(result2>0) {
+							msg="입찰에 성공하였습니다.";
+						}else {
+							msg="입찰은 되었으나 오류가 발생하였습니다. 관리자에게 문의해주세요.";
+						}
+						
+					}else {
+						msg="입찰에 실패하였습니다. 관리자에게 문의해주세요.";
+					}
+				}else {
+					msg="입찰에 실패하였습니다. SG포인트를 확인해주세요.";
+				}
+			}else {
+				msg="입찰에 실패하였습니다. 금액을 확인해주세요.";
+			}
+		}else {
+			msg="현재 최고 입찰자입니다. 입찰랭크를 확인해주세요.";
+		}
+		mv.addObject("loc",loc);
+		mv.addObject("msg",msg);
+		mv.setViewName("common/msg");
 		//if(startPrice)
 		//int result = service.insertBidPrice(am);
 		//System.out.println(am);

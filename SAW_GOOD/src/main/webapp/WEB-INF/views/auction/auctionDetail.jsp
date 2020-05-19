@@ -63,7 +63,8 @@
                             </div>
                             <div class="row">
                                 <div class="record col-md-3">
-                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격/최소증감액</span>
+                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격</span>
+                                    <span>최고입찰 가격</span>
                                     <span>즉시입찰 가격</span>
                                     <span>입찰건수</span>
                                     <span>카테고리</span>
@@ -72,8 +73,11 @@
                                     <span style="margin-bottom: 0;">종료일자</span>
                                 </div>
                                 <div class="record col-md-3" style="width: 750px;">
-                                    <strong style="color:#cc0000;font-weight:bold;">${a.acStartPrice }원/${a.acStepPrice }원</strong>
+                                    <strong style="color:#cc0000;font-weight:bold;">${a.acStartPrice }원</strong>
                                     <strong>
+                                    	${a.acNowPrice }원
+                                    </strong>
+                                     <strong>
                                     	${a.acImdPrice }원
                                     </strong>
                                     <strong>26건</strong>
@@ -93,7 +97,7 @@
                                     		현재 입찰자 없음
                                     	</c:if>
                                     	<c:if test="${a.acNowPrice > a.acStartPrice }">
-                                    		${a.acNowPrice } 원
+                                    		${a.acNowPrice+10000 } 원
                                     	</c:if>
                                 </strong>
                             </div>

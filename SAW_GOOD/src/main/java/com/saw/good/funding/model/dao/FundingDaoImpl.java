@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;
@@ -56,6 +57,16 @@ public class FundingDaoImpl implements FundingDao{
 	}
 
 	@Override
+	public List<Comment> selectComment(SqlSession session, int fdNo) {
+		return session.selectList("funding.selectComment", fdNo);
+	}
+
+	@Override
+	public List<Comment> selectReComment(SqlSession session, int fdNo) {
+		return session.selectList("funding.selectReComment", fdNo);
+	}
+	
+	
 	public int insertFDMember(SqlSession session, FDMember m) {
 		// TODO Auto-generated method stub
 		return session.insert("funding.insertFDMember",m);

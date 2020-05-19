@@ -24,9 +24,13 @@ public interface AuctionDao {
 	
 	List<Map<String, String>> selectAcMember(SqlSession session,Auction acBoardNo);
 	
+	AuctionMember selectFsMem(SqlSession session,Auction a);
+	
+	int selectFsPrice(SqlSession session,Auction ac);
 	
 	Auction selectNowPrice(SqlSession session,Auction a);
 	
-	
 	int insertBidPrice(SqlSession session,AuctionMember am);
+	
+	int updateNowPrice(SqlSession session,Auction a);
 }
