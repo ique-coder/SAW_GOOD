@@ -58,4 +58,17 @@
 	 	INSERT INTO FDREWORD (FDNO,REWORD,PARTPRICE) VALUES (#{fdNo},#{reword},#{partPrice})
 	
 	</insert>
+	<select id="categoryList" parameterType="map" resultType="funding">
+		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+ 					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE STATUS = 1 AND APPR = 1 AND CATEGORY IN(#{category1}
+		<if test="category2!=null and category2 !=''">
+			,#{category2}
+		</if>
+		)
+		
+		
+		ORDER BY ENDDATE
+	</select>
+	
 </mapper>

@@ -3,6 +3,7 @@ package com.saw.good.funding.model.service;
 import java.util.List;
 import java.util.Map;
 
+
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;
@@ -11,7 +12,7 @@ import com.saw.good.funding.model.vo.Funding;
 public interface FundingService {
 
 	
-	List<Funding> selectList(int numPerPage);
+	List<Funding> selectList(int cPage, int numPerPage);
 
 	Funding selectItem(int fdNo);
 
@@ -31,5 +32,9 @@ public interface FundingService {
 
 	
 	int insertFunding(Funding f, List<FDSubImg> fileNames, List<FDReword> rewordList);
+
+	List<Funding> selectCategoryList(Map map, int cPage, int numPerPage);
+
+
 
 }

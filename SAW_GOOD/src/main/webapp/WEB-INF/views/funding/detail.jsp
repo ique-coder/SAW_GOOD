@@ -179,13 +179,16 @@
         function submin(){
         	var reword=$("input[name='reword']:checked").val();
         	var partPrice ;
-        	
-        	if(reword=='none'){
-        		partPrice = $("#input-price").val();
+        	if(reword!=null){
+	        	if(reword=='none'){
+	        		partPrice = $("#input-price").val();
+	        	}else{
+	        		partPrice = $("input[name='reword']:checked").next().val();
+	        	}
+	        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
         	}else{
-        		partPrice = $("input[name='reword']:checked").next().val();
+        		alert('리워드를 선택해주세요.');
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
 		}
         //참여 내역클릭시 내역 불러오기
         var cPage = 1;

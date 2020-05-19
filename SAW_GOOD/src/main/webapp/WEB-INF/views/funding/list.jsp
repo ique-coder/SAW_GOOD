@@ -61,11 +61,11 @@
 					<li><a href="${path }/funding/list">all</a></li>
 					<li><a href="${path }/funding/list/category?category1=bed">bed</a></li>
 					<li><a href="${path }/funding/list/category?category1=sofa&category2=chair">sofa / chair</a></li>
-					<li><a href="${path }/funding/list/category?category=light">light</a></li>
-					<li><a href="${path }/funding/list/category?category=table&category2=desk">table / desk</a></li>
-					<li><a href="${path }/funding/list/category?category=carpet&category2=lug">carpet / lug</a></li>
-					<li><a href="${path }/funding/list/category?category=storage">storage</a></li>
-					<li><a href="${path }/funding/list/category?category=others">others</a></li>
+					<li><a href="${path }/funding/list/category?category1=light">light</a></li>
+					<li><a href="${path }/funding/list/category?category1=table&category2=desk">table / desk</a></li>
+					<li><a href="${path }/funding/list/category?category1=carpet&category2=lug">carpet / lug</a></li>
+					<li><a href="${path }/funding/list/category?category1=storage">storage</a></li>
+					<li><a href="${path }/funding/list/category?category1=others">others</a></li>
 				</ul>
 				<!-- 검색기능 -->
 				<span class="block-span"> <input type="text" />
@@ -235,12 +235,13 @@
 								<img src="${path }/resources/images/${item.mainImg}" class="images" />
 									<table>
 										<thead>
-											<th colspan="2">
-												<h1 class="text-deco text-position">
-													<c:out value="${item.title }"/>
-												</h1>
-											</th>
-											
+											<tr>
+												<th colspan="2">
+													<h1 class="text-deco text-position">
+														<c:out value="${item.title }"/>
+													</h1>
+												</th>
+											</tr>
 										</thead>
 										<tr>
 											<th>${item.designer}</th>
@@ -252,16 +253,20 @@
 											</td>
 										</tr>
 										<tbody>
+										<tr>
 											<th colspan="2"><svg width="100%" height="3px"
 													xmlns="http://w3.org/2000/svg" version="1.1"
 													class="bar-container">
 				                                        <rect x="0" y="0" width="${item.sum/item.targetPrice *100}%"
 														height="3px" class="bar" />
 				                                    </svg></th>
+				                        </tr>
 										</tbody>
 										<tfoot>
+										<tr>
 											<th><fmt:formatNumber value="${item.sum }"/>원</th>
 											<td><fmt:formatNumber value="${item.sum/item.targetPrice *100}" />%</td>
+										</tr>
 										</tfoot>
 									</table>
 								</a>
