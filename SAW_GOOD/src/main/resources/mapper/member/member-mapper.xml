@@ -43,4 +43,16 @@
 		SELECT * FROM MEMBER WHERE USERID=#{userId}
   </select>
   
+  <!--승원 옥션멤버포인트   -->
+  <update id="updateMemPoint" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+  	UPDATE MEMBER SET POINT = POINT + #{bidPrice} WHERE USERID=#{userId}
+  </update>
+   <!--승원 옥션멤버포인트   -->
+  <update id="updateMemAPoint" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+  	UPDATE MEMBER SET POINT = POINT - #{bidPrice} WHERE USERID=#{userId}
+  </update>
+  <!--승원 옥션멤버포인트   -->
+  <update id="updateMemAPoint2" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+  	UPDATE MEMBER SET POINT = POINT - #{acImdPrice} WHERE USERID=#{userId}
+  </update>
 </mapper>

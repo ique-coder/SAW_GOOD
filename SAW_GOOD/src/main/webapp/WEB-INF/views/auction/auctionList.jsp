@@ -99,7 +99,7 @@
 											<div class="finalPriceSmall">
 												<span class="nowPriceSmall">현재금액 : </span>
 												<c:if test="${item.acNowPrice>0 }">
-													${item.acNowPrice }원 
+													<fmt:formatNumber value="${item.acNowPrice }" pattern="#,###" /> P
 												</c:if>
 												<c:if test="${item.acNowPrice==0 }">
 													입찰금액 없음
