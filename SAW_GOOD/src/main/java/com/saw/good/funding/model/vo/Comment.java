@@ -10,6 +10,7 @@ public class Comment {
 	private Date commentDate;
 	private String commentText;
 	private int status;
+	private String formatDate;
 	public int getSeq_fc_no() {
 		return seq_fc_no;
 	}
@@ -52,8 +53,14 @@ public class Comment {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public String getFormatDate() {
+		return formatDate;
+	}
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
+	}
 	public Comment(int seq_fc_no, int seq_fcr_no, String userId, int fdNo, Date commentDate, String commentText,
-			int status) {
+			int status, String formatDate) {
 		super();
 		this.seq_fc_no = seq_fc_no;
 		this.seq_fcr_no = seq_fcr_no;
@@ -62,16 +69,20 @@ public class Comment {
 		this.commentDate = commentDate;
 		this.commentText = commentText;
 		this.status = status;
+		this.formatDate = formatDate;
 	}
-
+	
 	public Comment() {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
 		return "Comment [seq_fc_no=" + seq_fc_no + ", seq_fcr_no=" + seq_fcr_no + ", userId=" + userId + ", fdNo="
-				+ fdNo + ", commentDate=" + commentDate + ", commentText=" + commentText + ", status=" + status + "]";
+				+ fdNo + ", commentDate=" + commentDate + ", commentText=" + commentText + ", status=" + status
+				+ ", formatDate=" + formatDate + "]";
 	}
+	
+	
 	
 	
 
