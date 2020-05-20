@@ -376,6 +376,7 @@ public class FundingController {
 	@RequestMapping("/funding/list/search")
 	public ModelAndView FundingTotalSearch(ModelAndView mv, String keyword,@RequestParam (required = false, defaultValue="1") int cPage) {
 		
+		
 		int numPerPage = 4; 
 		List<Funding> list = service.selectList(keyword, cPage,numPerPage);
 		mv.addObject("list",list);

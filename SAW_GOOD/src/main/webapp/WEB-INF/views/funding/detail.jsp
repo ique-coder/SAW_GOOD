@@ -201,7 +201,7 @@
 											<div class="reCommentList">
 												<c:forEach var="cr" items="${reCommentList }">
 													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
-														<c:choose>
+														<c:choose>     
 															<c:when test="${cr.status == '1'}">
 																<div class="rereComment delete">
                                                                     <p>

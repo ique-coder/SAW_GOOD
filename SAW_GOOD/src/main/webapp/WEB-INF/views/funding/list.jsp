@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${path }/resources/css/funding/list.css" />
 
 <!-- 오늘 날짜 세팅 -->
-<c:set value="<%=new java.util.Date() %>" var="now"/>
+<c:set value="<%=new java.util.Date() %>" var="now"/>    
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
 
 <section id="section">
