@@ -323,6 +323,7 @@ public class FundingController {
 		
 		int numPerPage = 4;
 		
+		
 		List<Funding> list = service.selectCategoryList(map,cPage,numPerPage);
 		mv.addObject("category",map);
 		mv.addObject("list",list);
