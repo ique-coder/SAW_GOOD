@@ -11,7 +11,7 @@
 		)
 	</insert>
 	<select id="selectOdNo" parameterType="member" resultType="_int">
-		SELECT RN FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM PAYMENT WHERE USERID=#{userId} ORDER BY ORDERNO DESC)A ) WHERE RN=1
+		SELECT ORDERNO FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM PAYMENT WHERE USERID=#{userId} ORDER BY ORDERNO DESC)A ) WHERE RN=1
 	</select>
 	
 	<insert id="insertPaymentHistory" parameterType="map">
