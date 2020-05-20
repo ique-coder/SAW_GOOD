@@ -59,11 +59,11 @@
 				<!-- 서브네비게이션 바 -->
 				<ul class="category">
 					<li><a href="${path }/funding/list">all</a></li>
-					<li><a href="${path }/funding/list/category?category=bed">bed</a></li>
-					<li><a href="${path }/funding/list/category?category=sofa.chair">sofa / chair</a></li>
+					<li><a href="${path }/funding/list/category?category1=bed">bed</a></li>
+					<li><a href="${path }/funding/list/category?category1=sofa&category2=chair">sofa / chair</a></li>
 					<li><a href="${path }/funding/list/category?category=light">light</a></li>
-					<li><a href="${path }/funding/list/category?category=table.desk">table / desk</a></li>
-					<li><a href="${path }/funding/list/category?category=carpet.lug">carpet / lug</a></li>
+					<li><a href="${path }/funding/list/category?category=table&category2=desk">table / desk</a></li>
+					<li><a href="${path }/funding/list/category?category=carpet&category2=lug">carpet / lug</a></li>
 					<li><a href="${path }/funding/list/category?category=storage">storage</a></li>
 					<li><a href="${path }/funding/list/category?category=others">others</a></li>
 				</ul>
