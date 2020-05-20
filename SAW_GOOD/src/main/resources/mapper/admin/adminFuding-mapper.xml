@@ -69,4 +69,53 @@
 		SELECT * FROM FDSUBIMG WHERE FDNO=#{fdno}
 	</select>
 	
+	<select id="fundingAgreeSearch" parameterType="map" resultType="map">
+		SELECT * FROM FUNDING WHERE 1=1 
+		<if test='keyword != null and keyword !=""'>
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='category != null'>
+			AND CATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test='enrollDate != null and enrollDate !=""'>
+			AND TO_CHAR(ENROLLDATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test='hasexpired != null and hasexpired !=""'>
+			<if test="hasexpired eq 'yes'">
+				AND ENDDATE <![CDATA[<]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			</if>
+			<if test="hasexpired eq 'no'">
+				AND ENDDATE <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			</if>
+		</if>
+	</select>
+	<select id="countsearchFundingAg" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM FUNDING WHERE 1=1 
+		<if test="keyword != null and keyword !=''">
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="category != null and category !=''">
+			AND CATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="enrollDate != null and enrollDate !='' ">
+			AND TO_CHAR(ENROLLDATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test="hasexpired != null and hasexpired !='' ">
+			<if test="hasexpired eq 'yes'">
+				AND ENDDATE <![CDATA[<]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			</if>
+			<if test="hasexpired eq 'no'">
+				AND ENDDATE <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			</if>
+		</if>
+	</select>
+	
 </mapper>

@@ -100,12 +100,22 @@ public class AdminFundingController {
 			@RequestParam(value="enrollDate",defaultValue="") String enrollDate,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
+		System.out.println(searchType);
+		System.out.println(keyword);
+		System.out.println(hasexpired);
+		System.out.println(enrollDate);
+		System.out.println(category.length);
 		
 		Map<String,Object> map=new HashMap();
 		map.put("searchType", searchType);
 		map.put("keyword", keyword);
-		map.put("category",category);
+		map.put("enrollDate",enrollDate);
 		map.put("hasexpired",hasexpired);
+		if(category.length==0) {
+			map.put("category",null);
+		}else {
+			map.put("category",category);
+		}
 		
 		List<Map<String,String>> fundingAgree=service.fundingAgreeSearch(map,cPage,numPerPage);
 		int agTotal=service.countsearchFundingAg(map);
@@ -175,6 +185,7 @@ public class AdminFundingController {
 		mv.addObject("keyword", keyword);
 		mv.addObject("category",category );
 		mv.addObject("hasexpired", hasexpired);
+		mv.setViewName("admin/funding/fundingAgree");
 		return mv;
 	}
 
