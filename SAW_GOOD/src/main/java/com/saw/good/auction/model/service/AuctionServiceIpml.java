@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.auction.model.dao.AuctionDao;
 import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 @Service
 public class AuctionServiceIpml implements AuctionService {
@@ -58,6 +59,69 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.countAcSearch(session,map);
 	}
+	//경매디테일 페이지 정보가져오기
+	@Override
+	public Auction selectDtAuction(Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return dao.selectDtAuction(session,acBoardNo);
+	}
+	//디테일페이지 카운트 가져오기
+	@Override
+	public int countBid(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.countBid(session,a);
+	}
+	//경매 랭크 가져오기
+	@Override
+	public List<Map<String, String>> selectAcMember(Auction acBoardNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAcMember(session,acBoardNo);
+	}
+	
+	
+	@Override
+	public int selectFsPrice(Auction ac) {
+		// TODO Auto-generated method stub
+		return dao.selectFsPrice(session,ac);
+	}
+
+	//경매 현재금액 가져오기
+	@Override
+	public Auction selectNowPrice(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.selectNowPrice(session,a);
+	}
+
+	//현재 최고입찰자
+	@Override
+	public AuctionMember selectFsMem(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.selectFsMem(session,a);
+	}
+
+	//조건문 통과 후 최고입찰멤버 인서트
+	@Override
+	public int insertBidPrice(AuctionMember am) {
+		// TODO Auto-generated method stub
+		return dao.insertBidPrice(session,am);
+	}
+
+	//최고입찰금액 업뎃
+	@Override
+	public int updateNowPrice(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.updateNowPrice(session, a);
+	}
+	//경매페이지 종료 업뎃
+	@Override
+	public int updateStAuction(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.updateStAuction(session,a);
+	}
+
+	
+
+	
 	
 	
 	

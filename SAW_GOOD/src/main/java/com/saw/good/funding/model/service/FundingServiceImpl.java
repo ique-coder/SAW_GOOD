@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.funding.model.dao.FundingDao;
+import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
+import com.saw.good.funding.model.vo.FDSubImg;
 import com.saw.good.funding.model.vo.Funding;
 
 @Service
@@ -65,6 +67,16 @@ public class FundingServiceImpl implements FundingService{
 
 
 	@Override
+	public List<Comment> selectComment(int fdNo) {
+		return dao.selectComment(session, fdNo);
+	}
+
+
+	@Override
+	public List<Comment> selectReComment(int fdNo) {
+		return dao.selectReComment(session, fdNo);
+	}
+	
 	public int insertFDMember(FDMember m) {
 		
 		return dao.insertFDMember(session, m);
@@ -82,6 +94,39 @@ public class FundingServiceImpl implements FundingService{
 	public int selectFDMemberCount(int fdNo) {
 		// TODO Auto-generated method stub
 		return dao.selectFDMemberCount(session,fdNo);
+	}
+
+
+	@Override
+	public int insertFunding(Funding f,List<FDSubImg> fileNames,List<FDReword> rewordList) {
+		
+		int result = dao.insertFunding(session, f);
+		if(result == 0) throw new RuntimeException();
+		
+		if(!fileNames.isEmpty()) {
+			for(FDSubImg fs : fileNames) {
+				fs.setFdNo(f.getFdNo());
+				result = dao.insertFDSubImg(session,fs);
+				if(result == 0 ) {
+					//funding테이블의 글 지워주기
+					int delete = dao.deleteFunding(session,f.getFdNo());
+					throw new RuntimeException();//트랜잭션 처리 
+					
+					
+				}else {
+					for(FDReword fr : rewordList) {
+						fr.setFdNo(f.getFdNo());
+						result = dao.insertFDReword(session,fr);
+						
+					}
+					if(result == 0 ) {
+						throw new RuntimeException();//트랜잭션 처리 
+					}
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	

@@ -250,10 +250,10 @@
     }
     /* 입찰 버튼 */
     .buy-btn{
-        width: 144px;
+        width: 150px;
         height: 47px;
         line-height: 47px;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 400;
         background:#51735D;
         color: #fff;
@@ -266,11 +266,11 @@
         background-color: rgba(0,0,0,0.7);
     } */
     /* 즉시 입찰 버튼 */
-    .cart-btn{
-        width: 144px;
+    .nowBuy-btn{
+        width: 150px;
         height: 47px;
         line-height: 47px;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 400;
         background:rgb(238, 152, 124);
         color: #fff;
@@ -357,6 +357,9 @@
         text-transform: uppercase;
         line-height: 1.8;
         color : rgb(90, 90, 90);
+    }
+     #pro-info{
+        margin-bottom: 30px;
     }
     /* 상세정보 li 스타일 */
     #pro-info>li{
@@ -467,5 +470,26 @@
         padding-left: 7px;
         background:none;
     } */
-   
+   /* 입찰모달 변경버튼 스타일 */
+.bid-btn{
+    padding: 0 20px 0 20px;
+    width: 80px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #51735D;
+    color:white;
+    outline: none;
+}
+/* 모달 취소버튼 스타일 */
+.cancel-btn{
+    padding: 0 20px 0 20px;
+    width: 80px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgb(238, 152, 124);
+    color:white;
+    outline: none;
+}
   

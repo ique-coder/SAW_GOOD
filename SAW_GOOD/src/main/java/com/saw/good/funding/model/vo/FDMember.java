@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FDMember {
 
 	int fdNo;
@@ -18,5 +18,5 @@ public class FDMember {
 	Date partDate;
 	int purStatus;
 	String profile;
-	
+	String img;
 }

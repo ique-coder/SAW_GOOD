@@ -44,4 +44,44 @@
  			OR ACBRAND LIKE '%'||#{value}||'%' 
  		</if>
  	</select>
+ 	
+ 	<select id="selectDtAuction" parameterType="auction" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo}
+ 	</select>
+ 	
+ 	<select id="countBid" parameterType="auction" resultType="_int">
+		SELECT COUNT(*) FROM AUCTIONMEMBER WHERE ACBOARDNO = #{acBoardNo} 		
+ 	</select>
+
+ 	<select id="selectAcMember" parameterType="auction" resultType="map">
+ 		SELECT * FROM (SELECT ROWNUM,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE ROWNUM BETWEEN 1 AND 5
+ 		 	</select>
+ 	
+	 <select id="selectFsPrice" parameterType="auction" resultType="_int">
+ 	SELECT BIDPRICE FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE RN=1
+ 
+ 	 </select>
+ 	 
+ 	  <select id="selectFsMem" parameterType="auction" resultType="com.saw.good.auction.model.vo.AuctionMember">
+ 	SELECT * FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acBoardNo} ORDER BY BIDPRICE DESC)A ) WHERE RN=1
+ 
+ 	 </select>
+ 	
+ 	<select id="selectNowPrice" parameterType="auction" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} 
+ 	</select>
+ 	
+ 	
+ 	<insert id="insertBidPrice" parameterType="com.saw.good.auction.model.vo.AuctionMember">
+ 		INSERT INTO AUCTIONMEMBER VALUES(#{acBoardNo},#{userId},#{bidPrice},SYSDATE,1)
+ 	</insert>
+ 	
+ 	<update id="updateNowPrice" parameterType="auction">
+ 		UPDATE AUCTION SET ACNOWPRICE = #{acNowPrice} WHERE ACBOARDNO = #{acBoardNo}
+ 	</update>
+ 	
+ 	<update id="updateStAuction" parameterType="auction">
+ 		UPDATE AUCTION SET ACSTATUS = 2 WHERE ACBOARDNO = #{acBoardNo}
+ 	</update>
+ 	
 </mapper>

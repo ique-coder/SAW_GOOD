@@ -13,7 +13,9 @@
 <c:set value="<%=new java.util.Date()%>" var="now" />
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
 	integerOnly="true" var="today"></fmt:parseNumber>
-
+<!-- 가져온 날짜 세팅 -->
+<fmt:parseNumber value="${a.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
+												
     <section>
         <!-- <div class="container-fluid" style="margin-top: 50px;"> -->
         <div class="container" style="margin-top: 50px;">
@@ -24,13 +26,13 @@
  -->
             <div style="text-align: right; margin-bottom: 10px;">
                 <img src="${path }/resources/images/auction/clock.png" style="width: 22px; height: 22px;">
-                &nbsp<span id="timeout">30일 남음</span>
+                &nbsp<span id="timeout">${acEndDate-today }일 남음</span>
             </div>
 
             <div class="detailArea col-sm-12">
                 <div class="row">
                     <div class="col-sm-6">
-                        <img src="http://placehold.it/600x500" class="bigImg">
+                        <img src="${path }/resources/images/${a.acMainImg }.jpg" class="bigImg">
                         <div class="addImg">
                             <ul>
                                 <li class="img-record">
@@ -53,16 +55,17 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="headingArea">
-                            <h2>상품 제목입니다.</h2>
+                            <h2>${a.acTitle }</h2>
                         </div>
                         <div class="record_container">
                             <div class="pro-name">
-                                상품명 입니다.
+                              	${a.acProName }
                             </div>
                             <div class="row">
                                 <div class="record col-md-3">
-                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격/단위</span>
-                                    <span>즉시낙찰가격</span>
+                                    <span style="font-size:12px;color:#cc0000;font-weight:bold;">시작가격</span>
+                                    <span>최고입찰 가격</span>
+                                    <span>즉시입찰 가격</span>
                                     <span>입찰건수</span>
                                     <span>카테고리</span>
                                     <span>상품상태(S~D)</span>
@@ -70,28 +73,51 @@
                                     <span style="margin-bottom: 0;">종료일자</span>
                                 </div>
                                 <div class="record col-md-3" style="width: 750px;">
-                                    <strong style="color:#cc0000;font-weight:bold;">300,000원/10,000원</strong>
-                                    <strong>000,000,000원</strong>
-                                    <strong>26건</strong>
-                                    <strong>chair</strong>
-                                    <strong>A</strong>
-                                    <strong>고객부담</strong>
-                                    <strong style="margin-bottom: 0;">00월00일</strong>
+                                    <strong style="color:#cc0000;font-weight:bold;">
+                                    <fmt:formatNumber value="${a.acStartPrice }" pattern="#,###" /> P
+                                    </strong>
+                                    <strong>
+                                     <fmt:formatNumber value="${a.acNowPrice }" pattern="#,###" /> P
+                                    </strong>
+                                     <strong>
+                                      <fmt:formatNumber value="${a.acImdPrice }" pattern="#,###" /> P
+                                    </strong>
+                                    <strong>${bc }건</strong>
+                                    <strong>${a.acCategory }</strong>
+                                    <strong>${a.acStatusRank }</strong>
+                                    <strong>10,000 원</strong>
+                                    <strong style="margin-bottom: 0;">${a.acEndDate }</strong>
                                 </div>
                             </div>
                           
 
 
                             <div id="productPrice" class="productPrice">
-                                <strong style="font-weight: bold; font-size: 15px; color: #353535;">최고 입찰 금액 : </strong>
-                                <strong style="font-weight: bold; font-size: 25px; color: #cc0000;">000,000원</strong>
+                                <strong style="font-weight: bold; font-size: 15px; color: #353535;">최고 입찰 금액( + 배송비 ) : </strong>
+                                <strong style="font-weight: bold; font-size: 25px; color: #cc0000;">
+                                	<c:if test="${a.acNowPrice < a.acStartPrice }">
+                                    		현재 입찰자 없음
+                                    	</c:if>
+                                    	<c:if test="${a.acNowPrice > a.acStartPrice }">
+                                    		<fmt:formatNumber value="${a.acNowPrice+10000 }" pattern="#,###" /> P
+                                    	</c:if>
+                                </strong>
                             </div>
 
 
                             <div class="productAction">
                                 <div class="product-button">
-                                    <button class="buy-btn">입찰</button>
-                                    <button class="cart-btn">즉시입찰</button>
+                                	<c:if test="${acEndDate-today > 0 && loginMember != null && a.acStatus == 1}">
+	                                    <button type="button" class="buy-btn" 
+	                                    data-toggle="modal" data-target="#bidModal">입찰하기</button>
+	                                 	<button class="nowBuy-btn" id="nowBuy-btn" onclick="nowBuy();">즉시입찰</button>
+                                    </c:if>
+                                    <c:if test="${(acEndDate-today < 0 || a.acStatus == 2) && loginMember != null} ">
+	                                    	<span>경매가 종료되었습니다.</span>
+                                    </c:if>
+                                    <c:if test="${loginMember == null }">
+	      									 <button type="button" class="buy-btn" id="loginModal" style="width:300px;" >로그인</button>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -112,30 +138,25 @@
                     <div class="col-md-6 pro-info-wrap">
                         <h2>information</h2>
                         <ul id="pro-info">
+                   
                             <li>
-                                <div class="pro-info-title">상품명</div>
-                                <div class="pro-info-content">&nbsp&nbsp쌸러쌸러</div>
-                            </li>
-                            <li>
-                                <div class="pro-info-title">치수(mm)</div>
-                                <div class="pro-info-content">&nbsp&nbspS:1600X2100, D:1800x2200</div>
+                                <div class="pro-info-title">치수(가로*세로*높이 mm)</div>
+                                <div class="pro-info-content">&nbsp&nbsp${a.acProSize }</div>
                             </li>
                             <li>
                                 <div class="pro-info-title">구매일</div>
-                                <div class="pro-info-content">&nbsp&nbsp00년00월00일</div>
+                                <div class="pro-info-content">&nbsp&nbsp${a.acBuyDate }</div>
                             </li>
                             <li>
                                 <div class="pro-info-title">브랜드</div>
-                                <div class="pro-info-content">&nbsp&nbsp(주)이브자리</div>
+                                <div class="pro-info-content">&nbsp&nbsp${a.acBrand}</div>
                             </li>
                             <li>
                                 <div class="pro-info-title">새 상품 사이트</div>
-                                <div class="pro-info-content">&nbsp&nbsphttps://brand.evezary.co.kr/shop/item.php?it_id=1568082021</div>
+                                <div class="pro-info-content">&nbsp&nbsp${a.acProUrl}</div>
                             </li>
 
                         </ul>
-                    </div>
-                    <div class="col-md-6 pro-info-wrap">
                         <h2>content</h2>
                         <table style="margin-bottom: 40px;">
                             <colgroup>
@@ -151,24 +172,28 @@
                             <tbody>
                                 <tr>
                                     <td>제품명</td>
-                                    <th>애드몬드(아사) 차렵이불 S,D</th>
+                                    <th>${a.acProName }</th>
                                 </tr>
                                 <tr>
                                     <th>제품설명</th>
-                                    <td>사용감은 있습니다 만, 눈에 띄는 흠집 얼룩은 없습니다.
-                                        스풀 가장자리에 상처도없이 동작도 문제 없습니다.
-                                    
+                                    <td>
+                                    	<c:if test="${a.acComent == null }">
+                                    		내용 없음.
+                                    	</c:if>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>제품상태</th>
-                                    <td>A급
-                                    </br></br>※ 아래의 "상품 상태 기준 - 상태 순위 목록"을 확인하시기 바랍니다.
+                                    <td>${a.acStatusRank }급
+                                    </br></br>※ 옆에 "상품 상태 기준 - 상태 순위 목록"을 확인하시기 바랍니다.
                                     </td>
                                 </tr>
                           
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-md-6 pro-info-wrap">
+                        
                         <h2 style="margin-top: 15px;">status rank
                         </h2>
                         <table>
@@ -248,32 +273,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="con">1</td>
-                                    <td class="con">s*****</td>
-                                    <td class="con">320,000원</td>
-                                    <td class="con">00-00-00</td>
-                                </tr>
-                                <tr>
-                                    <td class="con">1</td>
-                                    <td class="con">s*****</td>
-                                    <td class="con">320,000원</td>
-                                    <td class="con">00-00-00</td>
-                                </tr>
-                                <tr>
-                                    <td class="con">1</td>
-                                    <td class="con">s*****</td>
-                                    <td class="con">320,000원</td>
-                                    <td class="con">00-00-00</td>
-                                </tr>
-                                <tr>
-                                    <td class="con">1</td>
-                                    <td class="con">s*****</td>
-                                    <td class="con">320,000원</td>
-                                    <td class="con">00-00-00</td>
-                                </tr>
-                            
-                      
+                            	<c:forEach items="${am }" var="rank" varStatus="vs">
+	                                <tr>
+	                                    <td class="con">${vs.index +1}</td>
+	                                    <td class="con">${rank['USERID'] }</td>
+	                                    <td class="con"><fmt:formatNumber value="${rank['BIDPRICE'] }" pattern="#,###" /> P</td>
+	                                    <td class="con">
+	                                    	<fmt:formatDate value="${rank['BIDDATE'] }" pattern="yyyy-MM-dd"/>
+	                                    </td>
+	                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -287,7 +296,7 @@
                         <li class="selected"><a href="#inquiry">상품 문의</a></li>
                     </ul>
                 </div>
-                <div id="rank">
+                <div >
                     <div class="col-md-12">
                         <table class="buyer">
                             <colgroup>
@@ -361,9 +370,75 @@
 
 
         </div>
+        <div class="modal fade" id="bidModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" style="border: 0; padding-bottom: 0;">
+					<h5 class="modal-title modifyTitle" id="exampleModalLabel">&nbsp
+						${a.acProName } : 입찰금액</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="acMemberBid" action="${path}/auction/bidUpdate"
+					method="post">
+					<div class="modal-body" style="padding-bottom: 0;">
+						<div>
+							<input type="text" class="form-control" name="bidPrice"
+								id="bidPrice" placeholder=" 최고입찰금액초과  + 단위금액 입력" style="border-radius: 7px;"
+								required>
+							<span id="bidNowCk"></span>
+						</div>
+					</div>
+					<input type="hidden" name="userId" value="${loginMember.userId }">
+					<input type="hidden" name="acBoardNo" value="${a.acBoardNo }">
+					<div class="modal-footer" style="border: 0;">
+						<button type="button" class="bid-btn" onclick="bidUpdate();">입찰</button>
+						<button type="button" class="cancel-btn" data-dismiss="modal">취소</button>
+					</div>
 
+				</form>
+			</div>
+		</div>
+	</div>
+				<form id="nowBuyBid" action="${path }/auction/nowBuyBid" method="post">
+					<input type="hidden" name="userId" value="${loginMember.userId }">
+					<input type="hidden" name="acBoardNo" value="${a.acBoardNo }">
+				</form>
 
     </section>
+    <script>
+	    function nowBuy(){
+			if(${loginMember!=null?loginMember.point:0} < ${a.acImdPrice}){
+				alert("포인트가 부족합니다. 충전후 이용해주세요.");
+			}else{
+					if (confirm("바로 입찰됩니다. 동의하시겠습니까?") == true){    //확인
+					    $("#nowBuyBid").submit();
+					}else{   //취소
+					 
+					}
+			}
+		}
+    	function bidUpdate(){
+    		$("#acMemberBid").submit();
+    	}
+    	
+    	$("#loginModal").click(function(){
+            var v=document.getElementById("modal_container");
+            // v.style.transitionDelay="background-color 0.8s";
+            $(".modal_container").css({
+                right:"0",
+                "z-index":"9998",
+                backgroundColor:"rgba(0,0,0,0.5)"
+            });
+            $("section").removeAttr("style");
+            $("#userId").focus();
+            $(".modal_container").show(800);
+        });
+    
+    </script>
 
 
 

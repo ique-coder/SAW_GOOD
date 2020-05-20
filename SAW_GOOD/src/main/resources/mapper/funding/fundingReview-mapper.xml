@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fundingReview">
+	
+	<select id="insertReview" parameterType="comment" resultType="_int">
+		insert into fundingcomment values(
+			seq_fc_no.nextval, #{userId}, #{fdNo}, sysdate, #{commentText}, 0
+		)
+	</select>
+	<select id="reInsertReview" parameterType="comment" resultType="_int">
+		insert into fundingcommentre values(
+			seq_fcr_no.nextval, #{seq_fc_no}, #{userId}, #{fdNo}, sysdate, #{commentText}, 0
+		)
+	</select> 
+	
+	<select id="InsertReturn" parameterType="comment" resultType="comment">
+		select rnum.* from 
+			(select ROWNUM r, b.* from 
+				(select * 
+					from fundingcomment a 
+					where a.fdno = #{fdNo} 
+					order by a.seq_fc_no desc
+				) b
+			) rnum
+		where r=1
+	</select>
+	
+	
+	
+	<insert id="commentInsert" parameterType="comment">
+		INSERT INTO FUNDINGCOMMENT VALUES(
+			SEQ_FC_NO.NEXTVAL, #{userId}, #{fdNo}, SYSDATE, #{commentText}, 0
+		)
+	</insert>
+	<select id="commentInsertReturn" resultType="comment">
+		SELECT RNUM.* FROM 
+			(SELECT ROWNUM R, B.* FROM 
+				(SELECT * 
+					FROM FUNDINGCOMMENT A 
+					WHERE A.FDNO = #{fdNo} 
+					ORDER BY A.SEQ_FC_NO DESC
+				) B
+			) RNUM
+		WHERE R = 1
+	</select>
+	
+	<update id="commentUpdate" parameterType="comment">
+		UPDATE FUNDINGCOMMENT SET COMMENTTEXT = #{commentText} WHERE SEQ_FC_NO = #{seq_fc_no}
+	</update>
+	<select id="commentUpdateReturn" resultType="comment">
+		SELECT * FROM FUNDINGCOMMENT WHERE SEQ_FC_NO = #{seq_fc_no}
+	</select>
+	
+	<update id="commentDelete">
+		UPDATE FUNDINGCOMMENT SET STATUS=1 WHERE SEQ_FC_NO = #{seq_fc_no}
+	</update>
+	
+	<insert id="reCommentInsert" parameterType="comment">
+		INSERT INTO FUNDINGCOMMENTRE VALUES(
+			SEQ_FCR_NO.NEXTVAL, #{seq_fc_no}, #{userId}, #{fdNo}, SYSDATE, #{commentText}, 0
+		)
+	</insert>
+	<select id="reCommentInsertReturn" resultType="comment">
+		SELECT RNUM.* FROM 
+			(SELECT ROWNUM R, B.* FROM 
+				(SELECT * 
+					FROM FUNDINGCOMMENTRE A 
+					WHERE A.FDNO = #{fdNo} 
+					ORDER BY A.SEQ_FC_NO DESC
+				) B
+			) RNUM
+		WHERE R = 1
+	</select>
+	<update id="reCommentUpdate" parameterType="comment">
+		UPDATE FUNDINGCOMMENTRE SET COMMENTTEXT = #{commentText} WHERE SEQ_FCR_NO = #{seq_fcr_no}
+	</update>
+	<select id="reCommentUpdateReturn" resultType="comment">
+		SELECT * FROM FUNDINGCOMMENTRE WHERE SEQ_FCR_NO = #{seq_fcr_no}
+	</select>
+	<update id="reCommentDelete" parameterType="comment">
+		UPDATE FUNDINGCOMMENTRE SET STATUS = 1 WHERE SEQ_FCR_NO = #{seq_fcr_no}
+	</update>
+
+</mapper>

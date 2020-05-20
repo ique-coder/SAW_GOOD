@@ -1,9 +1,14 @@
 package com.saw.good.member.model.dao;
 
+<<<<<<< HEAD
 import java.util.Map;
 
+=======
+>>>>>>> branch 'master' of https://github.com/ique-coder/SAW_GOOD.git
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.member.model.vo.Member;
 
 public interface MemberDao {
@@ -29,4 +34,11 @@ public interface MemberDao {
 	Member selectFindMember(SqlSessionTemplate session, Member m);
 	
 	Member selectFindPw(SqlSessionTemplate session, Member m);
+	//승원 옥션멤버포인트 돌려주기
+	int updateMemPoint(SqlSessionTemplate session,AuctionMember am);
+	//승원 옥션멤버포인트 가져오기
+	int updateMemAPoint(SqlSessionTemplate session,AuctionMember am);
+	
+	//승원 옥션멤버포인트 가져오기
+	int updateMemAPoint(SqlSessionTemplate session,Auction a);
 }

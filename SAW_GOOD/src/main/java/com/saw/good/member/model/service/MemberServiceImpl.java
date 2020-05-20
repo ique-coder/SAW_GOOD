@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.saw.good.auction.model.vo.Auction;
+import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.member.model.dao.MemberDao;
 import com.saw.good.member.model.vo.Member;
 @Service
@@ -78,6 +80,27 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectFindPw(Member m) {
 		return dao.selectFindPw(session, m);
 	}
+
+	//승원 옥션 멤버포인트 돌려주기
+	@Override
+	public int updateMemPoint(AuctionMember am) {
+		// TODO Auto-generated method stub
+		return dao.updateMemPoint(session,am);
+	}
+	//승원 옥션 멤버포인트 가져오기
+	@Override
+	public int updateMemAPoint(AuctionMember am) {
+		// TODO Auto-generated method stub
+		return dao.updateMemAPoint(session,am);
+	}
+	//승원 옥션 즉찰 멤포 가져오기
+	@Override
+	public int updateMemAPoint(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.updateMemAPoint(session, a);
+	}
+	
+	
 	
 	
 
