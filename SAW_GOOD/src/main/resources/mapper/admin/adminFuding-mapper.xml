@@ -2,18 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adFunding">
 	<select id="selectFundingDisAgree" resultType="map">
-		SELECT * FROM FUNDING WHERE STATUS=0
+		SELECT * FROM FUNDING WHERE APPR=0 ORDER BY FDNO DESC
 	</select>
 	<select id="selectFundingAgree" resultType="map">
-		SELECT * FROM FUNDING WHERE STATUS=1
+		SELECT * FROM FUNDING WHERE APPR=1 ORDER BY FDNO DESC
 	</select>
 	<select id="countFundingDisAgree" resultType="_int">
-		SELECT COUNT(*) FROM FUNDING WHERE STATUS=0
+		SELECT COUNT(*) FROM FUNDING WHERE APPR=0 ORDER BY FDNO DESC
 	</select>
 	<select id="countFundingAgree" resultType="_int">
-		SELECT COUNT(*) FROM FUNDING WHERE STATUS=1
+		SELECT COUNT(*) FROM FUNDING WHERE APPR=1 ORDER BY FDNO DESC
 	</select>
 	<select id="sumPartPrice" resultType="map">
 		SELECT FDNO,SUM(PARTPRICE) AS PARTPRICE FROM FDMEMBER GROUP BY FDNO ORDER BY FDNO
 	</select>
+	<select id="sumPartPriceOne" resultType="map" parameterType="_int">
+		SELECT FDNO,SUM(PARTPRICE) AS PARTPRICE FROM FDMEMBER WHERE FDNO=#{fdno} GROUP BY FDNO
+	</select>
+	
+	<select id="searchFundingDAg" parameterType="map" resultType="map">
+		SELECT * FROM FUNDING WHERE 1=1 
+		<if test='searchType != "enrollDate"'>
+		AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='searchType == "enrollDate"'>
+		AND TO_CHAR(${searchType},'YYYY-MM-DD')=#{keyword}
+		</if>
+		 AND APPR=0 ORDER BY FDNO DESC
+	</select>
+	
+	<select id="countsearchFundingDAg" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM FUNDING WHERE 1=1 
+		<if test='searchType != "enrollDate"'>
+		AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='searchType == "enrollDate"'>
+		AND TO_CHAR(${searchType},'YYYY-MM-DD')=#{keyword}
+		</if>
+		AND APPR=0 ORDER BY FDNO DESC
+	</select>
+	
+	<update id="updateAgreeFunding" parameterType="_int">
+		UPDATE FUNDING SET APPR=1 WHERE FDNO=#{fdno}
+	</update>
+	<update id="updateDisAgreeFunding" parameterType="_int">
+		UPDATE FUNDING SET APPR=2 WHERE FDNO=#{fdno}
+	</update>
+	
+	<update id="updateCheckAgree" parameterType = "map">
+		UPDATE FUNDING SET APPR=1 WHERE FDNO IN 
+		<foreach collection="fundcheck" item="f" index="index" open="(" close=")" separator=",">
+		#{f}
+		</foreach>
+	</update>
+	<update id="updateCheckDisAgree" parameterType = "map">
+		UPDATE FUNDING SET APPR=2 WHERE FDNO IN 
+		<foreach collection="fundcheck" item="f" index="index" open="(" close=")" separator=",">
+		#{f}
+		</foreach>
+	</update>
+	
+	<select id="selectOneFunding" parameterType="_int" resultType="map">
+		SELECT * FROM FUNDING WHERE FDNO=#{fdno}
+	</select>
+	<select id="selectSubImg" parameterType="_int" resultType="map">
+		SELECT * FROM FDSUBIMG WHERE FDNO=#{fdno}
+	</select>
+	
 </mapper>

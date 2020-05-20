@@ -496,18 +496,18 @@ input[type="number"]::-webkit-inner-spin-button {
                         <table class="productList checking">
                             <colgroup>
                                 <col width="10%" />
-                                <col width="20%" />
-                                <col width="18%" />
-                                <col width="auto" />
-                                <col width="10%" />
                                 <col width="15%" />
+                                <col width="auto" />
+                                <col width="20%" />
+                                <col width="10%" />
+                                <col width="18%" />
                             </colgroup>
                             <tr>
-                                <th><input type="checkbox" name="productNo" id="allpro"><label for="allpro"></label>
+                                <th><input type="checkbox" id="allpro"><label for="allpro"></label>
                                 </th>
                                 <th>이미지</th>
-                                <th>브랜드</th>
                                 <th>상품정보</th>
+                                <th>브랜드</th>
                                 <th>수량</th>
                                 <th>가격</th>
                             </tr>
@@ -517,12 +517,12 @@ input[type="number"]::-webkit-inner-spin-button {
 	                            <tr>
 	                                <td><input type="checkbox" name="productNo" class="productNo" id="pro${vs.count }" value="${c['PRODUCTNO'] }"><label for="pro${vs.count }"></label></td>
 	                                <td><img class="img-responsive imgheight" src="${paht }/resources/upload/newproduct/${c['RENAMEDPRODUCTIMG']}" width="100%"/></td>
-	                                <td>${c['BRAND'] }</td>
 	                                <td>${c['PRODUCTNAME'] }</td>
+	                                <td>${c['BRAND'] }</td>
 	                                <td class="quantity">
 										<div class="inputquantity">
 											<div class="inputquantity2">
-												<input type="hidden" class="realprice" value="${c['CARTTOTALPRICE'] }"/>
+												<input type="hidden" class="realprice" value="${c['ORIPRICE'] }"/>
 												<button type="button" class="minus"
 													style="display: table-cell;">-</button>
 												<input type="number" class="pdQuantity" name="pdQuantity"
@@ -534,7 +534,7 @@ input[type="number"]::-webkit-inner-spin-button {
 										</div>	
 									</td>
 	                                <td class="format-Price">
-	                                ${c['CARTTOTALPRICE'] }
+	                                ${c['ORIPRICE'] * c['CARTCOUNT'] }
 	                                </td>
 	                            </tr>
 	                           
@@ -633,7 +633,6 @@ input[type="number"]::-webkit-inner-spin-button {
 	  				$("#counterTotal").text(stckTotal+"원");
 	  				$("#counterTotalAmt").text(stckAlltotal+"원");
   			} else {
-  				
   				let totalPrice=0;
   				$(".productNo:checked").each(function(index,item){
   					totalPrice+=parseInt($(item).parent().next().next().next().next().next().text().replace(/\,/gi,""));
@@ -753,17 +752,25 @@ input[type="number"]::-webkit-inner-spin-button {
    		/* 카트 결제페이지로 이동 */
    		function cartSubmit(){
    			if(doubleClickNo()) return;
-   			console.log("나와")
-   			$(".productNo:checked").each(function(index,item){
-   				var price=parseInt($(item).parent().next().next().next().next().next().text().replace(/\,/gi,""));
-   				$(item).parent().parent().append($("<input>").attr({
-   					"type":"hidden","name":"cartTotalP","value":price
-   					}))
-    		})
-    		setTimeout(function(){
+   			console.log
+   			if($(".productNo:checked").length==0){
+   				alert("상품을 선택해주세요");
+   				setTimeout(function(){
         			click=false;
         		},2000)
-        	$(".cartFrm").submit();
+   			}else{
+   				$(".productNo").not(".productNo:checked").parent().next().next().next().next().find(".pdQuantity").prop("disabled",true);
+	   			$(".productNo:checked").each(function(index,item){
+	   				var price=parseInt($(item).parent().next().next().next().next().next().text().replace(/\,/gi,""));
+	   				$(item).parent().parent().append($("<input>").attr({
+	   					"type":"hidden","name":"cartTotalP","value":price
+	   					}))
+	    		})
+	    		setTimeout(function(){
+	        			click=false;
+	        		},2000)
+	        	$("#cartFrm").submit();
+   			}
    		}
     		
    		
