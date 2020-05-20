@@ -39,11 +39,17 @@
 		default,default,null,default,#{pass})
 	</insert>
 	
+	<insert id="insertReplyQna" parameterType="map">
+		INSERT INTO NEWPRODUCTQNA VALUES(SEQ_PROQNA_NO.NEXTVAL,#{writer},#{productNo},#{subhead},#{content},
+		default,default,#{qnaNo},1,#{pass})
+	</insert>
+	
 	<select id="selectProductQna" resultType="productQna" parameterType="_int">
-		SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} ORDER BY WRITEDATE DESC
+		<!-- SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} ORDER BY WRITEDATE DESC -->
+		SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} START WITH REPLYLEVEL=0 CONNECT BY PRIOR QNANO=REPLYNO ORDER SIBLINGS BY WRITEDATE DESC
 	</select>
 	<select id="countQna" resultType="_int">
-		SELECT COUNT(*) FROM NEWPRODUCTQNA
+		SELECT COUNT(*) FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no}
 	</select>
 	<select id="selectQnaCheck" resultType="productQna" parameterType="_int">
 		SELECT * FROM NEWPRODUCTQNA WHERE QNANO = #{no}

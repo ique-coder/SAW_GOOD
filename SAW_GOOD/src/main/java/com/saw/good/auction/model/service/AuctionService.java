@@ -23,13 +23,29 @@ public interface AuctionService {
 	//상품 디테일 가져오기
 	Auction selectDtAuction(Auction acBoardNo);
 	
+	//입찰 건수가져오기
+	int countBid(Auction a);
+	
 	//경매페이지 참여자 랭크
 	List<Map<String,String>> selectAcMember(Auction acBoardNo);
-	
+
+	//경매최고입찰자 정보 가져오기1
+	AuctionMember selectFsMem(Auction a);
+
 	//경매 입찰 금액
 	int insertBidPrice(AuctionMember am);
 	
 	//경매 현재금액 가져오기
 	Auction selectNowPrice(Auction a);
 	
+
+	//경매페이지 최고 입찰자2 INSERT문 후
+		int selectFsPrice(Auction ac);
+	//경매페이지 최고금액 업데이트
+		int updateNowPrice(Auction a);
+	
+	//경매페이지 경매 종료
+		int updateStAuction(Auction a);
+	
+
 }
