@@ -430,11 +430,12 @@ label {
 						<col width="5%">
 						<col width="5%">
 						<col width="15%">
-						<col width="30%">
+						<col width="20%">
 						<col width="10%">
 						<col width="10%">
 						<col width="10%">
-						<col width="15%">
+						<col width="10%">
+						<col width="10%">
 					</colgroup>
 
 					<tr>
@@ -443,6 +444,7 @@ label {
 						<th scope="col">번호</th>
 						<th scope="col"></th>
 						<th scope="col">제목</th>
+						<th scope="col">카테고리</th>
 						<th scope="col">디자이너</th>
 						<th scope="col">작성자</th>
 						<th scope="col">등록일</th>
@@ -456,6 +458,7 @@ label {
 								<td>${ dag['FDNO']}</td>
 								<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
 								<td><a href="${path }/admin/fundingView?fdno=${ dag['FDNO']}">${dag['TITLE']}</a></td>
+								<td>${dag['CATEGORY']}</td>
 								<td>${dag['DESIGNER']}</td>
 								<td>${dag['USERID']}</td>
 								<td><fmt:formatDate value="${dag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
@@ -468,7 +471,7 @@ label {
 					</c:if>
 					<c:if test="${empty fundingDisAgree }">
 						<tr>
-							<td colspan="8" style="height:300px;">승인 대기중인 펀딩이 없습니다.</td>
+							<td colspan="9" style="height:300px;">승인 대기중인 펀딩이 없습니다.</td>
 						</tr>
 					</c:if>
 				</table>

@@ -1,6 +1,5 @@
 package com.saw.good.payment.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.member.model.vo.Member;
 import com.saw.good.payment.model.service.PaymentService;
+import com.saw.good.payment.model.vo.Payment;
+import com.saw.good.payment.model.vo.PaymentHistory;
 @Controller
 public class PaymentController {
 	
@@ -36,6 +37,25 @@ public class PaymentController {
 		System.out.println(list);
 		mv.addObject("list",list);
 		mv.setViewName("payment/payment");
+		return mv;
+	}
+	@RequestMapping("/payment/paymentComplete")
+	public ModelAndView paymentCpl(ModelAndView mv,@SessionAttribute("loginMember") Member m,
+									@RequestParam(value="productNo") List<String> pNo,
+									@RequestParam(value="productNum") List<String> pNum,
+									@RequestParam(value="proTotalPrice") List<String> tPrice,
+									Payment p) {
+		System.out.println(m);
+		System.out.println(p);
+		System.out.println(pNo);
+		System.out.println(pNum);
+		System.out.println(tPrice);
+		
+		int pResult=service.insertPayment(p);
+		int odNo=service.selectOdNo(m);
+		String userId=m.getUserId();
+
+		int phResult=service.insertPaymentHistory(odNo,userId,pNo,pNum,tPrice);
 		return mv;
 	}
 }
