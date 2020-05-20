@@ -31,8 +31,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
 	rel="stylesheet">
-	
-<link rel="stylesheet" href="${path }/resources/css/personalInfo.css" type = "text/css"/>
+
+<link rel="stylesheet" href="${path }/resources/css/personalInfo.css"
+	type="text/css" />
 <!-- 다음주소 -->
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -58,59 +59,72 @@
 <body>
 	<div class="container-fluid main">
 		<div class="row">
-			<div class="col-md-2"></div>
+			<!-- <div class="col-md-2"></div> -->
 			<div class="col-md-8" id="profileBackground">
-				<div class="row">
+				<div class="row" style="height: 20%;">
 					<div class="col-md-12 MemberInfo">
-						<span class="title">Profile modify</span> </br>
-					<span class="content">당신의 새로운 정보를 알려주세요!</span>
+						<span class="title">Profile modify</span> </br> <span class="content">당신의
+							새로운 정보를 알려주세요!</span>
 					</div>
 				</div>
-				<form id="profileForm" action="${path}/member/memberUpdate"
-					method="post">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="profilePhoto">
-								<img src="http://placehold.it/230x230"
-									style="width: 230px; height: 230px; border-radius: 125px; display: block;">
+				<form id="profileForm" action="${path}/member/memberUpdate" enctype="multipart/form-data"
+					method="post" style="height: 80%;">
+					<div class="row" style="height: 100%;">
+						<div class="col-md-6" style="margin-top: 5%">
+							<div id="profileImg"
+								style="width: 60%; height: 50%; border-radius: 125px; display: block; margin-left: 23%;">
+							<c:if test="${mem.reProfile !=null }">
+                            	<img src="${path }/resources/upload/auction/${mem.reProfile}" class="profileImg"/>
+                            </c:if>
+                            <c:if test="${mem.reProfile ==null }">
+                            	<img src="http://placehold.it/500x500"  class="profileImg"/>
+                            </c:if>
 							</div>
-							<div id="btnDiv">
-								<button type="button" class="poto-btn">프로필사진 변경</button>
-								<button type="button" class="pwd-btn" data-toggle="modal"
-									data-target="#pwdModal">비밀번호 변경</button>
-								<button type="button" class="seller-btn" data-toggle="modal"
-									data-target="#sellerModal">판매자 회원등록</button>
-								
+							<div class="filebox">
+								<label for="pro_file">프로필사진 변경</label> 
+								<input type="file" name="profileImg"	id="pro_file" accept="image/*" value="">
 							</div>
+							<button type="button" class="pwd-btn" data-toggle="modal"
+								data-target="#pwdModal">비밀번호 변경</button>
+							<button type="button" class="seller-btn" data-toggle="modal"
+								data-target="#sellerModal">판매자 회원등록</button>
+
 						</div>
 						<div class="col-md-6 profileModify">
-							<div class="margin-top">
-								<p class="modifyTitle" style="margin-bottom:10px">&nbsp 변경할 이름 Name</p>
-								<input type="text" class="modifyText" id="userName" name="userName"
-									placeholder="이름" value="${mem.userName }">
+							<div class="margin-top" style="height: 15%">
+								<p class="modifyTitle" style="margin-bottom: 10px">&nbsp 변경할
+									이름 Name</p>
+								<input type="text" class="modifyText" id="userName"
+									name="userName" placeholder="이름" value="${mem.userName }">
 							</div>
-							<div class="margin-top">
-								<p class="modifyTitle" id="tUserPhone" style="margin-bottom:10px">&nbsp 변경할 전화번호 Phone</p>
-								<input type="text" class="modifyText" id="userPhone" name="phone"
-									placeholder="전화번호 ( '-' 생략 예->0100000000 )" value="${mem.phone }">
+							<div class="margin-top" style="height: 15%">
+								<p class="modifyTitle" id="tUserPhone"
+									style="margin-bottom: 10px">&nbsp 변경할 전화번호 Phone</p>
+								<input type="text" class="modifyText" id="userPhone"
+									name="phone" placeholder="전화번호 ( '-' 생략 예->0100000000 )"
+									value="${mem.phone }">
 							</div>
 							<!-- <!-- <div class="margin-top">
 								<p class="modifyTitle" id="tUserEmail">&nbsp 변경할 이메일 Email</p>
 								<input type="text" class="modifyText" id="userEmail"
 									placeholder="이메일">
 							</div> -->
-							<div class="margin-top">
-								<p class="modifyTitle" style="margin-bottom:5px">&nbsp 변경할 주소 Address</p>
+							<div class="margin-top" style="height: 35%">
+								<p class="modifyTitle" style="margin-bottom: 5px">&nbsp 변경할
+									주소 Address</p>
 								<input type="text" class="modifyText" id="postcode"
-									name="postCode" placeholder="우편번호" value="${mem.postCode }"  readonly>
+									style="height: 20%; margin-bottom: 0px;" name="postCode"
+									placeholder="우편번호" value="${mem.postCode }" readonly>
 								<button type="button" class="post-btn" onclick="Postcode()">주소검색</button>
 								<input type="text" class="modifyText" id="address"
-									name="address1" style="margin-bottom: 10px;" placeholder="기본주소" value="${mem.address1 }"  readonly>
-								<input type="text" class="modifyText" id="detailAddress"
+									style="height: 20%;" name="address1"
+									style="margin-bottom: 10px;" placeholder="기본주소"
+									value="${mem.address1 }" readonly> <input type="text"
+									class="modifyText" id="detailAddress" style="height: 20%;"
 									name="address2" placeholder="상세주소" value="${mem.address2 }">
 							</div>
-							<div>
-							<button type="button" class="delete-btn" id="memberDelete"
+							<div style="height: 20%">
+								<button type="button" class="delete-btn" id="memberDelete"
 									onclick="">회원탈퇴</button>
 								<button type="button" class="complete-btn" id="profileChange"
 									onclick="proChange()">정보변경 완료</button>
@@ -122,7 +136,7 @@
 
 			</div>
 
-			<div class="col-md-2"></div>
+			<!-- 	<div class="col-md-2"></div> -->
 		</div>
 	</div>
 	<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog"
@@ -137,8 +151,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form id="pwdF" action="${path}/member/passwordUpdate"
-					method="post">
+				<form id="pwdF" action="${path}/member/passwordUpdate" method="post">
 					<div class="modal-body" style="padding-bottom: 0;">
 						<div>
 							<input type="password" class="form-control" name="password"
@@ -146,8 +159,8 @@
 								required>
 						</div>
 						<div>
-							<input type="password" class="form-control"
-								id="userPwd2" placeholder="새로운 비밀번호 확인"
+							<input type="password" class="form-control" id="userPwd2"
+								placeholder="새로운 비밀번호 확인"
 								style="border-radius: 7px; margin-top: 10px;" required>
 						</div>
 					</div>
@@ -173,14 +186,14 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form id="seller" action="${path}/member/sellerUpdate"
-					method="post">
+				<form id="seller" action="${path}/member/sellerUpdate" method="post">
 					<div class="modal-body" style="padding-bottom: 0;">
 						<div>
 							<input type="text" class="form-control" name="businessNumber"
-								id="businessNumber" placeholder=" 사업자등록번호 (예 : 1400000000 '-' 생략)" style="border-radius: 7px;"
-								required>
-							<span id="businessCk"></span>
+								id="businessNumber"
+								placeholder=" 사업자등록번호 (예 : 1400000000 '-' 생략)"
+								style="border-radius: 7px;" required> <span
+								id="businessCk"></span>
 						</div>
 					</div>
 					<input type="hidden" name="userId" value="${mem.userId }">
@@ -194,7 +207,45 @@
 		</div>
 	</div>
 	<script>
-		var bsCheck=false;
+		/* function setTumbnail(event){
+			var reader = new FileReader();
+			
+			reader.onload = function(event){
+				var img = document.createElement("img");
+				img.setAttribute("src",event.target.result);
+				document.querySelector("div#proimg").appendChild(img);
+			};
+		 	reader.readAsDataUrl(event.target.files[0]);
+		}
+		 */
+		$(function() {
+			$("#pro_file").on("change", profileImg);
+		})
+		function profileImg(e) {
+			var files = e.target.files;
+			var fileArr = Array.prototype.slice.call(files);
+			$("#profileImg").find($("img")).remove();
+			fileArr.forEach(function(f) {
+				if (!f.type.match("image.*")) {
+					alert("이미지 파일만 등록해주세요!");
+					$("#pro_file").val("");
+					$("#profileImg").find($("img")).remove();
+					return;
+				}
+				viewImg = f;
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					console.log(e.target);
+					$("#profileImg").append($("<img>").attr({
+						"src" : e.target.result,
+						"class" : "profileImg"
+					}));
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+
+		var bsCheck = false;
 		function Postcode() {
 			new daum.Postcode(
 					{
@@ -303,7 +354,7 @@
 
 					}
 				});
-	
+
 		//비밀번호 확인
 		$("#userPwd2").blur(
 				function() {
@@ -359,44 +410,46 @@
 			}
 		}
 		//ajax사업자번호 체크 확인
-		$("#businessNumber").blur(function(){
+		$("#businessNumber").blur(function() {
 			let flag;
-			
-			if(businessCheck()){
+
+			if (businessCheck()) {
 				bsCheck = true;
 				$("#businessCk").html("사용가능한 사업자 번호입니다.").addClass("pass");
-			}else{
+			} else {
 				$("#businessCk").removeClass("pass");
 				$("#businessCk").addClass("error");
 				$("#businessCk").html("존재하는 사업자 번호입니다.");
 				bsCheck = false;
 			}
 		});
-		
-		function sellerUpdate(){
-			if(bsCheck){
+
+		function sellerUpdate() {
+			if (bsCheck) {
 				$("#seller").submit();
 			}
 		}
-		function businessCheck(){
+		function businessCheck() {
 			$("#businessCk").html("");
 			let flag;
 			$.ajax({
-				url:"${path}/member/checkBusiness.do",
-				type:"POST",
-				async:false,
-				data:{"businessNumber":$("#businessNumber").val()},
-				success:function(data){
-					flag=data.flag;
+				url : "${path}/member/checkBusiness.do",
+				type : "POST",
+				async : false,
+				data : {
+					"businessNumber" : $("#businessNumber").val()
+				},
+				success : function(data) {
+					flag = data.flag;
 				},
 				error : function(request, status) {
 					if (request.status == 404)
 						//$("#content").append(request.status);
 						alert("페이지를 찾을 수 없습니다.");
 				}
-    			
-    		});
-    		return flag;
+
+			});
+			return flag;
 		}
 	</script>
 </body>
