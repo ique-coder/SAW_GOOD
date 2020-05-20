@@ -96,6 +96,27 @@ public class FundingServiceImpl implements FundingService{
 		return dao.selectFDMemberCount(session,fdNo);
 	}
 
+	
+	@Override
+	public int insertFunding(Funding f, List<FDSubImg> fileNames) {
+		int result = dao.insertFunding(session, f);
+		if(result == 0) throw new RuntimeException();
+		if(!fileNames.isEmpty()) {
+			for(FDSubImg fs : fileNames) {
+				fs.setFdNo(f.getFdNo());
+				result = dao.insertFDSubImg(session,fs);
+				if(result == 0 ) {
+					//funding테이블의 글 지워주기
+					int delete = dao.deleteFunding(session,f.getFdNo());
+					throw new RuntimeException();//트랜잭션 처리 
+						
+				}
+			}
+		}
+		
+		return result;
+	}
+
 
 	@Override
 	public int insertFunding(Funding f,List<FDSubImg> fileNames,List<FDReword> rewordList) {
@@ -148,6 +169,35 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> selectList(String keyword, int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		return dao.selectList(session, keyword,cPage, numPerPage);
+	}
+
+
+	@Override
+	public List<Funding> selectMypageFundingList(String userId,int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectMypageFundingList(session,userId, cPage, numPerPage);
+		
+	}
+
+
+	@Override
+	public int selectFundingCount(String userId) {
+		// TODO Auto-generated method stub
+		return dao.selectFundingCount(session,userId);
+	}
+
+
+	@Override
+	public Funding selectItem(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectItem(session, map);
+	}
+
+
+	@Override
+	public List<FDSubImg> selectFDSubImg(int fdNo) {
+		// TODO Auto-generated method stub
+		return dao.selectFDSubImg(session,fdNo);
 	}
 
 	

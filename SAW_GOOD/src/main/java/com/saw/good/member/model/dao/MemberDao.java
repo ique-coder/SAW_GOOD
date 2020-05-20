@@ -1,10 +1,9 @@
 package com.saw.good.member.model.dao;
 
-<<<<<<< HEAD
+
 import java.util.Map;
 
-=======
->>>>>>> branch 'master' of https://github.com/ique-coder/SAW_GOOD.git
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.saw.good.auction.model.vo.Auction;

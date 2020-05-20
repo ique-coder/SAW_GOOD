@@ -12,6 +12,5 @@ public class FDSubImg {
 	
 	int fdNo;
 	String subImg;
-	String oriName;
-
+	
 }

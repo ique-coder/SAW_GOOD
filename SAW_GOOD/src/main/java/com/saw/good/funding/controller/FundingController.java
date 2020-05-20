@@ -1,8 +1,10 @@
 package com.saw.good.funding.controller;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +141,7 @@ public class FundingController {
 			
 		}else {
 			mv.addObject("msg", "존재하지않는 게시글입니다.");
-			mv.addObject("loc", "funding/list");
+			mv.addObject("loc", "/funding/list");
 			mv.setViewName("common/msg");
 		}
 		return mv;
@@ -215,44 +217,33 @@ public class FundingController {
 	
 	@RequestMapping("/funding/enroll/step2")
 	@ResponseBody
-	public void enrollEndFunding( ModelAndView mv,
+	public ModelAndView enrollEndFunding( ModelAndView mv,
 								@SessionAttribute ("loginMember") Member member,
 								HttpSession session,
 								Funding f,
+								@RequestParam String finalDate,
 								MultipartFile mainPic,
 								MultipartFile[] subPic
 								) {
+		
+		System.out.println(f.getTargetPrice());
+		//아이디 담기 
 		f.setUserId(member.getUserId());
-	
-		String fdSize = "";
-		for(int i = 0 ; i< f.getItem().length; i++) {
-			fdSize+=f.getItem()[i];
-			fdSize+=" : ";
-			fdSize+=f.getSize()[i];
-			fdSize+=" // ";		
-		}
-		f.setFdSize(fdSize);
-		
-		List<FDReword> rewordList = new ArrayList();
-		
-		for(int i = 0; i<f.getReword().length;i++) {
-			FDReword r = new FDReword();
-			if(f.getPartPrice()[i]!=null || f.getPartPrice()[i]!="" ) {
-				r.setReword(f.getReword()[i]);
-				r.setPartPrice(Integer.parseInt(f.getPartPrice()[i]));
-			}
+		//끝나는 날짜 포멧
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date endDate = sdf.parse(finalDate);
+			f.setEndDate(endDate);
+		} catch (ParseException e) {
 			
-			rewordList.add(r);
+			e.printStackTrace();
 		}
 		
 		
-		
-		
-		
-		String path = session.getServletContext().getRealPath("/resources/images/funding/upload");
-		List<FDSubImg> fileNames = new ArrayList();
-		
+		//메인사진 처리하기
+		String path = session.getServletContext().getRealPath("/resources/images/funding");
 		File file = new File(path);
+		//경로가 없으면 생성해주기
 		if(!file.exists()) file.mkdirs();
 		
 		if(!mainPic.isEmpty()) {
@@ -273,6 +264,7 @@ public class FundingController {
 		
 		
 //		서브사진 처리하기
+		List<FDSubImg> fileNames = new ArrayList();
 		for(MultipartFile mf : subPic) {
 			if(!mf.isEmpty()) {
 				String oriName = mf.getOriginalFilename();
@@ -288,14 +280,13 @@ public class FundingController {
 				}
 				FDSubImg fd = new FDSubImg();
 				fd.setSubImg(rename);
-				fd.setOriName(oriName);
 				fileNames.add(fd);
 				
 			}
 		}
 		int result = 0;
 		try {
-			result = service.insertFunding(f,fileNames,rewordList);
+			result = service.insertFunding(f,fileNames);
 		}catch(RuntimeException e) {
 			e.printStackTrace();
 			File delF = new File(path+"/"+f.getMainImg());
@@ -305,12 +296,42 @@ public class FundingController {
 				if(delF.exists()) delF.delete();
 			}
 		}
-		System.out.println(result );
+		
+		if(result>0) {
+			mv.addObject("msg", "신청이 완료되었습니다.");
+			
+		}else {
+			mv.addObject("msg", "신청이 취소되었습니다. 다시 시도하시거나 관리자에게 문의하세요.");
+		}
+		mv.addObject("loc","/funding/list");
+		mv.setViewName("common/msg");
 	
+//		String fdSize = "";
+//		for(int i = 0 ; i< f.getItem().length; i++) {
+//			fdSize+=f.getItem()[i];
+//			fdSize+=" : ";
+//			fdSize+=f.getSize()[i];
+//			fdSize+=" // ";		
+//		}
+//		f.setFdSize(fdSize);
+		
+	
+//		List<FDReword> rewordList = new ArrayList();
+		
+//		for(int i = 0; i<f.getReword().length;i++) {
+//			FDReword r = new FDReword();
+//			if(f.getPartPrice()[i]!=null || f.getPartPrice()[i]!="" ) {
+//				r.setReword(f.getReword()[i]);
+//				r.setPartPrice(Integer.parseInt(f.getPartPrice()[i]));
+//			}
+//			
+//			rewordList.add(r);
+//		}
 		
 		
 		
-//		return mv;
+		
+		return mv;
 	}
 	
 	@RequestMapping("/funding/list/category")
@@ -398,5 +419,45 @@ public class FundingController {
 		map.put("list",list);
 		return map;
 		
+	}
+	
+	@RequestMapping("/funding/enroll/myList")
+	public ModelAndView FundingEnrollList(ModelAndView mv , @SessionAttribute ("loginMember") Member member 
+											,@RequestParam (required = false, defaultValue="1") int cPage
+											,@RequestParam (required = false, defaultValue="10") int numPerPage) {
+		
+		
+		int count = service.selectFundingCount(member.getUserId());
+		List<Funding> list = service.selectMypageFundingList(member.getUserId(),cPage,numPerPage);
+		
+		mv.addObject("list", list);
+		mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/good/funding/enroll/myList"));
+		mv.setViewName("/mypage/myPageFundinglist");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/funding/enroll/modify")
+	public ModelAndView FundingModify(ModelAndView mv,int fdNo,@SessionAttribute ("loginMember") Member member ) {
+		
+		Map map = new HashMap();
+		map.put("fdNo", fdNo);
+		map.put("userId", member.getUserId());
+		
+		Funding f = service.selectItem(map);
+		if(member.getUserId().equals("admin") || f!=null) {
+			mv.addObject("f",f);
+			List<FDSubImg> fs = service.selectFDSubImg(fdNo);
+			mv.addObject("img", fs);
+			mv.setViewName("funding/updateFunding");
+		}else {
+			
+			mv.addObject("msg", "접근 권한이 없습니다.");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+		}
+		
+		
+		return mv;
 	}
 }

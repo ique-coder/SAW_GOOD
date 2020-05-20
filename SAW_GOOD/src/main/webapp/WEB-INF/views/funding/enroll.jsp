@@ -9,19 +9,19 @@
 	</jsp:include>
 <link rel="stylesheet" href="${path }/resources/css/funding/enroll.css?ver=6"/>
 
-	<form action="${path }/funding/enroll/step2" method="post" enctype="multipart/form-data"> 
+	<form action="${path }/funding/enroll/step2" method="post" enctype="multipart/form-data" id="enroll"> 
 	<section>
          <div class="container">
             <div class="col-md-12">
                 <section class="row first-row">
                     <div class="col-md-7 img-container" style="height:100%;">
-                        <img src="" class="images col-md-12" style="height: 700px;"/> 
+                        <img src="" class="images col-md-12" style="height: 700px;" id="main"/> 
                          
                          <div class="col-md-12 row" style="height:100px; margin:0;">
-                         	<img class="col-md-3 images" src=""/>
-                         	<img class="col-md-3 images"src=""/>
-                         	<img class="col-md-3 images"src=""/>
-                         	<img class="col-md-3 images"src=""/>
+                         	<img class="col-md-3 images" src="" id="sub0"/>
+                         	<img class="col-md-3 images"src=""id="sub1" />
+                         	<img class="col-md-3 images"src="" id="sub2"/>
+                         	<img class="col-md-3 images"src="" id="sub3"/>
                          </div>
                     </div>
                     <div id="p-table" class="col-md-5" style="height: 100%;">
@@ -36,7 +36,7 @@
                                 <tr>
                                     <th>TITLE</th>
                                     <th><input type="text" id="title" class="inputStyle"
-                                        name="title" placeholder="제목 입력"></th>
+                                        name="title" placeholder="제목 12자 이하 "></th>
                                 </tr>
                             </thead>
                             <tbody id="main-info">
@@ -56,7 +56,7 @@
                                 </tr>
                                <tr>
                                    <td id="style">상품 설명</td>
-                                    <td><textarea cols="20" rows="7" name="subContent" placeholder="130자 이내"></textarea></td>
+                                    <td><textarea cols="20" rows="7" name="subContent" placeholder="130자 이내" id="subContent"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td>CATEGORY</td> 
@@ -72,7 +72,11 @@
                                         </select></p></td> 
                                 </tr>
                                  <tr>
-                                    <td>종료일자</td>
+                                 	<td>종료일자</td>
+                                 	<td>
+                                 		<input type="date" name="finalDate" class="inputStyle" id="endDate"/>
+                                 	</td>
+                                   <!--  <td>종료일자</td>
                                     <td><p>
                                     		<select name="day" class="inputStyle">
 	                                            <option value="30">30일 후</option>
@@ -80,11 +84,11 @@
 	                                            <option value="90">90일 후</option>
 	                                            <option value="120">120일 </option>
                                             </select>
-                                    	</p></td>
+                                    	</p></td> -->
                                 </tr> 
                                
                             </tbody>
-                            <tbody id="reword-container">
+                           <!--  <tbody id="reword-container">
                            		 <tr>
                            			 <th>
                                     	리워드
@@ -158,7 +162,7 @@
                             
                               
                             </tfoot> 
-                          
+                           -->
                         </table>
 
                     </div>
@@ -180,7 +184,7 @@
                 				메인 사진 추가하기 
                 				</th>
                 				<td>
-                					<input  type="file"  name="mainPic">
+                					<input  type="file"  name="mainPic" id ="mainPic" onchange="imagePreview(event);" accept="image/*">
                 				</td>
                 			
                 			</tr> 
@@ -189,11 +193,11 @@
                 				제품 사진 추가하기 (4장)
                 				</th>
                 				<td>
-                					<input  type="file" name="subPic" accept=".jpg,.jpeg,.png,.gif,.bmp" multiple>
+                					<input  type="file" name="subPic" onchange="imagePreviewArr(event);" accept="image/*" multiple id="subPic">
                 				</td>
                 			</tr> 
                 		</thead>
-                		<thead>
+                		<!-- <thead>
 	                		<tr>
 	                			<td colspan="2" >치수 입력하기</td>
 	                			
@@ -225,7 +229,7 @@
 	                			<th><input type="text" name="item"></th>
 	                			<td><input type="text"  name="size" placeholder="형식에 맞게 적어주세요"></td>
 	                		</tr>
-                		</tbody>
+                		</tbody> -->
                 		<!-- <tfoot>
                 			<tr>
                 				<td colspan="2"><button type="button" onclick="addSize()">추가하기</button></td>
@@ -252,7 +256,7 @@
             
         	</div>
         	<div class="col-md-12 end">
-        		<button class="col-md-3" onclick="enroll()">
+        		<button type="button" class="col-md-3" onclick="enroll()">
         			등록하기
         		</button>
         	</div>
@@ -260,5 +264,5 @@
     </section> 
     </form>
   	<script src="${path }/resources/js/funding/enroll.js"></script>
-
+	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
