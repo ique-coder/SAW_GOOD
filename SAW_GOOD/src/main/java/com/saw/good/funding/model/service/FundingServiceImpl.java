@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.funding.model.dao.FundingDao;
-import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;
@@ -67,16 +66,6 @@ public class FundingServiceImpl implements FundingService{
 
 
 	@Override
-	public List<Comment> selectComment(int fdNo) {
-		return dao.selectComment(session, fdNo);
-	}
-
-
-	@Override
-	public List<Comment> selectReComment(int fdNo) {
-		return dao.selectReComment(session, fdNo);
-	}
-	
 	public int insertFDMember(FDMember m) {
 		
 		return dao.insertFDMember(session, m);

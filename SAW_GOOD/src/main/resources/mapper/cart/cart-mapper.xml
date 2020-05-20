@@ -4,8 +4,4 @@
 	<select id="selectCart" parameterType="string" resultType="map">
 		SELECT * FROM CART JOIN NEWPRODUCT USING(PRODUCTNO) WHERE USERID=#{id}
 	</select>
-	
-	<update id="updateCart" parameterType="map">
-		UPDATE CART SET CARTTOTALPRICE=#{tp},CARTCOUNT=#{qt},STATUS=1 WHERE PRODUCTNO=#{pNo} AND USERID=#{userId}
-	</update>
 </mapper>

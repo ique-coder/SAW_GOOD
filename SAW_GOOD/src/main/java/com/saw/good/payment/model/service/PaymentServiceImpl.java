@@ -1,7 +1,5 @@
 package com.saw.good.payment.model.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,28 +26,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectPayment(String userId,List<String> pNo) {
+	public List<Map<String, String>> selectPayment(String userId) {
 		// TODO Auto-generated method stub
-		
-		List<Map<String, String>> list=new ArrayList();
-		for(int i=0;i<pNo.size();i++) {
-			list.add(dao.selectPayment(session, userId, pNo.get(i)));
-		}
-		
-		return list;
+		return dao.selectPayment(session,userId);
 	}
-
-	@Override
-	public int updateCart(String userId,List<String> pNo,List<String> tp,List<String> qt) {
-		
-		int result=0;
-		
-		for(int i=0;i<pNo.size();i++) {
-			result+=dao.updateCart(session, userId, pNo.get(i),tp.get(i),qt.get(i));
-		}
-		return result;
-	}
-	
-	
 
 }

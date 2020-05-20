@@ -54,8 +54,7 @@ public class ProductController {
 		
 		Product p=service.selectProductView(no);
 		List<ProductQna> pq=service.selectProductQna(no,cPage,numPerPage);
-		
-		int totalQna=service.countQna(no);
+		int totalQna=service.countQna();
 		String pageBar=QnaPage.getPage(no,totalQna, cPage, numPerPage, "productView");
 		
 		mv.addObject("pageBar", pageBar);
@@ -126,29 +125,6 @@ public class ProductController {
 		mv.setViewName("product/qnaWrite");
 		return mv;
 	}
-	@RequestMapping("/qna/qnaReply")
-	public ModelAndView qnaReply(int no, ModelAndView mv, int qna) {
-		
-		Product p=service.selectProductView(no);
-		
-		mv.addObject("product", p);
-		mv.addObject("qnaNo", qna);
-		mv.setViewName("product/qnaReply");
-		return mv;
-	}
-	@RequestMapping("/qna/qnaReplyEnd")
-	public ModelAndView qnaReply(ModelAndView mv, @RequestParam Map map) {
-		
-		int result = service.insertReplyQna(map);
-		System.out.println(map);
-		
-		String msg=(result>0)?"등록성공":"등록실패";
-		String loc=(result>0)?"/product/productView?no="+map.get("productNo"):"/qna/qnaReply";
-		mv.addObject("msg", msg);
-		mv.addObject("loc", loc);
-		mv.setViewName("common/msg");
-		return mv;
-	}
 	@RequestMapping("/qna/qnaBoardEnd")
 	public ModelAndView photoUpload(ModelAndView mv, @RequestParam Map map) {
 		
@@ -186,33 +162,12 @@ public class ProductController {
 		System.out.println(map);
 		//파일 불러오기
 		MultipartFile reviewImg=request.getFile("file");
-		System.out.println("TEST : "+reviewImg);
 		
 		mv.addObject("img", reviewImg);
-		//mv.addObject("file", file);
-		mv.setViewName("common/msg");
-		
-		return mv;
-	}
-	@RequestMapping("/review/reviewImg")
-	@ResponseBody
-	public ModelAndView reviewUpload(ModelAndView mv,
-			MultipartHttpServletRequest request) {
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		//파일 불러오기
-		MultipartFile reviewImg=request.getFile("file");
-		System.out.println("test");
-		//System.out.println("TEST : "+reviewImg);
-		
-		//mv.addObject("img", reviewImg);
 		//mv.addObject("file", file);
 		mv.setViewName("jsonView");
 		
 		return mv;
-	}
-	@RequestMapping("/search/searchForm")
-	public String searchForm() {
-		return "product/searchForm";
 	}
 	
 }

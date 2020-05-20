@@ -58,12 +58,6 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("auction.selectDtAuction",acBoardNo);
 	}
-	
-	@Override
-	public int countBid(SqlSession session, Auction a) {
-		// TODO Auto-generated method stub
-		return session.selectOne("auction.countBid",a);
-	}
 
 	@Override
 	public List<Map<String, String>> selectAcMember(SqlSession session, Auction acBoardNo) {
@@ -72,17 +66,11 @@ public class AuctionDaoImpl implements AuctionDao {
 	}
 
 
+	
 	@Override
 	public Auction selectNowPrice(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
 		return session.selectOne("auction.selectNowPrice",a);
-	}
-
-	
-	@Override
-	public AuctionMember selectFsMem(SqlSession session, Auction a) {
-		// TODO Auto-generated method stub
-		return session.selectOne("auction.selectFsMem",a);
 	}
 
 	@Override
@@ -90,26 +78,6 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.insert("auction.insertBidPrice",am);
 	}
-
-	@Override
-	public int selectFsPrice(SqlSession session, Auction ac) {
-		// TODO Auto-generated method stub
-		return session.selectOne("auction.selectFsPrice",ac);
-	}
-
-	@Override
-	public int updateNowPrice(SqlSession session, Auction a) {
-		// TODO Auto-generated method stub
-		return session.update("auction.updateNowPrice",a);
-	}
-
-	@Override
-	public int updateStAuction(SqlSession session, Auction a) {
-		// TODO Auto-generated method stub
-		return session.update("auction.updateStAuction",a);
-	}
-	
-	
 	
 
 	

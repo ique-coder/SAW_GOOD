@@ -67,18 +67,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int countQna(int no) {
-		return dao.countQna(session, no);
+	public int countQna() {
+		return dao.countQna(session);
 	}
 
 	@Override
 	public ProductQna selectQnaCheck(int no) {
 		return dao.selectQnaCheck(session,no);
-	}
-
-	@Override
-	public int insertReplyQna(Map map) {
-		return dao.insertReplyQna(session, map);
 	}
 	
 }

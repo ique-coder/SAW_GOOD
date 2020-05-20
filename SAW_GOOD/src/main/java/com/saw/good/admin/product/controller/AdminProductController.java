@@ -178,7 +178,6 @@ public class AdminProductController {
 		m.addObject("numPerPage", numPerPage);
 		m.addObject("cPage", cPage);
 		m.addObject("productname", productname);
-		m.addObject("category", category);
 		m.addObject("brand", brand);
 		m.addObject("productprice", productprice);
 		m.setViewName("admin/product/productManager");

@@ -1,9 +1,8 @@
 package com.saw.good.member.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -309,57 +309,6 @@ public class MemberController {
 			}
 			return "redirect:/";
 		}
-		
-		@RequestMapping("/find/findId")
-		@ResponseBody
-		public ModelAndView findId(ModelAndView mv, Member m
-				,HttpServletResponse response) {
-			
-			response.setCharacterEncoding("UTF-8");
-			
-			m.setEmail(aesEncrypt.encrypt(","+m.getEmail()));			
-				
-			System.out.println("암호화 후 : "+m.getEmail());
-			Member mem = service.selectFindMember(m);
-			
-			
-			mv.addObject("member", mem);
-			mv.setViewName("jsonView");
-			return mv;
-		}
-		@RequestMapping("/find/findPw")
-		@ResponseBody
-		public ModelAndView findPw(ModelAndView mv, Member m,
-				HttpServletResponse response) throws UnsupportedEncodingException {
-			response.setCharacterEncoding("UTF-8");
-			
-			m.setEmail(aesEncrypt.encrypt(","+m.getEmail()));			
-			
-			System.out.println("암호화 후 : "+m.getEmail());
-			Member mem = service.selectFindPw(m);
-			boolean flag = false;
-			System.out.println("member : "+mem);
-			String ran = UUID.randomUUID().toString().substring(0, 7);
-			if(mem != null) {
-				mem.setEmail(aesEncrypt.decrypt(mem.getEmail()));
-				e.setUserEmail(mem.getEmail().substring(1));
-				e.setTitle("SAW GOOD 임시비밀번호 발급 메일입니다.");
-				e.setContent(
-						System.getProperty("line.separator")+
-						System.getProperty("line.separator")
-						+"임시비밀번호 : "+ran+"<br>"
-						+ "반드시 로그인후 비밀번호를 변경하세요!<br>"
-						+"<a href='"+e.getHost()+"' style='color:#3C5946;'>비밀번호 변경하기</a>"
-						);
-				mem.setPassword(pwEncoder.encode(ran));
-				int result = service.updatePassword(mem);
-				flag = true;
-				eService.send(e);
-			}
-			mv.addObject("ran", ran);
-			mv.addObject("flag", flag);
-			mv.setViewName("jsonView");
-			return mv;
-		}
+
 
 }

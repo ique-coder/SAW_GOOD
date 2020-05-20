@@ -96,7 +96,7 @@ div.footer {
 					<li class="menu"><a href="${path }/admin"><span
 							class="fa fa-chart-bar mr-3"></span>DashBoard</a></li>
 					<div></div>
-					<li class="menu"><a href="${path }/admin/fundingDisAgreeList"><span
+					<li class="menu"><a href="${path }/admin/funding"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
 					<div></div>
 					<li class="menu"><a href="${path }/admin/auction"><span class="fa fa-font mr-3"></span>
@@ -120,6 +120,18 @@ div.footer {
 					</div>
 				</ul>
 			</div>
+			<script>
+				$(".menu").click(function() {
+					$(".menu").next().not($(this).next()).slideUp();
+					$(this).next().slideToggle();
+					$(this).addClass("active");
+					$(".menu").not($(this)).removeClass("active");
+				})
+				$(".activemenu").click(function() {
+					$(this).addClass("active");
+					$(".activemenu").not($(this)).removeClass("active");
+				})
+			</script>
 			<div class="footer">
 				<p>
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -134,17 +146,4 @@ div.footer {
 				</p>
 			</div>
 		</nav>
-
 		<script src="${path }/resources/js/main.js"></script>
-		<script>
-				$(".menu").click(function() {
-					$(".menu").next().not($(this).next()).slideUp();
-					$(this).next().slideToggle();
-					$(this).addClass("active");
-					$(".menu").not($(this)).removeClass("active");
-				})
-				$(".activemenu").click(function() {
-					$(this).addClass("active");
-					$(".activemenu").not($(this)).removeClass("active");
-				})
-			</script>

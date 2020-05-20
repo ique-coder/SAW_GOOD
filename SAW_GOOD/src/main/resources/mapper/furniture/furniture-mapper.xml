@@ -14,8 +14,4 @@
 		 	or CATEGORY = #{2}
 		</if>
 	</select>
-	
-	<select id="cart" resultType="map" parameterType="string">
-		SELECT * FROM CART JOIN NEWPRODUCT USING(PRODUCTNO) WHERE USERID=#{userId}
-	</select>
 </mapper>

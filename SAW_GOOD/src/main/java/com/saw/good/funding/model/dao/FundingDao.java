@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
 import com.saw.good.funding.model.vo.FDReword;
 import com.saw.good.funding.model.vo.FDSubImg;
@@ -24,10 +23,6 @@ public interface FundingDao {
 	List<Funding> selectHighList(SqlSession session, int high);
 
 	List<FDReword> selectRewordList(SqlSession session, int fdNo);
-	
-	List<Comment> selectComment(SqlSession session, int fdNo);
-	
-	List<Comment> selectReComment(SqlSession session, int fdNo);
 
 	int insertFDMember(SqlSession session, FDMember m);
 
