@@ -30,7 +30,7 @@
 				<li class="active">주문결제</li>
 				<li>주문완료</li>
 			</ul>
-			<form action="${path }/payment/paymentComplete">
+			<form  id="paymentOrder" action="${path }/payment/paymentComplete" method="post">
 			<div class="row">
 				<div class="col-md-8">
 					<div style="padding: 0 0 0 30px">
@@ -52,6 +52,7 @@
 								<th>총 가격</th>
 							</tr>
 							<c:forEach items="${list }" var="p" varStatus="vs">
+							<input type="hidden" name="productNo" value="${p['PRODUCTNO'] }">
 								<tr>
 									<td><img class="img-responsive imgheight"
 										src="${path}/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG']}" width="100%"/></td>
@@ -61,8 +62,11 @@
 	                                	<fmt:formatNumber value="${p['PRODUCTPRICE'] }" pattern="#,###" />
 	                                	원</p>
 	                                </td>
-									<td>${p['CARTCOUNT'] }</td>
+									<td>${p['CARTCOUNT'] }
+									<input type="hidden" name="productNum" value="${p['CARTCOUNT'] }">
+									</td>
 									<td>
+									<input type="hidden" name="proTotalPrice" value="${p['CARTCOUNT']*p['PRODUCTPRICE']}">
 									<fmt:formatNumber value="${p['CARTTOTALPRICE'] }" pattern="#,###" />
 									원</td>
 								</tr>
@@ -72,6 +76,7 @@
 
 					<div class="bottomInform" style="display: block;">
 						<!-- 주문자 -->
+						<input type="hidden" name="userId" value="${loginMember.userId }">
 						<table>
 							<colgroup>
 								<!-- 주문자정보 테이블 헤더/바디 크기 -->
@@ -165,7 +170,7 @@
 											<!-- 연락처 첫번째 칸 -->
 											<li>
 												<div class="input-box-medium">
-													<input class="pilsu" name="rcName" id="userPhone2"
+													<input class="pilsu" name="rcPhone" id="userPhone2"
 														maxlength="12" placeholder="전화번호 입력 '-'생략">
 												</div>
 											</li>
@@ -277,17 +282,19 @@
 								</p></li>
 							<li class="total"><strong>총 결제금액</strong>
 								<p>
-								<input type="hidden" id="payTotalPrice" value="${totalPrice+10000 }"/> 
+								<input type="hidden" id="payTotalPrice" name="odTotalPrice" value="${totalPrice+10000 }"/> 
 									<em id="counterTotalAmt">
 										<fmt:formatNumber value="${totalPrice+10000 }" pattern="#,###" />
 									</em>원
 								</p></li>
 							<li class="point"><strong>포인트 적립</strong>
 								<p><span>+</span>
+								
 									<em id="counterTotalcybermoney">
 										<fmt:parseNumber var="point" value="${totalPrice/100 }" integerOnly="true" />
 										<fmt:formatNumber value="${point }" pattern="#,###" />
 									</em>P
+									<input type="hidden" id="payPoint" name="payPoint" value="${point }"/> 
 								</p></li>
 						</ul>
 						<!-- 약관동의-->
@@ -754,8 +761,9 @@
 			} else { //유효성 오케이이면
 				$("#userEmail").removeClass('error');//input error 클래스 삭젠
 				$("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
-
-				var IMP = window.IMP; // 생략가능
+				$("#paymentOrder").submit();
+				alert("정상처리 되었습니다. 결제내역을 확인해주세요.");
+				/* var IMP = window.IMP; // 생략가능
 				var payChoice = $("#payChoice").val(); //선태된 결제방법의 값
 				var payAmount = $("#payTotalPrice").val();//가격
 				var userName = $("#userName").val();//이름
@@ -793,7 +801,7 @@
 										msg += '에러내용 : ' + rsp.error_msg;
 									}
 
-								});
+								}); */
 			}
 
 		}
