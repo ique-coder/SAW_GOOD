@@ -14,6 +14,7 @@
 		<typeAlias type="com.saw.good.funding.model.vo.Comment" alias="comment"/>
 		<typeAlias type="com.saw.good.product.model.vo.ProductQna" alias="productQna"/>
 		<typeAlias type="com.saw.good.funding.model.vo.FDSubImg" alias="fdsubimg"/>
-
+		<typeAlias type="com.saw.good.payment.model.vo.Payment" alias="payment"/>
+		<typeAlias type="com.saw.good.payment.model.vo.PaymentHistory" alias="payhis"/>
 	</typeAliases>
 </configuration>

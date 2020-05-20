@@ -7,6 +7,10 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.member.model.vo.Member;
+import com.saw.good.payment.model.vo.Payment;
+import com.saw.good.payment.model.vo.PaymentHistory;
+
 @Repository
 public class PaymentDaoImpl implements PaymentDao {
 
@@ -30,6 +34,34 @@ public class PaymentDaoImpl implements PaymentDao {
 		map.put("tp", tp);
 		map.put("qt", qt);
 		return session.update("cart.updateCart", map);
+	}
+
+	@Override
+	public int insertPayment(SqlSession session, Payment p) {
+		// TODO Auto-generated method stub
+		return session.insert("payment.insertPayment",p);
+	}
+
+	
+
+	@Override
+	public int insertPaymentHistory(SqlSession session, int odNo2, String userId, String pNo, String pNum,
+			String tPrice) {
+		// TODO Auto-generated method stub
+		Map<String,String> map = new HashMap();
+		String odNo=Integer.toString(odNo2);
+		map.put("odNo",odNo);
+		map.put("userId", userId);
+		map.put("pNo", pNo);
+		map.put("pNum", pNum);
+		map.put("tPrice", tPrice);
+		return session.insert("payment.insertPaymentHistory",map);
+	}
+
+	@Override
+	public int selectOdNo(SqlSession session, Member m) {
+		// TODO Auto-generated method stub
+		return session.selectOne("payment.selectOdNo",m);
 	}
 
 
