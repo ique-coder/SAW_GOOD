@@ -23,7 +23,7 @@
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
-				<option value="2">couch / chair</option>
+				<option value="2">sofa / chair</option>
 				<option value="3">table / desk</option>
 				<option value="4">carpet / lug</option>
 				<option value="5">storage</option>
