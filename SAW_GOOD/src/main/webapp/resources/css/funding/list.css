@@ -18,6 +18,7 @@ button,input[type='button'],input[type='submit']{
 	text-align:center;
 	background: transparent;
 	margin-bottom: 60px;
+	z-index:-1;
 }
 .parallax-window h3{
 	position:relative;
@@ -58,6 +59,7 @@ button,input[type='button'],input[type='submit']{
     padding: 20px;
     border: 50px solid #F2E8DC;
     box-sizing: content-box;
+    background-color:white;
 }
 .product-container:hover{
     box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;

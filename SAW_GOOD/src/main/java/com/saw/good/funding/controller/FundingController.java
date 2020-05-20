@@ -48,8 +48,9 @@ public class FundingController {
 		List<Funding> highList = service.selectHighList(high);
 		
 		//데이터 20개씩 가져오기
-		int numPerPage = 20;
-		List<Funding> list = service.selectList(numPerPage);
+		int cPage = 1;
+		int numPerPage = 5;
+		List<Funding> list = service.selectList(cPage,numPerPage);
 		
 		mv.addObject("highList",highList);
 		mv.addObject("list",list);
@@ -187,7 +188,7 @@ public class FundingController {
 	
 	@ResponseBody
 	@RequestMapping("/funding/detail/partList.ajax")
-	public Map<String,Object> fundingPartList(ModelAndView mv ,@RequestParam int fdNo, @RequestParam int cPage) {
+	public Map<String,Object> fundingPartList(@RequestParam int fdNo, @RequestParam int cPage) {
 		
 		int numPerPage = 5;
 		System.out.println(fdNo+" "+cPage);
@@ -313,11 +314,89 @@ public class FundingController {
 	}
 	
 	@RequestMapping("/funding/list/category")
-	public ModelAndView categoryList(ModelAndView mv ) {
+	public ModelAndView categoryList(ModelAndView mv , 
+									@RequestParam Map map,
+									@RequestParam (required = false, defaultValue="1") int cPage
+								//	@RequestParam String category1 , 
+								//	@RequestParam(required=false) String category2
+									) {
 		
-	return mv;
+		int numPerPage = 4;
+		
+		
+		List<Funding> list = service.selectCategoryList(map,cPage,numPerPage);
+		mv.addObject("category",map);
+		mv.addObject("list",list);
+		mv.setViewName("funding/searchList");
+		return mv;
 		
 	}
 	
+	@RequestMapping("/funding/list/category.ajax")
+	@ResponseBody
+	public Map<String,Object> categoryAjax(
+									@RequestParam Map category,
+									@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectCategoryList(category,cPage,numPerPage);
+		
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		return map;
+	}
+	@RequestMapping("/funding/list/run")
+	public ModelAndView FundingStatus (ModelAndView mv, int fStatus,
+										@RequestParam (required = false, defaultValue="1") int cPage
+										) {
+		System.out.println(fStatus);
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(fStatus,cPage,numPerPage);
+		mv.addObject("list",list);
+		mv.addObject("status",fStatus);
+		mv.setViewName("funding/searchList");
+		return mv;
+	}
+	@RequestMapping("/funding/list/run.ajax")
+	@ResponseBody
+	public Map<String,Object> FundingStatusAjax (ModelAndView mv, int fStatus ,
+												@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(fStatus,cPage,numPerPage);
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		return map;
+		
+	}
 	
+	@RequestMapping("/funding/list/search")
+	public ModelAndView FundingTotalSearch(ModelAndView mv, String keyword,@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		
+		int numPerPage = 4; 
+		List<Funding> list = service.selectList(keyword, cPage,numPerPage);
+		mv.addObject("list",list);
+		mv.addObject("keyword",keyword);
+		mv.setViewName("funding/searchList");
+
+		return mv;
+		
+	}
+	@RequestMapping("/funding/list/search.ajax")
+	@ResponseBody
+	public Map<String,Object> FundingStatusAjax (ModelAndView mv, String keyword ,
+												@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(keyword,cPage,numPerPage);
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		return map;
+		
+	}
 }

@@ -64,13 +64,18 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int countQna(SqlSessionTemplate session) {
-		return session.selectOne("newProduct.countQna");
+	public int countQna(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countQna", no);
 	}
 
 	@Override
 	public ProductQna selectQnaCheck(SqlSessionTemplate session, int no) {
 		return session.selectOne("newProduct.selectQnaCheck", no);
+	}
+
+	@Override
+	public int insertReplyQna(SqlSessionTemplate session, Map map) {
+		return session.insert("newProduct.insertReplyQna", map);
 	}
 	
 }

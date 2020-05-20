@@ -1,5 +1,8 @@
 package com.saw.good.member.model.dao;
 
+import java.util.Map;
+
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.saw.good.auction.model.vo.Auction;
@@ -26,6 +29,9 @@ public interface MemberDao {
 	
 	Member selectMember(SqlSessionTemplate session, Member m);
 	
+	Member selectFindMember(SqlSessionTemplate session, Member m);
+	
+	Member selectFindPw(SqlSessionTemplate session, Member m);
 	//승원 옥션멤버포인트 돌려주기
 	int updateMemPoint(SqlSessionTemplate session,AuctionMember am);
 	//승원 옥션멤버포인트 가져오기

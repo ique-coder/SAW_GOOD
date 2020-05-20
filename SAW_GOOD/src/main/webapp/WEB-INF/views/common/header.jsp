@@ -85,7 +85,7 @@
 	                    <label class="saveId"><input type="checkbox" name="saveId" id="saveId" value="saveId">아이디저장</label>
 	                </div>
 	                <div style="text-align: left; clear:both;">
-	                    <a href="#">아이디 / 비밀번호 찾기</a>
+	                    <a href="${path }/search/searchForm">아이디 / 비밀번호 찾기</a>
 	                </div>
 	                <button type="submit" id="buttonLogin">로그인</button>
 	            </form>
