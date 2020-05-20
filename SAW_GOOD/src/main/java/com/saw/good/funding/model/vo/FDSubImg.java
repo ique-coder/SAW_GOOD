@@ -4,10 +4,7 @@ public class FDSubImg {
 	
 	int fdNo;
 	String subImg;
-<<<<<<< HEAD
-	
-=======
-	String oriName;
+
 	public FDSubImg() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -16,7 +13,7 @@ public class FDSubImg {
 		super();
 		this.fdNo = fdNo;
 		this.subImg = subImg;
-		this.oriName = oriName;
+		
 	}
 	public int getFdNo() {
 		return fdNo;
@@ -30,18 +27,10 @@ public class FDSubImg {
 	public void setSubImg(String subImg) {
 		this.subImg = subImg;
 	}
-	public String getOriName() {
-		return oriName;
-	}
-	public void setOriName(String oriName) {
-		this.oriName = oriName;
-	}
+
 	@Override
 	public String toString() {
-		return "FDSubImg [fdNo=" + fdNo + ", subImg=" + subImg + ", oriName=" + oriName + "]";
+		return "FDSubImg [fdNo=" + fdNo + ", subImg=" + subImg + "]";
 	}
 	
-	
-
->>>>>>> refs/heads/master
-}
+}	
