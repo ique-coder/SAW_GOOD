@@ -47,6 +47,8 @@ public interface FundingDao {
 
 	List<Funding> selectList(SqlSession session, int status, int cPage, int numPerPage);
 
+	List<Funding> selectList(SqlSession session, String keyword, int cPage, int numPerPage);
+
 
 
 }

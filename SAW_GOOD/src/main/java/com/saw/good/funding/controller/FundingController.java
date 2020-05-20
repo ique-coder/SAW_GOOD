@@ -371,4 +371,30 @@ public class FundingController {
 		return map;
 		
 	}
+	
+	@RequestMapping("/funding/list/search")
+	public ModelAndView FundingTotalSearch(ModelAndView mv, String keyword,@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4; 
+		List<Funding> list = service.selectList(keyword, cPage,numPerPage);
+		mv.addObject("list",list);
+		mv.addObject("keyword",keyword);
+		mv.setViewName("funding/searchList");
+
+		return mv;
+		
+	}
+	@RequestMapping("/funding/list/search.ajax")
+	@ResponseBody
+	public Map<String,Object> FundingStatusAjax (ModelAndView mv, String keyword ,
+												@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		
+		List<Funding> list = service.selectList(keyword,cPage,numPerPage);
+		Map<String,Object> map = new HashMap();
+		map.put("list",list);
+		return map;
+		
+	}
 }

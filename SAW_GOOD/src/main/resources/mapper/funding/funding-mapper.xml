@@ -84,5 +84,9 @@
  					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
 		FROM FUNDING A WHERE STATUS = #{status} AND APPR = 1 ORDER BY ENDDATE
 	</select>
-	
+	<select id="selectSearchList" parameterType="string" resultType="funding">
+		SELECT * FROM FUNDING WHERE USERID LIKE '%'||#{keyword}||'%' OR DESIGNER LIKE '%'||#{keyword}||'%' OR 
+		TITLE LIKE '%'||#{keyword}||'%' OR SUBCONTENT LIKE '%'||#{keyword}||'%' OR DETAIL LIKE '%'||#{keyword}||'%' OR
+		FDSIZE LIKE '%'||#{keyword}||'%' OR CATEGORY LIKE '%'||#{keyword}||'%'
+	</select>
 </mapper>

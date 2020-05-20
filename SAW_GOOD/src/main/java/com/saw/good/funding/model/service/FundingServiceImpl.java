@@ -144,6 +144,13 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 
+	@Override
+	public List<Funding> selectList(String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectList(session, keyword,cPage, numPerPage);
+	}
+
+	
 	
 	
 	

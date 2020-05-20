@@ -43,6 +43,8 @@ public interface FundingService {
 
 	List<Funding> selectList(int status, int cPage, int numPerPage);
 
+	List<Funding> selectList(String keyword, int cPage, int numPerPage);
+
 
 
 }

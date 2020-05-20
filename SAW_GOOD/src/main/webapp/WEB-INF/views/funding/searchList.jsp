@@ -70,12 +70,14 @@
 					<li><a href="${path }/funding/list/category?category1=others">others</a></li>
 				</ul>
 				<!-- 검색기능 -->
-				<span class="block-span"> <input type="text" />
-					<button>
+				<form action="${path}/funding/list/search" method="post" id="totalSearch">
+					<span class="block-span"> <input type="text"  name ="keyword"/>
+					<button onclick="$('#totalSearch').submit()">
 						<img src="${path }/resources/images/search-icon.png" width="20px"
 							height="18px" />
 					</button>
-				</span>
+					</span>
+				</form>
 				<c:if test="${ not empty loginMember  }">
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
@@ -106,9 +108,11 @@
 														<th>${item.designer}</th>
 														<td>
 															<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-															${endDate-today}
-															일 남음
-														
+															 
+															<c:if test="${endDate-today >=0}">
+																${endDate-today}
+																일 남음
+															</c:if>
 														</td>
 													</tr>
 													<tbody>
@@ -144,18 +148,20 @@
 
 <script>
 	var cPage = 2;
-	var flag;
+	var flag = true;
 	$(window).scroll(function(){
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			if('${category.category1}'!=''){
+			if(flag && '${category.category1}'!=''){
 				if( '${category.category2}'!=''){
 					requestData2(cPage);
 					
 				}else{
 					requestData1(cPage);
 				}
-			}else if('${status}'!=''){
+			}else if(flag && '${status}'!=''){
 				requestData3(cPage);
+			}else if(flag && '${keyword}' !=''){
+				requestData4(cPage);
 			}
 			
 			
@@ -198,6 +204,18 @@
 			}
 		})
 	}
+	function requestData4(cPage){
+		$.ajax({
+			url:"${path}/funding/list/search.ajax",
+			data:{cPage:cPage,keyword:"${keyword}"},
+    		async:false,
+    		success:function(data){
+    		
+    			paging(data);
+    			
+			}
+		})
+	}
 	
 	function paging(data){
 		var con = $("#item-container");
@@ -216,7 +234,10 @@
 					
 					
 					
-					var result = Math.floor((endDate-today)/(60*24*60*1000));
+					var result ="";
+					if(Math.floor((endDate-today)/(60*24*60*1000))>=0){
+						result = Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
+					}
 					
 					var money = addComma(data.list[i+j].sum);
 					div.append('<div class="sub-item">'
@@ -228,7 +249,7 @@
 														+'</th></tr></thead>'
 														+'<tr><th>'+data.list[i+j].designer+'</th>'
 														+'<td>'
-														+result+'일 남음'
+														+result
 														+'</td></tr><tbody><tr>'
 														+'<th colspan="2">'
 														+'<svg width="100%" height="3px"xmlns="http://w3.org/2000/svg" version="1.1"class="bar-container">'
@@ -243,6 +264,8 @@
 				con.append(row);
 				
 			} 
+		}else{
+			flag = false;
 		}
 	}
 	

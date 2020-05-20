@@ -120,6 +120,12 @@ public class FundingDaoImpl implements FundingDao{
 		
 		return session.selectList("funding.selectStatusList", status, new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
+
+	@Override
+	public List<Funding> selectList(SqlSession session, String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.selectSearchList", keyword, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
 	
 	
 	

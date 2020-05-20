@@ -70,12 +70,14 @@
 					<li><a href="${path }/funding/list/category?category1=others">others</a></li>
 				</ul>
 				<!-- 검색기능 -->
-				<span class="block-span"> <input type="text" />
-					<button>
+				 <form action="${path}/funding/list/search" method="post" id="totalSearch">
+					<span class="block-span"> <input type="text"  name ="keyword"/>
+					<button onclick="$('#totalSearch').submit()">
 						<img src="${path }/resources/images/search-icon.png" width="20px"
 							height="18px" />
 					</button>
-				</span>
+					</span>
+				</form>
 				<c:if test="${ not empty loginMember  }">
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
