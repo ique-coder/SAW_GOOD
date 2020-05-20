@@ -33,10 +33,16 @@
   	
   	
   	<select id="selectComment" resultType="comment" parameterType="_int">
-  		SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo} ORDER BY SEQ_FC_NO DESC
+  		select seq_fc_no, userid, fdno, 
+		to_char(commentDate, 'IYYY.MM.DD') formatDate,
+		commenttext, status from fundingComment where fdno = #{fdNo} order by seq_fc_no desc
+  		<!-- SELECT * FROM FUNDINGCOMMENT WHERE FDNO = #{fdNo} ORDER BY SEQ_FC_NO DESC -->
   	</select>
   	<select id="selectReComment" resultType="comment" parameterType="_int">
-  		SELECT * FROM FUNDINGCOMMENTRE WHERE FDNO = #{fdNo} ORDER BY SEQ_FCR_NO DESC
+  		select seq_fc_no, seq_fcr_no, userid, fdno, 
+		to_char(commentDate, 'IYYY.MM.DD') formatDate,
+		commenttext, status from fundingCommentre where fdno = #{fdNo} order by seq_fc_no desc
+  		<!-- SELECT * FROM FUNDINGCOMMENTRE WHERE FDNO = #{fdNo} ORDER BY SEQ_FCR_NO DESC -->
   	</select>
   	<insert id="insertFDMember" parameterType="fdmember" >
   		INSERT INTO FDMEMBER(FDNO,USERID,PARTPRICE,REWORD,PARTDATE,PURSTATUS) 
@@ -67,4 +73,26 @@
 	 	INSERT INTO FDREWORD (FDNO,REWORD,PARTPRICE) VALUES (#{fdNo},#{reword},#{partPrice})
 	
 	</insert>
+	<select id="categoryList" parameterType="map" resultType="funding">
+		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+ 					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE STATUS = 1 AND APPR = 1 AND CATEGORY IN(#{category1}
+		<if test="category2!=null and category2 !=''">
+			,#{category2}
+		</if>
+		)
+		
+		
+		ORDER BY ENDDATE
+	</select>
+	<select id="selectStatusList" parameterType="_int" resultType="funding">
+		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
+ 					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE STATUS = #{status} AND APPR = 1 ORDER BY ENDDATE
+	</select>
+	<select id="selectSearchList" parameterType="string" resultType="funding">
+		SELECT * FROM FUNDING WHERE USERID LIKE '%'||#{keyword}||'%' OR DESIGNER LIKE '%'||#{keyword}||'%' OR 
+		TITLE LIKE '%'||#{keyword}||'%' OR SUBCONTENT LIKE '%'||#{keyword}||'%' OR DETAIL LIKE '%'||#{keyword}||'%' OR
+		FDSIZE LIKE '%'||#{keyword}||'%' OR CATEGORY LIKE '%'||#{keyword}||'%'
+	</select>
 </mapper>

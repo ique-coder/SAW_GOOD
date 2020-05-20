@@ -33,9 +33,9 @@ public class FundingServiceImpl implements FundingService{
 
 
 	@Override
-	public List<Funding> selectList(int numPerPage) {
+	public List<Funding> selectList(int cPage,int numPerPage) {
 		
-		return dao.selectList(session,numPerPage);
+		return dao.selectList(session,cPage,numPerPage);
 	}
 
 
@@ -128,7 +128,28 @@ public class FundingServiceImpl implements FundingService{
 		
 		return result;
 	}
-	
+
+
+	@Override
+	public List<Funding> selectCategoryList(Map map,int cPage, int numPerPage) {
+		
+		return dao.selectCategoryList(session,map,cPage, numPerPage);
+	}
+
+
+	@Override
+	public List<Funding> selectList(int status,int cPage,int numPerPage) {
+		
+		return dao.selectList(session,status,cPage,numPerPage);
+	}
+
+
+	@Override
+	public List<Funding> selectList(String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectList(session, keyword,cPage, numPerPage);
+	}
+
 	
 	
 	

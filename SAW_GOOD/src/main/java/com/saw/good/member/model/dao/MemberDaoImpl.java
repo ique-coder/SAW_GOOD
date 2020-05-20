@@ -1,6 +1,6 @@
 package com.saw.good.member.model.dao;
 
-import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -63,7 +63,17 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMember(SqlSessionTemplate session, Member m) {
 		return session.selectOne("member.loginMember", m);
 	}
-	// 승원 옥션멤버포인트 돌려주기
+
+	@Override
+	public Member selectFindMember(SqlSessionTemplate session, Member m) {
+		return session.selectOne("member.selectFindMember", m);
+	}
+
+	@Override
+	public Member selectFindPw(SqlSessionTemplate session, Member m) {
+		return session.selectOne("member.selectFindPw", m);
+	}
+	
 
 	@Override
 	public int updateMemPoint(SqlSessionTemplate session, AuctionMember am) {

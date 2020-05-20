@@ -68,7 +68,7 @@
                                             <option value="desk">책상</option>
                                             <option value="lug">카펫 / 러그</option>
                                             <option value="storage">서랍 / 수납함</option>
-                                            <option value="ohers">기타</option>
+                                            <option value="others">기타</option>
                                         </select></p></td> 
                                 </tr>
                                  <tr>

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=7"/>
+<link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=0"/>
 	
 <div class="container-fluid col-md-12" id="detail-header">
     <div class="bg-image" style="background-image: url(${path}/resources/images/signup2.jpg);"></div>
@@ -145,7 +145,7 @@
 										<div class="comment delete">
                                             <p>
                                                 <span class="commentUserId">${c.userId}</span>
-				                                <span class="commentTime">${c.commentDate }</span>
+				                                <span class="commentTime">${c.formatDate }</span>
                                             </p>
 				                           	<p>삭제된 댓글입니다.</p>
 											<div class="reCommentInserDiv col-md-12 row" style="display:none">
@@ -160,7 +160,7 @@
 																<div class="rereComment delete">
                                                                     <p>
 																		<span class="reCommentUserId">담당자</span>
-																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentTime">${cr.formatDate }</span>
 																	</p>
 																	<p>삭제된 댓글입니다.</p>
                                                                 </div>
@@ -169,7 +169,7 @@
 																<div class="rereComment">
 																	<p>
 																		<span class="reCommentUserId">담당자</span>
-																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentTime">${cr.formatDate }</span>
 																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
 																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
 																	</p>
@@ -186,7 +186,7 @@
 										<div class="comment">
 				                            <p>
 				                                <span class="commentUserId">${c.userId}</span>
-				                                <span class="commentTime">${c.commentDate }</span>
+				                                <span class="commentTime">${c.formatDate }</span>
 				                                <span class="commentDelete" name="${c.seq_fc_no }">삭제</span>
 				                                <span class="commentUpdate" name="${c.seq_fc_no }">수정</span>
 				                                <span class="reComment">댓글</span>
@@ -201,12 +201,12 @@
 											<div class="reCommentList">
 												<c:forEach var="cr" items="${reCommentList }">
 													<c:if test="${c.seq_fc_no == cr.seq_fc_no }">
-														<c:choose>
+														<c:choose>     
 															<c:when test="${cr.status == '1'}">
 																<div class="rereComment delete">
                                                                     <p>
 																		<span class="reCommentUserId">담당자</span>
-																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentTime">${cr.formatDate }</span>
 																	</p>
 																	<p>삭제된 댓글입니다.</p>
                                                                 </div>
@@ -215,7 +215,7 @@
 																<div class="rereComment">
 																	<p>
 																		<span class="reCommentUserId">담당자</span>
-																		<span class="reCommentTime">${cr.commentDate }</span>
+																		<span class="reCommentTime">${cr.formatDate }</span>
 																		<span class="reCommentDelete" name="${cr.seq_fcr_no }">삭제</span>
 																		<span class="reCommentUpdate" name="${cr.seq_fcr_no }">수정</span>
 																	</p>
@@ -270,13 +270,16 @@
         function submin(){
         	var reword=$("input[name='reword']:checked").val();
         	var partPrice ;
-        	
-        	if(reword=='none'){
-        		partPrice = $("#input-price").val();
+        	if(reword!=null){
+	        	if(reword=='none'){
+	        		partPrice = $("#input-price").val();
+	        	}else{
+	        		partPrice = $("input[name='reword']:checked").next().val();
+	        	}
+	        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
         	}else{
-        		partPrice = $("input[name='reword']:checked").next().val();
+        		alert('리워드를 선택해주세요.');
         	}
-        	location.href="${path}/funding/patronage/step1?fdNo="+${f.fdNo}+"&reword="+reword+"&partPrice="+partPrice+"";
 		}
         //참여 내역클릭시 내역 불러오기
         var cPage = 1;
@@ -388,7 +391,7 @@
                                     let rereCommentDiv = $("<div>").addClass("reCommentList");
                                     div.append(rereCommentDiv);
 
-                                    $("#commentList").append(div);
+                                    $("#commentList").prepend(div);
                                     
                                     
 
@@ -400,6 +403,7 @@
                                     reCommentOk();
                                     reCommentInsert();
                                     commentBtnsFunction();
+                                    checkIdBtn();
                                 } else {
                                     alert("댓글 등록 실패");
                                 }
@@ -469,6 +473,8 @@
 
                                             nowThis.prev().val('');
                                             nowThis.parent().hide();
+
+                                            checkIdBtn();
 
                                             // 버튼 기능들
                                             $(".reCommentDelete").off("click").on("click",function() {
@@ -611,7 +617,7 @@
                                                             url : "${path}/funding/reCommentUpdate.do",
                                                             type : "POST",
                                                             data : {userId:loginId, fdNo:fdNo, seq_fcr_no:thisNo, commentText:nowThis.prev().val()},
-                                                            success(data) {
+                                                            success : function(data) {
                                                                 nowThis.parent().parent().next().show();
                                                                 nowThis.parent().parent().next().html(data.comment.commentText);
                                                                 nowThis.parent().remove();
@@ -623,6 +629,27 @@
                                                     }
                                                 })
                                             })
+
+        function checkIdBtn() {
+            let userId = "${loginMember.userId}";
+            let fundingId = "${f.userId}";
+            let admin = "admin";
+
+            $(".comment").each(function(i, c) {
+                let commentId = $(this).children().children('span.commentUserId').html();
+                if(userId == commentId || userId == admin) {
+                    $(this).find('p span.commentDelete').show();
+                    $(this).find('p span.commentUpdate').show();
+                }
+                if(fundingId == userId || userId == admin) {
+                    $(this).find('p span.reComment').show();
+                    $(this).find('div.rereComment span.reCommentDelete').show();
+                    $(this).find('div.rereComment span.reCommentUpdate').show();
+                }
+            })
+        }
+
+        checkIdBtn();
 
         $("input[name='reword']").click(function(){
         	if($(this).val()=='none'){

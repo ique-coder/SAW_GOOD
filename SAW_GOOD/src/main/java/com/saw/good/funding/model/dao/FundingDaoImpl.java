@@ -25,9 +25,10 @@ public class FundingDaoImpl implements FundingDao{
 	}
 
 	@Override
-	public List<Funding> selectList(SqlSession session,int numPerPage) {
+	public List<Funding> selectList(SqlSession session,int cPage, int numPerPage) {
 		
-		return session.selectList("funding.selectAllList",numPerPage);
+		
+		return session.selectList("funding.selectAllList",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
 
 	@Override
@@ -107,6 +108,25 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.insert("funding.insertFDReword",fr);
 	}
+
+	@Override
+	public List<Funding> selectCategoryList(SqlSession session, Map map,int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.categoryList",map,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public List<Funding> selectList(SqlSession session, int status, int cPage, int numPerPage) {
+		
+		return session.selectList("funding.selectStatusList", status, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public List<Funding> selectList(SqlSession session, String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.selectSearchList", keyword, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
 	
 	
 	
