@@ -17,10 +17,9 @@ div.main{
 /* 프로필 바탕 */
 #profileBackground{
     top:10%;
-    padding-top: 40px;
     /* background-color:rgba(255, 255, 255,0.8) ; */
-    height: 80%;
-    width:100%;
+    height:80%;
+    width:1092px;
     left: 15%;
     z-index: 1;
     position: absolute;
@@ -43,6 +42,7 @@ div.main{
 }
 /* 회원정보 타이틀 센터 */
 .MemberInfo{
+	margin-top:5%;
     text-align: center;
 }
 /* 회원정보 타이틀 */
@@ -55,15 +55,14 @@ div.main{
 }
 /* 회원사진 밑 정보 */
 .profilePhoto{
-    padding-top: 60px;
-    padding-left: 30%;
+  
 
 }
 /* 회원정보 변경 */
 .profileModify{
     
-    padding-top: 35px;
-    padding-right: 75px;
+/*     padding-top: 35px;
+    padding-right: 75px; */
 }
 /* 변경제목 텍스트 스타일 */
 .modifyTitle{
@@ -79,10 +78,10 @@ div.main{
 /* 변경내용 인풋 스타일 */
 .modifyText{
     display: block;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 2%;
+    margin-top: 2%;
     width: 100%;
-    height: 35px;
+    height: 50%;
     border-radius: 7px;
     border: 0;
     padding: 10px;
@@ -114,54 +113,43 @@ div.main{
 #btnDiv{
  /*    text-align: center; */
     padding-top: 25px;
-     padding-left: 30%;
+ 
 }
 /* 비밀번호 변경 버튼 스타일 */
 .pwd-btn{
 	
 	display : block;
-    padding: 0 20px 0 20px;
-    width: 230px;
-    height: 40px;
+    padding: 3% 20px 3% 20px;
+    width: 60%;
+    height: 10%;
     border: 0;
     border-radius: 7px;
     background-color: #A69B8D;
     color:white;
     outline: none;
-    margin-bottom: 10px;
+    margin-bottom: 2%;
+   margin-left:23%;
 }
 /* 판매자 회원등록 */
 .seller-btn{
 	display : block;
-    padding: 0 20px 0 20px;
-    width: 230px;
-    height: 40px;
+    padding: 3% 20px 3% 20px;
+     width: 60%;
+    /* height: 10%; */
     border: 0;
     border-radius: 7px;
     background-color: #A69B8D;
     color:white;
     outline: none;
-    margin-bottom: 10px;
+      margin-left:23%;
 }
-/* 프사변경 버튼 스타일 */
-.poto-btn{
-	display : block;
-    padding: 0 20px 0 20px;
-    width: 230px;
-    height: 40px;
-    border: 0;
-    border-radius: 7px;
-    background-color: #A69B8D;
-    color:white;
-    outline: none;
-    margin-bottom: 10px;
-}
+
 /* 정보변경완료 버튼 스타일 */
 .complete-btn{
     margin-top: 10px;
     padding: 0 20px 0 20px;
     width: 49%;
-    height: 50px;
+   height: 60%;
     border: 0;
     border-radius: 7px;
     background-color: #51735D;
@@ -173,7 +161,7 @@ div.main{
     margin-top: 10px;
     padding: 0 20px 0 20px;
     width: 49%;
-    height: 50px;
+    height: 60%;
     border: 0;
     border-radius: 7px;
     background-color: rgb(238, 152, 124);
@@ -222,5 +210,56 @@ input.error {
 	margin-bottom: 10px;
 }
 div.margin-top{
-    margin-top: 15px;
+    margin-top: 4%;
+}
+
+.filebox label { 
+	display: inline-block;
+	padding: 3% 30px;
+	width:60%;
+	color: white;
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #A69B8D;
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	text-align:center;
+	margin-left:23%;
+	  margin-top:5%;
+	  border-radius: 7px;
+} 
+.filebox input[type="file"] {
+	/* 파일 필드 숨기기 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	verflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}
+/* 프사변경 버튼 스타일 */
+.poto-btn{
+	display : block;
+    padding: 0 20px 0 20px;
+    width: 60%;
+    height: 10%;
+    border: 0;
+    border-radius: 7px;
+    background-color: #A69B8D;
+    color:white;
+    outline: none;
+    margin-bottom: 2%;
+    margin-top:5%;
+     margin-left:23%;
+}
+.profileImg{
+	 width: 100%; 
+	 height: 100%; 
+	 border-radius: 125px; 
+	 display: block;
 }

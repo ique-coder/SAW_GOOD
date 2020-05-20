@@ -241,7 +241,7 @@ public class AuctionController {
 			mv.setViewName("common/msg");
 			return mv;
 	}
-	// 즉시입찰입찰 시작해보즈아
+	// 글쓰기
 	@RequestMapping("/auction/writer")
 	public ModelAndView auctionWriter(ModelAndView mv) {
 		
