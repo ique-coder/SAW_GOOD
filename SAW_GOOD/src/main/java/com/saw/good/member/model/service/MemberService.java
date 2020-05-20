@@ -1,6 +1,6 @@
 package com.saw.good.member.model.service;
 
-import java.util.List;
+import java.util.Map;
 
 import com.saw.good.member.model.vo.Member;
 
@@ -24,4 +24,8 @@ public interface MemberService {
 	int updateBsNo(Member m);
 	
 	Member selectMember(Member m);
+	
+	Member selectFindMember(Member m);
+	
+	Member selectFindPw(Member m);
 }

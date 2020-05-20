@@ -1,6 +1,6 @@
 package com.saw.good.member.model.dao;
 
-import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -25,4 +25,8 @@ public interface MemberDao {
 	int updateBsNo(SqlSessionTemplate session, Member m);
 	
 	Member selectMember(SqlSessionTemplate session, Member m);
+	
+	Member selectFindMember(SqlSessionTemplate session, Member m);
+	
+	Member selectFindPw(SqlSessionTemplate session, Member m);
 }

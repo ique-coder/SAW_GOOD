@@ -16,7 +16,8 @@ public interface ProductService {
 	List<Map<String,Object>> searchCategory(int cPage,int numPerPage,Map<String,Object> map);
 	int countSearchCategory(Map<String,Object> map);
 	int insertQna(Map map);
+	int insertReplyQna(Map map);
 	List<ProductQna> selectProductQna(int no,int cPage,int numPerPage);
-	int countQna();
+	int countQna(int no);
 	ProductQna selectQnaCheck(int no);
 }

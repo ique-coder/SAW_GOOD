@@ -1,6 +1,6 @@
 package com.saw.good.member.model.service;
 
-import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member selectMember(Member m) {
 		return dao.selectMember(session, m);
+	}
+
+	@Override
+	public Member selectFindMember(Member m) {
+		return dao.selectFindMember(session, m);
+	}
+
+	@Override
+	public Member selectFindPw(Member m) {
+		return dao.selectFindPw(session, m);
 	}
 	
 	

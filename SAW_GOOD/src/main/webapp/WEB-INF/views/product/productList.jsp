@@ -41,7 +41,7 @@
 		                            <div class="auctionProduct">
 		                                <div class="productPoto">
 		                                	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">
-		                                    	<img src="http://placehold.it/270x220" style="width:100%; height: 220px;">
+		                                    	<img src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG'] }" style="width:100%; height: 220px;">
 		                                    </a>
 		                                </div>
 		                                <div class="proTitle">
