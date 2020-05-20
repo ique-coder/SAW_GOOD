@@ -2,13 +2,6 @@ package com.saw.good.admin.home;
 
 import java.util.Arrays;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AdminProduct {
 	private int[] procheck;
 	private String productname;
