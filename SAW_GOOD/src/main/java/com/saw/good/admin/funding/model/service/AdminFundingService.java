@@ -21,7 +21,7 @@ public interface AdminFundingService {
 	List<Map<String,String>> fundingAgreeSearch(Map<String,Object> map,int cPage,int numPerPage);
 	int countsearchFundingAg(Map<String,Object> map);
 	
-	//동의 거부
+	//승인 및 거부
 	int updateAgreeFunding(int fdno);
 	int updateDisAgreeFunding(int fdno);
 	
@@ -33,5 +33,14 @@ public interface AdminFundingService {
 	Map<String,String> selectOneFunding(int fdno);
 	List<Map<String, String>> selectSubImg(int fdno);
 	
+	//한개펀딩 환불
+	int updateRefundOneFund(int fdno);
+	//여러개펀딩 환불
+	int updateRefundCkfund(String[] fundcheck);
 	
+	//여러개 완료 펀딩 삭제
+	int deleteCkFund(String[] fundcheck);
+	
+	//여러개 진행중 펀딩 환불 및 삭제
+	int deleteCkIngFund(String[] fundcheck);
 }

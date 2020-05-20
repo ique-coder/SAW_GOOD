@@ -3,13 +3,6 @@ package com.saw.good.funding.model.vo;
 import java.util.Arrays;
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Funding {
 
 	private int fdNo;
