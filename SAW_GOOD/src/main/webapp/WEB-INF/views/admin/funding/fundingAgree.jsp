@@ -344,12 +344,12 @@ label {
 	<div class="container-fluid" style="padding-bottom: 40px" id="category">
 		<div class="row">
 			<div class="col-sm-6 subcategory">
-				<input type="radio" name="category" value="disagree"  id="disagree"/> <label
-					for="category">승인대기</label>
+				<input type="radio" name="subcategory" id="disagree"/> <label
+					for="subcategory">승인대기</label>
 			</div>
 			<div class="col-sm-6 subcategory">
-				<input type="radio" name="category" id="agree" value="agree" checked/> <label
-					for="category">승인완료</label>
+				<input type="radio" name="subcategory" id="agree" checked/> <label
+					for="subcategory">승인완료</label>
 			</div>
 		</div>
 	</div>
@@ -420,8 +420,8 @@ label {
 					<tr>
 						<th>만료일</th>
 						<td>
-							<input type="radio" name="hasexpired" value="y" id="expire"><label for="expire">expried</label>
-							<input type="radio" name="hasexpired" value="n" id="nonexpire"><label for="nonexpire">not expried</label>
+							<input type="radio" name="hasexpired" value="yes" id="expire"><label for="expire">expried</label>
+							<input type="radio" name="hasexpired" value="no" id="nonexpire"><label for="nonexpire">not expried</label>
 						</td>
 					</tr>
 					<tr>
@@ -438,7 +438,8 @@ label {
 			<form action="#" method="post" onsubmit="">
 				<div class="row">
 					<div class="col-md-8">
-						<button class="btn-black" type="button">환불</button>
+						<button class="btn-black" type="button" id="checkReFund">환불</button>
+						<button class="btn-black" type="button">삭제</button>
 					</div>
 					<div class="col-md-4"
 						style="text-align: right; padding-bottom: 20px;">
@@ -493,12 +494,12 @@ label {
 							</td>
 						</c:if>
 						<c:forEach items="${targetPrice }" var="tp">
-								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <=0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
 									<td>
 										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
 									</td>
 								</c:if>
-								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
+								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <=0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
 									<td>
 										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
 									</td>
