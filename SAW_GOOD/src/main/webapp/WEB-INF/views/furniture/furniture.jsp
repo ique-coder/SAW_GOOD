@@ -1,4 +1,6 @@
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -37,7 +39,11 @@
 <link rel="stylesheet"
 	href="${path }/resources/canvas/jquery.ui.rotatable.css">
 
-
+<%
+    List<Map<String, String>> cartList= (List<Map<String,String>>)request.getAttribute("cart");
+	int cartNum = cartList.size();
+	//int cartNum = 1;
+%>
 <style>
 .center {
 	text-align: center;
@@ -391,6 +397,17 @@ div.categoryNameList>input:checked+label {
 					<div id="selectList" class="modal-content">
 						<h3>ㅣ Furniture List ㅣ</h3>
 						<table id="listTable">
+							<c:forEach var="c" items="${cart }">
+								<tr>
+									<td><%=cartNum %></td>
+									<td>${c['PRODUCTNAME'] }</td>
+									<td><button class="listCheck" name="<%=cartNum %>">확인</button></td>
+									<td><button class="listUp" name="<%=cartNum %>">위로</button></td>
+									<td><button class="listDown" name="<%=cartNum %>">아래로</button></td>
+									<td><button class="listDelete" name="<%=cartNum %>">삭제</button></td>
+								</tr>
+								<%cartNum--; %>
+							</c:forEach>
 						</table>
 						<p>
 							<span><button id="closeList">닫기</button></span>
@@ -400,6 +417,15 @@ div.categoryNameList>input:checked+label {
 				</div>
 				
 				<div id="interiorSize">
+					<%
+						//cartNum = cartList.size(); 
+						cartNum = 1;
+					%>
+					<c:forEach var="c" items="${cart }">
+						<img src="${path}/resources/upload/newproduct/${c['RENAMEDTOPIMG']}" name="<%=cartNum %>"
+							style="position:relative; top: 0; left: 0; z-index: <%=cartNum %>;" class="interior">
+						<%cartNum++; %>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -456,20 +482,32 @@ div.categoryNameList>input:checked+label {
 		// 번호 생성하는 변수
 		var countProduct = 1;
 
+		 
+		var cartNum =<%=cartList.size()%>
+		
 		// 카테고리 클릭-> 캔버스에 생성
 		function productClick() {
+			
 			$(".product").click(
 					function() {
+						$.ajax({
+							url : "{path}/furniture/cartAdd.do",
+							data : {},
+							success : function(data) {
+								
+							}
+						})
+						cartNum++;
 						// DB의 해당 name을 가진 img경로를 불러오기
 						let src1 = $(this).children().get(3).value;
 						let src = "${path}/resources/upload/newproduct/" + src1;
 						let img = $("<img>").attr({
 							'src' : src,
-							'name' : countProduct,
+							'name' : cartNum,
 							'position' : 'relative',
 							'top' : '0px',
 							'left' : '0px'
-						}).css({'z-index' : countProduct}).addClass("interior");
+						}).css({'z-index' : cartNum}).addClass("interior");
 						$("#interiorSize").append(img);
 
 						roAndDr();
@@ -477,7 +515,7 @@ div.categoryNameList>input:checked+label {
 						frontPop();
 
 						// for문으로 처리
-						let td1 = $("<td>").html(countProduct);
+						let td1 = $("<td>").html(cartNum);
 						let name = $("<td>").html(
 								$(this).children('p').eq(0).children('span').eq(1)
 										.html());
@@ -485,14 +523,14 @@ div.categoryNameList>input:checked+label {
 								$(this).children('p').eq(0).children('span').eq(0)
 										.html());
 						let td2 = name;
-						let td3 = $("<button>").html("확인").addClass("listCheck")
-								.attr('name', countProduct);
-						let td4 = $("<button>").html("위로").addClass("listUp").attr(
-								'name', countProduct);
-						let td5 = $("<button>").html("아래로").addClass("listDown")
-								.attr('name', countProduct);
-						let td6 = $("<button>").html("삭제").addClass("listDelete")
-								.attr('name', countProduct);
+						let td3 = $("<td>").append($("<button>").html("확인").addClass("listCheck")
+								.attr('name',  cartNum));
+						let td4 = $("<td>").append($("<button>").html("위로").addClass("listUp").attr(
+								'name', cartNum));
+						let td5 = $("<td>").append($("<button>").html("아래로").addClass("listDown")
+								.attr('name', cartNum));
+						let td6 = $("<td>").append($("<button>").html("삭제").addClass("listDelete")
+								.attr('name', cartNum));
 						let tr = $("<tr>");
 
 						$("#listTable").prepend(
@@ -501,6 +539,8 @@ div.categoryNameList>input:checked+label {
 						countProduct++;
 
 						furnitureListButtons();
+						
+						// cartNum++;
 					})
 		}
 
@@ -528,17 +568,19 @@ div.categoryNameList>input:checked+label {
 			$(".listUp").off("click").on(
 					"click",
 					function() {
-						if ($(this).parent().index() != 0) {
+						if ($(this).parent().parent().index() != 0) {
 							// 리스트 변화
-							$(this).parent().prev().before($(this).parent());
-							$(this).parent().children().eq(0).html(
-									($(this).parent().index() + 1));
-							$(this).parent().next().children().eq(0).html(
-									($(this).parent().index() + 2));
+							$(this).parent().parent().prev().before($(this).parent().parent());
+							// $(this).parent().parent().children().eq(0).html(
+							// 		$(this).attr("name"));
+							// $(this).parent().parent().next().children().eq(0).html(
+							// 		($(this).parent().parent().children().eq(0). + 2));
 
 							// 이미지 z-index 변화
 							let indexUp = $(this).attr('name');
-							let indexDown = $(this).parent().next().children().eq(2).attr('name');
+							let indexDown = $(this).parent().parent().next().children().children().eq(2).attr('name');
+							// console.log("indexUp : " + indexUp);
+							// console.log("indexDown : " + indexDown);
 							let changeUp = $("[name=" + indexUp + "]").eq(4);
 							let changeDown = $("[name=" + indexDown + "]").eq(4);
 							indexUp = $("[name=" + indexUp + "]").eq(4).css('z-index');
@@ -552,17 +594,18 @@ div.categoryNameList>input:checked+label {
 			$(".listDown").off("click").on(
 					"click",
 					function() {
-						if ($(this).parent().index() != $(".listDown").length) {
+						if ($(this).parent().parent().index() != $(".listDown").length) {
 							// 리스트 변화
-							$(this).parent().next().after($(this).parent());
-							$(this).parent().children().eq(0).html(
-									($(this).parent().index() + 1));
-							$(this).parent().prev().children().eq(0).html(
-									($(this).parent().index()));
+							$(this).parent().parent().next().after($(this).parent().parent());
+							console.log($(this).parent().parent().next().after());
+							// $(this).parent().children().eq(0).html(
+							// 		($(this).parent().index() + 1));
+							// $(this).parent().prev().children().eq(0).html(
+							// 		($(this).parent().index()));
 
 							// 이미지 z-index 변화
 							let indexDown = $(this).attr('name');
-							let indexUp = $(this).parent().prev().children().eq(2).attr('name');
+							let indexUp = $(this).parent().parent().prev().children().children().eq(2).attr('name');
 							let changeUp = $("[name=" + indexUp + "]").eq(4);
 							let changeDown = $("[name=" + indexDown + "]").eq(4);
 							indexUp = $("[name=" + indexUp + "]").eq(4).css('z-index');
@@ -584,7 +627,7 @@ div.categoryNameList>input:checked+label {
 					'left' : '0px',
 					'visibility' : 'hidden'
 				});
-				$(this).parent().remove();
+				$(this).parent().parent().remove();
 			})
 		}
 		// 카테고리 선택시 해당 input의 value값을 parameter로 보내기
@@ -695,6 +738,9 @@ div.categoryNameList>input:checked+label {
 		$("#closeList").click(function() {
 			$("#selectListTag").css({"left":"-400px", "cursor" : "pointer"});
 		})
+
+
+		
 	</script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

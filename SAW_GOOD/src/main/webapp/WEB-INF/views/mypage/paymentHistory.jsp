@@ -330,6 +330,9 @@
 #userCategory p:last-child {
 	padding-bottom: 0;
 }
+.click {
+	cursor: pointer;
+}
 </style>
 
 <div class="container">
@@ -359,7 +362,18 @@
 			<div id="userCategory" class="center">
 				<p>회원정보</p>
 				<p>장바구니</p>
-				<p>결재내역</p>
+				<p onclick="openSub()">결재내역</p>
+				<div id="subNav" style="display: none;">
+					<form id="subFormProduct" action="/good/mypage/ph.do" method="post">
+						<p id="productClick" name="product" class="click">new product</p>
+					</form>
+					<form id="subFormFunding" action="/good/mypage/moveSub" method="post">
+						<p id="fundingClick" name="funding" class="click">funding</p>
+					</form>
+					<form id="subFormAuction" action="/good/mypage/moveSub" method="post">
+						<p id="auctionClick" name="auction" class="click">action</p>
+					</form>
+				</div>
 			</div>
 		</div>
 
@@ -673,5 +687,24 @@
 		</div>
 	</div>
 </div>
+
+<script>
+let userId = "${loginMember.userId}";
+
+	function openSub() {
+		if($("#subNav").css('display') == 'none') {
+			$("#subNav").show();
+		} else {
+			$("#subNav").hide();
+		}
+	}
+
+	$("#productClick").on("click", function() {
+		let input = $("<input>").attr({"type":"hidden", "value":userId, "name":"userId"});
+		$(this).append(input);
+		$("#subFormProduct").submit();
+	})
+
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

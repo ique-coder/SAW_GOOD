@@ -7,11 +7,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.saw.good.cart.model.vo.Cart;
 import com.saw.good.furniture.model.dao.FurnitureDao;
 import com.saw.good.product.model.vo.Product;
 
 @Service
 public class FurnitureServiceImpl implements FurnitureService{
+
 	@Autowired
 	private FurnitureDao dao;
 	@Autowired
@@ -27,6 +29,11 @@ public class FurnitureServiceImpl implements FurnitureService{
 		return dao.totalData(session, categoryNames);
 	}
 	
+	@Override
+	public List<Map<String, String>> cart(String userId) {
+		return dao.cart(session, userId);
+	}
+
 	
 
 	

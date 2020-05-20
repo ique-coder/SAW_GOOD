@@ -237,15 +237,18 @@ section span.underline::after{
     float: right;
     border-bottom: solid 1px #ee987c;
     margin-left: 15px;
+    display: none;
 }
 .commentDelete {
     float: right;
     border-bottom: solid 1px #ee987c;
     margin-left: 15px;
+    display: none;
 }
 .reComment {
     float: right;
     border-bottom: solid 1px #ee987c;
+    display: none;
 }
 .commentUpdate:hover {
     color: #ee987c;
@@ -305,10 +308,12 @@ section span.underline::after{
     float: right;
     border-bottom: solid 1px #ee987c;
     margin-left: 15px;
+    display: none;
 }
 .reCommentUpdate {
     float: right;
     border-bottom: solid 1px #ee987c;
+    display: none;
 }
 .reCommentDelete:hover {
     color: #ee987c;
