@@ -47,7 +47,7 @@
           </div>
           <ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
-                    <a href="${path }/furniture/furniture.do" class="target"><span>SHOW ROOM</span></a>
+                    <a href="${path }/furniture/furniture.do?userId=${loginMember.userId!=null?loginMember.userId:''}" class="target"><span>SHOW ROOM</span></a>
                 </li>
                 <li class="col-md-3">
                     <a href="${path }/product/productList" class="target"><span>NEW ARRIVAL</span></a>
@@ -68,6 +68,7 @@
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
 	             <li class="col-md-4"><a href="${path }/signup">my page</a></li>
+	             <li class="col-md-4"><a href="${path }/payment/cart">cart</a></li>
 	             <li class="col-md-4"><a href="${path }/member/logout">logout</a></li>
 	          </ol>
           </c:if>
@@ -84,7 +85,7 @@
 	                    <label class="saveId"><input type="checkbox" name="saveId" id="saveId" value="saveId">아이디저장</label>
 	                </div>
 	                <div style="text-align: left; clear:both;">
-	                    <a href="#">아이디 / 비밀번호 찾기</a>
+	                    <a href="${path }/search/searchForm">아이디 / 비밀번호 찾기</a>
 	                </div>
 	                <button type="submit" id="buttonLogin">로그인</button>
 	            </form>

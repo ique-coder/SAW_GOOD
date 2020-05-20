@@ -142,7 +142,10 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <form id="review-message" method="post" action="${path }/review/reviewEnd">
+                <form id="review-img" action="${path}/review/reviewImg" method="post" enctype="multipart/form-data">
+					<input type="file" name="file" id="file" accept="image/*" style="display:none"/>
+				</form>
+                <form id="review-message" method="post" action="${path }/review/reviewEnd" enctype="multipart/form-data">
                 <div class="review-container">
                     <div>
                             <textarea class="review-message" name="reContent" id="reContent" placeholder="고객님의 소중한 제품 리뷰를 남겨주세요"></textarea>
@@ -157,9 +160,6 @@
                     <div class="review-camara" style="cursor: pointer;" onclick="file.click();">
                         <span class="review-img">
                             <i class="fas fa-camera"></i>
-                            <form id="uploadForm" method="post" enctype="multipart/form-data">
-								<input type="file" name="file" id="file" accept="image/*" style="display:none"/>
-							</form>
                             <div class="review-txt"> + 사진추가</div>
                         </span>
                     </div>
@@ -345,11 +345,21 @@
 	                          <c:forEach items="${qna }" var="q" varStatus="vs">
 	                          	<tr class="nbg">
 	                              <td><c:out value="${q.qnaNo }"/></td>
-	                              <td style="text-align:left;">
-	                              	<a href="javascript:void(0)">
-	                              		<i class="fas fa-lock"></i> <c:out value="${q.title }"/>
-	                              	</a>
-	                              </td>
+	                              <c:if test="${q.replyLevel == 0 }">
+		                              <td style="text-align:left;">
+		                              	<a href="javascript:void(0)">
+		                              		<i class="fas fa-lock"></i> <c:out value="${q.title }"/>
+		                              	</a>
+		                              </td>
+	                              </c:if>
+	                              <c:if test="${q.replyLevel == 1 }">
+	                              	<td style="text-align:left;">
+		                              	<a href="javascript:void(0)">
+		                              		<img src="${path }/resources/images/reply.PNG"/>
+		                              		<i class="fas fa-lock"></i> <c:out value="${q.title }"/>
+		                              	</a>
+		                              </td>
+	                              </c:if>
 	                              <td><c:out value="${q.userId }"/></td>
 	                              <td><c:out value="${q.writeDate }"/></td>
 	                              <td><c:out value="${q.readCount }"/></td>
@@ -366,6 +376,11 @@
 	                            				</div>
 	                            				<input type="password" size="15" id="qna_check" name="qna_check" class="qna_check">
 	                            				<input type="button" value="확인" class="check_btn" onclick="qna_rock(${q.qnaNo},'${q.content }');"/>
+	                            				<c:if test="${loginMember.status == 3 and q.replyLevel == 0}">
+		                            				<div style="float:right;">
+		                            					<input type="button" value="답변하기" onclick="location.href='${path}/qna/qnaReply?no=${product.productNo}&qna=${q.qnaNo }'">
+		                            				</div>
+	                            				</c:if>
 	                            			</div>
 	                            			<div class="reply-box">
 	                            				 
@@ -460,12 +475,13 @@
                 }
             });
             var img=1;
-            var preview = 
+            var preview;
             $(".review-photo").hide();
             $("#file").change({param_img : img},function(event){            	
             	$(".review-photo").show();
             	var get_file = event.target.files;
                 var image = document.createElement('img');
+                console.log(get_file[0].name);
             
                 /* FileReader 객체 생성 */
                 var reader = new FileReader();
@@ -490,13 +506,34 @@
                 
             	if(!$(".ul-photo").children().is("li")){
 	            	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
-	            	var img = $(div).children().children(".img-wrap")
+	            	var img = $(div).children().children(".img-wrap");
+	            	//$(img).append($("<input type='file' name='file[]' id='files' style='display:none;'>"));
             		$(img).append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
             	}else if($(".ul-photo").children().is("li")){
                 	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
-                	var img = $(div).children().children(".img-wrap")
+                	var img = $(div).children().children(".img-wrap");
             		$(img).last().append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
             	}
+            	$("review-img").submit();
+                $("input[name='file']").val();
+                var frm = document.getElementById('file');
+                console.log(frm.files);
+                //var fileData = new FormData(frm);
+             
+                // ajax
+                $.ajax({
+                    type:'POST',
+                    url:'${path}/review/reviewImg',
+                    data:frm.files,
+                    processData: false,
+                    contentType: false,
+                    success : function(data, textStatus, xhr) {
+                        console.log(data);
+                    },
+                    error : function(request,status,error) {  
+                       alert("code:"+request.status+"\n"+"error:"+error);
+                    }
+                });
             	
             })
             $("#reContent").click(function(){

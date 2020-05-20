@@ -1,11 +1,9 @@
 package com.saw.good.furniture.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.saw.good.cart.model.vo.Cart;
 import com.saw.good.common.PageFactory;
 import com.saw.good.furniture.model.service.FurnitureService;
 import com.saw.good.product.model.vo.Product;
@@ -28,9 +27,17 @@ public class FurnitureController {
 	private Logger logger;
 	
 	@RequestMapping("/furniture/furniture.do")
-	public String furniture() {
-		//mv.setViewName("furniture/furniture");
-		return "furniture/furniture";
+	public ModelAndView furniture(String userId, ModelAndView mv) {
+		
+		if(userId != null) {
+			List<Map<String, String>> cartList = service.cart(userId);
+			mv.addObject("cart", cartList);
+		}
+		
+		mv.setViewName("furniture/furniture");
+		
+		
+		return mv;
 	}
 	
 	@RequestMapping("/furniture/category.do")

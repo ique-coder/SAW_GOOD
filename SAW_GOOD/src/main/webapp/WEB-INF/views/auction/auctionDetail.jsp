@@ -73,14 +73,16 @@
                                     <span style="margin-bottom: 0;">종료일자</span>
                                 </div>
                                 <div class="record col-md-3" style="width: 750px;">
-                                    <strong style="color:#cc0000;font-weight:bold;">${a.acStartPrice }원</strong>
+                                    <strong style="color:#cc0000;font-weight:bold;">
+                                    <fmt:formatNumber value="${a.acStartPrice }" pattern="#,###" /> P
+                                    </strong>
                                     <strong>
-                                    	${a.acNowPrice }원
+                                     <fmt:formatNumber value="${a.acNowPrice }" pattern="#,###" /> P
                                     </strong>
                                      <strong>
-                                    	${a.acImdPrice }원
+                                      <fmt:formatNumber value="${a.acImdPrice }" pattern="#,###" /> P
                                     </strong>
-                                    <strong>26건</strong>
+                                    <strong>${bc }건</strong>
                                     <strong>${a.acCategory }</strong>
                                     <strong>${a.acStatusRank }</strong>
                                     <strong>10,000 원</strong>
@@ -97,7 +99,7 @@
                                     		현재 입찰자 없음
                                     	</c:if>
                                     	<c:if test="${a.acNowPrice > a.acStartPrice }">
-                                    		${a.acNowPrice+10000 } 원
+                                    		<fmt:formatNumber value="${a.acNowPrice+10000 }" pattern="#,###" /> P
                                     	</c:if>
                                 </strong>
                             </div>
@@ -105,13 +107,13 @@
 
                             <div class="productAction">
                                 <div class="product-button">
-                                	<c:if test="${acEndDate-today > 0 && loginMember != null }">
+                                	<c:if test="${acEndDate-today > 0 && loginMember != null && a.acStatus == 1}">
 	                                    <button type="button" class="buy-btn" 
 	                                    data-toggle="modal" data-target="#bidModal">입찰하기</button>
-	                                 	<button class="cart-btn">즉시입찰</button>
+	                                 	<button class="nowBuy-btn" id="nowBuy-btn" onclick="nowBuy();">즉시입찰</button>
                                     </c:if>
-                                    <c:if test="${acEndDate-today < 0 && loginMember != null } ">
-	                                    	경매가 종료되었습니다.
+                                    <c:if test="${(acEndDate-today < 0 || a.acStatus == 2) && loginMember != null} ">
+	                                    	<span>경매가 종료되었습니다.</span>
                                     </c:if>
                                     <c:if test="${loginMember == null }">
 	      									 <button type="button" class="buy-btn" id="loginModal" style="width:300px;" >로그인</button>
@@ -275,7 +277,7 @@
 	                                <tr>
 	                                    <td class="con">${vs.index +1}</td>
 	                                    <td class="con">${rank['USERID'] }</td>
-	                                    <td class="con">${rank['BIDPRICE'] }원</td>
+	                                    <td class="con"><fmt:formatNumber value="${rank['BIDPRICE'] }" pattern="#,###" /> P</td>
 	                                    <td class="con">
 	                                    	<fmt:formatDate value="${rank['BIDDATE'] }" pattern="yyyy-MM-dd"/>
 	                                    </td>
@@ -401,10 +403,24 @@
 			</div>
 		</div>
 	</div>
-
+				<form id="nowBuyBid" action="${path }/auction/nowBuyBid" method="post">
+					<input type="hidden" name="userId" value="${loginMember.userId }">
+					<input type="hidden" name="acBoardNo" value="${a.acBoardNo }">
+				</form>
 
     </section>
     <script>
+	    function nowBuy(){
+			if(${loginMember!=null?loginMember.point:0} < ${a.acImdPrice}){
+				alert("포인트가 부족합니다. 충전후 이용해주세요.");
+			}else{
+					if (confirm("바로 입찰됩니다. 동의하시겠습니까?") == true){    //확인
+					    $("#nowBuyBid").submit();
+					}else{   //취소
+					 
+					}
+			}
+		}
     	function bidUpdate(){
     		$("#acMemberBid").submit();
     	}

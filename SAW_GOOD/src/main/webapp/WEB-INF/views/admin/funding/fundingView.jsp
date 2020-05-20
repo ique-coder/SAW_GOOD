@@ -95,7 +95,7 @@
 			padding-top:20px;
 		}
 
-		#btn-agree {
+		.btn-agree {
 			padding: 0 30px;
 			line-height: 42px;
 			font-size: 15px;
@@ -114,19 +114,14 @@
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" src="${path }/resources/images/chair.jpg" width="99%"
-								style="height:500px" ; />
+							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/funding/${funding['MAINIMG']}" width="99%"
+								style="height:500px;" />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
-								<li><img src="${path }/resources/images/chair.jpg" /></li>
-								<li><img src="${path }/resources/images/sidebar.jpg" /></li>
-								<li><img src="${path }/resources/images/table.jpg" /></li>
-								<li><img src="${path }/resources/images/table2.jpg" /></li>
-								<li><img src="${path }/resources/images/chair.jpg" /></li>
-								<li><img src="${path }/resources/images/sidebar.jpg" /></li>
-								<li><img src="${path }/resources/images/table.jpg" /></li>
-								<li><img src="${path }/resources/images/table2.jpg" /></li>
+								<c:forEach items="${subImg }" var="i" varStatus="vs">
+									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -144,58 +139,64 @@
 								<li>
 									<p class="funding_tit"><span> - </span> 작성자 </p>
 									<p class="funding_con">
-										<strong> front-fuck </strong>
+										<strong> ${funding['USERID'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 펀딩제목 <span> / </span> 번호 </p>
+									<p class="funding_tit"><span> - </span> 디자이너 </p>
 									<p class="funding_con">
-										<strong> chair product
-											<span> / </span>
-											123123
-										</strong>
+										<strong> ${funding['DESIGNER'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 가격 <span> / </span> 목표가격</p>
+									<p class="funding_tit"><span> - </span> 펀딩제목 </p>
 									<p class="funding_con">
-										<strong> 300,000원
-											<span> / </span>
-											10,000,000원
-										</strong>
+										<strong> ${funding['TITLE'] } </strong>
+									</p>
+								</li>
+								<li>
+									<p class="funding_tit"><span> - </span> 목표가격</p>
+									<p class="funding_con">
+										<strong><fmt:formatNumber value="${funding['TARGETPRICE'] }"/>원</strong>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 현재가격 </p>
 									<p class="funding_con">
-										<strong>
-											5,700,000원
-										</strong>
+										<c:choose>
+											<c:when test="${empty partPrice }">
+												<strong>0원</strong>
+											</c:when>
+											<c:when test="${not empty partPrice }">
+												<strong> <fmt:formatNumber value="${partPrice['PARTPRICE'] }"/>원 </strong>
+											</c:when>
+										</c:choose>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 등록날짜 </p>
 									<p class="funding_con">
-										<strong> 2020-04-30 </strong>
+										<strong> <fmt:formatDate value="${funding['ENROLLDATE'] }" pattern="yyyy-MM-dd"/> </strong>
 									</p>
 								</li>
 								<li>
 									<p class="funding_tit"><span> - </span> 만료날짜 </p>
 									<p class="funding_con">
-										<strong> 2020-05-26 </strong>
+										<strong> <fmt:formatDate value="${funding['ENDDATE'] }" pattern="yyyy-MM-dd"/>  </strong>
 									</p>
 								</li>
 							</ul>
-							<div id="button">
-								<button type="button" id="btn-agree">승인</button>
-							</div>
+							<c:if test="${funding['APPR'] == 0 }">
+								<div id="button">
+									<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
+									<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	</div>
+</div>
 	<script>
 		$(function () {
 			$(".multiple_slider").bxSlider({
@@ -210,9 +211,23 @@
 			})
 
 		})
-
+	//이미지변경
+	$(".changeImg").click(function(){
+			var subsrc=$(this).attr("src");
+			var mainsrc=$(this).parents("div.controls").prev().find("#mainImg").attr("src");
+			$(this).parents("div.controls").prev().find("#mainImg").attr("src",subsrc);
+			$(this).attr("src",mainsrc);
+		})
+	//동의
+	$("#fd-Ag").click(function(){
+		var val=$(this).val();
+		location.replace("${path}/admin/agreeFunding?fdno="+val);
+	})
+	$("#fd-disAg").click(function(){
+		var val=$(this).val();
+		location.replace("${path}/admin/disAgreeFunding?fdno="+val);
+		})
 	</script>
-
 
 </body>
 
