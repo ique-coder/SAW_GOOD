@@ -28,10 +28,7 @@
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
   		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
-  	
-  	
-  	
-  	
+
   	<select id="selectComment" resultType="comment" parameterType="_int">
   		select seq_fc_no, userid, fdno, 
 		to_char(commentDate, 'IYYY.MM.DD') formatDate,
