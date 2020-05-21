@@ -31,6 +31,23 @@ public class AdminAuctionController {
 		mv.setViewName("admin/auction/auctionView");
 		return mv;
 	}
+	//옥션 동의 페이지
+	@RequestMapping("admin/auctionAgreeList")
+	public ModelAndView auctionAgreeList(ModelAndView mv,@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
+		
+		List<Map<String,String>> list=service.selectAuctionAgree(cPage,numPerPage);
+		int totalData=service.countAuctionAgree();
+		
+		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "auctionAgreeList");
+		
+		mv.addObject("auclist", list);
+		mv.addObject("pageBar", pageBar);
+		mv.addObject("cPage", cPage);
+		mv.addObject("numPerPage", numPerPage);
+		mv.setViewName("admin/auction/auctionDisAgree");
+		return mv;
+	}
 	//옥션 비동의 페이지
 	@RequestMapping("admin/auctionDisAgreeList")
 	public ModelAndView auctionDisAgreeList(ModelAndView mv,@RequestParam(value="cPage",defaultValue="1") int cPage,

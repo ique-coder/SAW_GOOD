@@ -24,6 +24,18 @@ public class AdminAuctionServiceImpl implements AdminAuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectOneAuction(session, acno);
 	}
+	//동의리스트
+	@Override
+	public List<Map<String, String>> selectAuctionAgree(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionAgree(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int countAuctionAgree() {
+		// TODO Auto-generated method stub
+		return dao.countAuctionAgree(session);
+	}
 
 	//옥션 비동의 리스트
 	@Override
@@ -31,6 +43,7 @@ public class AdminAuctionServiceImpl implements AdminAuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectAuctionDisAgree(session,cPage,numPerPage);
 	}
+
 
 	@Override
 	public int countAuctionDisAgree() {

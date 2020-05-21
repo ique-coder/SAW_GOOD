@@ -10,6 +10,10 @@ public interface AdminAuctionDao {
 	//옥션 뷰
 	Map<String,String> selectOneAuction(SqlSession session,int acno);
 	
+	//옥션 동의 리스트
+	List<Map<String,String>> selectAuctionAgree(SqlSession session,int cPage,int numPerPage);
+	int countAuctionAgree(SqlSession session);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage);
 	int countAuctionDisAgree(SqlSession session);

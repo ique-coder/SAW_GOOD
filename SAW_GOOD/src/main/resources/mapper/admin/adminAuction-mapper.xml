@@ -5,6 +5,13 @@
 		SELECT * FROM AUCTION WHERE ACBOARDNO=#{acno}
 	</select>
 	
+	<select id="selectAuctionAgree">
+		SELECT * FROM AUCTION WHERE ACSTATUS=1 0R ACSTATUS=2 ORDER BY ACBOARDNO DESC
+	</select>
+	<select id="countAuctionAgree">
+		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2
+	</select>
+	
 	<select id="selectAuctionDisAgree" resultType="map">
 		SELECT * FROM AUCTION WHERE ACSTATUS=0 ORDER BY ACBOARDNO DESC
 	</select>
