@@ -209,6 +209,51 @@ public class AdminAuctionController {
 		mv.setViewName("admin/common/msg");
 		return mv;
 	}
+	
+	//옥션 체크 옥션 완료 삭제
+	@RequestMapping("/admin/deleteFnCkAuction")
+	public ModelAndView deleteFnCkAuction(ModelAndView mv,String[] aucCheck) {
+		
+		String msg="";
+		int result=0;
+		
+		try {
+			result=service.deleteFnCkAuction(aucCheck);
+		}catch(RuntimeException e) {
+			msg="선택한 경매 삭제를 실패 하였습니다.";
+		}
+		if(result>0) {
+			msg="선택한경매를 삭제 하였습니다.";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/auctionAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;	
+	}
+	//옥션 진행중 선택 삭제
+	@RequestMapping("/admin/deleteIngCkAuction")
+	public ModelAndView deleteIngCkAuction(ModelAndView mv,String[] aucCheck) {
+		
+		String msg="";
+		int result=0;
+		
+		try {
+			result=service.deleteIngCkAuction(aucCheck);
+		}catch(RuntimeException e) {
+			msg="선택한 경매 환불 및 삭제를 실패 하였습니다.";
+		}
+		
+		if(result>0) {
+			msg="선택한경매를 환불 및 삭제 하였습니다.";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/auctionAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;	
+	}
+	
 	//옥션 비동의 페이지
 	@RequestMapping("admin/auctionDisAgreeList")
 	public ModelAndView auctionDisAgreeList(ModelAndView mv,@RequestParam(value="cPage",defaultValue="1") int cPage,

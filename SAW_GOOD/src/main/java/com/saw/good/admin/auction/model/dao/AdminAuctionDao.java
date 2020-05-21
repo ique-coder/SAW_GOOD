@@ -23,8 +23,15 @@ public interface AdminAuctionDao {
 	
 	//옥선 진행중 환불 및 삭제
 	Map<String,String> selectMaxPriceMember(SqlSession session,int acno);
-	int updateRefundPoint(SqlSession session,Map<String,String> map);
+	int updateRefundPoint(SqlSession session,Map<String,String> map);//선택도 가능
 	int deleteIngOneAgAuction(SqlSession session,int acno);
+	
+	//옥션 진행중 선택 환불 및 삭제
+	Map<String,String> selectMaxPriceMem(SqlSession session,String s);
+	int deleteIngCkAuction(SqlSession session,String s);
+	
+	//옥션 완료 선택삭제
+	int deleteFnCkAuction(SqlSession session,String s);
 	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage);

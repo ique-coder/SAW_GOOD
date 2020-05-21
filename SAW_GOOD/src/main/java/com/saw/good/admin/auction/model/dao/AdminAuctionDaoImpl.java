@@ -67,6 +67,26 @@ public class AdminAuctionDaoImpl implements AdminAuctionDao {
 		// TODO Auto-generated method stub
 		return session.delete("adAuction.deleteIngOneAgAuction", acno);
 	}
+	
+	//옥션완료 선택삭제
+	@Override
+	public int deleteFnCkAuction(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.delete("adAuction.deleteFnCkAuction", s);
+	}
+	
+	//옥션 진행중 선택 환불 및 삭제
+	@Override
+	public Map<String, String> selectMaxPriceMem(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adAuction.selectMaxPriceMem",s);
+	}
+	
+	@Override
+	public int deleteIngCkAuction(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.delete("adAuction.deleteIngCkAuction",s);
+	}
 	//옥션 비동의 리스트
 	@Override
 	public List<Map<String, String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage) {

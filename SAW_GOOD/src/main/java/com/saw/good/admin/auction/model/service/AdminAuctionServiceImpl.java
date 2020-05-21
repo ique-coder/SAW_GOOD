@@ -1,5 +1,6 @@
 package com.saw.good.admin.auction.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,16 +69,56 @@ public class AdminAuctionServiceImpl implements AdminAuctionService {
 		int result=0;
 		//가장 높은 금액의 멤버와 금액 가져오기
 		Map<String,String> map=dao.selectMaxPriceMember(session,acno);
-		//먼저 환불
-		result=dao.updateRefundPoint(session,map);
-		if(result==0) {
-			throw new RuntimeException();
+		if(map != null) {
+			result=dao.updateRefundPoint(session,map);
+			if(result==0) {
+				throw new RuntimeException();
+			}
 		}
 		result=dao.deleteIngOneAgAuction(session,acno);
 		if(result==0) {
 			throw new RuntimeException();
 		}
+		
 
+		return result;
+	}
+	
+	//옥션완료 선택삭제
+	@Override
+	public int deleteFnCkAuction(String[] aucCheck) throws RuntimeException{
+		// TODO Auto-generated method stub
+		int result=0;
+		
+		for(String s:aucCheck) {
+			result=dao.deleteFnCkAuction(session,s);
+			if(result==0) {
+				throw new RuntimeException();
+			}
+		}
+		
+		return result;
+	}
+	//옥션 진행중 선택 삭제 및 환불
+	@Override
+	public int deleteIngCkAuction(String[] aucCheck) throws RuntimeException{
+		// TODO Auto-generated method stub
+		int result=0;
+		
+		for(String s : aucCheck) {
+			Map<String,String> map=dao.selectMaxPriceMem(session,s);
+			if(map != null) {
+				result=dao.updateRefundPoint(session,map);
+				if(result==0) {
+					throw new RuntimeException();
+				}
+			}
+			result=dao.deleteIngCkAuction(session,s);
+			if(result==0) {
+				throw new RuntimeException();
+			}
+		}
+		
 		return result;
 	}
 	//옥션 비동의 리스트

@@ -457,7 +457,8 @@ label {
 				<input type="hidden" name="searchType" value="${searchType }"/>
 				<input type="hidden" name="keyword" value="${keyword }"/>
 				<input type="hidden" name="enrollDate" value="${enrollDate }"/>
-				<input type="hidden" name="fundSt" value="${fundSt }"/>
+				<input type="hidden" name="rank" value="${rank }"/>
+				<input type="hidden" name="howStatus" value="${howStatus }"/>
 				<c:if test="${category !=null }">
 						<c:forEach items="${category }" var="c">
 							<input type="hidden" name="category" value="${c }"/>

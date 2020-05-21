@@ -22,6 +22,12 @@ public interface AdminAuctionService {
 	//옥션 진행중 환불 및 삭제
 	int deleteIngOneAgAuction(int acno);
 	
+	//옥션완료 선택 삭제
+	int deleteFnCkAuction(String[] aucCheck);
+	
+	//옥션 진행중 선택삭제 
+	int deleteIngCkAuction(String[] aucCheck);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(int cPage,int numPerPage);
 	int countAuctionDisAgree();

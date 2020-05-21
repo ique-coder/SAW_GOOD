@@ -103,6 +103,18 @@
 		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
 	</delete>
 	
+	<delete id="deleteFnCkAuction" parameterType="string">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	
+	<select id="selectMaxPriceMem" parameterType="string" resultType="map">
+		SELECT USERID,BIDPRICE FROM (SELECT USERID,BIDPRICE FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acno}
+		 ORDER BY BIDPRICE DESC) WHERE ROWNUM = 1
+	</select>
+	<delete id="deleteIngCkAuction" parameterType="string">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	
 	<select id="selectAuctionDisAgree" resultType="map">
 		SELECT * FROM AUCTION WHERE ACSTATUS=0 ORDER BY ACBOARDNO DESC
 	</select>
