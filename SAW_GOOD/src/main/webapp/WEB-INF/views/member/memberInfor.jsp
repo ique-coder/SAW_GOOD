@@ -70,7 +70,7 @@
 				<form id="profileForm" action="${path}/member/memberUpdate" enctype="multipart/form-data"
 					method="post" style="height: 80%;">
 					<div class="row" style="height: 100%;">
-						<div class="col-md-6" style="margin-top: 5%">
+						<div class="col-md-6" style="margin-top: 3%">
 							<div id="profileImg"
 								style="width: 60%; height: 50%; border-radius: 125px; display: block; margin-left: 23%;">
 							<c:if test="${mem.reProfile !=null }">
