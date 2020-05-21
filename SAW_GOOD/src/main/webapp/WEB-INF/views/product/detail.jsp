@@ -24,17 +24,21 @@
                         
                         <div class="pro-name" style="font-weight: 400;">
                             <div class="starRev">
-                                <span class="starR1 on">별1_왼쪽</span>
-                                <span class="starR2">별1_오른쪽</span>
-                                <span class="starR1">별2_왼쪽</span>
-                                <span class="starR2">별2_오른쪽</span>
-                                <span class="starR1">별3_왼쪽</span>
-                                <span class="starR2">별3_오른쪽</span>
-                                <span class="starR1">별4_왼쪽</span>
-                                <span class="starR2">별4_오른쪽</span>
-                                <span class="starR1">별5_왼쪽</span>
-                                <span class="starR2">별5_오른쪽</span>
-                              </div>
+                            	<c:set var="sum" value="0"/>
+		                        <c:forEach items="${review }" var="r">
+		                        	<c:set var="sum" value="${sum+r.star }"/>
+		                        </c:forEach>
+		                        <fmt:parseNumber var= "tStar" integerOnly= "true" value= "${(sum/totalReview)-((sum/totalReview)%1) }" />
+		                        <c:forEach begin="1" end="${tStar }" step="1">
+		                    		<i class="fas fa-star" style="color: orange; font-size: 14px;"></i>
+		                    	</c:forEach>
+				                   <c:if test="${tStar != 5 }">
+					                   <c:forEach begin="1" end="${5-tStar }" step="1">
+					                    <i class="fas fa-star" style="color: lightgray; font-size: 14px;"></i>
+					               	   </c:forEach>
+				                   </c:if>
+				                    <%-- ${ (sum/totalReview)-((sum/totalReview)%1)} --%>
+                            </div>
                         </div>
                         <div class="record">
                             <span style="font-size:12px;color:#cc0000;font-weight:bold;">판매가</span>
@@ -85,7 +89,7 @@
                     </div>
                 </div>
                 <div class="imgArea">
-                    <img src="http://placehold.it/600x500" class="bigImg">
+                    <img src="${path }/resources/upload/newproduct/${product.renamedProductImg }" class="bigImg">
                     <div class="addImg">
                         <ul>
                             <li class="img-record">
@@ -142,10 +146,12 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <form id="review-img" action="${path}/review/reviewImg" method="post" enctype="multipart/form-data">
-					<input type="file" name="file" id="file" accept="image/*" style="display:none"/>
-				</form>
-                <form id="review-message" method="post" action="${path }/review/reviewEnd" enctype="multipart/form-data">
+				<input type="file" name="file" id="file" accept="image/*" style="display:none"/>
+                <form id="review-message" method="post" action="${path }/review/reviewEnd" enctype="multipart/form-data" onsubmit="return valiwrite();">
+                	<input type="hidden" name="rename" id="rename"/>
+                	<input type="hidden" name="original" id="original"/>
+                	<input type="hidden" name="no" value="${product.productNo }"/>
+                	<input type="hidden" name="userId" value="${loginMember.userId }"/>
                 <div class="review-container">
                     <div>
                             <textarea class="review-message" name="reContent" id="reContent" placeholder="고객님의 소중한 제품 리뷰를 남겨주세요"></textarea>
@@ -193,10 +199,10 @@
                 <div class="review-summary">
                     <div class="avg-score">
                         <div class="summary-score">
-                            4.8
+                        	<fmt:formatNumber value="${sum/totalReview }" pattern="0.0"/>
                         </div>
                         <div class="review-count">
-                            3,911개 리뷰 평점
+                            <c:out value="${totalReview }"/>개 리뷰 평점
                         </div>
                     </div>
                     <ul class="avg-bar">
@@ -206,10 +212,10 @@
                                     5 stars
                                 </div>
                                 <div class="avg-status">
-                                    (1,000)
+                                    (<c:out value="${fiveStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: 80%;"></div>
+                                    <div class="persent" style="width: ${fiveStar/totalReview*100}%;"></div>
                                 </div>
                             </div>
                         </li>
@@ -219,10 +225,10 @@
                                     4 stars
                                 </div>
                                 <div class="avg-status">
-                                    (1,000)
+                                    (<c:out value="${fourStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: 80%;"></div>
+                                    <div class="persent" style="width: ${fourStar/totalReview*100}%;"></div>
                                 </div>
                             </div>
                         </li>
@@ -232,10 +238,10 @@
                                     3 stars
                                 </div>
                                 <div class="avg-status">
-                                    (1,000)
+                                    (<c:out value="${threeStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: 80%;"></div>
+                                    <div class="persent" style="width: ${threeStar/totalReview*100}%;"></div>
                                 </div>
                             </div>
                         </li>
@@ -245,10 +251,10 @@
                                     2 stars
                                 </div>
                                 <div class="avg-status">
-                                    (1,000)
+                                    (<c:out value="${twoStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: 80%;"></div>
+                                    <div class="persent" style="width: ${twoStar/totalReview*100}%;"></div>
                                 </div>
                             </div>
                         </li>
@@ -258,10 +264,10 @@
                                     1 stars
                                 </div>
                                 <div class="avg-status">
-                                    (1,000)
+                                    (<c:out value="${oneStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: 20%;"></div>
+                                    <div class="persent" style="width: ${oneStar/totalReview*100}%;"></div>
                                 </div>
                             </div>
                         </li>
@@ -271,44 +277,73 @@
                     <span style="color: #333333; font-size: 16px;">
                         <strong style="font-weight: bold;">최신순</strong>
                         <span style="color: #333333;font-size: 16px;">
-                            리뷰 (3,000)
+                            리뷰 (<c:out value="${totalReview }"/>)
                         </span>
                     </span>
                 </div>
-                <div class="review-container3">
-                    <div class="info-container">
-                        <ul>
-                            <li>
-                                <div class="info-title">
-                                    작성자
-                                </div>
-                                <div class="info-value">
-                                    결제자이름
-                                </div>
-                            </li>
-                            <li>
-                                <div class="info-title">
-                                    작성일
-                                </div>
-                                <div class="info-value">
-                                    2010.00.00
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <i class="fas fa-star" style="color: orange; font-size: 14px;"></i>
-                    <i class="fas fa-star" style="color: lightgray; font-size: 14px;"></i>
-                    <span style="margin-left: 9px; font-size: 14px; color: gray;">- 아주 좋아요</span>
-                    <div class="review-content">
-                        <p>내용</p>
-                    </div>
-                    <div>
-                        <ul class="review-content-img">
-                            <li>
-                                <img class="img-size" src="http://placehold.it/600x500">
-                            </li>
-                        </ul>
-                    </div>
+                <c:if test="${not empty review }">
+                	<c:forEach items="${review }" var="r">
+                		<div class="review-container3">
+		                    <div class="info-container">
+		                        <ul>
+		                            <li>
+		                                <div class="info-title">
+		                                    	작성자
+		                                </div>
+		                                <div class="info-value">
+		                                    	<c:out value="${r.userId }"/>
+		                                </div>
+		                            </li>
+		                            <li>
+		                                <div class="info-title">
+		                                    	작성일
+		                                </div>
+		                                <div class="info-value">
+		                                    <fmt:formatDate value="${r.writeDate }" pattern="yyyy.MM.dd"/>
+		                                </div>
+		                            </li>
+		                        </ul>
+		                    </div>           
+		                    <c:forEach begin="1" end="${r.star }" step="1">
+		                    	<i class="fas fa-star" style="color: orange; font-size: 14px;"></i>
+		                    </c:forEach>
+		                    <c:if test="${r.star != 5 }">
+			                    <c:forEach begin="1" end="${5-r.star }" step="1">
+			                    	<i class="fas fa-star" style="color: lightgray; font-size: 14px;"></i>
+			                    </c:forEach>
+		                    </c:if>
+		                    <span style="margin-left: 9px; font-size: 14px; color: gray;">- 아주 좋아요</span>
+		                    <div class="review-content">
+		                        <p><c:out value="${r.content }"/></p>
+		                    </div>
+		                    <c:if test="${not empty r.reviewImg }">
+		                    	<c:if test="${fn:contains(r.renameImg, ',') }">
+		                    		<c:set var="reImg" value="${fn:split(r.renameImg, ',') }"/>
+				                    <div>
+				                        <ul class="review-content-img">
+				                        	<c:forEach items="${reImg }" var="re">
+					                            <li>
+					                                <img class="review-size" src="${path }/resources/upload/review/${re}">
+					                            </li>
+				                            </c:forEach>
+				                        </ul>
+				                    </div>
+				            	</c:if>
+				            	<c:if test="${not fn:contains(r.renameImg, ',') }">
+					            	<div>
+					                    <ul class="review-content-img">
+						                    <li>
+						                        <img class="review-size" src="${path }/resources/upload/review/${r.renameImg}">
+						                    </li>
+					                    </ul>
+					                </div>
+				            	</c:if>
+			            	</c:if>     
+                		</div>
+		        	</c:forEach>
+                </c:if>
+                <div style="clear:both;">
+                    ${repageBar }
                 </div>
             </div>
             <div id="qna">
@@ -378,7 +413,7 @@
 	                            				<input type="button" value="확인" class="check_btn" onclick="qna_rock(${q.qnaNo},'${q.content }');"/>
 	                            				<c:if test="${loginMember.status == 3 and q.replyLevel == 0}">
 		                            				<div style="float:right;">
-		                            					<input type="button" value="답변하기" onclick="location.href='${path}/qna/qnaReply?no=${product.productNo}&qna=${q.qnaNo }'">
+		                            					<input type="button" value="답변하기" onclick="location.href='${path}/qna/qnaReply?no=${product.productNo}&qna=${q.qnaNo }&title=${q.title }'">
 		                            				</div>
 	                            				</c:if>
 	                            			</div>
@@ -476,11 +511,68 @@
             });
             var img=1;
             var preview;
+            function rename(){
+            	var formData = new FormData();
+				//첫번째 파일태그
+				formData.append("uploadfile",$("input[id=file]")[0].files[0]);
+				//console.log($("input[id=file]")[0].files[0]);
+             	var title;
+             	var alt;
+                // ajax
+                $.ajax({
+                    type:'POST',
+                    url:'${path}/review/reviewImg',
+                    data:formData,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                    success : function(data, textStatus, xhr) {
+                    	//console.log(data.renamed);
+                        title=data.renamed;
+                        alt=data.original;
+                        
+                    },
+                    error : function(request,status,error) {  
+                       alert("code:"+request.status+"\n"+"error:"+error);
+                    }
+                });
+                return [title, alt];
+            }
+            /* function original(){
+            	var formData = new FormData();
+				//첫번째 파일태그
+				formData.append("uploadfile",$("input[id=file]")[0].files[0]);
+				//console.log($("input[id=file]")[0].files[0]);
+             	var alt;
+                // ajax
+                $.ajax({
+                    type:'POST',
+                    url:'${path}/review/reviewImg',
+                    data:formData,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                    success : function(data, textStatus, xhr) {
+                    	//console.log(data.renamed);
+                        alt=data.original;
+                        
+                    },
+                    error : function(request,status,error) {  
+                       alert("code:"+request.status+"\n"+"error:"+error);
+                    }
+                });
+                return alt;
+            } */
             $(".review-photo").hide();
-            $("#file").change({param_img : img},function(event){            	
+            $("#file").change({param_img : img},function(event){ 
             	$(".review-photo").show();
+            	
+                
             	var get_file = event.target.files;
                 var image = document.createElement('img');
+                var renames = rename();
+                image.title=renames[0];
+                image.alt=renames[1];
                 console.log(get_file[0].name);
             
                 /* FileReader 객체 생성 */
@@ -494,7 +586,6 @@
                         $(aImg).addClass("img-size");
                     }
                 })(image)
-         
                 if(get_file){
                     /* 
                         get_file[0] 을 읽어서 read 행위가 종료되면 loadend 이벤트가 트리거 되고 
@@ -514,26 +605,6 @@
                 	var img = $(div).children().children(".img-wrap");
             		$(img).last().append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
             	}
-            	$("review-img").submit();
-                $("input[name='file']").val();
-                var frm = document.getElementById('file');
-                console.log(frm.files);
-                //var fileData = new FormData(frm);
-             
-                // ajax
-                $.ajax({
-                    type:'POST',
-                    url:'${path}/review/reviewImg',
-                    data:frm.files,
-                    processData: false,
-                    contentType: false,
-                    success : function(data, textStatus, xhr) {
-                        console.log(data);
-                    },
-                    error : function(request,status,error) {  
-                       alert("code:"+request.status+"\n"+"error:"+error);
-                    }
-                });
             	
             })
             $("#reContent").click(function(){
@@ -600,8 +671,46 @@
         	if(!$(".ul-photo").children().is("li")){
         		$(".review-photo").css("display","none");
         	}
+        	var rename = $(event.target).parent().children(".img-wrap").children().attr("title");
+        	console.log(rename);
+        	// ajax
+            $.ajax({
+                type:'POST',
+                url:'${path}/review/deleteImg',
+                data:{"rename":rename},
+                success : function(data, textStatus, xhr) {
+                    console.log(data);
+                },
+                error : function(request,status,error) {  
+                   alert("code:"+request.status+"\n"+"error:"+error);
+                }
+            });
+        }
+        $("#review-message").submit(function(){
+        	var rename = new Array();
+        	var original = new Array();
+        	
+        	$(".img-wrap img").each(function(index,item){
+        		rename.push(item.title);
+        		rename.join(",");
+        		original.push(item.alt);
+        		original.join(",");
+        	})
+        	$("#rename").val(rename);
+        	$("#original").val(original);
+        })
+        function valiwrite(){
+        	if(${loginMember eq null or loginMember == ""}){            		
+        		var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+        		if(result){            			
+        			$("#header ol li:last a#login").click();
+        		}
+        		return false;
+        	}else if($("#reContent").val().trim()==""){
+        		alert("리뷰 내용을 작성해주세요");
+        		return false;
+        	}
         }
         
     </script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />

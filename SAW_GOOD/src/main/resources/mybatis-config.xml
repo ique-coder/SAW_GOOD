@@ -13,6 +13,7 @@
 		<typeAlias type="com.saw.good.funding.model.vo.FDReword" alias="fdreword"/>
 		<typeAlias type="com.saw.good.funding.model.vo.Comment" alias="comment"/>
 		<typeAlias type="com.saw.good.product.model.vo.ProductQna" alias="productQna"/>
+		<typeAlias type="com.saw.good.product.model.vo.ProductReview" alias="productReview"/>
 		<typeAlias type="com.saw.good.funding.model.vo.FDSubImg" alias="fdsubimg"/>
 		<typeAlias type="com.saw.good.cart.model.vo.Cart" alias="cart"/>
 	</typeAliases>

@@ -1,5 +1,6 @@
 package com.saw.good.product.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import com.saw.good.common.QnaPage;
 import com.saw.good.product.model.service.ProductService;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
+import com.saw.good.product.model.vo.ProductReview;
 
 @Controller
 public class ProductController {
@@ -58,11 +61,28 @@ public class ProductController {
 		int totalQna=service.countQna(no);
 		String pageBar=QnaPage.getPage(no,totalQna, cPage, numPerPage, "productView");
 		
+		List<ProductReview> pr=service.selectProductReview(no,cPage,numPerPage);
+		int totalReview=service.countReview(no);
+		String repageBar=QnaPage.getPage(no,totalReview, cPage, numPerPage, "productView");
+		int fivestarCnt=service.countFive(no);
+		int fourstarCnt=service.countFour(no);
+		int threestarCnt=service.countThree(no);
+		int twostarCnt=service.countTwo(no);
+		int onestarCnt=service.countOne(no);
+		
+		mv.addObject("fiveStar", fivestarCnt);
+		mv.addObject("fourStar", fourstarCnt);
+		mv.addObject("threeStar", threestarCnt);
+		mv.addObject("twoStar", twostarCnt);
+		mv.addObject("oneStar", onestarCnt);
 		mv.addObject("pageBar", pageBar);
+		mv.addObject("repageBar", repageBar);
 		mv.addObject("numPerPage", numPerPage);
 		mv.addObject("cPage", cPage);
 		mv.addObject("product", p);
 		mv.addObject("qna", pq);
+		mv.addObject("review", pr);
+		mv.addObject("totalReview", totalReview);
 		mv.setViewName("product/detail");
 		return mv;
 	}
@@ -127,12 +147,13 @@ public class ProductController {
 		return mv;
 	}
 	@RequestMapping("/qna/qnaReply")
-	public ModelAndView qnaReply(int no, ModelAndView mv, int qna) {
+	public ModelAndView qnaReply(int no, ModelAndView mv, int qna, String title) {
 		
 		Product p=service.selectProductView(no);
 		
 		mv.addObject("product", p);
 		mv.addObject("qnaNo", qna);
+		mv.addObject("title", title);
 		mv.setViewName("product/qnaReply");
 		return mv;
 	}
@@ -180,34 +201,63 @@ public class ProductController {
 	}
 	@RequestMapping("/review/reviewEnd")
 	public ModelAndView imgUpload(ModelAndView mv, 
-			MultipartHttpServletRequest request, Map map) {
+			MultipartHttpServletRequest request, @RequestParam Map map) {
 		
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		System.out.println(map);
-		//파일 불러오기
-		MultipartFile reviewImg=request.getFile("file");
-		System.out.println("TEST : "+reviewImg);
+		int result = service.insertReview(map);
+		String msg=(result>0)?"등록성공":"등록실패";
+		String loc="/product/productView?no="+map.get("no");
 		
-		mv.addObject("img", reviewImg);
-		//mv.addObject("file", file);
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
 		mv.setViewName("common/msg");
-		
 		return mv;
 	}
 	@RequestMapping("/review/reviewImg")
 	@ResponseBody
 	public ModelAndView reviewUpload(ModelAndView mv,
-			MultipartHttpServletRequest request) {
+			MultipartFile uploadfile, HttpSession session,
+			HttpServletResponse response) throws Exception{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		//파일 불러오기
-		MultipartFile reviewImg=request.getFile("file");
-		System.out.println("test");
-		//System.out.println("TEST : "+reviewImg);
 		
-		//mv.addObject("img", reviewImg);
-		//mv.addObject("file", file);
+		//폴더경로 찾기
+		String path=session.getServletContext().getRealPath("/resources/upload/review");
+		String originalpd="";
+		String renamepd="";
+		
+		//폴더경로 없으면 생성
+		File fileDir = new File(path); 
+		if (!fileDir.exists()) { fileDir.mkdirs(); }
+		//상품 썸네일 이미지
+		if(!uploadfile.isEmpty()) {
+			int rnd=(int)(Math.random()*1000);
+			originalpd=uploadfile.getOriginalFilename();
+			String ext=originalpd.substring(originalpd.lastIndexOf("."));
+			renamepd=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			uploadfile.transferTo(new File(fileDir+"/"+renamepd));
+		}
+		
+		response.setCharacterEncoding("UTF-8");
+		mv.addObject("original", originalpd);
+		mv.addObject("renamed", renamepd);
 		mv.setViewName("jsonView");
 		
+		return mv;
+	}
+	@RequestMapping("/review/deleteImg")
+	@ResponseBody
+	public ModelAndView deleteImg(ModelAndView mv,
+			String rename, HttpSession session)throws Exception{
+		
+		//폴더경로 찾기
+		String path=session.getServletContext().getRealPath("/resources/upload/review");
+		System.out.println(rename);
+		File fileDir = new File(path);
+		File delete=new File(fileDir+"/"+rename);
+		if(delete.exists()) {
+			delete.delete();
+		}
+		
+		mv.setViewName("jsonView");
 		return mv;
 	}
 	@RequestMapping("/search/searchForm")

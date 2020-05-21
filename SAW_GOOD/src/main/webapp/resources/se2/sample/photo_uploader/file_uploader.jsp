@@ -17,6 +17,10 @@
 <%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <%
 	// 로컬경로에 파일 저장하기 ============================================
 	String return1 = "";
@@ -88,7 +92,7 @@
 //					}
 
 					///////////////// 서버에 파일쓰기 /////////////////
-					return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/spring/resources/upload/qna"+realname;
+					return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=${path}/resources/upload/qna/"+realname;
 					System.out.println("return3 : "+return3);
 				} else {
 					return3 += "&errstr=error";

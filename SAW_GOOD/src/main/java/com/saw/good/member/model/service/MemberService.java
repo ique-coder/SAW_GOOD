@@ -1,12 +1,9 @@
 package com.saw.good.member.model.service;
 
-<<<<<<< HEAD
 import java.util.Map;
 
-=======
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
->>>>>>> branch 'master' of https://github.com/ique-coder/SAW_GOOD.git
 import com.saw.good.member.model.vo.Member;
 
 public interface MemberService {

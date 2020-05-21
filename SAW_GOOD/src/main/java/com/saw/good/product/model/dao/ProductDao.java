@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
+import com.saw.good.product.model.vo.ProductReview;
 
 public interface ProductDao {
 	
@@ -20,6 +21,14 @@ public interface ProductDao {
 	int insertQna(SqlSessionTemplate session, Map map);
 	int insertReplyQna(SqlSessionTemplate session, Map map);
 	List<ProductQna> selectProductQna(SqlSessionTemplate session, int no,int cPage,int numPerPage);
+	List<ProductReview> selectProductReview(SqlSessionTemplate session, int no,int cPage,int numPerPage);
 	int countQna(SqlSessionTemplate session, int no);
+	int countReview(SqlSessionTemplate session, int no);
 	ProductQna selectQnaCheck(SqlSessionTemplate session, int no);
+	int insertReview(SqlSessionTemplate session, Map map);
+	int countFive(SqlSessionTemplate session, int no);
+	int countFour(SqlSessionTemplate session, int no);
+	int countThree(SqlSessionTemplate session, int no);
+	int countTwo(SqlSessionTemplate session, int no);
+	int countOne(SqlSessionTemplate session, int no);
 }
