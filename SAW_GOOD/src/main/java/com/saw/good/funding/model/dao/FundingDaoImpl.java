@@ -150,6 +150,18 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.selectList("funding.selectFDSubImgList",fdNo);
 	}
+
+	@Override
+	public int updateFunding(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateFunding", f);
+	}
+
+	@Override
+	public int updateFunding2(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateFunding2", f);
+	}
 	
 	
 	

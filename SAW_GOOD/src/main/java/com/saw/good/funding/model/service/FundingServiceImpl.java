@@ -200,6 +200,17 @@ public class FundingServiceImpl implements FundingService{
 		return dao.selectFDSubImg(session,fdNo);
 	}
 
+
+	@Override
+	public int updateFunding(Funding f) {
+		// TODO Auto-generated method stub
+		if(f.getEndDate()==null) {
+			return dao.updateFunding(session,f);
+		}else {
+			return dao.updateFunding2(session,f);
+		}
+	}
+
 	
 	
 	

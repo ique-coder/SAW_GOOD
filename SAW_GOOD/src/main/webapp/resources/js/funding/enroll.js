@@ -72,7 +72,7 @@ $("#designer").blur(function(){
 	}
 })
 $("#subContent").blur(function(){
-	console.log($(this).val());
+	
 	var reg =/^[\w\W+]{0,130}$/;
 	if(!reg.test($(this).val())){
 		alert("130자 이하로 입력해주세요");

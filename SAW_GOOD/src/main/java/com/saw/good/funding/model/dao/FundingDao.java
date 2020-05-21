@@ -57,6 +57,10 @@ public interface FundingDao {
 
 	List<FDSubImg> selectFDSubImg(SqlSession session, int fdNo);
 
+	int updateFunding(SqlSession session, Funding f);
+
+	int updateFunding2(SqlSession session, Funding f);
+
 
 
 }

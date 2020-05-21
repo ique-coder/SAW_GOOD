@@ -460,4 +460,26 @@ public class FundingController {
 		
 		return mv;
 	}
+	@RequestMapping("/funding/enroll/modifyEnd")
+	public ModelAndView FunctionModifyEnd(ModelAndView mv , Funding f,@RequestParam(required=false,defaultValue="") String finalDate) {
+		
+		System.out.println("finalDate: "+finalDate);
+		if(!finalDate.equals("") && finalDate != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date endDate = sdf.parse(finalDate);
+				f.setEndDate(endDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		System.out.println(f);
+		int result = service.updateFunding(f);
+		
+		return mv;
+		
+	}
+	
 }

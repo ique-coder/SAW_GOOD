@@ -9,12 +9,13 @@
 	</jsp:include>
 <link rel="stylesheet" href="${path }/resources/css/funding/enroll.css?ver=6"/>
 
-	<form action="${path }/funding/enroll/step2" method="post" enctype="multipart/form-data" id="enroll"> 
+	<form action="${path }/funding/enroll/modifyEnd" method="post" enctype="multipart/form-data" id="enroll"> 
 	<section>
          <div class="container">
             <div class="col-md-12">
                 <section class="row first-row">
                     <div class="col-md-7 img-container" style="height:100%;">
+                    	<input type="hidden" name="fdNo" value="${f.fdNo }"/>
                         <img <c:if test="${not empty f.mainImg}">src="${path }/resources/images/${f.mainImg}"</c:if>
                          class="images col-md-12" style="height: 700px;" id="main"/> 
                          <div class="col-md-12 row" style="height:100px; margin:0;">
@@ -84,7 +85,7 @@
                                             <option value="others"<c:if test="${f.category =='others' }">selected</c:if>>기타</option>
                                         </select></p></td> 
                                 </tr>
-                                <c:if test="${not empty f.endDate }">
+                                
                                  <tr>
                                  	<td>종료일자 </td>
                                  	<td>
@@ -93,22 +94,12 @@
                                  	
                                 </tr>
                                 <tr>
-                                	<td>변경을 원하시면 입력해주세요</td>
+                                 	<td>변경하기</td>
                                  	<td>
-                                 		<input type="date" name="finalDate" class="inputStyle" id="endDate" />
-                                 	</td>
-                                </tr>
-                                
-                                </c:if> 
-                                <c:if test="${empty f.endDate }">
-                               	<tr>
-                                 	<td>종료일자</td>
-                                 	<td>
-                                 		<input type="date" name="finalDate" class="inputStyle" id="endDate" />
+                                 		<input type="date" name="finalDate" id="endDate"/>
                                  	</td>
                                  	
-                                </tr> 
-                                </c:if>
+                                </tr>
                             </tbody>
                            <!--  <tbody id="reword-container">
                            		 <tr>
@@ -201,7 +192,7 @@
                 			<tr>
                 				<td colspan="2" >사진 등록하기</td>
                 			</tr>
-                			 <tr>
+                			<%--  <tr>
                 				<th>
                 				메인 사진 추가하기 
                 				</th>
@@ -217,7 +208,7 @@
                 				<td>
                 					<input  type="file" name="subPic" onchange="imagePreviewArr(event);" accept="image/*" multiple id="subPic">
                 				</td>
-                			</tr> 
+                			</tr>  --%>
                 		</thead>
                 		<!-- <thead>
 	                		<tr>
@@ -285,6 +276,6 @@
 		</div>
     </section> 
     </form>
-  	<script src="${path }/resources/js/funding/enroll.js"></script>
+  	<script src="${path }/resources/js/funding/updateFunding.js"></script>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

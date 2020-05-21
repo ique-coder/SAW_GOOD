@@ -54,6 +54,8 @@ public interface FundingService {
 	Funding selectItem(Map map);
 
 	List<FDSubImg> selectFDSubImg(int fdNo);
+
+	int updateFunding(Funding f);
 	
 
 
