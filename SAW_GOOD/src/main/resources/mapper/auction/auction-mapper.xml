@@ -96,5 +96,12 @@
  	<insert id="insertAuctionServeImg" parameterType="com.saw.good.auction.model.vo.AuctionServeImg">
 		INSERT INTO AUCTIONSERVEIMG VALUES(#{acBoardNo},#{acOriNameServe},#{acReNameServe})
 	</insert>
+	<update id="updateSalePoint" parameterType="auction">
+		UPDATE MEMBER SET POINT = POINT + #{acNowPrice} WHERE USERID='skmb1230'
+	</update>
+	
+	<update id="updateAcFnStatus" parameterType="auction">
+		UPDATE AUCTION SET ACSTATUS = 3 WHERE ACBOARDNO = #{acBoardNo}
+	</update>
  	
 </mapper>

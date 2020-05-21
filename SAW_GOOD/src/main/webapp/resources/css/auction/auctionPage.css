@@ -243,3 +243,21 @@ div.boderbottom-Red{
 .auctionProduct:hover{
 	box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
 }
+/* 글쓰기 버튼 */
+.enroll-container{
+	display: block;
+    /* border-bottom: solid 1px #E1E0E1; */
+    position: relative;
+    padding: 0 10px;
+}
+.inputred{
+	width:100%;
+	height:30px;
+	border: 1px solid  #E1E0E1;
+	outline:none;
+	background-color:white;
+	margin-bottom:5px;
+	border-radius:3px;
+	color:#ee987c;
+	
+}
