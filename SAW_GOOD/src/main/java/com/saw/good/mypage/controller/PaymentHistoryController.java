@@ -22,8 +22,11 @@ public class PaymentHistoryController {
 	@RequestMapping("/mypage/ph.do")
 	public ModelAndView ph(ModelAndView mv, @SessionAttribute("loginMember") Member m) {
 
-//		List<Map<String,String>> product = service.product(userId);
+		String userId = m.getUserId();
 		
+		List<Map<String,String>> list = service.product(userId);
+		
+		mv.addObject("list", list);
 		mv.addObject("member",m);
 		mv.setViewName("/mypage/paymentHistory");
 		
@@ -44,23 +47,20 @@ public class PaymentHistoryController {
 		return mv;
 	}
 	
-	@RequestMapping("/mypage/moveSub")
-	public ModelAndView subMove(ModelAndView mv, String status) {
+	@RequestMapping("/mypage/funding.do")
+	public ModelAndView funding(ModelAndView mv, @SessionAttribute("loginMember") Member m) {
+
+		String userId = m.getUserId();
 		
-		System.out.println(status);
+		List<Map<String,String>> list = service.funding(userId);
 		
-		switch (status) {
-		case "product":
-			mv.setViewName("redirect:/mypage/ph.do");
-			break;
-		case "funding" :
-			break;
-		case "action" :
-			break;
-		}
+		mv.addObject("list", list);
+		mv.addObject("member",m);
+		mv.setViewName("/mypage/fundingPH");
 		
 		return mv;
 	}
+	
 //	public String subMove(String status) {
 //		System.out.println(status);
 //		return "/mypage/paymentHistory";
