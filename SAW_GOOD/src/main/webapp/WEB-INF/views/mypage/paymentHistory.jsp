@@ -111,7 +111,7 @@
 									<span class="brand">[${p['BRAND'] }]</span> <span class="productName">${p['PRODUCTNAME'] }</span>
 								</p>
 								<p class="priceDate">
-									<span class="productPrice">${p['PROTOPTALPRICE'] }(${p['PRODUCTNUM'] })</span> 
+									<span class="productPrice">${p['PROTOPTALPRICE'] } (${p['PRODUCTNUM'] }개)</span> 
 									<span class="sendDate">${p['BUYDATE'] }</span>
 								</p>
 								
