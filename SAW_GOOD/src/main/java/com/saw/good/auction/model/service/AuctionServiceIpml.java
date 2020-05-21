@@ -144,6 +144,16 @@ public class AuctionServiceIpml implements AuctionService {
 		return result;
 	}
 
+	@Override
+	public int updateSalePoint(Auction a) {
+		int result = 0;
+		result = dao.updateSalePoint(session,a);
+		if(result>0) {
+			result=dao.updateAcFnStatus(session,a);
+		}
+		return result;
+	}
+
 	
 
 	

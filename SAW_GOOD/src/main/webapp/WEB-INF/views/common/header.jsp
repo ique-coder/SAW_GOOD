@@ -74,7 +74,7 @@
           	  <ol class="col-md-3 row">
 
 	             <li class="col-md-3"><a href="${path }/signup">my page</a></li>
-	             <li class="col-md-3"><a href="${path }//member/info.do">my Info</a></li>
+	             <li class="col-md-3"><a href="${path }/member/info.do">my Info</a></li>
 	             <li class="col-md-3"><a href="${path }/payment/cart">cart</a></li>
 	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
 
