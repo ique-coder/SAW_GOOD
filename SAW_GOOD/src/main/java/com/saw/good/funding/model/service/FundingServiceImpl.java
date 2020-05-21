@@ -187,10 +187,12 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 
+	
+
 	@Override
-	public Funding selectItem(Map map) {
+	public Funding selectItem(Funding funding) {
 		// TODO Auto-generated method stub
-		return dao.selectItem(session, map);
+		return dao.selectItem(session, funding);
 	}
 
 
@@ -211,7 +213,26 @@ public class FundingServiceImpl implements FundingService{
 		}
 	}
 
-	
+
+	@Override
+	public int updateFundingImg(Funding f) {
+		// TODO Auto-generated method stub
+		return dao.updateFundingImg(session,f);
+	}
+
+
+	@Override
+	public int updateFundingSubImg(List<FDSubImg> subImglist) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		if(!subImglist.isEmpty()) {
+			for(FDSubImg fs : subImglist) {
+				result = dao.updateFDSubImg(session,fs);
+			}
+		}
+		return result ;
+	}
+
 	
 	
 	
