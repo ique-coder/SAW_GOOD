@@ -83,5 +83,18 @@
  	<update id="updateStAuction" parameterType="auction">
  		UPDATE AUCTION SET ACSTATUS = 2 WHERE ACBOARDNO = #{acBoardNo}
  	</update>
+ 	<insert id="insertAuction" parameterType="auction">
+ 		INSERT INTO AUCTION VALUES(SEQ_AC_BOARD_NO.NEXTVAL,#{userId},#{acTitle},#{acProName},
+ 									#{acStartPrice},1000,DEFAULT,#{acImdPrice},#{acStatusRank},
+ 									#{acCategory},#{acBrand},#{acMainImg},#{acProSize},
+ 									#{acComent},SYSDATE,SYSDATE+#{acEndDateNum},#{acBuyDate},#{acProUrl},0,#{acReMainImg})
+ 		<selectKey keyProperty="acBoardNo" resultType="_int" order="AFTER">
+			SELECT SEQ_AC_BOARD_NO.CURRVAL FROM DUAL
+		</selectKey>
+ 	</insert>
+
+ 	<insert id="insertAuctionServeImg" parameterType="com.saw.good.auction.model.vo.AuctionServeImg">
+		INSERT INTO AUCTIONSERVEIMG VALUES(#{acBoardNo},#{acOriNameServe},#{acReNameServe})
+	</insert>
  	
 </mapper>
