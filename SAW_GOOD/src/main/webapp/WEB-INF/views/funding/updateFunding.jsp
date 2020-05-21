@@ -16,13 +16,16 @@
                 <section class="row first-row">
                     <div class="col-md-7 img-container" style="height:100%;">
                     	<input type="hidden" name="fdNo" value="${f.fdNo }"/>
-                        <img <c:if test="${not empty f.mainImg}">src="${path }/resources/images/${f.mainImg}"</c:if>
+                    	<input type="hidden" name="userId" value="${f.userId }"/>
+                        <img src="${path }/resources/images/funding/${f.mainImg}"
                          class="images col-md-12" style="height: 700px;" id="main"/> 
+                         <input type="hidden" name = "main" value="${f.mainImg}"/>
                          <div class="col-md-12 row" style="height:100px; margin:0;">
-                         <c:if test="${not empty img }">
+                          <c:if test="${not empty img }">
                          	<c:forEach items="${img }" varStatus='status' var="item">
 	                         	<img class="col-md-3 images" src="${path }/resources/images/funding/${item.subImg}"
 	                         	id="sub${status.index}"/>
+	                         	<input type="hidden" name="sub" value="${item.subImg }"/>
                          	</c:forEach>
                          </c:if>
                          
@@ -36,6 +39,7 @@
                          	id="sub2"/>
                          	<img class="col-md-3 images"src="" id="sub3"/>
                          	</c:if>
+                         
                          </div>
                     </div>
                     <div id="p-table" class="col-md-5" style="height: 100%;">
@@ -192,12 +196,12 @@
                 			<tr>
                 				<td colspan="2" >사진 등록하기</td>
                 			</tr>
-                			<%--  <tr>
+                			  <tr>
                 				<th>
                 				메인 사진 추가하기 
                 				</th>
                 				<td>
-                					<input  type="file"  name="mainPic" id ="mainPic" onchange="imagePreview(event);" accept="image/*" value="${f.mainImg }">
+                					<input  type="file"  name="mainPic" id ="mainPic" onchange="imagePreview(event);" accept="image/*" value="">
                 				</td>
                 			
                 			</tr> 
@@ -208,7 +212,7 @@
                 				<td>
                 					<input  type="file" name="subPic" onchange="imagePreviewArr(event);" accept="image/*" multiple id="subPic">
                 				</td>
-                			</tr>  --%>
+                			</tr> 
                 		</thead>
                 		<!-- <thead>
 	                		<tr>

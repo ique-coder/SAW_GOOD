@@ -14,7 +14,6 @@
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
 	integerOnly="true" var="today"></fmt:parseNumber>
 <!-- 가져온 날짜 세팅 -->
-<fmt:parseNumber value="${a.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
 <section>
 		
         <!-- <div class="container-fluid" style="margin-top: 50px;"> -->
@@ -44,8 +43,9 @@
                                 <h2>경매 제목</h2>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" id="auction-name" class="pilsu"
-                                        name="acTitle" placeholder="제목 입력" value="">
+                                <input type="text" id="acTitle" class="pilsu" style="width:80%;"
+                                        name="acTitle" placeholder="제목 입력" value=""/>
+
                             </div>
                         </div>
                         <div class="record_container">
@@ -60,63 +60,51 @@
                                 </div>
                                 <div class="record col-md-3" style="width: 750px;">
                                     <strong>
-                                        <input type="text" id="pro-name" class="pilsu"
+                                        <input type="text" id="acProName" class="pilsu"
                                         name="acProName" placeholder="상품명 입력" value="">
                                     </strong>
                                     <strong>
-                                        <input type="text" id="start-price" class="pilsu"
-                                        name="acStartPrice" placeholder="시작가격 입력" value="">
+                                        <input type="text" id="acStartPrice" class="pilsu"
+                                        name="asp" placeholder="시작가격 입력" value="">
+                                        
                                     </strong>
                                     <strong>
-                                        <input type="text" id="now-price" class="pilsu"
-                                        name="acImdPrice" placeholder="즉시낙찰가격" value="">
+                                 
+                                        <input type="text" id="acImdPrice" class="pilsu"
+                                        name="aip" placeholder="즉시낙찰가격" value="">
                                     </strong>
                                     <strong>
-                                        <select id="category" name="acCategory" class="selectStyle">
-                                            <option value="0">category</option>
-                                            <option value="1">bed</option>
-                                            <option value="2">couch / chair</option>
-                                            <option value="3">table / desk</option>
-                                            <option value="4">carpet / lug</option>
-                                            <option value="5">storage</option>
-                                            <option value="6">others</option>
+                                        <select id="acCategory" name="acCategory" class="selectStyle">
+                                            <option value="">category</option>
+                                            <option value="bed">bed</option>
+                                            <option value="sofa">sofa</option>
+                                            <option value="chair">chair</option>
+                                            <option value="table">table</option>
+                                            <option value="desk">desk</option>
+                                            <option value="carpet">carpet</option>
+                                            <option value="lug">lug</option>
+                                            <option value="storage">storage</option>
+                                            <option value="others">others</option>
                                         </select> 
                                     </strong>
                                     <strong style="width: 300px;">
-                                        <label> 
-                                            <input type="radio" name="acStatusRank"
-                                            value="S"> S급
-                                        </label>
-                                        <label> 
-                                            <input type="radio" name="acStatusRank"
-                                            value="A"> A급
-                                        </label> 
-                                        <label> 
-                                            <input type="radio" name="acStatusRank"
-                                            value="B"> B급
-                                        </label>  
-                                        <label> 
-                                            <input type="radio" name="acStatusRank"
-                                            value="C"> C급
-                                        </label> 
-                                        <label> 
-                                            <input type="radio" name="acStatusRank"
-                                            value="D"> D급
-                                        </label> 
+                                   
+                                         <select id="acStatusRank" name="acStatusRank" class="selectStyle">
+                                            <option value="">상태선택</option>
+                                            <option value="S">S급</option>
+                                            <option value="A">A급</option>
+                                            <option value="B">B급</option>
+                                            <option value="C">C급</option>
+                                            <option value="D">D급</option>
+                                        </select> 
                                     </strong>
                                     <strong style="margin-bottom: 0; width: 300px;">
-                                        <label> 
-                                            <input type="radio" name="acEndDate"
-                                            value="S"> 10일
-                                        </label>
-                                        <label> 
-                                            <input type="radio" name="acEndDate"
-                                            value="A"> 20일
-                                        </label> 
-                                        <label> 
-                                            <input type="radio" name="acEndDate"
-                                            value="B"> 30일
-                                        </label>
+                                     
+                                       <select id="acEndDate" name="aEDN" class="selectStyle">
+                                            <option value="10">10일</option>
+                                            <option value="20">20일</option>
+                                            <option value="30">30일</option>
+                                        </select> 
                                     </strong>
                                 </div>
                             </div>
@@ -126,9 +114,9 @@
                                     <!-- <button class="main-poto-btn">메인사진 등록</button> -->
                                     <div class="filebox">
                                     	<label for="main_file">메인사진 등록</label>
-                                    	<input type="file" id="main_file">
+                                    	<input type="file" name="acMainImg" id="main_file" value="">
                                     	<label for="serve_file" style="background:rgb(238, 152, 124);">서브사진 등록</label>
-                                    	<input type="file" id="serve_file" multiple required>
+                                    	<input type="file" name="acServeImg"id="serve_file" value="" multiple required>
                                     </div>
                                     <!-- <button class="serve-poto-btn">서브사진 등록</button> -->
                                 </div>
@@ -159,7 +147,7 @@
                             <li>
                                 <div class="pro-info-title">브랜드</div>
                                 <div class="pro-info-content">
-                                    &nbsp&nbsp <input type="text" id="acBrand" class="pilsu"
+                                    &nbsp&nbsp<input type="text" id="acBrand" class="pilsu"
                                     name="acBrand" placeholder="예) 이케아" 
                                     value="">
                                 </div>
@@ -168,7 +156,7 @@
                                 <div class="pro-info-title">구매일</div>
                                 <div class="pro-info-content">
                                     &nbsp&nbsp<input type="text" name="acBuyDate" 
-                                    placeholder="예) 2020-05-05" value="">
+                                    placeholder="예) 2020년도" value="">
                                 </div>
                             </li>
                             <li>
@@ -281,14 +269,11 @@
     </section>
     <script>
     
-    $("#")
-    
-    
-    
-    
+   
     
     var viewImg;
     $(function(){
+    	
 		$("#main_file").on("change",mainImg);
 		$("#serve_file").on("change",serveImg)
 	})
@@ -336,6 +321,49 @@
 			reader.readAsDataURL(f);
 		});
 	}
+	
+	 $("#acWriter").click(function(){
+	    	var regex= /[^0-9]/g;
+	    	console.log(viewImg==null);
+	    	console.log(multiView.length);
+	    
+	    	if($("#acTitle").val()==""){
+	    		alert("글 제목을 입력해주세요.");
+	    	} else if($("#acProName").val()==""){
+	    		alert("상품명을 입력해주세요.");
+	    	}else if($("#acStartPrice").val()==""){
+	    		alert("시작금액을 입력해주세요.");
+	    	}else if(regex.test($("#acStartPrice").val())){
+	    		alert("시작금액은 숫자만 가능합니다.");
+	    	}if($("#acImdPrice").val()==""){
+	    		alert("즉시입찰금액을 입력해주세요.");
+	    	}else if(regex.test($("#acImdPrice").val())){
+	    		alert("즉시입찰금액은 숫자만 가능합니다.");
+	    	}else if($("#acProName").val()==""){
+	    		alert("상품명을 입력해주세요.");
+	    	}else if($("#acCategory").val()==""){
+	    		alert("카테고리를 선택해주세요.");
+	    	}else if($("#acStatusRank").val()==""){
+	    		alert("상태등급을 선택해주세요.")
+	    	}else if($("#acStatusRank").val()==""){
+	    		alert("상태등급을 선택해주세요.")
+	    	}else if($("#acProSize").val()==""){
+	    		alert("상품 사이즈를 입력해주세요.")
+	    	}else if($("#acBuyDate").val()==""){
+	    		alert("구매날짜를 입력해주세요.")
+	    	}else if(viewImg==null){
+	    		alert("메인이미지를 넣어주세요.")
+	    	}else if(multiView.length<2){
+	    		alert("2개 이상의 서브이미지를 넣어주세요.")
+	    	} else{
+	    		$("#fAcWriter").submit();
+				alert("정상처리 되었습니다. 관리자 승인을 기다려주세요. 경매승인내역에서 진행상황 확인 가능합니다.");
+	    	}
+	    })
+	    
+	    
+	    
+	    
     </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
