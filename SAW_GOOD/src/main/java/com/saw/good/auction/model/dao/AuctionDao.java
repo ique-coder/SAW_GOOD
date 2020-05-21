@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
+import com.saw.good.auction.model.vo.AuctionServeImg;
 
 public interface AuctionDao {
 
@@ -37,4 +38,14 @@ public interface AuctionDao {
 	int updateNowPrice(SqlSession session,Auction a);
 	
 	int updateStAuction(SqlSession session,Auction a);
+	
+	int insertAuction(SqlSession session,Auction a);
+	
+	
+	int insertAuctionServeImg(SqlSession session,AuctionServeImg asi);
+	
+	
+	
+	
+	
 }

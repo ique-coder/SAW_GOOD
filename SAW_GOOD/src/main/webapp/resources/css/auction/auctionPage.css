@@ -138,7 +138,7 @@ button{
     border: none;
     background: none;
     outline: none;
-    position: absolute;
+   /*  position: absolute; */
     padding: 0;
     right: 0;
     bottom: 5px;

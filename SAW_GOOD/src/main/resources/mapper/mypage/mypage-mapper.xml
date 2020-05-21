@@ -3,7 +3,24 @@
 <mapper namespace="mypage">
 
 	<select id="product" resultType="map" parameterType="string">
-		
+		select ph.userid, p.productname, p.brand, p.renamedproductimg, pm.buydate, ph.productnum, ph.protoptalprice
+		from paymenthistory ph
+		join payment pm on (ph.orderno = pm.orderno)
+		join newproduct p on (p.productno = ph.productno)
+		where ph.userid = #{userId}
+	</select>
+	
+	<select id="auction" resultType="map" parameterType="string">
+		select * from auction a join auctionmember ac on(a.acboardno = ac.acboardno) 
+		where ac.bidprice in (select max(bidprice) from auction a join auctionmember ac on(a.acboardno = ac.acboardno) 
+		where a.acstatus=2 group by a.acboardno) and ac.userid=#{userId}
+	</select>
+	
+	<select id="funding" resultType="map" parameterType="string">
+		select f.fdno, f.title, f.userid fundingid, f.designer, f.status, f.mainimg,
+		m.partprice, nvl(m.reword, '없음') reword, m.partdate, m.purstatus, m.userid userid 
+		from funding f join fdmember m on (f.fdno = m.fdno)
+		where m.userid= #{userId}
 	</select>
 
 </mapper>

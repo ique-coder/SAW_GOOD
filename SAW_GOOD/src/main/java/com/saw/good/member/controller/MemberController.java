@@ -188,7 +188,7 @@ public class MemberController {
 			m.setPhone(aesEncrypt.encrypt(m.getPhone()));
 			Member mem2 = service.loginMemberInfo(m.getUserId());
 			//경로지정
-			String path = session.getServletContext().getRealPath("/resources/upload/auction");
+			String path = session.getServletContext().getRealPath("/resources/images/member");
 			File fileDir = new File(path);
 			if(!fileDir.exists()) {
 				fileDir.mkdirs();
@@ -373,8 +373,12 @@ public class MemberController {
 				
 			System.out.println("암호화 후 : "+m.getEmail());
 			Member mem = service.selectFindMember(m);
+			boolean flag = false;
+			if(mem != null) {
+				flag = true;
+			}
 			
-			
+			mv.addObject("flag", flag);
 			mv.addObject("member", mem);
 			mv.setViewName("jsonView");
 			return mv;
@@ -408,6 +412,7 @@ public class MemberController {
 				flag = true;
 				eService.send(e);
 			}
+			mv.addObject("email", mem.getEmail().substring(1));
 			mv.addObject("ran", ran);
 			mv.addObject("flag", flag);
 			mv.setViewName("jsonView");

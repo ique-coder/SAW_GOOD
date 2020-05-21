@@ -74,7 +74,7 @@
 							<div id="profileImg"
 								style="width: 60%; height: 50%; border-radius: 125px; display: block; margin-left: 23%;">
 							<c:if test="${mem.reProfile !=null }">
-                            	<img src="${path }/resources/upload/auction/${mem.reProfile}" class="profileImg"/>
+                            	<img src="${path }/resources/images/member/${mem.reProfile}" class="profileImg"/>
                             </c:if>
                             <c:if test="${mem.reProfile ==null }">
                             	<img src="http://placehold.it/500x500"  class="profileImg"/>
