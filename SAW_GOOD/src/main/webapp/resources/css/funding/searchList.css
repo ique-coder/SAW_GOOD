@@ -1,0 +1,270 @@
+html,body{
+    height: 100%;
+    position: relative;
+}
+div{
+    height: 100%;
+    position: relative;
+}
+button,input[type='button'],input[type='submit']{
+	background:none;
+	outline:none;
+}
+#section{
+	margin-top:60px;
+}
+.parallax-window{
+	height:400px;
+	text-align:center;
+	background: transparent;
+	margin-bottom: 60px;
+	z-index:-1;
+}
+.parallax-window h3{
+	position:relative;
+	top:45%;
+	font-size:1.7rem;
+	letter-spacing:1.25em;
+	color: white;
+}
+#search-area{
+	padding:0px;
+	margin-bottom:10px;
+	left:10%;
+ 
+} 
+.selectStyle{
+	background:none;
+	border: 1px solid #9d9d9d;
+	border-radius:3px;
+	width:150px;
+	height:40px;
+}
+#search-area button{
+	color:  #51735D;
+	border:1px solid  #E1E0E1;;
+	border-radius:3px;
+	height:40px;
+}
+#search-area button:hover{
+	border: 1px solid #51735D;
+	outline:none;
+	background-color:none;
+	margin-bottom:5px;
+	border-radius:3px;
+	color:#51735D;
+	margin:0;
+}
+.padding{
+    padding: 20px;
+    border: 50px solid #F2E8DC;
+    box-sizing: content-box;
+    background-color:white;
+}
+.product-container:hover{
+    box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
+}
+.sub-item:hover{
+	box-shadow: rgba(149, 149, 149, 0.4) 5px 5px 10px 3px;
+}
+/* 상품 안 글자 설정 */
+
+.text-deco{
+    position: relative;
+    font-weight: lighter;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #3C5946 ;
+}
+
+.text-deco:hover{
+    border-bottom: none;
+    transition-delay: 50ms;
+}
+.text-deco:after{
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    background-color: #3C5946;
+    height: 1px;
+}
+.text-deco:hover::after{
+    width: 100%;
+    transition: width ease-out 350ms;
+    transition-delay: 50ms;
+}
+/* 글자설정 끝 */
+
+.col-md-3{
+    padding: 0 2%;
+
+}
+
+.sub-container .sub-item:first-child{
+	margin:0;
+}
+.sub-item{
+    width: 100%;
+    height: 100%;
+    margin:20px 0;
+}
+.sub-item table {
+	margin: 5px 10px;
+}
+.sub-item table th,td{
+	padding: 5px 0;
+}
+.sub-item table h1{
+	display:inline-block;
+}
+.sub-item tfoot th{
+	color:  #474a47;
+}
+.sub-item table td{
+	font-size:14px;
+	text-align:right;
+	color:#7f7f7f;
+}
+.sub-item .images{
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}
+
+.sub-item .bar{
+    fill:  #ee987c;
+}
+.sub-item .bar-container{
+    background-color: #E1E0E1;
+    display: block;
+    position: relative;
+    border-radius: 2px;
+}
+/* 글쓰기 버튼 */
+#enroll-container{
+	display: block;
+    /* border-bottom: solid 1px #E1E0E1; */
+    position: relative;
+    padding: 0 10px;
+}
+#enroll-container>input[type='button']{
+	width:100%;
+	height:30px;
+	border: 1px solid  #E1E0E1;
+	outline:none;
+	background-color:none;
+	margin-bottom:5px;
+	border-radius:3px;
+	color:#ee987c;
+	
+}
+#enroll-container>input[type='button']:hover{
+	background-color:rgba(238,152,124,0.1);
+	border: 1px solid  #ee987c;
+}
+/* 네비바 설정 */
+
+.block-span{
+    display: block;
+    border-bottom: solid 1px #E1E0E1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.block-span>button{
+    border: none;
+    background: none;
+    outline: none;
+    position: absolute;
+    padding: 0;
+    right: 0;
+    bottom: 5px;
+}
+.block-span>input[type="text"]{
+    width: 80%;
+    border: none;
+    outline: none;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    background:none;
+}
+.category{
+    margin: 0;
+    padding: 10px 0;
+    list-style: none;
+    border-top: 1px solid #E1E0E1;
+    border-bottom: 1px solid #E1E0E1;
+}
+.category>li{
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+}
+
+.wrapper{
+    position: fixed;
+    /* bottom:0px; */
+   	top:0;
+    height: 50%;
+}
+.attachBottom{
+    
+    position: absolute;
+    bottom: 0;
+}
+
+#category-nav{
+	padding: 0 50px;
+	margin: 50px 0;
+}
+#category-nav>.row{
+	height:400px;
+}
+#category-nav img{
+	height:400px;
+	object-fit:cover;
+}
+.text-container{
+	text-align:center;
+	position:relative;
+	padding-top:80px;
+	
+}
+.text-container p{
+	text-transform: uppercase;
+    letter-spacing: 0.115em;
+    font-size: 0.9375rem;
+    margin-bottom: 20px;
+}
+.text-container a{
+	font-size: 3.4375rem;
+	letter-spacing: 0em;
+	
+}
+.text-container h2{
+	margin: 30px 0;
+	line-height: 1.7;
+	font-weight: 400;
+}
+.text-container button{
+	text-decoration: none;
+    padding: 15px 70px;
+    border: 1px solid #808080;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.115em;
+    font-family: "Tw Cen W01 Light", sans-serif;
+    font-size: 14px;
+    font-size: 0.875rem;
+    transition: color ease 350ms, background ease 350ms;
+}
+.text-container button:hover{
+	color: white;
+	background: black;
+}
+	

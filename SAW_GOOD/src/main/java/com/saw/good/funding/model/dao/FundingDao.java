@@ -49,6 +49,18 @@ public interface FundingDao {
 
 	List<Funding> selectList(SqlSession session, String keyword, int cPage, int numPerPage);
 
+	List<Funding> selectMypageFundingList(SqlSession session, String userId, int cPage, int numPerPage);
+
+	int selectFundingCount(SqlSession session, String userId);
+
+	Funding selectItem(SqlSession session, Map map);
+
+	List<FDSubImg> selectFDSubImg(SqlSession session, int fdNo);
+
+	int updateFunding(SqlSession session, Funding f);
+
+	int updateFunding2(SqlSession session, Funding f);
+
 
 
 }
