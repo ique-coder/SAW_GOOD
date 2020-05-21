@@ -12,6 +12,9 @@ import com.saw.good.auction.model.dao.AuctionDao;
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
+import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.product.model.vo.DetailImg;
+import com.saw.good.product.model.vo.PageDetailImg;
 @Service
 public class AuctionServiceIpml implements AuctionService {
 	
@@ -117,6 +120,28 @@ public class AuctionServiceIpml implements AuctionService {
 	public int updateStAuction(Auction a) {
 		// TODO Auto-generated method stub
 		return dao.updateStAuction(session,a);
+	}
+
+	@Override
+	public int inserAuction(Auction a, List<AuctionServeImg> asiList) {
+		// TODO Auto-generated method stub
+		int result=0;
+		result=dao.insertAuction(session,a);
+		System.out.println("서비스 : "+result);
+		if(result==0) {
+			throw new RuntimeException();
+		}
+		if(!asiList.isEmpty()) {
+			for(AuctionServeImg asi : asiList) {
+				asi.setAcBoardNo(a.getAcBoardNo());
+				result=dao.insertAuctionServeImg(session,asi);
+				System.out.println("서비스 서브이미지 : "+result);
+				if(result==0) {
+					throw new RuntimeException();
+				}
+			}
+		}
+		return result;
 	}
 
 	
