@@ -19,7 +19,7 @@ public class StatusCheckInterceptor extends HandlerInterceptorAdapter{
 		String refer = request.getHeader("Referer");
 		Member m = (Member)session.getAttribute("loginMember");
 		if(m==null || m.getStatus()<2) {
-			System.out.println(m);
+			
 			request.setAttribute("msg", "판매등급인 회원만 이용가능합니다.");
 			request.setAttribute("referer", "/"+refer.substring(refer.indexOf("good")));
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
@@ -27,7 +27,7 @@ public class StatusCheckInterceptor extends HandlerInterceptorAdapter{
 			return false;
 		}
 		else{
-			System.out.println(m);
+			
 			return super.preHandle(request, response, handler);
 		}
 		

@@ -70,24 +70,48 @@
 				<p class="noList center">결재내역이 없습니다.<p>
 			</c:if>
 			<c:if test="${list.size() != 0 }">
-				<c:forEach var="a" items="${list }">
+				<c:forEach var="f" items="${list }">
 					<div class="product row">
 						<div class="col-md-2 productImg">
-							<img src="../image/1524445081477_iT6B.jpg" alt="">
+							<img src="${path }/resources/images/funding/${f['MAINIMG']}" alt="">
 						</div>
 						<div class="col-md-10 pSpace spanSpace">
 							<p class="titleInfo">
-								<span class="brand">${a['ACCATEGORY'] }</span> <span class="productName">${a['ACTITLE'] }</span>
+								<c:if test="${f['STATUS'] == 1 || f['STATUS'] == 2 }">
+									<a href="${path }/funding/detail?fdNo=${f['FDNO']}">
+										<span class="brand">${f['DESIGNER'] }</span> <span class="productName">${f['TITLE'] }</span>
+									</a>
+								</c:if>
+								<c:if test="${f['STATUS'] == 3 }">
+									<span class="brand">${f['DESIGNER'] }</span> <span class="productName">${f['TITLE'] }</span>
+								</c:if>
+								
 							</p>
 							<p class="priceDate">
-								<span class="productPrice">${a['BIDPRICE'] }</span> <span class="sendDate">${a['BIDDATE'] }</span>
+								<span class="productPrice"><fmt:formatNumber type="number" value="${f['PARTPRICE'] }"/>원 (<span class="reword">${f['REWORD'] }</span>)</span>
+								
+								 <span class="sendDate">${f['PARTDATE'] }</span>
 							</p>
 							<p class="sendCheck">
-								판매자 : <span class="sendStep1 sendStep"><fmt:formatNumber type="number" value="${a['USERID'] }"/>원</span>
+								<span class="sendStep1 sendStep">
+									<c:if test="${f['STATUS'] == 0}">
+									펀딩 실패(
+										<c:if test="${f['PURSTATUS'] == 1 }">환불 진행중</c:if>
+										<c:if test="${f['PURSTATUS'] == 2 }">환불 완료</c:if>
+										<c:if test="${f['PURSTATUS'] == 3 }">환불 대기중</c:if>
+									)
+									</c:if>
+									<c:if test="${f['STATUS'] == 1}">
+									펀딩 진행중
+									</c:if>
+									<c:if test="${f['STATUS'] == 2}">
+									펀딩 성공
+									</c:if>
+								</span>
 							</p>
 							<p class="confirmStatus">
-								<span>소중한 입찰 감사합니다.</span><br /> <span>수많은 경쟁자 중
-									<strong>고객님이 최종 낙찰 되셨습니다.</strong>
+								<span>소중한 펀딩 감사합니다.</span><br /> <span>고객님의 소중한 후원
+									<strong>정직한 제품으로 보답하겠습니다.</strong>
 								</span>
 							</p>
 	

@@ -123,6 +123,9 @@ public class FundingController {
 			//해당 제품에 참여한 사람 수 , 총 가격 / 비활성: 서브쿼리로 변경 
 			//Map<String,Integer> map = service.selectPriceCount(item.getFdNo());
 			
+			//서브사진 목록 불러오기 
+			List<FDSubImg> subimg = service.selectFDSubImg(item.getFdNo());
+			
 			//리워드목록 불러오기
 			List<FDReword> reword = service.selectRewordList(item.getFdNo());
 			
@@ -134,6 +137,7 @@ public class FundingController {
 			mv.addObject("f",f);
 			mv.addObject("list",list);
 			mv.addObject("reword",reword);
+			mv.addObject("subImg", subimg);
 			mv.addObject("commentList", commentList);
 			mv.addObject("reCommentList", reCommentList);
 			mv.setViewName("funding/detail");
@@ -429,29 +433,32 @@ public class FundingController {
 		
 		int count = service.selectFundingCount(member.getUserId());
 		List<Funding> list = service.selectMypageFundingList(member.getUserId(),cPage,numPerPage);
-		
-		mv.addObject("list", list);
-		mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/good/funding/enroll/myList"));
+		if(!list.isEmpty()) {
+			mv.addObject("list", list);
+			mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/good/funding/enroll/myList"));
+			
+		}else {
+			
+			mv.addObject("msg", "등록된 게시글이 없습니다.");
+		}
 		mv.setViewName("/mypage/myPageFundinglist");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/funding/enroll/modify")
-	public ModelAndView FundingModify(ModelAndView mv,int fdNo,@SessionAttribute ("loginMember") Member member ) {
+	public ModelAndView FundingModify(ModelAndView mv,Funding funding,@SessionAttribute ("loginMember") Member member ) {
 		
-		Map map = new HashMap();
-		map.put("fdNo", fdNo);
-		map.put("userId", member.getUserId());
 		
-		Funding f = service.selectItem(map);
-		if(member.getUserId().equals("admin") || f!=null) {
+		if(member!=null && funding.getUserId().equals(member.getUserId()) || member.getUserId().equals("admin")) {
+			Funding f =service.selectItem(funding);
 			mv.addObject("f",f);
-			List<FDSubImg> fs = service.selectFDSubImg(fdNo);
+			List<FDSubImg> fs = service.selectFDSubImg(f.getFdNo());
+			mv.addObject("f", f);
 			mv.addObject("img", fs);
 			mv.setViewName("funding/updateFunding");
-		}else {
 			
+		}else {
 			mv.addObject("msg", "접근 권한이 없습니다.");
 			mv.addObject("loc", "/");
 			mv.setViewName("common/msg");
@@ -461,9 +468,13 @@ public class FundingController {
 		return mv;
 	}
 	@RequestMapping("/funding/enroll/modifyEnd")
-	public ModelAndView FunctionModifyEnd(ModelAndView mv , Funding f,@RequestParam(required=false,defaultValue="") String finalDate) {
+	public ModelAndView FunctionModifyEnd(ModelAndView mv , Funding f,HttpSession session,
+											String main, String [] sub,
+											@RequestParam(required=false,defaultValue="") String finalDate,
+											@RequestParam (required=false) MultipartFile mainPic,
+											@RequestParam (required=false) MultipartFile[] subPic) {
 		
-		System.out.println("finalDate: "+finalDate);
+		
 		if(!finalDate.equals("") && finalDate != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			try {
@@ -474,11 +485,131 @@ public class FundingController {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(f);
+		//사진 외 다른 정보먼저 업데이트 
 		int result = service.updateFunding(f);
+		
+		//메인사진 바꿀 때 
+		String msg = "";
+		String path = session.getServletContext().getRealPath("/resources/images/funding");
+		File file = new File(path);
+		if(!mainPic.isEmpty()) {
+			
+			String oriName = mainPic.getOriginalFilename();
+			String ext = oriName.substring(oriName.lastIndexOf("."));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSs");
+			int rnd = (int)(Math.random()*1000);
+			String rename = sdf.format(System.currentTimeMillis())+rnd+ext;
+			try {
+				mainPic.transferTo(new File(file+"/"+rename));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			f.setMainImg(rename);
+			
+			//사진을 제외한 정보를 업데이트 성공하면 사진 업데이트 진행 
+			if(result>0) {
+				try {
+					result = service.updateFundingImg(f);
+				}catch(RuntimeException e) {
+					//실패시 기존 이미지는 놔두고 새로 올린 파일을 지워준다 
+					e.printStackTrace();
+					File delF = new File(path+"/"+f.getMainImg());
+					if(delF.exists())delF.delete();
+					
+				}
+				//성공시 기존 이미지를 지워준다 
+				File delF = new File(path+"/"+main);
+				//기존 사진 서버에서 지워주기
+				if(delF.exists())delF.delete();
+				
+			}
+			//실패시 사진 업데이트 진행 하지 않음
+			
+			
+			
+			
+		}
+		//서브사진 변경 
+		if(!subPic[0].isEmpty()) {
+			List<FDSubImg> subImglist = new ArrayList();
+			for(int i = 0 ; i<subPic.length;i++) {
+				if(!subPic[i].isEmpty()) {
+					String oriName = subPic[i].getOriginalFilename();
+					String ext = oriName.substring(oriName.lastIndexOf("."));
+					//리네임 규칙 설정 
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSs");
+					int rnd = (int)(Math.random()*1000);
+					String rename = sdf.format(System.currentTimeMillis())+rnd+ext;
+					try {
+						subPic[i].transferTo(new File(file+"/"+rename));
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					FDSubImg fd = new FDSubImg();
+					fd.setSubImg(rename);
+					fd.setFdNo(f.getFdNo());
+					fd.setPrevName(sub[i]);
+					subImglist.add(fd);
+				}
+			}
+			if(result>0) {
+				try {
+					result = service.updateFundingSubImg(subImglist);
+				}catch(RuntimeException e) {
+					//실패시 기존 이미지는 놔두고 새로 올린 파일을 지워준다 
+					e.printStackTrace();
+					for(FDSubImg fs: subImglist) {
+						File delF = new File(path+"/"+fs.getSubImg());
+						if(delF.exists()) delF.delete();
+					}
+					
+				}
+				//성공시 기존 이미지를 지워준다 
+				for(String s : sub) {
+					File delF = new File(path+"/"+s);
+					if(delF.exists()) delF.delete();
+				}
+				
+			}
+			
+			
+		}
+		
+		
+		if(result >0) {
+			mv.addObject("msg", "수정되었습니다.");
+			
+		}else {
+			mv.addObject("msg", "수정 실패했습니다. 다시 시도해주세요.");
+			
+		}
+		mv.addObject("loc", "/funding/enroll/myList");
+		mv.setViewName("common/msg");
 		
 		return mv;
 		
 	}
+	
+	@RequestMapping("/funding/enroll/display")
+	public ModelAndView FundingEnrollDisplay(ModelAndView mv , Funding f ,@SessionAttribute ("loginMember") Member m) {
+		
+		if(m!=null && f.getUserId().equals(m.getUserId())) {
+			Funding item = service.selectItem(f);
+			List <FDSubImg> img = service.selectFDSubImg(f.getFdNo());
+			mv.addObject("f", item);
+			mv.addObject("img", img);
+			mv.setViewName("funding/lastEnroll");
+			System.out.println(item);
+			
+		}else {
+			mv.addObject("msg", "접근 권한이 없습니다.");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+		}
+		
+		
+		return mv;
+	}
+	
 	
 }

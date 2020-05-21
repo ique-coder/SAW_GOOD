@@ -15,7 +15,7 @@ public interface FundingService {
 	
 	List<Funding> selectList(int cPage, int numPerPage);
 
-	Funding selectItem(int fdNo);
+	Funding selectItem(Funding funding);
 
 	List<FDMember> selectMemberList(int fdNo);
 
@@ -51,11 +51,17 @@ public interface FundingService {
 
 	int selectFundingCount(String userId);
 	
-	Funding selectItem(Map map);
+	
 
 	List<FDSubImg> selectFDSubImg(int fdNo);
 
 	int updateFunding(Funding f);
+
+	int updateFundingImg(Funding f);
+
+	int updateFundingSubImg(List<FDSubImg> subImglist);
+
+	Funding selectItem(int fdNo);
 	
 
 

@@ -1,5 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adAuction">
-
+	<select id="selectOneAuction" parameterType="_int" resultType="map">
+		SELECT * FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</select>
+	<select id="selectAuctionImg" parameterType="_int" resultType="map">
+		SELECT * FROM AUCTIONSERVEIMG WHERE ACBOARDNO=#{acno}
+	</select>
+	
+	<select id="selectAuctionAgree" resultType="map">
+		SELECT * FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2 ORDER BY ACBOARDNO DESC
+	</select>
+	<select id="countAuctionAgree" resultType="_int">
+		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2
+	</select>
+	
+	<select id="selectAgreeSearch" parameterType="map" resultType="map">
+		SELECT * FROM AUCTION WHERE 1=1 
+		<if test="keyword != null and keyword != ''">
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="enrollDate != null and enrollDate != ''">
+			AND TO_CHAR(ACSTART_DATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test="rank != null and rank != ''">
+			AND ACSTATUSRANK=#{rank}
+		</if>
+		<if test="category != null">
+			AND ACCATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="brand != null">
+			AND ACBRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="howStatus == null or howStatus == ''">
+			AND ACSTATUS=1 OR ACSTATUS=2
+		</if>
+		<if test="howStatus !=null and howStatus !=''">
+			<if test="howStatus eq 'Ing'">
+				AND ACSTATUS=1
+			</if>
+			<if test="howStatus eq 'finish'">
+				AND ACSTATUS=2
+			</if>
+		</if>
+		ORDER BY ACBOARDNO DESC
+	</select>
+	<select id="countAgreeSearch" parameterType="map" resultType="_int">
+	SELECT COUNT(*) FROM AUCTION WHERE 1=1 
+		<if test="keyword != null and keyword != ''">
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="enrollDate != null and enrollDate != ''">
+			AND TO_CHAR(ACSTART_DATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test="rank != null and rank != ''">
+			AND ACSTATUSRANK=#{rank}
+		</if>
+		<if test="category != null">
+			AND ACCATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="brand != null">
+			AND ACBRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		<if test="howStatus == null or howStatus == ''">
+			AND ACSTATUS=1 OR ACSTATUS=2
+		</if>
+		<if test="howStatus !=null and howStatus !=''">
+			<if test="howStatus eq 'Ing'">
+				AND ACSTATUS=1
+			</if>
+			<if test="howStatus eq 'finish'">
+				AND ACSTATUS=2
+			</if>
+		</if>
+		ORDER BY ACBOARDNO DESC
+	</select>
+	
+	<delete id="deleteFnOneAgAuction" parameterType="_int">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	<select id="selectMaxPriceMember" parameterType="_int" resultType="map">
+		SELECT USERID,BIDPRICE FROM (SELECT USERID,BIDPRICE FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acno}
+		 ORDER BY BIDPRICE DESC) WHERE ROWNUM = 1
+	</select>
+	<update id="updateRefundPoint" parameterType="map">
+		UPDATE MEMBER SET POINT=POINT+TO_NUMBER(#{BIDPRICE}) WHERE USERID=#{USERID}
+	</update>
+	<delete id="deleteIngOneAgAuction" parameterType="_int">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	
+	<delete id="deleteFnCkAuction" parameterType="string">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	
+	<select id="selectMaxPriceMem" parameterType="string" resultType="map">
+		SELECT USERID,BIDPRICE FROM (SELECT USERID,BIDPRICE FROM AUCTIONMEMBER WHERE ACBOARDNO=#{acno}
+		 ORDER BY BIDPRICE DESC) WHERE ROWNUM = 1
+	</select>
+	<delete id="deleteIngCkAuction" parameterType="string">
+		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
+	</delete>
+	
+	<select id="selectAuctionDisAgree" resultType="map">
+		SELECT * FROM AUCTION WHERE ACSTATUS=0 ORDER BY ACBOARDNO DESC
+	</select>
+	<select id="countAuctionDisAgree" resultType="_int">
+		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=0
+	</select>
+	
+	<select id="selectDisAgreeSearch" resultType="map">
+		SELECT * FROM AUCTION WHERE 1=1 AND ACSTATUS=0
+		<if test="keyword != null and keyword != ''">
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="enrollDate != null and enrollDate != ''">
+			AND TO_CHAR(ACSTART_DATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test="rank != null and rank != ''">
+			AND ACSTATUSRANK=#{rank}
+		</if>
+		<if test="category != null">
+			AND ACCATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="brand != null">
+			AND ACBRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		ORDER BY ACBOARDNO DESC
+	</select>
+	<select id="countDisAgreeSearch" resultType="_int">
+		SELECT COUNT(*) FROM AUCTION WHERE 1=1 AND ACSTATUS=0
+		<if test="keyword != null and keyword != ''">
+			AND ${searchType} LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="enrollDate != null and enrollDate != ''">
+			AND TO_CHAR(ACSTART_DATE,'YYYY-MM-DD')=#{enrollDate}
+		</if>
+		<if test="rank != null and rank != ''">
+			AND ACSTATUSRANK=#{rank}
+		</if>
+		<if test="category != null">
+			AND ACCATEGORY IN (
+			<foreach collection="category" item="c" separator=",">
+				#{c}
+			</foreach>
+			)
+		</if>
+		<if test="brand != null">
+			AND ACBRAND IN (
+			<foreach collection="brand" item="b" separator=",">
+				#{b}
+			</foreach>
+			)
+		</if>
+		ORDER BY ACBOARDNO DESC
+	</select>
+	
+	<update id="updateAgreeOneAuction">
+		UPDATE AUCTION SET ACSTATUS=1 WHERE ACBOARDNO=#{acno}
+	</update>
+	<update id="updateDisagreeOneAuction">
+		UPDATE AUCTION SET ACSTATUS=3 WHERE ACBOARDNO=#{acno}
+	</update>
+	
+	<update id="updateCheckAgreeAuc">
+		UPDATE AUCTION SET ACSTATUS=1 WHERE ACBOARDNO=#{acno}
+	</update>
+	<update id="updateCheckDisagreeAuc">
+		UPDATE AUCTION SET ACSTATUS=3 WHERE ACBOARDNO=#{acno}
+	</update>
 </mapper>
