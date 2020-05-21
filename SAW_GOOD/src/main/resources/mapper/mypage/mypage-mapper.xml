@@ -5,5 +5,11 @@
 	<select id="product" resultType="map" parameterType="string">
 		
 	</select>
+	
+	<select id="auction" resultType="map" parameterType="string">
+		select * from auction a join auctionmember ac on(a.acboardno = ac.acboardno) 
+		where ac.bidprice in (select max(bidprice) from auction a join auctionmember ac on(a.acboardno = ac.acboardno) 
+		where a.acstatus=2 group by a.acboardno) and ac.userid=#{userId}
+	</select>
 
 </mapper>
