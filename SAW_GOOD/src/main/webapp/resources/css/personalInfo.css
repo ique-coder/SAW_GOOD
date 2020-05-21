@@ -80,7 +80,7 @@ div.main{
     display: block;
     margin-bottom: 2%;
     margin-top: 2%;
-    width: 100%;
+    width: 80%;
     height: 50%;
     border-radius: 7px;
     border: 0;
@@ -148,7 +148,7 @@ div.main{
 .complete-btn{
     margin-top: 10px;
     padding: 0 20px 0 20px;
-    width: 49%;
+    width: 40%;
    height: 60%;
     border: 0;
     border-radius: 7px;
@@ -160,7 +160,7 @@ div.main{
 .delete-btn{
     margin-top: 10px;
     padding: 0 20px 0 20px;
-    width: 49%;
+    width: 40%;
     height: 60%;
     border: 0;
     border-radius: 7px;
