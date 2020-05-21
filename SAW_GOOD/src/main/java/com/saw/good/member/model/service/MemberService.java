@@ -1,7 +1,5 @@
 package com.saw.good.member.model.service;
 
-import java.util.Map;
-
 
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;

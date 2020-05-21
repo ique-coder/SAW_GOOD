@@ -20,7 +20,7 @@ public class PaymentHistoryController {
 	@RequestMapping("/mypage/ph.do")
 	public ModelAndView ph(ModelAndView mv, String userId) {
 
-		List<Map<String,String>> product = service.product(userId);
+//		List<Map<String,String>> product = service.product(userId);
 		
 		mv.setViewName("/mypage/paymentHistory");
 		
