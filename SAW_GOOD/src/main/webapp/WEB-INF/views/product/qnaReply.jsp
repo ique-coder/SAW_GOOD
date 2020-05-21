@@ -41,6 +41,7 @@
             	<form id="boardWriteForm" action="${path }/qna/qnaReplyEnd" method="post" enctype="multipart/form-data">
             		<input type="hidden" name="productNo" value="${product.productNo }"/>
             		<input type="hidden" name="qnaNo" value="${qnaNo }"/>
+            		<input type="hidden" name="title" value="${title }"/>
 	                <table class="head" style="width: 100%;">
 	                    <tbody style="background-color: #f7f7f7; border: 1px #e0e0e0 solid;">
 	                        <tr>
@@ -49,13 +50,13 @@
 	                            </th>
 	                            <td>
 	                                <div class="title">
-	                                    <select name="subhead" id="subhead">
+	                                    <select name="subhead" id="subhead" onFocus='this.initialSelect = this.selectedIndex;' onChange='this.selectedIndex = this.initialSelect;'>
 	                                        <option value="">제목을 선택하세요</option>
-	                                        <option value="상품 문의">상품 문의</option>
-	                                        <option value="배송 문의">배송 문의</option>
-	                                        <option value="교환/반품/취소 문의">교환/반품/취소 문의</option>
-	                                        <option value="주문/입금확인 문의">주문/입금확인 문의</option>
-	                                        <option value="기타 문의">기타 문의</option>
+	                                        <option value="상품 문의" <c:if test="${title eq '상품 문의' }">selected</c:if>>상품 문의</option>
+	                                        <option value="배송 문의" <c:if test="${title eq '배송 문의' }">selected</c:if>>배송 문의</option>
+	                                        <option value="교환/반품/취소 문의" <c:if test="${title eq '교환/반품/취소 문의' }">selected</c:if>>교환/반품/취소 문의</option>
+	                                        <option value="주문/입금확인 문의" <c:if test="${title eq '주문/입금확인 문의' }">selected</c:if>>주문/입금확인 문의</option>
+	                                        <option value="기타 문의" <c:if test="${title eq '기타 문의' }">selected</c:if>>기타 문의</option>
 	                                    </select>
 	                                </div>
 	                            </td>

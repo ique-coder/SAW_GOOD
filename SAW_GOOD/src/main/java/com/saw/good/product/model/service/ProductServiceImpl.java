@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.saw.good.product.model.dao.ProductDao;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
+import com.saw.good.product.model.vo.ProductReview;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -65,10 +66,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductQna> selectProductQna(int no,int cPage,int numPerPage) {
 		return dao.selectProductQna(session, no, cPage, numPerPage);
 	}
+	
+	@Override
+	public List<ProductReview> selectProductReview(int no, int cPage, int numPerPage) {
+		return dao.selectProductReview(session, no, cPage, numPerPage);
+	}
 
 	@Override
 	public int countQna(int no) {
 		return dao.countQna(session, no);
+	}
+	
+	@Override
+	public int countReview(int no) {
+		return dao.countReview(session, no);
 	}
 
 	@Override
@@ -79,6 +90,36 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int insertReplyQna(Map map) {
 		return dao.insertReplyQna(session, map);
+	}
+
+	@Override
+	public int insertReview(Map map) {
+		return dao.insertReview(session, map);
+	}
+
+	@Override
+	public int countFive(int no) {
+		return dao.countFive(session, no);
+	}
+
+	@Override
+	public int countFour(int no) {
+		return dao.countFour(session, no);
+	}
+
+	@Override
+	public int countThree(int no) {
+		return dao.countThree(session, no);
+	}
+
+	@Override
+	public int countTwo(int no) {
+		return dao.countTwo(session, no);
+	}
+
+	@Override
+	public int countOne(int no) {
+		return dao.countOne(session, no);
 	}
 	
 }
