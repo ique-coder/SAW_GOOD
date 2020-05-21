@@ -14,8 +14,7 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public List<Map<String,String>> selectCart(SqlSession session, String userId) {
 		// TODO Auto-generated method stub
-		String id="user95";
-		return session.selectList("cart.selectCart",id);
+		return session.selectList("cart.selectCart",userId);
 	}
 
 	
