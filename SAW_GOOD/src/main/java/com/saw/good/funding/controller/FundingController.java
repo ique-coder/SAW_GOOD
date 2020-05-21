@@ -473,7 +473,6 @@ public class FundingController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		System.out.println(f);
 		int result = service.updateFunding(f);
