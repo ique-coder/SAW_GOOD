@@ -29,7 +29,44 @@ public class AdminAuctionDaoImpl implements AdminAuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("adAuction.countAuctionAgree");
 	}
+	
+	//옥션 동의 검색
+	@Override
+	public List<Map<String, String>> selectAgreeSearch(SqlSession session, Map<String, Object> map, int cPage,
+			int numPerPage) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("adAuction.selectAgreeSearch", map, rb);
+	}
+	@Override
+	public int countAgreeSearch(SqlSession session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adAuction.countAgreeSearch",map);
+	}
+	//옥션 완료 삭제
+	@Override
+	public int deleteFnOneAgAuction(SqlSession session, int acno) {
+		// TODO Auto-generated method stub
+		return session.delete("adAuction.deleteFnOneAgAuction", acno);
+	}
+	//옥션 진행중 환불 및 삭제
+	@Override
+	public Map<String,String> selectMaxPriceMember(SqlSession session, int acno) {
+		// TODO Auto-generated method stub
+		return session.selectOne("adAuction.selectMaxPriceMember", acno);
+	}
 
+	@Override
+	public int updateRefundPoint(SqlSession session, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.update("adAuction.updateRefundPoint", map);
+	}
+	
+	@Override
+	public int deleteIngOneAgAuction(SqlSession session, int acno) {
+		// TODO Auto-generated method stub
+		return session.delete("adAuction.deleteIngOneAgAuction", acno);
+	}
 	//옥션 비동의 리스트
 	@Override
 	public List<Map<String, String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage) {
@@ -37,7 +74,6 @@ public class AdminAuctionDaoImpl implements AdminAuctionDao {
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return session.selectList("adAuction.selectAuctionDisAgree",null,rb);
 	}
-
 	@Override
 	public int countAuctionDisAgree(SqlSession session) {
 		// TODO Auto-generated method stub

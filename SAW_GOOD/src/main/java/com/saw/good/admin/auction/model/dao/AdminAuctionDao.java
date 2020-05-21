@@ -14,6 +14,18 @@ public interface AdminAuctionDao {
 	List<Map<String,String>> selectAuctionAgree(SqlSession session,int cPage,int numPerPage);
 	int countAuctionAgree(SqlSession session);
 	
+	//옥션 동의 검색
+	List<Map<String,String>> selectAgreeSearch(SqlSession session,Map<String,Object> map,int cPage,int numPerPage);
+	int countAgreeSearch(SqlSession session,Map<String,Object> map);
+	
+	//옥션 완료 삭제
+	int deleteFnOneAgAuction(SqlSession session,int acno);
+	
+	//옥선 진행중 환불 및 삭제
+	Map<String,String> selectMaxPriceMember(SqlSession session,int acno);
+	int updateRefundPoint(SqlSession session,Map<String,String> map);
+	int deleteIngOneAgAuction(SqlSession session,int acno);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage);
 	int countAuctionDisAgree(SqlSession session);

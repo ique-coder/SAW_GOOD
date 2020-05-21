@@ -346,7 +346,7 @@ label {
 	<div class="container-fluid" style="padding-bottom: 40px" id="category">
 		<div class="row">
 			<div class="col-sm-6 subcategory">
-				<input type="radio" name="subcategory" id="disagree" checked/> <label
+				<input type="radio" name="subcategory" id="disagree" /> <label
 					for="subcategory">승인대기</label>
 			</div>
 			<div class="col-sm-6 subcategory">
@@ -524,14 +524,14 @@ label {
 							<td><fmt:formatDate value="${ac['ACENDDATE']}" pattern="yyyy-MM-dd"/></td>
 							<c:if test="${ac['ACSTATUS'] == 2 }" >
 								<td>
-									<button class="btn-black agreeAuc" type="button" disabled>완료</button>
-									<button class="btn-black agreeAuc" type="button">삭제</button>
+									<button class="btn-black" type="button" disabled>완료</button>
+									<button class="btn-black fnDelete" type="button" value="${ac['ACBOARDNO']}" >삭제</button>
 								</td>
 							</c:if>
 							<c:if test="${ac['ACSTATUS'] == 1 }" >
 								<td>
-									<button class="btn-black agreeAuc" type="button" disabled>진행중</button>
-									<button class="btn-black agreeAuc" type="button">삭제</button>
+									<button class="btn-black" type="button" disabled>진행중</button>
+									<button class="btn-black ingDelete" type="button" value="${ac['ACBOARDNO']}" >삭제</button>
 								</td>
 							</c:if>
 						</tr>
@@ -557,21 +557,33 @@ label {
 			$("#search_" + val).css("display", "inline");
 		})
 	})
+	
 	//비동의페이지 이동
 	$("#disagree").click(function(){
 		location.replace("${path}/admin/auctionDisAgreeList");
 	})	
-	
-	///////
+
 	//펀딩 검색기능
 	$("#submitSearch").click(function(){
 		var type=$("#search_Type").val();
 		$("#removeType").find($("#search_"+type)).siblings($("#search_"+type)).not($("select[id=search_Type]")).remove();
 		$("#searchFrm").submit();
 	})
+	//완료 삭체
+	$(".fnDelete").click(function(){
+		var val=$(this).val();
+		location.replace("${path}/admin/deleteFnOneAgAuction?acno="+val);
+	})
+	//진행중 삭제
+	$(".ingDelete").click(function(){
+		console.log("111111")
+		var val=$(this).val();
+		location.replace("${path}/admin/deleteIngOneAgAuction?acno="+val);
+	})
+	
 	//더블클릭 방지
 	var click=false;
-        
+       
     function doubleClickNo(){
        	if(click){
         	return click;
@@ -604,6 +616,24 @@ label {
     $("#numFrm").change(function(){
     	 $("#numFrm").submit();
     })
+    //체크된 펀딩 삭제
+     $("#deleteAuc").click(function(){
+    	var arrText=[];
+    	$(".aucCheck:checked").each(function(index,item){
+    		arrText[index]=$(item).parent().next().next().next().next().next().next().next().next().next().find("button:disabled").text();
+    	})
+    	if($(".aucCheck:checked").length==0){
+    		alert("삭제할 경매를 선택해주세요")
+    	}else if(arrText.contains("진행중")==true && arrText.contains("완료")==true){
+    		alert("진행중 경매와 옥션 경매 를 따로 선택해주세요");
+    	}else if(arrText.contains("진행중")==true && arrText.contains("완료")==false){
+    		$("#auctionFrm").attr("action","${path}/admin/deleteIngCkAuction");
+    		$("#auctionFrm").submit();
+    	}else if(arrText.contains("진행중")==false && arrText.contains("완료")==true){
+    		$("#auctionFrm").attr("action","${path}/admin/deleteFnCkAuction");
+    		$("#auctionFrm").submit();
+    	}
+     })
 </script>
 
 

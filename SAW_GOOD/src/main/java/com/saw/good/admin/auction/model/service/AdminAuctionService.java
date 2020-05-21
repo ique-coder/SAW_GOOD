@@ -12,6 +12,16 @@ public interface AdminAuctionService {
 	List<Map<String,String>> selectAuctionAgree(int cPage,int numPerPage);
 	int countAuctionAgree();
 	
+	//옥션 동의 검색
+	List<Map<String,String>> selectAgreeSearch(Map<String,Object> map,int cPage,int numPerPage);
+	int countAgreeSearch(Map<String,Object> map);
+	
+	//옥션 완료 삭제
+	int deleteFnOneAgAuction(int acno);
+	
+	//옥션 진행중 환불 및 삭제
+	int deleteIngOneAgAuction(int acno);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(int cPage,int numPerPage);
 	int countAuctionDisAgree();
