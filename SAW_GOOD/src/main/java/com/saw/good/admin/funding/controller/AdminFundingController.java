@@ -96,21 +96,16 @@ public class AdminFundingController {
 			@RequestParam(value="searchType",defaultValue="") String searchType,
 			@RequestParam(value="keyword",defaultValue="") String keyword,
 			@RequestParam(value="category",defaultValue="") String[] category,
-			@RequestParam(value="hasexpired",defaultValue="") String hasexpired,
+			@RequestParam(value="fundSt",defaultValue="") String fundSt,
 			@RequestParam(value="enrollDate",defaultValue="") String enrollDate,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
-		System.out.println(searchType);
-		System.out.println(keyword);
-		System.out.println(hasexpired);
-		System.out.println(enrollDate);
-		System.out.println(category.length);
 		
 		Map<String,Object> map=new HashMap();
 		map.put("searchType", searchType);
 		map.put("keyword", keyword);
 		map.put("enrollDate",enrollDate);
-		map.put("hasexpired",hasexpired);
+		map.put("fundSt",fundSt);
 		if(category.length==0) {
 			map.put("category",null);
 		}else {
@@ -140,7 +135,7 @@ public class AdminFundingController {
 				agPageBar+="&category="+c;
 			}
 			agPageBar+="&enrollDate="+enrollDate;
-			agPageBar+="&hasexpired="+hasexpired;
+			agPageBar+="&fundSt="+fundSt;
 			agPageBar+="'><</a> ";
 		}
 		//숫자
@@ -155,7 +150,7 @@ public class AdminFundingController {
 					agPageBar+="&category="+c;
 				}
 				agPageBar+="&enrollDate="+enrollDate;
-				agPageBar+="&hasexpired="+hasexpired;
+				agPageBar+="&fundSt="+fundSt;
 				agPageBar+="'>"+pageNo+"</a> ";
 			}
 			pageNo++;
@@ -172,7 +167,7 @@ public class AdminFundingController {
 				agPageBar+="&category="+c;
 			}
 			agPageBar+="&enrollDate="+enrollDate;
-			agPageBar+="&hasexpired="+hasexpired;
+			agPageBar+="&fundSt="+fundSt;
 			agPageBar+="'>></a>";
 		}
 		agPageBar+="</div>";
@@ -184,7 +179,7 @@ public class AdminFundingController {
 		mv.addObject("searchType", searchType);
 		mv.addObject("keyword", keyword);
 		mv.addObject("category",category );
-		mv.addObject("hasexpired", hasexpired);
+		mv.addObject("fundSt", fundSt);
 		mv.setViewName("admin/funding/fundingAgree");
 		return mv;
 	}
@@ -247,6 +242,59 @@ public class AdminFundingController {
 		mv.addObject("funding", fd);
 		mv.addObject("subImg", subImg);
 		mv.setViewName("admin/funding/fundingView");
+		return mv;
+	}
+	
+	//한개의 펀딩 환불
+	@RequestMapping("/admin/refundOneFunding")
+	public ModelAndView refundOneFunding(ModelAndView mv,int fdno) {
+		
+		int result=service.updateRefundOneFund(fdno);
+		
+		String msg=result>0?"환불을 성공하였습니다.":"환불을 실패하였습니다.";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/fundingAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;
+	}
+	
+	//여러개 펀딩 환불
+	@RequestMapping("/admin/ckRefundFunding")
+	public ModelAndView ckRefundFunding(ModelAndView mv,@RequestParam(value="fundcheck") String[] fundcheck) {
+		
+		int result=service.updateRefundCkfund(fundcheck);
+		
+		String msg=result>0?"선택한 펀딩을 환불하였습니다.":"선택한 펀딩 환불을 실패하였습니다.";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/fundingAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;
+
+	}
+	
+	//진행중 펀딩 환불해주고 삭제
+	@RequestMapping("/admin/ckIngDeleteFunding")
+	public ModelAndView ckIngDeleteFunding(ModelAndView mv,@RequestParam(value="fundcheck") String[] fundcheck) {
+		
+		int result=service.deleteCkIngFund(fundcheck);
+		
+		String msg=result>0?"선택한 펀딩을 환불및 삭제하였습니다.":"선택한 펀딩을 환불및 삭제를 실패하였습니다.";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/fundingAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;
+	}
+	
+	//완료된 펀딩 삭제
+	@RequestMapping("/admin/ckFnDeleteFunding")
+	public ModelAndView ckFnDeleteFunding(ModelAndView mv,@RequestParam(value="fundcheck") String[] fundcheck) {
+		
+		int result=service.deleteCkFund(fundcheck);
+		
+		String msg=result>0?"선택한 펀딩을 삭제하였습니다.":"선택한 펀딩 삭제를 실패하였습니다.";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/fundingAgreeList");
+		mv.setViewName("admin/common/msg");
 		return mv;
 	}
 

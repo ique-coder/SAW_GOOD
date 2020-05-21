@@ -12,5 +12,8 @@ public interface FurnitureDao {
 
 	List<Product> category(SqlSession session, Map<String,String> categoryNames);
 	int totalData(SqlSession session, Map<String,String> categoryNames);
-	List<Map<String, String>> cart(SqlSession session, String userId);
+	List<Map<String, Object>> cart(SqlSession session, String userId);
+	
+	boolean deleteCart(SqlSession session, String userId);
+	int insertCart(SqlSession session, Map<String,Object> product);
 }

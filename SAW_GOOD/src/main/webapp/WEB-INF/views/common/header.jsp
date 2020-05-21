@@ -47,7 +47,12 @@
           </div>
           <ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
-                    <a href="${path }/furniture/furniture.do?userId=${loginMember.userId!=null?loginMember.userId:''}" class="target"><span>SHOW ROOM</span></a>
+                	<c:if test="${ loginMember != null}">
+                    	<a href="${path }/furniture/furniture.do" class="target"><span>SHOW ROOM</span></a>
+                    </c:if>
+                    <c:if test="${ loginMember == null}">
+                    	<a class="targer"><span>SHOW ROOM</span></a>
+                    </c:if>
                 </li>
                 <li class="col-md-3">
                     <a href="${path }/product/productList" class="target"><span>NEW ARRIVAL</span></a>
@@ -67,9 +72,12 @@
           </c:if>
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
-	             <li class="col-md-4"><a href="${path }/signup">my page</a></li>
-	             <li class="col-md-4"><a href="${path }/payment/cart">cart</a></li>
-	             <li class="col-md-4"><a href="${path }/member/logout">logout</a></li>
+
+	             <li class="col-md-3"><a href="${path }/signup">my page</a></li>
+	             <li class="col-md-3"><a href="${path }//member/info.do">my Info</a></li>
+	             <li class="col-md-3"><a href="${path }/payment/cart">cart</a></li>
+	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
+
 	          </ol>
           </c:if>
        </div>

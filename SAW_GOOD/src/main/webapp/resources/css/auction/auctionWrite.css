@@ -226,6 +226,9 @@
     .record>strong>input[type=text]{
         height: 30px;
         width: 250px;
+        background:none;
+        border: 1px solid #9d9d9d;
+        border-radius:3px;
        
     }
     .record>strong>label{
@@ -234,6 +237,9 @@
     }
     input{
         padding: 5px;
+        background:none;
+        border: 1px solid #9d9d9d;
+        border-radius:3px;
     }
     li>div>input{
         width: 300px;
@@ -328,7 +334,7 @@
     .tab{
         padding-bottom: 10px;
         width: 100%;
-        margin: 70px 0 30px;
+        margin: 70px 0 0;
         border-bottom: 1px solid #202020;
         position: relative;
     }
@@ -462,4 +468,51 @@
     border-radius: 2px;
     border: 0;
     margin: 0 3px;
+}
+.selectStyle{
+    background:none;
+	border: 1px solid #9d9d9d;
+	border-radius:3px;
+	width:150px;
+	height:30px;
+}
+.filebox label { 
+	display: inline-block;
+	padding: 15px 30px;
+	color: white;
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #51735D;
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+} 
+.filebox input[type="file"] {
+	/* 파일 필드 숨기기 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	verflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}
+div#main{
+	display:inline-block;
+	border : 1px solid #eee;
+	width : 500px;
+	height : 400px;
+	
+}
+.images{
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding-left : 5px;
+    padding-right: 5px;
 }

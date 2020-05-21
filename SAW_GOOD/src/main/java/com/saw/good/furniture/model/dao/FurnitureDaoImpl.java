@@ -13,7 +13,7 @@ import com.saw.good.product.model.vo.Product;
 public class FurnitureDaoImpl implements FurnitureDao{
 
 	@Override
-	public List<Map<String, String>> cart(SqlSession session, String userId) {
+	public List<Map<String, Object>> cart(SqlSession session, String userId) {
 		return session.selectList("furniture.cart", userId);
 	}
 
@@ -26,6 +26,19 @@ public class FurnitureDaoImpl implements FurnitureDao{
 	public int totalData(SqlSession session, Map<String, String> categoryNames) {
 		return session.selectOne("furniture.totalData", categoryNames);
 	}
+
+	@Override
+	public boolean deleteCart(SqlSession session, String userId) {
+		int result = session.delete("furniture.deleteCart", userId);
+		return true;
+	}
+
+	@Override
+	public int insertCart(SqlSession session, Map<String, Object> product) {
+		return session.insert("furniture.insertCart", product);
+	}
+	
+	
 	
 	
 

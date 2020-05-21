@@ -43,7 +43,7 @@
 	</select>
 	
 	<update id="updateAgreeFunding" parameterType="_int">
-		UPDATE FUNDING SET APPR=1 WHERE FDNO=#{fdno}
+		UPDATE FUNDING SET APPR=1,STATUS=1 WHERE FDNO=#{fdno}
 	</update>
 	<update id="updateDisAgreeFunding" parameterType="_int">
 		UPDATE FUNDING SET APPR=2 WHERE FDNO=#{fdno}
@@ -84,12 +84,18 @@
 		<if test='enrollDate != null and enrollDate !=""'>
 			AND TO_CHAR(ENROLLDATE,'YYYY-MM-DD')=#{enrollDate}
 		</if>
-		<if test='hasexpired != null and hasexpired !=""'>
-			<if test="hasexpired eq 'yes'">
-				AND ENDDATE <![CDATA[<]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		<if test="fundSt != null and fundSt !='' ">
+			<if test="fundSt eq 'finish'">
+				AND STATUS=2
 			</if>
-			<if test="hasexpired eq 'no'">
-				AND ENDDATE <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			<if test="fundSt eq 'fail'">
+				AND STATUS=0
+			</if>
+			<if test="fundSt eq 'refund'">
+				AND STATUS=3
+			</if>
+			<if test="fundSt eq 'Ing'">
+				AND STATUS=1
 			</if>
 		</if>
 	</select>
@@ -108,14 +114,37 @@
 		<if test="enrollDate != null and enrollDate !='' ">
 			AND TO_CHAR(ENROLLDATE,'YYYY-MM-DD')=#{enrollDate}
 		</if>
-		<if test="hasexpired != null and hasexpired !='' ">
-			<if test="hasexpired eq 'yes'">
-				AND ENDDATE <![CDATA[<]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		<if test="fundSt != null and fundSt !='' ">
+			<if test="fundSt eq 'finish'">
+				AND STATUS=2
 			</if>
-			<if test="hasexpired eq 'no'">
-				AND ENDDATE <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			<if test="fundSt eq 'fail'">
+				AND STATUS=0
+			</if>
+			<if test="fundSt eq 'refund'">
+				AND STATUS=3
+			</if>
+			<if test="fundSt eq 'Ing'">
+				AND STATUS=1
 			</if>
 		</if>
 	</select>
 	
+	<update id="updateRefundOneFund" parameterType="_int">
+		UPDATE FDMEMBER SET PURSTATUS=0 WHERE FDNO=#{fdno}
+	</update>
+	<update id="updateOneFund" parameterType="_int">
+		UPDATE FUNDING SET STATUS=3 WHERE FDNO=#{fdno}
+	</update>
+	
+	<update id="updateRefundCkFund">
+		UPDATE FDMEMBER SET PURSTATUS=0 WHERE FDNO=#{s}
+	</update>
+	<update id="updateCkFund">
+		UPDATE FUNDING SET STATUS=3 WHERE FDNO=#{s}
+	</update>
+	
+	<update id="deleteCkFund">
+		UPDATE FUNDING SET APPR=2 WHERE FDNO=#{s}
+	</update>
 </mapper>

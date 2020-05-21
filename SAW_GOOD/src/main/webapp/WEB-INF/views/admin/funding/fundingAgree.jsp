@@ -41,7 +41,7 @@ table.fundingAg {
 
 /* 버튼 */
 .btn-black {
-	padding: 0 20px;
+	width:100px;
 	line-height: 30px;
 	font-size: 15px;
 	color: #fff;
@@ -418,10 +418,13 @@ label {
 						<th>등록일</th>
 						<td><input type="date" name="enrollDate"/></td>
 					<tr>
-						<th>만료일</th>
+						<th>펀딩상태</th>
 						<td>
-							<input type="radio" name="hasexpired" value="yes" id="expire"><label for="expire">expried</label>
-							<input type="radio" name="hasexpired" value="no" id="nonexpire"><label for="nonexpire">not expried</label>
+							<input type="radio" name="fundSt" value="finish" id="finishFd"><label for="finishFd">펀딩성공</label>
+							<input type="radio" name="fundSt" value="fail" id="failFd"><label for="failFd">환불(펀딩실패)</label>
+							<input type="radio" name="fundSt" value="refund" id="refundFd"><label for="refundFd">환불완료</label>
+							<input type="radio" name="fundSt" value="Ing" id="fundIng"><label for="fundIng">진행중</label>
+							
 						</td>
 					</tr>
 					<tr>
@@ -434,20 +437,31 @@ label {
 			</div>
 	</div>
 	<div class="container-fluid">
+		<div style="text-align: right; padding-right: 20px;">
+			<form action='${path }/admin/${keyword!=null?"fundingAgreeSearch":"fundingAgreeList"}' method="post" id="numFrm">
+				<input type="hidden" name="cPage" value="${cPage }"/>
+				<input type="hidden" name="searchType" value="${searchType }"/>
+				<input type="hidden" name="keyword" value="${keyword }"/>
+				<input type="hidden" name="enrollDate" value="${enrollDate }"/>
+				<input type="hidden" name="fundSt" value="${fundSt }"/>
+				<c:if test="${category !=null }">
+						<c:forEach items="${category }" var="c">
+							<input type="hidden" name="category" value="${c }"/>
+						</c:forEach>
+				</c:if>
+					<select name="numPerPage" style="font-size: 16px;">
+						<option value="10" ${numPerPage==10?"selected":"" }>10개씩보기</option>
+						<option value="20" ${numPerPage==20?"selected":"" }>20개씩보기</option>
+						<option value="30" ${numPerPage==30?"selected":"" }>30개씩보기</option>
+					</select>
+			</form>
+		</div>
 		<div class="col-md-12" style="height: auto;">
-			<form action="#" method="post" onsubmit="">
+			<form action="#" method="post" id="fundFrm">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-8" style="padding-bottom:10px;">
 						<button class="btn-black" type="button" id="checkReFund">환불</button>
-						<button class="btn-black" type="button">삭제</button>
-					</div>
-					<div class="col-md-4"
-						style="text-align: right; padding-bottom: 20px;">
-						<select name="agreement" style="font-size: 14px;">
-							<option value="10">10개씩보기</option>
-							<option value="20">20개씩보기</option>
-							<option value="30">30개씩보기</option>
-						</select>
+						<button class="btn-black" type="button" id="checkDelete">삭제</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -460,53 +474,63 @@ label {
 						<col width="10%">
 						<col width="10%">
 						<col width="10%">
-						<col width="15%">
+						<col width="10%">
 					</colgroup>
 
 					<tr>
-						<th scope="col"><input type="checkbox" name="fundcheck"
+						<th scope="col"><input type="checkbox"
 							id="fundingAgAll"><label for="fundingAgAll"></label></th>
 						<th scope="col">번호</th>
 						<th scope="col"></th>
 						<th scope="col">제목</th>
+						<th scope="col">카테고리</th>
 						<th scope="col">디자이너</th>
 						<th scope="col">작성자</th>
 						<th scope="col">등록일</th>
 						<th scope="col">만료일</th>
 						<th scope="col">상태</th>
 					</tr>
-					<c:forEach items="${fundingAgree }" var="fag" varStatus="vs">
-					<fmt:parseNumber value="${fag['ENDDATE'].time / (1000*60*60*24)}" integerOnly="true" var="EndDate"/>
-					<tr>
-						<td><input type="checkbox" name="fundcheck" id="fundAg${vs.count }"><label
-							for="fundAg${vs.count }"></label></td>
-						<td>${fag['FDNO'] }</td>
-						<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
-						<td><a href="${path }/admin/fundingView?fdno=${fag['FDNO'] }">${fag['TITLE']}</a></td>
-						<td>${fag['DESIGNER'] }</td>
-						<td>${fag['USERID'] }</td>
-						<td><fmt:formatDate value="${fag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
-						<td><fmt:formatDate value="${fag['ENDDATE']}" pattern="yyyy-MM-dd"/>
-						</td>
-						<c:if test="${EndDate-today >= 0 }">
-							<td>
-								<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>진행중</button>
+					<c:if test="${not empty fundingAgree }">
+						<c:forEach items="${fundingAgree }" var="fag" varStatus="vs">
+						<fmt:parseNumber value="${fag['ENDDATE'].time / (1000*60*60*24)}" integerOnly="true" var="EndDate"/>
+						<tr>
+							<td><input type="checkbox" name="fundcheck" id="fundAg${vs.count }" value="${fag['FDNO'] }" class="fundcheck"><label
+								for="fundAg${vs.count }"></label></td>
+							<td>${fag['FDNO'] }</td>
+							<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
+							<td><a href="${path }/admin/fundingView?fdno=${fag['FDNO'] }">${fag['TITLE']}</a></td>
+							<td>${fag['CATEGORY'] }</td>
+							<td>${fag['DESIGNER'] }</td>
+							<td>${fag['USERID'] }</td>
+							<td><fmt:formatDate value="${fag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${fag['ENDDATE']}" pattern="yyyy-MM-dd"/>
 							</td>
-						</c:if>
-						<c:forEach items="${targetPrice }" var="tp">
-								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <=0 and tp['PARTPRICE']<fag['TARGETPRICE']}">
+							<c:if test="${EndDate-today >= 0 and fag['STATUS'] eq '1'}">
+								<td>
+									<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>진행중</button>
+								</td>
+							</c:if>
+							<c:if test="${fag['STATUS'] eq '0'}">
 									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }">환불</button>
+										<button class="btn-black refundFd" type="button" value="${fag['FDNO'] }">환불</button>
 									</td>
-								</c:if>
-								<c:if test="${tp['FDNO'] eq fag['FDNO'] and EndDate-today <=0 and tp['PARTPRICE']>=fag['TARGETPRICE']}">
-									<td>
-										<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>완료</button>
-									</td>
-								</c:if>
+							</c:if>
+							<c:if test="${fag['STATUS'] eq '2'}">
+								<td>
+									<button class="btn-black" type="button" disabled>완료</button>
+								</td>
+							</c:if>
+							<c:if test="${fag['STATUS'] eq '3'}">
+								<td>
+									<button class="btn-black" type="button" disabled>환불완료</button>
+								</td>
+							</c:if>
+						</tr>
 						</c:forEach>
-					</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${empty fundingAgree }">
+						<td colspan="10" style="height:300px;">승인(검색)된 펀딩이 없습니다.</td>
+					</c:if>
 				</table>
 			</form>
 			${agPageBar }
@@ -549,6 +573,84 @@ label {
         	return false;
         }
     }
+    //배열 contains함수 생성
+    Array.prototype.contains = function(element) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == element) {
+				return true;
+			}
+		}
+		return false;
+	}
+    //환불해주기 (체크)
+    $("#checkReFund").click(function(){
+    	var arrText=[];
+    	$(".fundcheck:checked").each(function(index,item){
+    		arrText[index]=$(item).parent().next().next().next().next().next().next().next().next().next().find("button").text();
+    	})
+    	console.log(arrText);
+    	if(arrText.contains("진행중")){
+    		alert("환불 가능한 펀딩을 선택해주세요");
+    	}else if(arrText.contains("완료")){
+    		alert("환불 가능한 펀딩을 선택해주세요");
+    	}else if(arrText.contains("환불완료")){
+    		alert("환불 가능한 펀딩을 선택해주세요");
+    	}else{
+    		$("#fundFrm").attr("action","${path}/admin/ckRefundFunding")
+    		$("#fundFrm").submit();
+    	}
+    })
+    
+    //환불해주기 (한개)
+    $(".refundFd").click(function(){
+    	var val=$(this).val();
+    	$("#fundFrm").attr("action","${path}/admin/refundOneFunding?fdno="+val)
+		$("#fundFrm").submit();
+    })
+    
+    //삭제하기 완료 or 진행중 삭제하기
+    $("#checkDelete").click(function(){
+    	var arrText=[];
+    	$(".fundcheck:checked").each(function(index,item){
+    		arrText[index]=$(item).parent().next().next().next().next().next().next().next().next().next().find("button").text();
+    	})
+    	if(arrText.contains("환불")){
+    		alert("환불처리해줘야 하는 펀딩은 삭제할 수 없습니다.!");
+    	}else if(arrText.contains("진행중")==true && arrText.contains("완료")==true && arrText.contains("환불완료")==true){
+    		alert("상태가 다른 펀딩은 같이 삭제 할 수 없습니다!");
+    	}else if(arrText.contains("진행중")==true && arrText.contains("완료")==true){
+    		alert("진행중상태 펀딩과 완료상태펀딩을 따로 선택해주세요!");	
+    	}else if(arrText.contains("진행중")==true && arrText.contains("환불완료")==true){
+    		alert("진행중상태 펀딩과 환불완료펀딩을 따로 선택해주세요!");	
+    	}else if(arrText.contains("진행중")==true && arrText.contains("완료")==false){
+    		$("#fundFrm").attr("action","${path}/admin/ckIngDeleteFunding")
+    		$("#fundFrm").submit();
+    	}else if(arrText.contains("완료")==true&& arrText.contains("환불완료")==true && arrText.contains("진행중")==false){
+    		$("#fundFrm").attr("action","${path}/admin/ckFnDeleteFunding")
+    		$("#fundFrm").submit();
+    	}else if(arrText.contains("환불완료")==true && arrText.contains("진행중")==false){
+    		$("#fundFrm").attr("action","${path}/admin/ckFnDeleteFunding")
+    		$("#fundFrm").submit();
+    	}else if(arrText.contains("완료")==true && arrText.contains("진행중")==false){
+    		$("#fundFrm").attr("action","${path}/admin/ckFnDeleteFunding")
+    		$("#fundFrm").submit(); 
+    	}
+    })
+    
+    //전체선택 전체해제
+    	$(function() {
+		$("#fundingAgAll").click(function() {
+			if ($("#fundingAgAll").prop("checked")) {
+				$(".fundcheck").prop("checked", true);
+			} else {
+				$(".fundcheck").prop("checked", false);
+			}
+		})
+	})
+    //넘퍼페이지 변경
+    $("#numFrm").change(function(){
+    	 $("#numFrm").submit();
+    })
 </script>
 
 

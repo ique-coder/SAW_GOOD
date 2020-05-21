@@ -34,4 +34,14 @@ public interface AdminFundingDao {
 	//펀딩 보기
 	Map<String,String> selectOneFunding(SqlSession session,int fdno);
 	List<Map<String, String>> selectSubImg(SqlSession session,int fdno);
+	
+	//한개펀딩 환불
+	int updateRefundOneFund(SqlSession session,int fdno);
+	int updateOneFund(SqlSession session,int fdno);
+	//여러개펀딩 환불
+	int updateRefundCkFund(SqlSession session,String s);
+	int updateCkFund(SqlSession session,String s);
+	
+	//여러개 완료펀딩 삭제 및 진행중 펀딩 삭제
+	int deleteCkFund(SqlSession session,String s);
 }

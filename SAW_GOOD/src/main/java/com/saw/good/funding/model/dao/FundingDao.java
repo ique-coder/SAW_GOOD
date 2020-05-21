@@ -13,7 +13,7 @@ import com.saw.good.funding.model.vo.Funding;
 
 public interface FundingDao {
 
-	List<Funding> selectList(SqlSession session, int numPerPage);
+	List<Funding> selectList(SqlSession session, int cPage, int numPerPage);
 
 	Funding selectItem(SqlSession session, int fdNo);
 
@@ -42,5 +42,25 @@ public interface FundingDao {
 	int deleteFunding(SqlSession session, int fdNo);
 
 	int insertFDReword(SqlSession session, FDReword fr);
+
+	List<Funding> selectCategoryList(SqlSession session, Map map, int cPage, int numPerPage);
+
+	List<Funding> selectList(SqlSession session, int status, int cPage, int numPerPage);
+
+	List<Funding> selectList(SqlSession session, String keyword, int cPage, int numPerPage);
+
+	List<Funding> selectMypageFundingList(SqlSession session, String userId, int cPage, int numPerPage);
+
+	int selectFundingCount(SqlSession session, String userId);
+
+	Funding selectItem(SqlSession session, Map map);
+
+	List<FDSubImg> selectFDSubImg(SqlSession session, int fdNo);
+
+	int updateFunding(SqlSession session, Funding f);
+
+	int updateFunding2(SqlSession session, Funding f);
+
+
 
 }

@@ -30,9 +30,23 @@ public class FurnitureServiceImpl implements FurnitureService{
 	}
 	
 	@Override
-	public List<Map<String, String>> cart(String userId) {
+	public List<Map<String, Object>> cart(String userId) {
 		return dao.cart(session, userId);
 	}
+
+	@Override
+	public boolean deleteCart(String userId) {
+		return dao.deleteCart(session, userId);
+	}
+
+	@Override
+	public int insertCart(Map<String,Object> product) {
+		return dao.insertCart(session, product);
+	}
+	
+	
+	
+	
 
 	
 

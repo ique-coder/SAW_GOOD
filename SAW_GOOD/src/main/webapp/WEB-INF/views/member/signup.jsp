@@ -128,7 +128,7 @@
                                     <th>이름 Name<span id="checkName" class="warn-text">정확하게 입력해 주세요.</span></th>
                                     </tr>
                                 <tr>
-                                    <td><input id="" type="text" name="userName" class="inputStyle" placeholder="아이디 입력"></td>
+                                    <td><input id="" type="text" name="userName" class="inputStyle" placeholder="이름 입력"></td>
                                 </tr>
                                 <tr>
                                     <th>전화번호 Phone<span id="checkPhone" class="warn-text">정확한 번호를 입력해주세요.</span></th>

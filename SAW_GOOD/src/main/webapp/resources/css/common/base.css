@@ -54,6 +54,7 @@
 body{
 	padding-top:60px;
 }
+
 header.container-fluid{
     border-bottom: lightgray 1px solid;
     transition:top 0.5s ease-in-out;

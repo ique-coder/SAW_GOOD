@@ -4,4 +4,21 @@
  	<select id="selectPayment" parameterType="map" resultType="map">
 		SELECT * FROM CART JOIN NEWPRODUCT USING(PRODUCTNO) WHERE USERID=#{userId} AND PRODUCTNO=#{pNo}
 	</select>
+	<insert id="insertPayment" parameterType="payment">
+		INSERT INTO PAYMENT VALUES(
+			SEQ_PAY_NO.NEXTVAL,#{userId},#{odName},#{odPhone},#{odEmail},#{rcName},
+			#{rcPhone},#{rcAddress1},#{rcAddress2},#{rcPostCode},#{odTotalPrice},#{payChoice},SYSDATE
+		)
+	</insert>
+	<select id="selectOdNo" parameterType="member" resultType="_int">
+		SELECT ORDERNO FROM (SELECT ROWNUM AS RN,A.* FROM (SELECT * FROM PAYMENT WHERE USERID=#{userId} ORDER BY ORDERNO DESC)A ) WHERE RN=1
+	</select>
+	
+	<insert id="insertPaymentHistory" parameterType="map">
+		INSERT INTO PAYMENTHISTORY VALUES(
+			SEQ_PH_NO.NEXTVAL,#{odNo},#{pNo},#{userId},#{pNum},#{tPrice},'N',0
+		)
+	</insert>
+	
+	
 </mapper>

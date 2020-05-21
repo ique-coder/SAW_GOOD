@@ -1,11 +1,14 @@
 package com.saw.good.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.encrypt.AESEncrypt;
@@ -151,9 +157,9 @@ public class MemberController {
 
 	//승원 로그인멤버 정보 불러오기 
 	@RequestMapping("/member/info.do")
-	public ModelAndView memberInfo(Member m, ModelAndView mv) {
+	public ModelAndView memberInfo(ModelAndView mv,@SessionAttribute("loginMember") Member m) {
 		
-		String userId="skmb1230";
+		String userId=m.getUserId();
 		Member mem = service.loginMemberInfo(userId);
 		try {
 			mem.setPhone(aesEncrypt.decrypt(mem.getPhone()));
@@ -170,15 +176,58 @@ public class MemberController {
 	}
 	//승원 로그인멤버 정보 업데이트하기
 	@RequestMapping("/member/memberUpdate")
-	public ModelAndView memberInfoUpdate(Member m, ModelAndView mv) {
-		//암호화하기
-
+	public ModelAndView memberInfoUpdate(Member m, ModelAndView mv,
+			MultipartHttpServletRequest request,
+			HttpSession session
+			) {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			//암호화하기
 			m.setPostCode(aesEncrypt.encrypt(m.getPostCode()));
 			m.setAddress1(aesEncrypt.encrypt(m.getAddress1()));
 			m.setAddress2(aesEncrypt.encrypt(m.getAddress2()));
 			m.setPhone(aesEncrypt.encrypt(m.getPhone()));
-			System.out.println(m);
-			int result = service.updateMemberInfo(m);
+			Member mem2 = service.loginMemberInfo(m.getUserId());
+			//경로지정
+			String path = session.getServletContext().getRealPath("/resources/upload/auction");
+			File fileDir = new File(path);
+			if(!fileDir.exists()) {
+				fileDir.mkdirs();
+			}
+			String originalAc="";
+			String renameAc="";
+			MultipartFile pfImg=request.getFile("profileImg");
+			System.out.println(pfImg.isEmpty());
+			
+			if(!pfImg.isEmpty()) {
+				int rnd=(int)(Math.random()*1000);
+				originalAc=pfImg.getOriginalFilename();
+				String ext=originalAc.substring(originalAc.lastIndexOf("."));
+				renameAc=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+				m.setProfile(originalAc);
+				m.setReProfile(renameAc);
+				try {
+					pfImg.transferTo(new File(fileDir+"/"+renameAc));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+			int result = 0;
+			try {
+				result = service.updateMemberInfo(m);
+			}catch(RuntimeException e) {
+				File adf=new File(fileDir+"/"+renameAc);
+				if(adf.exists()) {
+					adf.delete();
+				}
+			}
+			//업데이트 끝난 후 원래있던 파일 삭제
+			if(!pfImg.isEmpty()) {
+				File af= new File(fileDir+"/"+mem2.getReProfile());
+				if(af.exists()) {
+					af.delete();
+				}
+			}
+			
 			String msg;
 			//주소 바꾸기!!!!!!!!!!!!!=================================================
 			//데이터 넣기 성공하면 메일전송 
@@ -189,6 +238,7 @@ public class MemberController {
 			}else {
 				msg = "회원가입 실패하였습니다.";
 			}
+			mv.addObject("loc","/member/info.do");
 			mv.addObject("msg", msg);
 			mv.setViewName("common/msg");
 //			
@@ -213,6 +263,7 @@ public class MemberController {
 		}else {
 			msg = "비밀번호 변경에 실패하였습니다.";
 		}
+		mv.addObject("loc","/member/info.do");
 		mv.addObject("msg", msg);
 		mv.setViewName("common/msg");
 //		
@@ -252,6 +303,7 @@ public class MemberController {
 			}else {
 				msg = "판매회원등급에 실패하였습니다.";
 			}
+			mv.addObject("loc","/member/info.do");
 			mv.addObject("msg", msg);
 			mv.setViewName("common/msg");
 //			
