@@ -14,6 +14,11 @@ public class phDaoImpl implements phDao{
 		return session.selectList("mypage.product", userId);
 	}
 
+	@Override
+	public List<Map<String, String>> auction(SqlSession session, String userId) {
+		return session.selectList("mypage.auction", userId);
+	}
+
 	
 	
 }

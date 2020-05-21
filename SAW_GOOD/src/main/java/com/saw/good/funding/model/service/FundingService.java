@@ -45,6 +45,19 @@ public interface FundingService {
 
 	List<Funding> selectList(String keyword, int cPage, int numPerPage);
 
+	int insertFunding(Funding f, List<FDSubImg> fileNames);
+
+	List<Funding> selectMypageFundingList(String userId, int cPage, int numPerPage);
+
+	int selectFundingCount(String userId);
+	
+	Funding selectItem(Map map);
+
+	List<FDSubImg> selectFDSubImg(int fdNo);
+
+	int updateFunding(Funding f);
+	
+
 
 
 }

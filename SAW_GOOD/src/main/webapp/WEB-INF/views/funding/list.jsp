@@ -78,11 +78,15 @@
 					</button>
 					</span>
 				</form>
-				<c:if test="${ not empty loginMember  }">
+				<c:if test="${ not empty loginMember  and loginMember.status>1 }">
 					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
+							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
+					</span>
+					<span id="enroll-container"> 
+							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
 					</span>
 				</c:if>
+				
 				
 			</div>
 

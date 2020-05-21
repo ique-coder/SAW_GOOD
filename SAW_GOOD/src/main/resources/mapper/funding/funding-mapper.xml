@@ -28,10 +28,7 @@
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
   		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
   	</select>
-  	
-  	
-  	
-  	
+
   	<select id="selectComment" resultType="comment" parameterType="_int">
   		select seq_fc_no, userid, fdno, 
 		to_char(commentDate, 'IYYY.MM.DD') formatDate,
@@ -56,15 +53,15 @@
 	</select>
 	
 	<insert id="insertFunding" parameterType="funding">
-	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,FDSIZE,TARGETPRICE,ENROLLDATE,MAINIMG,STATUS,CATEGORY,ENDDATE,APPR) 
+	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,TARGETPRICE,ENROLLDATE,MAINIMG,CATEGORY,ENDDATE,APPR) 
                           VALUES (FDSEQ.NEXTVAL, #{userId},#{designer},#{title}, #{subContent},#{detail},
-                          #{fdSize},#{targetPrice},SYSDATE, 'funding/upload/'+#{mainImg},0 , #{category},SYSDATE+#{day},0)
+                          #{targetPrice},SYSDATE, 'funding/'||#{mainImg}, #{category},#{endDate},0)
           <selectKey keyProperty="fdNo" resultType="int" order="AFTER">
           	SELECT FDSEQ.CURRVAL FROM DUAL
           </selectKey>           
 	</insert>
 	<insert id="insertFDSubImg" parameterType="fdsubImg">
-		INSERT INTO FDSUBIMG (FDNO,SUBIMG,ORINAME) VALUES (#{fdNo},#{subImg},#{oriName})
+		INSERT INTO FDSUBIMG (FDNO,SUBIMG) VALUES (#{fdNo},#{subImg})
 	</insert> 
 	<delete id="deleteFunding" parameterType="_int">
 	 	DELETE FROM FUNDING WHERE FDNO = #{fdNo}
@@ -81,8 +78,6 @@
 			,#{category2}
 		</if>
 		)
-		
-		
 		ORDER BY ENDDATE
 	</select>
 	<select id="selectStatusList" parameterType="_int" resultType="funding">
@@ -95,4 +90,34 @@
 		TITLE LIKE '%'||#{keyword}||'%' OR SUBCONTENT LIKE '%'||#{keyword}||'%' OR DETAIL LIKE '%'||#{keyword}||'%' OR
 		FDSIZE LIKE '%'||#{keyword}||'%' OR CATEGORY LIKE '%'||#{keyword}||'%'
 	</select>
+	
+	<select id="selectMypageFundingList" parameterType="string" resultType="funding">
+		SELECT A.* ,(SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
+		FROM FUNDING A WHERE USERID = #{userId} ORDER BY FDNO DESC
+	</select>
+	 <select id="selectMyFundingCount" parameterType="string" resultType="int">
+	 	SELECT COUNT(*) FROM FUNDING WHERE USERID = #{userId}
+	 
+	 </select>
+	<select id="selectMyFunding" parameterType="map" resultType="funding">
+		SELECT * FROM FUNDING WHERE USERID = #{userId} AND FDNO = #{fdNo} 
+	</select>
+	 <select id="selectFDSubImgList" parameterType="_int" resultType="fdsubimg">
+	 	SELECT SUBIMG FROM FDSUBIMG WHERE FDNO = #{fdNo}
+	 </select>
+	<update id="updateFunding" parameterType="funding" >
+	 	UPDATE FUNDING SET TITLE = #{title}, DESIGNER = #{designer} , SUBCONTENT = #{subContent},
+	 	 DETAIL = #{detail} , TARGETPRICE = #{targetPrice} , CATEGORY= #{category}
+	 	 <if test="endDate != null and endDate != ''">
+	 	 	, ENDDATE = #{endDate}
+	 	 </if>
+	 	WHERE FDNO = #{fdNo}
+	</update>
+	<update id="updateFunding2" parameterType="funding" >
+	 	UPDATE FUNDING SET TITLE = #{title}, DESIGNER = #{designer} , SUBCONTENT = #{subContent},
+	 	 DETAIL = #{detail} , TARGETPRICE = #{targetPrice} , CATEGORY= #{category}
+	 	 	, ENDDATE = #{endDate}
+	 	WHERE FDNO = #{fdNo}
+	</update>
+	
 </mapper>

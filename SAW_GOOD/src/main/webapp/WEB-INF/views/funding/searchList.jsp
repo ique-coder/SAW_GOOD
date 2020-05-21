@@ -7,7 +7,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp">
 		<jsp:param value="" name=""/>
 	</jsp:include>
-	<link rel="stylesheet" href="${path }/resources/css/funding/list.css" />
+	<link rel="stylesheet" href="${path }/resources/css/funding/searchList.css?ver=0" />
 
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date() %>" var="now"/>
@@ -15,7 +15,7 @@
 
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
-		data-image-src="${path }/resources/images/sample1.jpg">
+		data-image-src="${path }/resources/images/sample1.jpg" style="background: transparent;">
 		<h3>CREATE YOUR ROOM</h3>
 	</div>
 	<div id="search-area" class="container">
@@ -80,7 +80,10 @@
 				</form>
 				<c:if test="${ not empty loginMember  }">
 					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 등록"/>
+							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
+					</span>
+					<span id="enroll-container"> 
+							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
 					</span>
 				</c:if>
 			</div>
