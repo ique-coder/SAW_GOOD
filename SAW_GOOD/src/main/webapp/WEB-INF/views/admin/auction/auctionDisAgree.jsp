@@ -456,6 +456,11 @@ label {
 							<input type="hidden" name="category" value="${c }"/>
 						</c:forEach>
 				</c:if>
+				<c:if test="${brand !=null }">
+						<c:forEach items="${brand }" var="b">
+							<input type="hidden" name="category" value="${b}"/>
+						</c:forEach>
+				</c:if>
 					<select name="numPerPage" style="font-size: 16px;">
 						<option value="10" ${numPerPage==10?"selected":"" }>10개씩보기</option>
 						<option value="20" ${numPerPage==20?"selected":"" }>20개씩보기</option>
@@ -507,7 +512,7 @@ label {
 							<td>${ac['ACBOARDNO']}</td>
 							<td><img src="${path }/resources/upload/auction/${ac['ACMAINIMG']}" /></td>
 							<td>
-								<a href="${path }/admin/fundingView?acno=${ac['ACBOARDNO']}">
+								<a href="${path }/admin/auctionView?acno=${ac['ACBOARDNO']}">
 								${ac['ACTITLE']} (${ac['ACSTATUSRANK']}) <fmt:formatNumber value="${ac['ACSTARTPRICE']}"/>원
 								</a>
 							</td>

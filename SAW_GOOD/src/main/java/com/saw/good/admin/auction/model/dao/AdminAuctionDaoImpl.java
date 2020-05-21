@@ -16,6 +16,13 @@ public class AdminAuctionDaoImpl implements AdminAuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("adAuction.selectOneAuction", acno);
 	}
+	//서브이미지
+
+	@Override
+	public List<Map<String, String>> selectAuctionImg(SqlSession session, int acno) {
+		// TODO Auto-generated method stub
+		return session.selectList("adAuction.selectAuctionImg",acno);
+	}
 	//옥션 동의 리스트
 	@Override
 	public List<Map<String, String>> selectAuctionAgree(SqlSession session, int cPage, int numPerPage) {

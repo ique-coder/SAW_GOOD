@@ -4,6 +4,9 @@
 	<select id="selectOneAuction" parameterType="_int" resultType="map">
 		SELECT * FROM AUCTION WHERE ACBOARDNO=#{acno}
 	</select>
+	<select id="selectAuctionImg" parameterType="_int" resultType="map">
+		SELECT * FROM AUCTIONSERVEIMG WHERE ACBOARDNO=#{acno}
+	</select>
 	
 	<select id="selectAuctionAgree" resultType="map">
 		SELECT * FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2 ORDER BY ACBOARDNO DESC

@@ -25,6 +25,14 @@ public class AdminAuctionServiceImpl implements AdminAuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectOneAuction(session, acno);
 	}
+	//서브이지미
+	@Override
+	public List<Map<String, String>> selectAuctionImg(int acno) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionImg(session, acno);
+	}
+
+
 	//동의리스트
 	@Override
 	public List<Map<String, String>> selectAuctionAgree(int cPage, int numPerPage) {

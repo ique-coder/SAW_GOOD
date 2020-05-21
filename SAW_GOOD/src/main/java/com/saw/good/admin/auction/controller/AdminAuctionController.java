@@ -26,8 +26,10 @@ public class AdminAuctionController {
 	public ModelAndView auctionView(ModelAndView mv,int acno) {
 		
 		Map<String,String> map=service.selectOneAuction(acno);
+		List<Map<String,String>> list=service.selectAuctionImg(acno);
 		
 		mv.addObject("auc", map);
+		mv.addObject("subImg", list);
 		mv.setViewName("admin/auction/auctionView");
 		return mv;
 	}

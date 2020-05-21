@@ -7,6 +7,8 @@ public interface AdminAuctionService {
 	
 	//옥션 뷰
 	Map<String,String> selectOneAuction(int acno);
+	//서브이미지
+	List<Map<String,String>> selectAuctionImg(int acno);
 	
 	//옥션 동의 리스트
 	List<Map<String,String>> selectAuctionAgree(int cPage,int numPerPage);

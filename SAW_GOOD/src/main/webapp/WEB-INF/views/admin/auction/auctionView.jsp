@@ -122,13 +122,10 @@
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
-								<%-- <c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
-								</c:forEach> --%>
-								<li><img src="${path }/resources/upload/newproduct/funding/bed.png" class="changeImg" /></li>
-								<li><img src="${path }/resources/upload/newproduct/funding/sofa.jpg" class="changeImg" /></li>
-								<li><img src="${path }/resources/upload/newproduct/funding/softchair.jpg" class="changeImg" /></li>
-								<li><img src="${path }/resources/upload/newproduct/funding/teaTable.jpg" class="changeImg" /></li>
+								<c:forEach items="${subImg }" var="i" varStatus="vs">
+									<li><img src="${path }/resources/upload/acution/${i['ACRENAMESERVE']}" class="changeImg" /></li>
+								</c:forEach>
+								
 							</ul>
 						</div>
 					</div>
@@ -140,62 +137,71 @@
 							</div>
 							<h4 style="font-size: 23px;">
 								auction Info
-								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">펀딩정보</span>
+								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">경매정보</span>
 							</h4>
 							<ul id="auction-all" style="padding:20px 0 0 0; height:450px;">
 								<li>
 									<p class="auction_tit"><span> - </span> 작성자 </p>
 									<p class="auction_con">
-										<strong> 1 </strong>
+										<strong> ${auc['USERID'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 디자이너 </p>
+									<p class="auction_tit"><span> - </span> 펀딩제목  </p>
 									<p class="auction_con">
-										<strong> 2 </strong>
+										<strong> ${auc['ACTITLE'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 펀딩제목 </p>
+									<p class="auction_tit"><span> - </span> 브랜드 </p>
 									<p class="auction_con">
-										<strong> 3 </strong>
+										<strong> ${auc['ACBRAND'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 목표가격</p>
+									<p class="auction_tit"><span> - </span> 카테고리 </p>
 									<p class="auction_con">
-										<strong>4</strong>
+										<strong> ${auc['ACCATEGORY'] } </strong>
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 현재가격 </p>
+									<p class="auction_tit"><span> - </span> 상품상태 </p>
 									<p class="auction_con">
-										<%-- <c:choose>
-											<c:when test="${empty partPrice }">
-												<strong>0원</strong>
-											</c:when>
-											<c:when test="${not empty partPrice }">
-												<strong> <fmt:formatNumber value="${partPrice['PARTPRICE'] }"/>원 </strong>
-											</c:when>
-										</c:choose> --%>
+										<strong> ${auc['ACSTATUSRANK'] } </strong>
 									</p>
 								</li>
+								<li>
+									<p class="auction_tit"><span> - </span> 시작가격 <span>/</span> 즉시입찰가</p>
+									<p class="auction_con">
+										<strong> ${auc['ACSTARTPRICE'] } <span>/</span> ${auc['ACIMDPRICE'] } </strong>
+									</p>
+								</li>
+								<c:if test="${auc['ACSTATUS'] ==1 or auc['ACSTATUS'] ==2  }">
+									<li>
+										<p class="auction_tit"><span> - </span> 현재가격 </p>
+										<p class="auction_con">
+											<strong> ${auc['ACNOWPRICE'] }</strong>
+										</p>
+									</li>
+								</c:if>
 								<li>
 									<p class="auction_tit"><span> - </span> 등록날짜 </p>
 									<p class="auction_con">
-										<strong>5</strong>
+										<strong><fmt:formatDate value="${auc['ACSTART_DATE'] }" pattern="yyyy-MM-dd"/></strong>
 									</p>
 								</li>
 								<li>
 									<p class="auction_tit"><span> - </span> 만료날짜 </p>
 									<p class="auction_con">
-										<strong>6 </strong>
+										<strong><fmt:formatDate value="${auc['ACENDDATE'] }" pattern="yyyy-MM-dd"/></strong>
 									</p>
 								</li>
 							</ul>
 								<div id="button">
-									<button type="button" class="btn-agree" id="fd-Ag" value="">승인</button>
-									<button type="button" class="btn-agree" id="fd-disAg" value="">거부</button>
+									<c:if test="${auc['ACSTATUS'] ==0 }">
+										<button type="button" class="btn-agree" id="fd-Ag" value="">승인</button>
+										<button type="button" class="btn-agree" id="fd-disAg" value="">거부</button>
+									</c:if>
 								</div>
 						</div>
 					</div>
