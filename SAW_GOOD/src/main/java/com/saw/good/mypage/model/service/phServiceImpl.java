@@ -27,7 +27,10 @@ public class phServiceImpl implements phService{
 	public List<Map<String, String>> auction(String userId) {
 		return dao.auction(session, userId);
 	}
-	
-	
 
+	@Override
+	public List<Map<String, String>> funding(String userId) {
+		return dao.funding(session, userId);
+	}
+	
 }
