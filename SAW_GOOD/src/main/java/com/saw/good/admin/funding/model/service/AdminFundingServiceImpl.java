@@ -121,7 +121,68 @@ public class AdminFundingServiceImpl implements AdminFundingService {
 		// TODO Auto-generated method stub
 		return dao.selectSubImg(session, fdno);
 	}
+
+	//한개펀딩 환불하기
+	@Override
+	public int updateRefundOneFund(int fdno){
+		// TODO Auto-generated method stub
+		int result=0;
+		result=dao.updateRefundOneFund(session,fdno);
+		result=dao.updateOneFund(session,fdno);
+		
+		return result;
+	}
 	
+	//여러개 펀딩 활불
+	@Override
+	public int updateRefundCkfund(String[] fundcheck){
+		// TODO Auto-generated method stub
+		int result=0;
+
+		for(String s : fundcheck) {
+			result=dao.updateRefundCkFund(session,s);
+		}
+		for(String s : fundcheck) {
+			result=dao.updateCkFund(session,s);
+		}
+
+		return result;
+	}
+	
+	//여러개 체크된 완료펀딩 삭제
+	@Override
+	public int deleteCkFund(String[] fundcheck) {
+		// TODO Auto-generated method stub
+		int result=0;
+		
+		for(String s: fundcheck) {
+			result=dao.deleteCkFund(session,s);
+		}
+		
+		return result;
+	}
+
+	//체크된 진행중 펀딩 환불 및 삭제
+	@Override
+	public int deleteCkIngFund(String[] fundcheck) {
+		// TODO Auto-generated method stub
+		
+		int result=0;
+		
+		//환불
+		for(String s:fundcheck) {
+			result=dao.updateRefundCkFund(session,s);
+		}
+		//삭제
+		for(String s:fundcheck) {
+			result=dao.deleteCkFund(session,s);
+		}
+		
+		return result;
+	}
+	
+
+
 	
 	
 	

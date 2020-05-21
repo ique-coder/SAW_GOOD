@@ -235,13 +235,17 @@ public class AuctionController {
 				}
 			
 			}
-			
-			
-		
-			
+
 			mv.addObject("loc", loc);
 			mv.addObject("msg", msg);
 			mv.setViewName("common/msg");
 			return mv;
+	}
+	// 글쓰기
+	@RequestMapping("/auction/writer")
+	public ModelAndView auctionWriter(ModelAndView mv) {
+		
+		mv.setViewName("auction/auctionWriter");
+		return mv;
 	}
 }

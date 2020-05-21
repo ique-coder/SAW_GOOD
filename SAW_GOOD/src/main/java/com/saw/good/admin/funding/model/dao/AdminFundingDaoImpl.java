@@ -112,5 +112,40 @@ public class AdminFundingDaoImpl implements AdminFundingDao {
 		// TODO Auto-generated method stub
 		return session.selectList("adFunding.selectSubImg", fdno);
 	}
+	//한개의 펀딩 환불
+	@Override
+	public int updateRefundOneFund(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateRefundOneFund",fdno);
+	}
+
+	@Override
+	public int updateOneFund(SqlSession session, int fdno) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateOneFund",fdno);
+	}
+	
+	//여러개의 펀딩 환불
+	@Override
+	public int updateRefundCkFund(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateRefundCkFund",s);
+	}
+
+	@Override
+	public int updateCkFund(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.updateCkFund",s);
+	}
+
+	//여러개 완료펀딩 삭제 및 진행중 펀딩 삭제
+	@Override
+	public int deleteCkFund(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.update("adFunding.deleteCkFund",s);
+	}
+	
+	
+	
 		
 }
