@@ -115,7 +115,6 @@
 									<span class="sendDate">${p['BUYDATE'] }</span>
 								</p>
 								
-								
 		                        <!-- step1 : 상품준비중
 		                        step2 : 상품 발송
 		                        step3 : 배달중
