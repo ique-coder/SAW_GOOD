@@ -43,6 +43,7 @@
 		}
 
 		.controls .bx-prev,
+		
 		.controls .bx-next {
 			position: absolute;
 			top: 50%;
@@ -75,19 +76,20 @@
 			padding: 5px 0 10px 10px;
 		}
 
-		.funding_tit {
+		.auction_tit {
 			display: inline-block;
 			width: 150px;
 			font-size: 20px;
+			margin-bottom:20px;
 		}
 
-		.funding_con {
+		.auction_con {
 			display: inline-block;
 			width: 282px;
 			color: black;
 			font-size: 25px;
+			margin-bottom:20px;
 		}
-		
 
 		#button {
 			text-align: right;
@@ -109,90 +111,92 @@
 </style>
 
 <div id="content" class="p-4 p-md-5 pt-5">
-			<h2 id="titeltwo">Funding View</h2>
+			<h2 id="titeltwo">Auction View</h2>
 			<hr id="hr">
 			<div class="container-fluid" style="margin-top: 30px;">
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/newproduct/funding/${funding['MAINIMG']}" width="99%"
+							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/auction/${auc['ACMAINIMG']}" width="99%"
 								style="height:600px;" />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
-								<c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/newproduct/funding/${i['SUBIMG']}" class="changeImg" /></li>
-								</c:forEach>
+								<%-- <c:forEach items="${subImg }" var="i" varStatus="vs">
+									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
+								</c:forEach> --%>
+								<li><img src="${path }/resources/upload/newproduct/funding/bed.png" class="changeImg" /></li>
+								<li><img src="${path }/resources/upload/newproduct/funding/sofa.jpg" class="changeImg" /></li>
+								<li><img src="${path }/resources/upload/newproduct/funding/softchair.jpg" class="changeImg" /></li>
+								<li><img src="${path }/resources/upload/newproduct/funding/teaTable.jpg" class="changeImg" /></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-xl-6" style="padding:5px 0 0 20px;">
-						<div id="funding-info">
+						<div id="auction-info">
 							<div class="character">
 								<b>펀딩특징</b>
 								<p>이 펀딩은 쏘굿에서만 특별진행하는 펀딩입니다.</p>
 							</div>
 							<h4 style="font-size: 23px;">
-								Funding Info
+								auction Info
 								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">펀딩정보</span>
 							</h4>
-							<ul id="funding-all" style="padding:20px 0 0 0; height:450px;">
+							<ul id="auction-all" style="padding:20px 0 0 0; height:450px;">
 								<li>
-									<p class="funding_tit"><span> - </span> 작성자 </p>
-									<p class="funding_con">
-										<strong> ${funding['USERID'] } </strong>
+									<p class="auction_tit"><span> - </span> 작성자 </p>
+									<p class="auction_con">
+										<strong> 1 </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 디자이너 </p>
-									<p class="funding_con">
-										<strong> ${funding['DESIGNER'] } </strong>
+									<p class="auction_tit"><span> - </span> 디자이너 </p>
+									<p class="auction_con">
+										<strong> 2 </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 펀딩제목 </p>
-									<p class="funding_con">
-										<strong> ${funding['TITLE'] } </strong>
+									<p class="auction_tit"><span> - </span> 펀딩제목 </p>
+									<p class="auction_con">
+										<strong> 3 </strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 목표가격</p>
-									<p class="funding_con">
-										<strong><fmt:formatNumber value="${funding['TARGETPRICE'] }"/>원</strong>
+									<p class="auction_tit"><span> - </span> 목표가격</p>
+									<p class="auction_con">
+										<strong>4</strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 현재가격 </p>
-									<p class="funding_con">
-										<c:choose>
+									<p class="auction_tit"><span> - </span> 현재가격 </p>
+									<p class="auction_con">
+										<%-- <c:choose>
 											<c:when test="${empty partPrice }">
 												<strong>0원</strong>
 											</c:when>
 											<c:when test="${not empty partPrice }">
 												<strong> <fmt:formatNumber value="${partPrice['PARTPRICE'] }"/>원 </strong>
 											</c:when>
-										</c:choose>
+										</c:choose> --%>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 등록날짜 </p>
-									<p class="funding_con">
-										<strong> <fmt:formatDate value="${funding['ENROLLDATE'] }" pattern="yyyy-MM-dd"/> </strong>
+									<p class="auction_tit"><span> - </span> 등록날짜 </p>
+									<p class="auction_con">
+										<strong>5</strong>
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 만료날짜 </p>
-									<p class="funding_con">
-										<strong> <fmt:formatDate value="${funding['ENDDATE'] }" pattern="yyyy-MM-dd"/>  </strong>
+									<p class="auction_tit"><span> - </span> 만료날짜 </p>
+									<p class="auction_con">
+										<strong>6 </strong>
 									</p>
 								</li>
 							</ul>
-							<c:if test="${funding['APPR'] == 0 }">
 								<div id="button">
-									<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
-									<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+									<button type="button" class="btn-agree" id="fd-Ag" value="">승인</button>
+									<button type="button" class="btn-agree" id="fd-disAg" value="">거부</button>
 								</div>
-							</c:if>
 						</div>
 					</div>
 				</div>
@@ -213,13 +217,17 @@
 
 		})
 	//이미지변경
-	$(".changeImg").click(function(){
-			var subsrc=$(this).attr("src");
-			var mainsrc=$(this).parents("div.controls").prev().find("#mainImg").attr("src");
-			$(this).parents("div.controls").prev().find("#mainImg").attr("src",subsrc);
-			$(this).attr("src",mainsrc);
-		})
-	//동의
+	$(function(){
+		$(".changeImg").click(function(){
+				var subsrc=$(this).attr("src");
+				var mainsrc=$(this).parents("div.controls").prev().find("#mainImg").attr("src");
+				console.log(subsrc);
+				console.log(mainsrc);
+				$(this).parents("div.controls").prev().find("#mainImg").attr("src",subsrc);
+				$(this).attr("src",mainsrc);
+			})
+	})
+	//동의 거부
 	$("#fd-Ag").click(function(){
 		var val=$(this).val();
 		location.replace("${path}/admin/agreeFunding?fdno="+val);

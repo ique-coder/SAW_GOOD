@@ -42,7 +42,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <!-- bxslider -->
 	
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script src="${path }/resources/js/jquery.bxslider.js"></script>
 <!-- chart.js -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -99,7 +99,7 @@ div.footer {
 					<li class="menu"><a href="${path }/admin/fundingDisAgreeList"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
 					<div></div>
-					<li class="menu"><a href="${path }/admin/auction"><span class="fa fa-font mr-3"></span>
+					<li class="menu"><a href="${path }/admin/auctionDisAgreeList"><span class="fa fa-font mr-3"></span>
 							Auction</a></li>
 					<div></div>
 					<li class="menu"><a href="#"><span
