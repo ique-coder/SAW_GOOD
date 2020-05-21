@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
+import com.saw.good.product.model.vo.ProductReview;
 
 public interface ProductService {
 	
@@ -18,6 +19,14 @@ public interface ProductService {
 	int insertQna(Map map);
 	int insertReplyQna(Map map);
 	List<ProductQna> selectProductQna(int no,int cPage,int numPerPage);
+	List<ProductReview> selectProductReview(int no,int cPage,int numPerPage);
 	int countQna(int no);
+	int countReview(int no);
 	ProductQna selectQnaCheck(int no);
+	int insertReview(Map map);
+	int countFive(int no);
+	int countFour(int no);
+	int countThree(int no);
+	int countTwo(int no);
+	int countOne(int no);
 }

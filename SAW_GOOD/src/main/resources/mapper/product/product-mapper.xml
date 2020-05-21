@@ -48,11 +48,41 @@
 		<!-- SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} ORDER BY WRITEDATE DESC -->
 		SELECT * FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no} START WITH REPLYLEVEL=0 CONNECT BY PRIOR QNANO=REPLYNO ORDER SIBLINGS BY WRITEDATE DESC
 	</select>
+	
+	<select id="selectProductReview" resultType="productReview" parameterType="_int">
+		SELECT * FROM NEWPRODUCTREVIEW WHERE PRODUCTNO = #{no} ORDER BY WRITEDATE DESC
+	</select>
+	
 	<select id="countQna" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCTQNA WHERE PRODUCTNO = #{no}
 	</select>
+	
+	<select id="countReview" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE PRODUCTNO = #{no}
+	</select>
 	<select id="selectQnaCheck" resultType="productQna" parameterType="_int">
 		SELECT * FROM NEWPRODUCTQNA WHERE QNANO = #{no}
+	</select>
+	
+	<insert id="insertReview" parameterType="map">
+		INSERT INTO NEWPRODUCTREVIEW VALUES(SEQ_PROREVIEW_NO.NEXTVAL,#{userId},#{no},
+		#{reContent},default,#{star},#{original},#{rename})
+	</insert>
+	
+	<select id="countFive" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 5 AND PRODUCTNO = #{no}
+	</select>
+	<select id="countFour" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 4 AND PRODUCTNO = #{no}
+	</select>
+	<select id="countThree" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 3 AND PRODUCTNO = #{no}
+	</select>
+	<select id="countTwo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 2 AND PRODUCTNO = #{no}
+	</select>
+	<select id="countOne" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 1 AND PRODUCTNO = #{no}
 	</select>
 </mapper>
 

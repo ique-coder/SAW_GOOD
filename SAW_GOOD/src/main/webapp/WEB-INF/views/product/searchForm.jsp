@@ -65,7 +65,11 @@
 				data:{"userName":$("#name").val(),
 					  "email":$("#email").val()},
 				success:function(data){
-					console.log(data.member.userId);
+					console.log(data);
+					if(!data.flag){
+						alert("등록된 회원이 존재하지 않습니다.");
+						return false;
+					}
 					var span = "<span class='search-result'>아이디 찾기가 완료 되었습니다.</span>";
 					var div = "<div class='search-id'>아이디 : "+data.member.userId+"</div>"
 					$("#findWrap").html("");
@@ -87,8 +91,8 @@
     						alert("등록된 회원이 존재하지 않습니다.");
     						return false;
     					}else{    						
-	    					var span = "<span class='search-result'>"+data.member.userId+"님의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</span>";
-	    					var div = "<div class='search-id'>임시 비밀번호 : "+data.ran+"</div>"
+	    					var span = "<span class='search-result'>"+data.member.userId+"님의 임시 비밀번호를</span>";
+	    					var div = "<div class='search-id'>"+data.email+"로 보내드렸습니다.</div>"
 	    					$("#findWrap").html("");
 	    					$("#findWrap").append($("<div style='text-align:center; width:100%;'>").append(span).append(div));
     					}
