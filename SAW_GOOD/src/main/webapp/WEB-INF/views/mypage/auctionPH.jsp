@@ -14,6 +14,9 @@
 	#list {
 		height: auto;
 	}
+	.noList {
+		margin-top: 50px;
+	}
 	
 </style>
 
@@ -63,30 +66,35 @@
 
 		<div id="list" class="col-md-10 ilnine">
 		
-			<c:forEach var="a" items="${list }">
-				<div class="product row">
-					<div class="col-md-2 productImg">
-						<img src="../image/1524445081477_iT6B.jpg" alt="">
+			<c:if test="${list.size() == 0 }">
+				<p class="noList center">결재내역이 없습니다.<p>
+			</c:if>
+			<c:if test="${list.size() != 0 }">
+				<c:forEach var="a" items="${list }">
+					<div class="product row">
+						<div class="col-md-2 productImg">
+							<img src="../image/1524445081477_iT6B.jpg" alt="">
+						</div>
+						<div class="col-md-10 pSpace spanSpace">
+							<p class="titleInfo">
+								<span class="brand">${a['ACCATEGORY'] }</span> <span class="productName">${a['ACTITLE'] }</span>
+							</p>
+							<p class="priceDate">
+								<span class="productPrice">${a['BIDPRICE'] }</span> <span class="sendDate">${a['BIDDATE'] }</span>
+							</p>
+							<p class="sendCheck">
+								판매자 : <span class="sendStep1 sendStep"><fmt:formatNumber type="number" value="${a['USERID'] }"/>원</span>
+							</p>
+							<p class="confirmStatus">
+								<span>소중한 입찰 감사합니다.</span><br /> <span>수많은 경쟁자 중
+									<strong>고객님이 최종 낙찰 되셨습니다.</strong>
+								</span>
+							</p>
+	
+						</div>
 					</div>
-					<div class="col-md-10 pSpace spanSpace">
-						<p class="titleInfo">
-							<span class="brand">${a['ACCATEGORY'] }</span> <span class="productName">${a['ACTITLE'] }</span>
-						</p>
-						<p class="priceDate">
-							<span class="productPrice">${a['BIDPRICE'] }</span> <span class="sendDate">${a['BIDDATE'] }</span>
-						</p>
-						<p class="sendCheck">
-							판매자 : <span class="sendStep1 sendStep">${a['USERID'] }</span>
-						</p>
-						<p class="confirmStatus">
-							<span>소중한 입찰 감사합니다.</span><br /> <span>수많은 경쟁자 중
-								<strong>고객님이 최종 낙찰 되셨습니다.</strong>
-							</span>
-						</p>
-
-					</div>
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
 </div>

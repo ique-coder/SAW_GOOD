@@ -8,8 +8,13 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="pageTitle" />
 </jsp:include>
-<link rel="stylesheet" href="${path }/resources/css/mypage/ph.css?ver=0"/>
+<link rel="stylesheet" href="${path }/resources/css/mypage/ph.css?ver=0" />
 
+<style>
+	.noList {
+		margin-top:50px;
+	}
+</style>
 
 <div class="container">
 	<div class="row">
@@ -18,7 +23,7 @@
 				<div id="infoSub1">
 					<img id="profileImg"
 						src="../image/KakaoTalk_20200423_153013027.jpg" alt="">
-					<p>${member.userId } 님</p>
+					<p>${member.userId }님</p>
 				</div>
 				<div id="infoSub2">
 					<p>쏘:굿 페이 포인트</p>
@@ -40,13 +45,16 @@
 				<p>장바구니</p>
 				<p onclick="openSub()">결재내역</p>
 				<div id="subNav" style="display: none;">
-					<form id="subFormProduct" action="${path }/mypage/ph.do" method="post">
+					<form id="subFormProduct" action="${path }/mypage/ph.do"
+						method="post">
 						<p id="productClick" name="product" class="click">new product</p>
 					</form>
-					<form id="subFormFunding" action="${path }/mypage/funding.do" method="post">
+					<form id="subFormFunding" action="${path }/mypage/funding.do"
+						method="post">
 						<p id="fundingClick" name="funding" class="click">funding</p>
 					</form>
-					<form id="subFormAuction" action="${path }/mypage/auction.do" method="post">
+					<form id="subFormAuction" action="${path }/mypage/auction.do"
+						method="post">
 						<p id="auctionClick" name="auction" class="click">auction</p>
 					</form>
 				</div>
@@ -98,55 +106,63 @@
 			</div>
 
 
-
-			<div id="list">
+			<c:if test="${list.size() == 0 }">
+				<p class="noList center">결재내역이 없습니다.<p>
+			</c:if>
+			<c:if test="${list.size() != 0 }">
 			
+			<div id="list">
+
 				<c:forEach var="p" items="${list }">
 					<div class="product row">
-							<div class="col-md-2 productImg">
-								<img src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG']}" alt="">
-							</div>
-							<div class="col-md-8 pSpace spanSpace">
-								<p class="titleInfo">
-									<span class="brand">[${p['BRAND'] }]</span> <span class="productName">${p['PRODUCTNAME'] }</span>
-								</p>
-								<p class="priceDate">
-									<span class="productPrice">${p['PROTOPTALPRICE'] } (${p['PRODUCTNUM'] }개)</span> 
-									<span class="sendDate">${p['BUYDATE'] }</span>
-								</p>
-								
-		                        <!-- step1 : 상품준비중
+						<div class="col-md-2 productImg">
+							<img
+								src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG']}"
+								alt="">
+						</div>
+						<div class="col-md-8 pSpace spanSpace">
+							<p class="titleInfo">
+								<span class="brand">[${p['BRAND'] }]</span> <span
+									class="productName">${p['PRODUCTNAME'] }</span>
+							</p>
+							
+							<p class="priceDate">
+								<span class="productPrice"><fmt:formatNumber type="number" value="${p['PROTOPTALPRICE'] }"/>원
+									(${p['PRODUCTNUM'] }개)</span> <span class="sendDate">${p['BUYDATE'] }</span>
+							</p>
+
+							<!-- step1 : 상품준비중
 		                        step2 : 상품 발송
 		                        step3 : 배달중
 		                        step4 : 배달완료
 		                        step5 : 구매완료
 		                        stepX : 교환/반품 완료  -->
-		                       
-								<p class="sendCheck">
-									<span class="sendStep1 sendStep">상품준비중</span>
-								</p>
-								
-		                        <!-- status1 : 배송전
+
+							<p class="sendCheck">
+								<span class="sendStep1 sendStep">상품준비중</span>
+							</p>
+
+							<!-- status1 : 배송전
 		                        status2 : 구매확정 전
 		                        status3 : 구매확정 후
 		                        statusX : 취소  -->
-		                       
-								<p class="confirmStatus status1">
-									<span>소중한 고객님의 상품을 주소지에 보내</span><br /> <span>조금만 기다려주시면
-										<strong>곧 택배 접수 하여 보내드리겠습니다.</strong>
-									</span>
-								</p>
-		
-							</div>
-							<div class="col-md-2 center inline statusBtn1">
-								<button class="productBtn">구매확정</button>
-								<button class="productBtn">교환요청</button>
-								<button class="productBtn">반품요청</button>
-								<button class="productBtn">구매확정연장</button>
-							</div>
-						</div>
-					</c:forEach>
 
+							<p class="confirmStatus status1">
+								<span>소중한 고객님의 상품을 주소지에 보내</span><br /> <span>조금만 기다려주시면
+									<strong>곧 택배 접수 하여 보내드리겠습니다.</strong>
+								</span>
+							</p>
+
+						</div>
+						<div class="col-md-2 center inline statusBtn1">
+							<button class="productBtn">구매확정</button>
+							<button class="productBtn">교환요청</button>
+							<button class="productBtn">반품요청</button>
+							<button class="productBtn">구매확정연장</button>
+						</div>
+					</div>
+				</c:forEach>
+				
 				<!-- <div class="product row">
 					<div class="col-md-2 productImg">
 						<img src="../image/1524445081477_iT6B.jpg" alt="">
@@ -406,7 +422,9 @@
 
 
 			</div>
+			</c:if>
 		</div>
+		
 	</div>
 </div>
 
@@ -431,7 +449,6 @@ let userId = "${loginMember.userId}";
 	$("#fundingClick").on("click", function() {
 		$("#subFormFunding").submit();
 	}) 
-
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
