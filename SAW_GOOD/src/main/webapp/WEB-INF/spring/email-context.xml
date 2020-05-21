@@ -7,7 +7,7 @@
 	<!-- 발표시 주소값 변경하기 -->
 	<bean id="sendEmail" class="com.saw.good.email.Email">
 		<property name="adminEmail" value="devsawgood@gmail.com"/>
-		<property name="host" value="localhost:9090/good"/>
+		<property name="host" value="rclass.iptime.org:9999/20AM_SAW_GOOD_final"/>
 	</bean>
 	
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

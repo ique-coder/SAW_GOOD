@@ -28,7 +28,8 @@ public class AESEncrypt {
 		String path = AESEncrypt.class.getResource("/").getPath();
 		//logger.debug(path);
 		System.out.println(path);
-		this.path=path.substring(0, path.indexOf("target"))+"src/main/webapp/WEB-INF";
+		//this.path=path.substring(0, path.indexOf("target"))+"src/main/webapp/WEB-INF";
+		this.path=path.substring(0, path.indexOf("classes"));
 		System.out.println(this.path);
 		File f = new File(this.path+"/secret.bs");
 		if(f.exists()) {

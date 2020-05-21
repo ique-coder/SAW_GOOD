@@ -16,8 +16,10 @@
 <!-- 가져온 날짜 세팅 -->
 <fmt:parseNumber value="${a.acEndDate.time / (1000*60*60*24)}" integerOnly="true" var="acEndDate"/>
 <section>
+		
         <!-- <div class="container-fluid" style="margin-top: 50px;"> -->
         <div class="container" style="margin-top: 50px;">
+         <form id="fAcWriter" action="${path }/auction/auctionWriterEnd" method="post" enctype="multipart/form-data">
             <div style="margin-bottom: 30px;">
                 <h2 style="text-align: center; font-size: 20px;">상품 정보입력</h2>
             </div>
@@ -25,28 +27,16 @@
             <div class="detailArea">
                 <div class="row">
                     <div class="col-md-6">
-                       <!--  <img src="http://placehold.it/600x500" class="bigImg"> -->
-                        <div id="main">
-                        </div>
-                        <div class="addImg">
-                            <ul>
-                           <!--      <li class="img-record">
-                                    <img src="http://placehold.it/600x500" class="subImg">
-                                </li>
-                                <li class="img-record">
-                                    <img src="http://placehold.it/600x500" class="subImg">
-                                </li>
-                                <li class="img-record">
-                                    <img src="http://placehold.it/600x500" class="subImg">
-                                </li>
-                                <li class="img-record">
-                                    <img src="http://placehold.it/600x500" class="subImg">
-                                </li>
-                                <li class="img-record">
-                                    <img src="http://placehold.it/600x500" class="subImg">
-                                </li> -->
-                            </ul>
-                        </div>
+                    	<div class="col-md-12" id="mainImg" style="height: 80%; margin-bottom:10px;">
+                    		<img src="" class="images col-md-12" /> 
+                    	</div>
+
+                         <div class="col-md-12 row" id="serveImg" style="height:20%; margin:0;">
+                         	<img class="col-md-3 images" src=""/>
+                         	<img class="col-md-3 images" src=""/>
+                         	<img class="col-md-3 images" src=""/>
+                         	<img class="col-md-3 images" src=""/>
+                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="headingArea row">
@@ -55,7 +45,7 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" id="auction-name" class="pilsu"
-                                        name="headTitle" placeholder="제목 입력" value="">
+                                        name="acTitle" placeholder="제목 입력" value="">
                             </div>
                         </div>
                         <div class="record_container">
@@ -63,7 +53,6 @@
                                 <div class="record col-md-3">
                                     <span>상품명</span>
                                     <span>시작가격</span>
-                                    <span>가격상승 단위</span>
                                     <span>즉시낙찰가격</span>
                                     <span>카테고리</span>
                                     <span>상품상태(S~D)</span>
@@ -72,23 +61,18 @@
                                 <div class="record col-md-3" style="width: 750px;">
                                     <strong>
                                         <input type="text" id="pro-name" class="pilsu"
-                                        name="acTitle" placeholder="상품명 입력" value="">
+                                        name="acProName" placeholder="상품명 입력" value="">
                                     </strong>
                                     <strong>
                                         <input type="text" id="start-price" class="pilsu"
                                         name="acStartPrice" placeholder="시작가격 입력" value="">
                                     </strong>
-                                    <strong style="width: 300px;">
-                                        <input type="text" id="point-price" class="pilsu"
-                                        name="acPointPrice" placeholder="상승가격 입력 (1=1,000원)" value="" style="width: 200px">
-                                        천원
-                                    </strong>
                                     <strong>
                                         <input type="text" id="now-price" class="pilsu"
-                                        name="acNowPrice" placeholder="즉시낙찰가격" value="">
+                                        name="acImdPrice" placeholder="즉시낙찰가격" value="">
                                     </strong>
                                     <strong>
-                                        <select id="category" name="category" class="selectStyle">
+                                        <select id="category" name="acCategory" class="selectStyle">
                                             <option value="0">category</option>
                                             <option value="1">bed</option>
                                             <option value="2">couch / chair</option>
@@ -100,37 +84,37 @@
                                     </strong>
                                     <strong style="width: 300px;">
                                         <label> 
-                                            <input type="radio" name="proRank"
+                                            <input type="radio" name="acStatusRank"
                                             value="S"> S급
                                         </label>
                                         <label> 
-                                            <input type="radio" name="proRank"
+                                            <input type="radio" name="acStatusRank"
                                             value="A"> A급
                                         </label> 
                                         <label> 
-                                            <input type="radio" name="proRank"
+                                            <input type="radio" name="acStatusRank"
                                             value="B"> B급
                                         </label>  
                                         <label> 
-                                            <input type="radio" name="proRank"
+                                            <input type="radio" name="acStatusRank"
                                             value="C"> C급
                                         </label> 
                                         <label> 
-                                            <input type="radio" name="proRank"
+                                            <input type="radio" name="acStatusRank"
                                             value="D"> D급
                                         </label> 
                                     </strong>
                                     <strong style="margin-bottom: 0; width: 300px;">
                                         <label> 
-                                            <input type="radio" name="finalDate"
+                                            <input type="radio" name="acEndDate"
                                             value="S"> 10일
                                         </label>
                                         <label> 
-                                            <input type="radio" name="finalDate"
+                                            <input type="radio" name="acEndDate"
                                             value="A"> 20일
                                         </label> 
                                         <label> 
-                                            <input type="radio" name="finalDate"
+                                            <input type="radio" name="acEndDate"
                                             value="B"> 30일
                                         </label>
                                     </strong>
@@ -144,7 +128,7 @@
                                     	<label for="main_file">메인사진 등록</label>
                                     	<input type="file" id="main_file">
                                     	<label for="serve_file" style="background:rgb(238, 152, 124);">서브사진 등록</label>
-                                    	<input type="file" id="serve_file">
+                                    	<input type="file" id="serve_file" multiple required>
                                     </div>
                                     <!-- <button class="serve-poto-btn">서브사진 등록</button> -->
                                 </div>
@@ -164,36 +148,34 @@
                         <h2>information</h2>
                         <ul id="pro-info">
                             <li>
-                                <div class="pro-info-title">치수(단위 : mm)</div>
+                                <div class="pro-info-title">치수(가로*세로*높이(mm))</div>
                                 <div class="pro-info-content">
-                                    &nbsp&nbsp가로 : <input type="text" id="pro-info-hor" class="pilsu"
-                                    name="hor" placeholder="가로" 
-                                    style="width:70px;" value="">
-                                    &nbsp&nbsp세로 : <input type="text" id="pro-info-ver" class="pilsu"
-                                    name="hor" placeholder="세로"
-                                    style="width:70px;" value="">
-                                    &nbsp&nbsp높이 : <input type="text" id="pro-info-height" class="pilsu"
-                                    name="height" placeholder="높이"
-                                    style="width:70px;" value="">
+                                  &nbsp&nbsp<input type="text" id="acProSize" class="pilsu"
+                                    name="acProSize" placeholder="예) 200*200*200" 
+                                    value="">
+                       
                                 </div>
                             </li>
                             <li>
                                 <div class="pro-info-title">브랜드</div>
                                 <div class="pro-info-content">
-                                    &nbsp&nbsp ※ 위에 상품정보에서 입력
+                                    &nbsp&nbsp <input type="text" id="acBrand" class="pilsu"
+                                    name="acBrand" placeholder="예) 이케아" 
+                                    value="">
                                 </div>
                             </li>
                             <li>
                                 <div class="pro-info-title">구매일</div>
                                 <div class="pro-info-content">
-                                    &nbsp&nbsp<input type="date" name="buyDate" value="">
+                                    &nbsp&nbsp<input type="text" name="acBuyDate" 
+                                    placeholder="예) 2020-05-05" value="">
                                 </div>
                             </li>
                             <li>
                                 <div class="pro-info-title">새 상품 사이트</div>
                                 <div class="pro-info-content">
                                     &nbsp&nbsp<input type="text" id="pro-url" class="pilsu"
-                                    name="proUrl" placeholder="새 새상품 사이트 입력" value="">
+                                    name="acProUrl" placeholder="새 새상품 사이트 입력" value="">
                                 </div>
                             </li>
 
@@ -219,7 +201,7 @@
                                 <tr>
                                     <th style="vertical-align: middle;">제품설명</th>
                                     <td>
-                                        <p><textarea cols="70" rows="3" name="proContent"></textarea></p>
+                                        <p><textarea cols="70" rows="3" name="acComent"></textarea></p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -285,16 +267,75 @@
                         </table>
                         <div class="textWriter">
                             <div class="product-button">
-                                <button class="writer-btn">글 작성</button>
+                                <button type="button" id="acWriter" class="writer-btn">글 작성</button>
                                 <button class="cancel-btn">취소</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
 
 
     </section>
+    <script>
+    
+    $("#")
+    
+    
+    
+    
+    
+    var viewImg;
+    $(function(){
+		$("#main_file").on("change",mainImg);
+		$("#serve_file").on("change",serveImg)
+	})
+	function mainImg(e){
+			var files=e.target.files;
+			var fileArr=Array.prototype.slice.call(files);
+			$("#mainImg").find($("img")).remove();
+			fileArr.forEach(function(f){
+				if(!f.type.match("image.*")){
+					alert("이미지 파일만 등록해주세요!");
+					$("#main_file").val("");
+					$("#mainImg").find($("img")).remove();
+					return;
+				}
+				viewImg=f;
+				var reader=new FileReader();
+				reader.onload=function(e){
+					console.log(e.target);
+					$("#mainImg").append($("<img>").attr({"src":e.target.result,
+						"class":"images"}));
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+    var multiView=[];
+	function serveImg(e){
+		var files=e.target.files;
+		var fileArr=Array.prototype.slice.call(files);
+		$("#serveImg").find($("img")).remove();
+		fileArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지 파일만 등록해주세요!");
+				$("#serve_file").val("");
+				$("#serveImg").find($("img")).remove();
+				return;
+			}
+			multiView.push(f);
+			
+			var reader=new FileReader();
+			reader.onload=function(e){
+				console.log(e);
+				$("#serveImg").append($("<img>").attr({"src":e.target.result,
+					"class":"images col-md-3"}));
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+    </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

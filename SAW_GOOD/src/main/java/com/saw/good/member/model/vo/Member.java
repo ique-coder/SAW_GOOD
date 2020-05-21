@@ -19,13 +19,14 @@ public class Member {
 	private int status;
 	private boolean emailAccess;
 	private String businessNumber;
+	private String reProfile;
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Member(String userId, String password, String userName, String email, String phone, String postCode,
 			String address1, String address2, String profile, int point, int status, boolean emailAccess,
-			String businessNumber) {
+			String businessNumber, String reProfile) {
 		super();
 		this.userId = userId;
 		this.password = password;
@@ -40,6 +41,7 @@ public class Member {
 		this.status = status;
 		this.emailAccess = emailAccess;
 		this.businessNumber = businessNumber;
+		this.reProfile = reProfile;
 	}
 	public String getUserId() {
 		return userId;
@@ -119,13 +121,20 @@ public class Member {
 	public void setBusinessNumber(String businessNumber) {
 		this.businessNumber = businessNumber;
 	}
+	public String getReProfile() {
+		return reProfile;
+	}
+	public void setReProfile(String reProfile) {
+		this.reProfile = reProfile;
+	}
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", email=" + email
 				+ ", phone=" + phone + ", postCode=" + postCode + ", address1=" + address1 + ", address2=" + address2
 				+ ", profile=" + profile + ", point=" + point + ", status=" + status + ", emailAccess=" + emailAccess
-				+ ", businessNumber=" + businessNumber + "]";
+				+ ", businessNumber=" + businessNumber + ", reProfile=" + reProfile + "]";
 	}
+	
 	
 }
 

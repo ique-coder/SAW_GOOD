@@ -1,8 +1,6 @@
 package com.saw.good.member.model.dao;
 
 import java.util.Map;
-
-
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.saw.good.auction.model.vo.Auction;

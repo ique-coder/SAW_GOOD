@@ -11,5 +11,8 @@ public interface FurnitureService {
 	List<Product> category(Map<String,String> categoryNames);
 	int totalData(Map<String,String> categoryNames);
 	
-	List<Map<String, String>> cart(String userId);
+	List<Map<String, Object>> cart(String userId);
+	
+	boolean deleteCart(String userId);
+	int insertCart(Map<String,Object> product);
 }
