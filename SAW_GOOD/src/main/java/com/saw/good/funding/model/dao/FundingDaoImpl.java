@@ -139,11 +139,7 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.selectMyFundingCount", userId);
 	}
 
-	@Override
-	public Funding selectItem(SqlSession session, Map map) {
-		// TODO Auto-generated method stub
-		return session.selectOne("funding.selectMyFunding", map);
-	}
+	
 
 	@Override
 	public List<FDSubImg> selectFDSubImg(SqlSession session,int fdNo) {
@@ -162,6 +158,29 @@ public class FundingDaoImpl implements FundingDao{
 		// TODO Auto-generated method stub
 		return session.update("funding.updateFunding2", f);
 	}
+
+	@Override
+	public int updateFundingImg(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateFundingImg", f);
+	}
+
+	@Override
+	public int updateFDSubImg(SqlSession session, FDSubImg fs) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateFDSubImg", fs);
+		
+	}
+
+	
+
+	@Override
+	public Funding selectItem(SqlSession session, Funding funding) {
+		// TODO Auto-generated method stub
+		return session.selectOne("funding.selectMyFunding", funding);
+	}
+
+	
 	
 	
 	
