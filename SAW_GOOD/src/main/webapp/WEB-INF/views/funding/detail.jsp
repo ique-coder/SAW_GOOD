@@ -450,11 +450,11 @@
                                     let parentNo = $(this).attr('name');
                                     let content = $(this).prev().val();
                                     let nowThis = $(this);
-
+                                    let thisId = $(this).parents('div.comment').find('span.commentUserId').html();
                                     $.ajax({
                                         url : "${path}/funding/reCommentInsert.do",
                                         type : "POST",
-                                        data : {userId:loginId, fdNo:fdNo, commentText:content, seq_fc_no:parentNo},
+                                        data : {userId:thisId, fdNo:fdNo, commentText:content, seq_fc_no:parentNo},
                                         success : function(data) {
                                             let retime = data.comment.commentDate;
                                             retime = formatDate(retime);

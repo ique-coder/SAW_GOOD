@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
+import com.saw.good.product.model.vo.ProductReview;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -62,10 +63,21 @@ public class ProductDaoImpl implements ProductDao {
 		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return session.selectList("newProduct.selectProductQna", no, rowBounds);
 	}
+	
+	@Override
+	public List<ProductReview> selectProductReview(SqlSessionTemplate session, int no, int cPage, int numPerPage) {
+		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("newProduct.selectProductReview", no, rowBounds);
+	}
 
 	@Override
 	public int countQna(SqlSessionTemplate session, int no) {
 		return session.selectOne("newProduct.countQna", no);
+	}
+	
+	@Override
+	public int countReview(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countReview", no);
 	}
 
 	@Override
@@ -76,6 +88,36 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int insertReplyQna(SqlSessionTemplate session, Map map) {
 		return session.insert("newProduct.insertReplyQna", map);
+	}
+
+	@Override
+	public int insertReview(SqlSessionTemplate session, Map map) {
+		return session.insert("newProduct.insertReview", map);
+	}
+
+	@Override
+	public int countFive(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countFive", no);
+	}
+
+	@Override
+	public int countFour(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countFour", no);
+	}
+
+	@Override
+	public int countThree(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countThree", no);
+	}
+
+	@Override
+	public int countTwo(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countTwo", no);
+	}
+
+	@Override
+	public int countOne(SqlSessionTemplate session, int no) {
+		return session.selectOne("newProduct.countOne", no);
 	}
 	
 }

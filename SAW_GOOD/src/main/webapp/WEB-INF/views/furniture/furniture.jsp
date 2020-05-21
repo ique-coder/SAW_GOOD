@@ -41,8 +41,9 @@
 
 <%
     List<Map<String, String>> cartList= (List<Map<String,String>>)request.getAttribute("cart");
-	int cartNum = cartList.size();
+	int cartNum = (Integer)request.getAttribute("count");
 	//int cartNum = 1;
+	//int cartNum = ${cart};
 %>
 <style>
 .center {
@@ -327,7 +328,7 @@ div.categoryNameList>input:checked+label {
 	color: white;
 	border: 0;
 	padding: 5px 10px;
-	width: 100px;
+	width: 140px;
 }
 
 </style>
@@ -396,22 +397,31 @@ div.categoryNameList>input:checked+label {
 				<div id="selectListTag">
 					<div id="selectList" class="modal-content">
 						<h3>ㅣ Furniture List ㅣ</h3>
-						<table id="listTable">
-							<c:forEach var="c" items="${cart }">
-								<tr>
-									<td><%=cartNum %></td>
-									<td>${c['PRODUCTNAME'] }</td>
-									<td><button class="listCheck" name="<%=cartNum %>">확인</button></td>
-									<td><button class="listUp" name="<%=cartNum %>">위로</button></td>
-									<td><button class="listDown" name="<%=cartNum %>">아래로</button></td>
-									<td><button class="listDelete" name="<%=cartNum %>">삭제</button></td>
-								</tr>
-								<%cartNum--; %>
-							</c:forEach>
-						</table>
+						<form id="addCartList" action="${path}/furniture/addCart.do" method="post">
+							<table id="listTable">
+								<c:forEach var="c" items="${cart }">
+									<c:forEach var="i" begin="1" end="${c['CARTCOUNT'] }">
+										<tr>
+											<td><%=cartNum %></td>
+											<td>${c['PRODUCTNAME'] }</td>
+											<td><input type="button" class="listCheck" name="<%=cartNum %>" value="확인"></td>
+											<td><input type="button" class="listUp" name="<%=cartNum %>" value="위로"></td>
+											<td><input type="button" class="listDown" name="<%=cartNum %>" value="아래로"></td>
+											<td><input type="button" class="listDelete" name="<%=cartNum %>" value="삭제"></td>
+											<td><input type="hidden" name="productNo" value="${c['PRODUCTNO']}"></td>
+										</tr>
+										<%cartNum--; %>
+									    
+									
+									</c:forEach>
+								
+									
+								</c:forEach>
+							</table>
+						</form>
 						<p>
-							<span><button id="closeList">닫기</button></span>
-							<span><button id="orderList">주문하기</button></span>
+							<span><input type="button" id="closeList" value="닫기"></span>
+							<span><input type="button" id="orderList" value="장바구니에 담기"></span>
 						</p>
 					</div>
 				</div>
@@ -419,18 +429,24 @@ div.categoryNameList>input:checked+label {
 				<div id="interiorSize">
 					<%
 						//cartNum = cartList.size(); 
-						cartNum = 1;
+						cartNum = (Integer)request.getAttribute("count");
 					%>
 					<c:forEach var="c" items="${cart }">
-						<img src="${path}/resources/upload/newproduct/${c['RENAMEDTOPIMG']}" name="<%=cartNum %>"
-							style="position:relative; top: 0; left: 0; z-index: <%=cartNum %>;" class="interior">
-						<%cartNum++; %>
+						<c:forEach var="i" begin="1" end="${c['CARTCOUNT'] }">
+							<img src="${path}/resources/upload/newproduct/${c['RENAMEDTOPIMG']}" name="<%=cartNum %>"
+								style="position:relative; top: 0; left: 0; z-index: <%=cartNum %>;" class="interior">
+							<%cartNum--; %>
+						</c:forEach>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
 
 	</div>
+
+	<%
+		cartNum = (Integer)request.getAttribute("count");
+	%>
 
 	<script>
 		// 클릭하면 z-index +1 증가, 나머지는 min만큼 -
@@ -483,7 +499,7 @@ div.categoryNameList>input:checked+label {
 		var countProduct = 1;
 
 		 
-		var cartNum =<%=cartList.size()%>
+		var cartNum =<%=cartNum%>
 		
 		// 카테고리 클릭-> 캔버스에 생성
 		function productClick() {
@@ -514,6 +530,8 @@ div.categoryNameList>input:checked+label {
 						de180();
 						frontPop();
 
+						let productNo = $(this).find("input[name='productNo']").val();
+
 						// for문으로 처리
 						let td1 = $("<td>").html(cartNum);
 						let name = $("<td>").html(
@@ -523,19 +541,20 @@ div.categoryNameList>input:checked+label {
 								$(this).children('p').eq(0).children('span').eq(0)
 										.html());
 						let td2 = name;
-						let td3 = $("<td>").append($("<button>").html("확인").addClass("listCheck")
+						let td3 = $("<td>").append($("<input>").attr({"type":"button","value":"확인"}).addClass("listCheck")
 								.attr('name',  cartNum));
-						let td4 = $("<td>").append($("<button>").html("위로").addClass("listUp").attr(
+						let td4 = $("<td>").append($("<input>").attr({"type":"button","value":"위로"}).addClass("listUp").attr(
 								'name', cartNum));
-						let td5 = $("<td>").append($("<button>").html("아래로").addClass("listDown")
+						let td5 = $("<td>").append($("<input>").attr({"type":"button","value":"아래로"}).addClass("listDown")
 								.attr('name', cartNum));
-						let td6 = $("<td>").append($("<button>").html("삭제").addClass("listDelete")
+						let td6 = $("<td>").append($("<input>").attr({"type":"button","value":"삭제"}).addClass("listDelete")
 								.attr('name', cartNum));
+						let td7 = $("<td>").append($("<input>").attr({"type":"hidden", "name":"productNo", "value":productNo}));
 						let tr = $("<tr>");
 
 						$("#listTable").prepend(
 								$("<tr>").append(td1).append(td2).append(td3)
-										.append(td4).append(td5).append(td6));
+										.append(td4).append(td5).append(td6).append(td7));
 						countProduct++;
 
 						furnitureListButtons();
@@ -544,6 +563,11 @@ div.categoryNameList>input:checked+label {
 					})
 		}
 
+		roAndDr();
+		de180();
+		frontPop();
+		furnitureListButtons();
+		
 		// listTag
 		$("#selectListTag").click(function() {
 			if ($(this).css('left') == '0px') {
@@ -665,7 +689,8 @@ div.categoryNameList>input:checked+label {
 						// 2 p tag
 						div.append($("<p>").append($("<span>").addClass("productPrice format-Price").html(product.productPrice)));
 						div.append($("<input>").attr({"type":"hidden", "name":"top"}).val(product.topImg));
-						
+						// input hidden productNo
+						div.append($("<input>").attr({"type":"hidden", "name":"productNo", "value":product.productNo}))
 						// input type=hidden 이것은 필요하면 추가하기.
 						
 						$("#furnitureSelect").append(div);
@@ -740,6 +765,10 @@ div.categoryNameList>input:checked+label {
 		})
 
 
+		$("#orderList").click(function() {
+
+			$("#addCartList").submit();
+		})
 		
 	</script>
 
