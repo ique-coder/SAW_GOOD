@@ -14,6 +14,9 @@
 	#list {
 		height: auto;
 	}
+	.noList {
+		margin-top: 50px;
+	}
 	
 </style>
 
@@ -63,54 +66,59 @@
 
 		<div id="list" class="col-md-10 ilnine">
 		
-			<c:forEach var="f" items="${list }">
-				<div class="product row">
-					<div class="col-md-2 productImg">
-						<img src="${path }/resources/images/funding/${f['MAINIMG']}" alt="">
-					</div>
-					<div class="col-md-10 pSpace spanSpace">
-						<p class="titleInfo">
-							<c:if test="${f['STATUS'] == 1 || f['STATUS'] == 2 }">
-								<a href="${path }/funding/detail?fdNo=${f['FDNO']}">
+			<c:if test="${list.size() == 0 }">
+				<p class="noList center">결재내역이 없습니다.<p>
+			</c:if>
+			<c:if test="${list.size() != 0 }">
+				<c:forEach var="f" items="${list }">
+					<div class="product row">
+						<div class="col-md-2 productImg">
+							<img src="${path }/resources/images/funding/${f['MAINIMG']}" alt="">
+						</div>
+						<div class="col-md-10 pSpace spanSpace">
+							<p class="titleInfo">
+								<c:if test="${f['STATUS'] == 1 || f['STATUS'] == 2 }">
+									<a href="${path }/funding/detail?fdNo=${f['FDNO']}">
+										<span class="brand">${f['DESIGNER'] }</span> <span class="productName">${f['TITLE'] }</span>
+									</a>
+								</c:if>
+								<c:if test="${f['STATUS'] == 3 }">
 									<span class="brand">${f['DESIGNER'] }</span> <span class="productName">${f['TITLE'] }</span>
-								</a>
-							</c:if>
-							<c:if test="${f['STATUS'] == 3 }">
-								<span class="brand">${f['DESIGNER'] }</span> <span class="productName">${f['TITLE'] }</span>
-							</c:if>
-							
-						</p>
-						<p class="priceDate">
-							<span class="productPrice">${f['PARTPRICE'] } (<span class="reword">${f['REWORD'] }</span>)</span>
-							
-							 <span class="sendDate">${f['PARTDATE'] }</span>
-						</p>
-						<p class="sendCheck">
-							<span class="sendStep1 sendStep">
-								<c:if test="${f['STATUS'] == 0}">
-								펀딩 실패(
-									<c:if test="${f['PURSTATUS'] == 1 }">환불 진행중</c:if>
-									<c:if test="${f['PURSTATUS'] == 2 }">환불 완료</c:if>
-									<c:if test="${f['PURSTATUS'] == 3 }">환불 대기중</c:if>
-								)
 								</c:if>
-								<c:if test="${f['STATUS'] == 1}">
-								펀딩 진행중
-								</c:if>
-								<c:if test="${f['STATUS'] == 2}">
-								펀딩 성공
-								</c:if>
-							</span>
-						</p>
-						<p class="confirmStatus">
-							<span>소중한 펀딩 감사합니다.</span><br /> <span>고객님의 소중한 후원
-								<strong>정직한 제품으로 보답하겠습니다.</strong>
-							</span>
-						</p>
-
+								
+							</p>
+							<p class="priceDate">
+								<span class="productPrice"><fmt:formatNumber type="number" value="${f['PARTPRICE'] }"/>원 (<span class="reword">${f['REWORD'] }</span>)</span>
+								
+								 <span class="sendDate">${f['PARTDATE'] }</span>
+							</p>
+							<p class="sendCheck">
+								<span class="sendStep1 sendStep">
+									<c:if test="${f['STATUS'] == 0}">
+									펀딩 실패(
+										<c:if test="${f['PURSTATUS'] == 1 }">환불 진행중</c:if>
+										<c:if test="${f['PURSTATUS'] == 2 }">환불 완료</c:if>
+										<c:if test="${f['PURSTATUS'] == 3 }">환불 대기중</c:if>
+									)
+									</c:if>
+									<c:if test="${f['STATUS'] == 1}">
+									펀딩 진행중
+									</c:if>
+									<c:if test="${f['STATUS'] == 2}">
+									펀딩 성공
+									</c:if>
+								</span>
+							</p>
+							<p class="confirmStatus">
+								<span>소중한 펀딩 감사합니다.</span><br /> <span>고객님의 소중한 후원
+									<strong>정직한 제품으로 보답하겠습니다.</strong>
+								</span>
+							</p>
+	
+						</div>
 					</div>
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
 </div>
