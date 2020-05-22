@@ -48,6 +48,10 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<listener>
+		<listener-class>com.saw.good.admin.visitor.controller.VisitorListener</listener-class>
+	</listener>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

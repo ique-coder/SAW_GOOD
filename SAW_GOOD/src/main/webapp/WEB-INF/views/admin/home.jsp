@@ -244,8 +244,7 @@ new Chart(document.getElementById("visitor-ch"), {
             xAxes: [{
                 display: true,
                 scaleLabel: {
-                    display: true,
-                    labelString: 'x축'
+                    display: true
                 }
             }],
             yAxes: [{
@@ -254,8 +253,7 @@ new Chart(document.getElementById("visitor-ch"), {
                     suggestedMin: 0,
                 },
                 scaleLabel: {
-                    display: true,
-                    labelString: 'y축'
+                    display: true
                 }
             }]
         }

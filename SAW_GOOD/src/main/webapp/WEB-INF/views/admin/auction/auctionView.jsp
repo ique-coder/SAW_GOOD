@@ -78,17 +78,17 @@
 
 		.auction_tit {
 			display: inline-block;
-			width: 150px;
+			width: 250px;
 			font-size: 20px;
-			margin-bottom:20px;
+			margin-bottom:17px;
 		}
 
 		.auction_con {
 			display: inline-block;
-			width: 282px;
+			width: 300px;
 			color: black;
 			font-size: 25px;
-			margin-bottom:20px;
+			margin-bottom:17px;
 		}
 
 		#button {
@@ -139,7 +139,7 @@
 								auction Info
 								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">경매정보</span>
 							</h4>
-							<ul id="auction-all" style="padding:20px 0 0 0; height:450px;">
+							<ul id="auction-all" style="padding:15px 0 0 0; height:450px;">
 								<li>
 									<p class="auction_tit"><span> - </span> 작성자 </p>
 									<p class="auction_con">
@@ -153,15 +153,9 @@
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 브랜드 </p>
+									<p class="auction_tit"><span> - </span> 브랜드 <span>/</span> 카테고리  </p>
 									<p class="auction_con">
-										<strong> ${auc['ACBRAND'] } </strong>
-									</p>
-								</li>
-								<li>
-									<p class="auction_tit"><span> - </span> 카테고리 </p>
-									<p class="auction_con">
-										<strong> ${auc['ACCATEGORY'] } </strong>
+										<strong> ${auc['ACBRAND'] } <span>/</span> ${auc['ACCATEGORY'] }  </strong>
 									</p>
 								</li>
 								<li>
