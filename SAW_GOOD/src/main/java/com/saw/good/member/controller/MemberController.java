@@ -87,7 +87,8 @@ public class MemberController {
 		m.setPassword(pwEncoder.encode(m.getPassword()));
 		m.setEmail(aesEncrypt.encrypt(m.getEmail()));
 		m.setPostCode(aesEncrypt.encrypt(m.getPostCode()));
-		m.setAddress1(aesEncrypt.encrypt(m.getAddress2()));
+		m.setAddress1(aesEncrypt.encrypt(m.getAddress1()));
+		m.setAddress2(aesEncrypt.encrypt(m.getAddress2()));
 		m.setPhone(aesEncrypt.encrypt(m.getPhone()));
 
 		int result = service.insertMember(m);

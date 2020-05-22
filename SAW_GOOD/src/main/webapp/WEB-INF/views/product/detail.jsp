@@ -28,7 +28,12 @@
 		                        <c:forEach items="${review }" var="r">
 		                        	<c:set var="sum" value="${sum+r.star }"/>
 		                        </c:forEach>
-		                        <fmt:parseNumber var= "tStar" integerOnly= "true" value= "${(sum/totalReview)-((sum/totalReview)%1) }" />
+		                        <c:if test="${sum != 0}">
+		                        	<fmt:parseNumber var= "tStar" integerOnly= "true" value= "${(sum/totalReview)+(((sum%totalReview)*10/totalReview)>=5?1:0 ) }" />
+		                        </c:if>
+		                        <c:if test="${sum == 0 }">
+		                        	<c:set var="tStar" value="0"/>
+		                        </c:if>
 		                        <c:forEach begin="1" end="${tStar }" step="1">
 		                    		<i class="fas fa-star" style="color: orange; font-size: 14px;"></i>
 		                    	</c:forEach>
@@ -36,8 +41,7 @@
 					                   <c:forEach begin="1" end="${5-tStar }" step="1">
 					                    <i class="fas fa-star" style="color: lightgray; font-size: 14px;"></i>
 					               	   </c:forEach>
-				                   </c:if>
-				                    <%-- ${ (sum/totalReview)-((sum/totalReview)%1)} --%>
+				                   </c:if>  
                             </div>
                         </div>
                         <div class="record">
@@ -199,7 +203,12 @@
                 <div class="review-summary">
                     <div class="avg-score">
                         <div class="summary-score">
-                        	<fmt:formatNumber value="${sum/totalReview }" pattern="0.0"/>
+                        	<c:if test="${sum/totalReview != 'NaN'}">
+                            	<fmt:formatNumber value="${sum/totalReview }" pattern="0.0"/>
+                            </c:if>
+                            <c:if test="${sum/totalReview == 'NaN'}">
+                            	<fmt:formatNumber value="0" pattern="0.0"/>
+                            </c:if>
                         </div>
                         <div class="review-count">
                             <c:out value="${totalReview }"/>개 리뷰 평점
@@ -215,7 +224,12 @@
                                     (<c:out value="${fiveStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: ${fiveStar/totalReview*100}%;"></div>
+                                    <c:if test="${fiveStar/totalReview*100 != 'NaN'}">
+                                    	<div class="persent" style="width: ${fiveStar/totalReview*100}%;"></div>
+                                    </c:if>
+                                    <c:if test="${fiveStar/totalReview*100 == 'NaN'}">
+                                    	<div class="persent" style="width: 0%;"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
@@ -228,7 +242,12 @@
                                     (<c:out value="${fourStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: ${fourStar/totalReview*100}%;"></div>
+                                    <c:if test="${fourStar/totalReview*100 != 'NaN'}">
+                                    	<div class="persent" style="width: ${fourStar/totalReview*100}%;"></div>
+                                    </c:if>
+                                    <c:if test="${fourStar/totalReview*100 == 'NaN'}">
+                                    	<div class="persent" style="width: 0%;"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
@@ -241,7 +260,12 @@
                                     (<c:out value="${threeStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: ${threeStar/totalReview*100}%;"></div>
+                                    <c:if test="${threeStar/totalReview*100 != 'NaN'}">
+                                    	<div class="persent" style="width: ${threeStar/totalReview*100}%;"></div>
+                                    </c:if>
+                                    <c:if test="${threeStar/totalReview*100 == 'NaN'}">
+                                    	<div class="persent" style="width: 0%;"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
@@ -254,7 +278,12 @@
                                     (<c:out value="${twoStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: ${twoStar/totalReview*100}%;"></div>
+                                    <c:if test="${twoStar/totalReview*100 != 'NaN'}">
+                                    	<div class="persent" style="width: ${twoStar/totalReview*100}%;"></div>
+                                    </c:if>
+                                    <c:if test="${twoStar/totalReview*100 == 'NaN'}">
+                                    	<div class="persent" style="width: 0%;"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
@@ -267,7 +296,12 @@
                                     (<c:out value="${oneStar }"/>)
                                 </div>
                                 <div class="star-guage">
-                                    <div class="persent" style="width: ${oneStar/totalReview*100}%;"></div>
+                                	<c:if test="${oneStar/totalReview*100 != 'NaN'}">
+                                    	<div class="persent" style="width: ${oneStar/totalReview*100}%;"></div>
+                                    </c:if>
+                                    <c:if test="${oneStar/totalReview*100 == 'NaN'}">
+                                    	<div class="persent" style="width: 0%;"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </li>
@@ -341,6 +375,11 @@
 			            	</c:if>     
                 		</div>
 		        	</c:forEach>
+                </c:if>
+                <c:if test="${empty review }">
+                	<div style="text-align:center; padding: .75rem;">
+                		<span>등록된 게시물이 존재하지 않습니다.</span>
+                	</div>
                 </c:if>
                 <div style="clear:both;">
                     ${repageBar }

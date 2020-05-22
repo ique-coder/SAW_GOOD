@@ -37,7 +37,7 @@
                                 <tr>
                                     <th>TITLE</th>
                                     <th><input type="text" id="title" class="inputStyle"
-                                        name="title" placeholder="제목 12자 이하 "></th>
+                                        name="title" placeholder="제목 16자 이하 "></th>
                                 </tr>
                             </thead>
                             <tbody id="main-info">
@@ -66,6 +66,7 @@
                                             <option value="sofa">소파</option>
                                             <option value="chair">의자</option>
                                             <option value="table">테이블</option>
+                                            <option value="light">조명</option>
                                             <option value="desk">책상</option>
                                             <option value="lug">카펫 / 러그</option>
                                             <option value="storage">서랍 / 수납함</option>

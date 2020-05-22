@@ -10,6 +10,7 @@ import com.saw.good.product.model.vo.ProductReview;
 public interface ProductService {
 	
 	List<Map<String,String>> selectProduct(int cPage, int numPerPage);
+	List<Map<String,String>> selectStar();
 	int countProduct();
 	Product selectProductView(int no);
 	List<Map<String,String>> searchProduct(int cPage,int numPerPage,Map<String,String> map);
@@ -29,4 +30,5 @@ public interface ProductService {
 	int countThree(int no);
 	int countTwo(int no);
 	int countOne(int no);
+	void updateReadCount(int no);
 }

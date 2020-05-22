@@ -103,7 +103,7 @@
 									<c:out value="${highList[0].designer}" />
 								</p>
 								<h5 class="text-position">
-									${highList[0].subContent }
+									<pre>${highList[0].subContent }</pre>
 								</h5> 
 								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
                                      <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
@@ -233,7 +233,7 @@
         </div>
 
 </section>
-<section class="container">
+<section class="container" id="item-container">
 	<c:forEach items="${list }" varStatus="status" step="4">
 	
 		<div class="row">
@@ -286,10 +286,25 @@
 		</div>
 	</c:forEach>
 </section>
-
-
-
-
 <script src="${path }/resources/js/funding/list.js"></script>
+<script>
+var cPage = 2;
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+function requestData(){
+	$.ajax(function(){
+		url:"${path}/function/list.ajaxPaging",
+		data:{cPage,cPage},
+		success:function(){
+			paging(data);
+		}	
+	})
+	cPage++;
+}
+
+
+</script>
+
+
+
+
+

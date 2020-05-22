@@ -12,6 +12,7 @@ import com.saw.good.product.model.vo.ProductReview;
 public interface ProductDao {
 	
 	List<Map<String, String>> selectProduct(SqlSessionTemplate session, int cPage, int numPerPage);
+	List<Map<String, String>> selectStar(SqlSessionTemplate session);
 	int countProduct(SqlSessionTemplate session);
 	Product selectProductView(SqlSessionTemplate session, int no);
 	List<Map<String,String>> searchProduct(SqlSessionTemplate session,int cPage,int numPerPage,Map<String,String> map);
@@ -31,4 +32,5 @@ public interface ProductDao {
 	int countThree(SqlSessionTemplate session, int no);
 	int countTwo(SqlSessionTemplate session, int no);
 	int countOne(SqlSessionTemplate session, int no);
+	void updateReadCount(SqlSessionTemplate session, int no);
 }

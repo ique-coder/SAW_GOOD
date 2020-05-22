@@ -1,3 +1,6 @@
+.footerStyle{
+	padding:0;
+}
 .foot-01{
             background: #414d42;
             text-align: center;
@@ -51,4 +54,10 @@
             width: 324px;
             line-height: 14px;
             float: left;
+        }
+        .ft-cs li{
+        	list-style-type: none;
+        }
+        .ft-cs li a:hover{
+        	color :#F2E8DC;
         }
