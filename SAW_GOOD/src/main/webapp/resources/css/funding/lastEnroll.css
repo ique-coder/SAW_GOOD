@@ -208,8 +208,7 @@ section span.underline::after{
 }
 /* 상품 디테일 설명 입력 */
 .size{
-	width:50px;
-	
+
 }
 #item-detail-info td[colspan="2"]{
 	border-bottom:1px solid #9b9b9c;

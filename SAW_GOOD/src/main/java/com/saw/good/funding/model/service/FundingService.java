@@ -32,7 +32,6 @@ public interface FundingService {
 	int selectFDMemberCount(int fdNo);
 
 	
-	int insertFunding(Funding f, List<FDSubImg> fileNames, List<FDReword> rewordList);
 
 	List<Funding> selectCategoryList(Map map, int cPage, int numPerPage);
 
@@ -62,6 +61,12 @@ public interface FundingService {
 	int updateFundingSubImg(List<FDSubImg> subImglist);
 
 	Funding selectItem(int fdNo);
+
+	int insertFDReword(List<FDReword> list);
+
+	int updateFundingSize(Funding f);
+
+	int deleteFDReword(int fdNo);
 	
 
 
