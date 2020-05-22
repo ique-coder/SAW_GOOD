@@ -32,7 +32,7 @@
 				</div>
 				<div id="infoSub2">
 					<p>쏘:굿 페이 포인트</p>
-					<P>${member.point }원</P>
+					<P><fmt:formatNumber type="number" value="${member.point }"/>원</P>
 				</div>
 				<div id="infoSub3">
 					<button id="cashBtn" class="btn">충전</button>
@@ -80,10 +80,11 @@
 								<span class="brand">${a['ACCATEGORY'] }</span> <span class="productName">${a['ACTITLE'] }</span>
 							</p>
 							<p class="priceDate">
-								<span class="productPrice">${a['BIDPRICE'] }</span> <span class="sendDate">${a['BIDDATE'] }</span>
+								<span class="productPrice"><fmt:formatNumber type="number" value="${a['BIDPRICE'] }"/>원</span>
+								<span class="sendDate">${a['BIDDATE'] }</span>
 							</p>
 							<p class="sendCheck">
-								판매자 : <span class="sendStep1 sendStep"><fmt:formatNumber type="number" value="${a['USERID'] }"/>원</span>
+								판매자 : <span class="sendStep1 sendStep">${a['USERID'] }</span>
 							</p>
 							<p class="confirmStatus">
 								<span>소중한 입찰 감사합니다.</span><br /> <span>수많은 경쟁자 중

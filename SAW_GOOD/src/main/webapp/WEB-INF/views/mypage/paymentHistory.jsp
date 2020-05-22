@@ -27,7 +27,7 @@
 				</div>
 				<div id="infoSub2">
 					<p>쏘:굿 페이 포인트</p>
-					<P>${member.point }원</P>
+					<P><fmt:formatNumber type="number" value="${member.point }"/>원</P>
 				</div>
 				<div id="infoSub3">
 					<button id="cashBtn" class="btn">충전</button>
@@ -249,6 +249,10 @@ let userId = "${loginMember.userId}";
 		$(this).parent().submit();
 	})
 	$(".review").off("click").on("click", function() {
+		$(this).parent().attr('action','${path}/mypage/review');
+		$(this).parent().submit();
+	})
+	$(".reBuy").off("click").on("click", function() {
 		$(this).parent().attr('action','${path}/mypage/review');
 		$(this).parent().submit();
 	})
