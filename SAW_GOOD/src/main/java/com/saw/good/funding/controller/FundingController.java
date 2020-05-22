@@ -49,9 +49,9 @@ public class FundingController {
 		int high = 9;
 		List<Funding> highList = service.selectHighList(high);
 		
-		//데이터 20개씩 가져오기
+		//데이터 4개씩 가져오기
 		int cPage = 1;
-		int numPerPage = 5;
+		int numPerPage = 4;
 		List<Funding> list = service.selectList(cPage,numPerPage);
 		
 		mv.addObject("highList",highList);
@@ -61,6 +61,19 @@ public class FundingController {
 		return mv;
 		
 	}
+	@RequestMapping("/funding/list.ajaxPaging")
+	@ResponseBody
+	public Map <String,Object>fundingListPagingAjax(@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		List<Funding> list = service.selectList(cPage,numPerPage);
+	
+		Map <String,Object>  map = new HashMap();
+		map.put("list", list);
+		
+		return map;
+	}
+	 
 	
 //	@RequestMapping("/funding/detail")
 //	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
@@ -220,7 +233,6 @@ public class FundingController {
 	
 	
 	@RequestMapping("/funding/enroll/step2")
-	@ResponseBody
 	public ModelAndView enrollEndFunding( ModelAndView mv,
 								@SessionAttribute ("loginMember") Member member,
 								HttpSession session,
@@ -310,30 +322,7 @@ public class FundingController {
 		mv.addObject("loc","/funding/list");
 		mv.setViewName("common/msg");
 	
-//		String fdSize = "";
-//		for(int i = 0 ; i< f.getItem().length; i++) {
-//			fdSize+=f.getItem()[i];
-//			fdSize+=" : ";
-//			fdSize+=f.getSize()[i];
-//			fdSize+=" // ";		
-//		}
-//		f.setFdSize(fdSize);
-		
-	
-//		List<FDReword> rewordList = new ArrayList();
-		
-//		for(int i = 0; i<f.getReword().length;i++) {
-//			FDReword r = new FDReword();
-//			if(f.getPartPrice()[i]!=null || f.getPartPrice()[i]!="" ) {
-//				r.setReword(f.getReword()[i]);
-//				r.setPartPrice(Integer.parseInt(f.getPartPrice()[i]));
-//			}
-//			
-//			rewordList.add(r);
-//		}
-		
-		
-		
+
 		
 		return mv;
 	}
@@ -610,6 +599,58 @@ public class FundingController {
 		
 		return mv;
 	}
-	
+	@RequestMapping("/funding/enroll/displayEnd")
+	public ModelAndView FundingEnrollDisplayEnd(ModelAndView mv , Funding f,
+												String[] reword, int[] partPrice, String[] item, String[] size,
+												@SessionAttribute ("loginMember") Member m) {
+		
+		String msg ="";
+		if(m.getUserId().equals(f.getUserId()) || m.getUserId().equals("admin")) {
+			
+			List<FDReword> list = new ArrayList();
+			for(int i = 0;i<reword.length;i++) {
+				FDReword r = new FDReword();
+				r.setFdNo(f.getFdNo());
+				r.setReword(reword[i]);
+				r.setPartPrice(partPrice[i]);
+				list.add(r);
+				
+			}
+			int result = 0;
+			try {
+				result = service.insertFDReword(list);
+			}catch(RuntimeException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			String fdSize = "";
+			
+			for(int i = 0;i<item.length;i++) {
+				fdSize+=item[i]+" : "+size[i]+" // ";
+			}
+			f.setFdSize(fdSize);
+			
+			result = service.updateFundingSize(f);
+			if(result >0) {
+				msg = "글이 정상적으로 등록되었습니다.";
+			}else {
+				result  = service.deleteFDReword(f.getFdNo());
+				msg="글 등록에 실패하였습니다. 재등록하시거나 관리자에게 문의하세요.";
+			}
+			
+			
+			
+			
+		}else {
+			msg = "접근권한이 없습니다.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc", "/funding/enroll/myList");
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
 }

@@ -131,11 +131,10 @@
             <section>
                 
                 <div class="detail-select" id="project">
-                    <p>
-                    <h1>${f.subContent }</h1>
-                        ${f.detail }
+                    <pre>${f.subContent }</pre>
+                     <pre>${f.detail }</pre>
                         
-                    </p>
+                   
                 </div>
                 <div class="detail-select" id="purchase">
                   
@@ -324,8 +323,8 @@
         				var money = Number(data.list[i].partPrice).toLocaleString();
         				//프로필 사진 설정
         				var profile = "";
-        				if(data.list[i].profile!=null){
-        					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images/member/'+data.list[i].profile+'" width="50" height="50" alt="'+data.list.userId+'"></div>';
+        				if(data.list[i].reProfile!=null){
+        					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images/member/'+data.list[i].reProfile+'" width="50" height="50"></div>';
         					 
         				}else{
         					profile = '<div class="emptyProfile"></div>';

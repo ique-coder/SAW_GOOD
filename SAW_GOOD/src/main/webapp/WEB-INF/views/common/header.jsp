@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>쏘:굿 SAWGOOD</title>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -72,37 +72,66 @@
           </c:if>
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
-
-	             <li class="col-md-3"><a href="${path }/signup">my page</a></li>
-	             <li class="col-md-3"><a href="${path }/member/info.do">my Info</a></li>
-	             <li class="col-md-3"><a href="${path }/payment/cart">cart</a></li>
+          	  	<li class="col-md-3"></li>
+          	  	
+	             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
 	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
-
+          	  	<li class="col-md-3"></li>
 	          </ol>
           </c:if>
        </div>
-       <div class="container-fluid modal_container" id="modal_container">
-        	<div class="my_modal">
-	            <h5>로그인</h5>
-	            <p>로그인 하시려면 이메일과 비밀번호를 입력하세요</p>
+       <c:if test="${empty loginMember }">
+	       <div class="container-fluid modal_container" id="modal_container">
+	        	<div class="my_modal">
+		            <h5>로그인</h5>
+		            <p>로그인 하시려면 이메일과 비밀번호를 입력하세요</p>
+		            <span class="login_Xbutton" onclick="closeLogin();">x</span>
+		            <form action="${path }/member/memberLogin" id="login" onsubmit="return fn_login_validate();" method="post">
+		                <input id="userId" type="text" name="userId" placeholder="id">
+		                <input id="password" type="password" name="password" placeholder="password">
+		                <div style="margin-bottom: 16px;">
+		                    <label class="saveId"><input type="checkbox" name="saveId" id="saveId" value="saveId">아이디저장</label>
+		                </div>
+		                <div style="text-align: left; clear:both;">
+		                    <a href="${path }/search/searchForm">아이디 / 비밀번호 찾기</a>
+		                </div>
+		                <button type="submit" id="buttonLogin">로그인</button>
+		            </form>
+		            <button type="button" id="buttonJoin" onclick="location.href='${path}/signup'">회원가입</button>            
+		        </div>
+		    </div>
+		</c:if>
+		<c:if test="${not empty loginMember }">
+		<div class="container-fluid modal_container" id="modal_container">
+        	<div class="my_modal" id="logined">
+	            <div class="prof">
+	            	<img src="http://placehold.it/600x500" width="78px" height="78px"/>
+	            </div>
+	            <p class="welcome-msg">${loginMember.userId }님 환영합니다.</p>
+	            <p class="welcom-msg">쏘:굿 POINT : ${loginMember.point } P</p>
 	            <span class="login_Xbutton" onclick="closeLogin();">x</span>
-	            <form action="${path }/member/memberLogin" id="login" onsubmit="return fn_login_validate();" method="post">
-	                <input id="userId" type="text" name="userId" placeholder="id">
-	                <input id="password" type="password" name="password" placeholder="password">
-	                <div style="margin-bottom: 16px;">
-	                    <label class="saveId"><input type="checkbox" name="saveId" id="saveId" value="saveId">아이디저장</label>
-	                </div>
-	                <div style="text-align: left; clear:both;">
-	                    <a href="${path }/search/searchForm">아이디 / 비밀번호 찾기</a>
-	                </div>
-	                <button type="submit" id="buttonLogin">로그인</button>
-	            </form>
-	            <button type="button" id="buttonJoin" onclick="location.href='${path}/signup'">회원가입</button>
-	            
+	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
+	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart">Cart</button>            
+	            <button type="button" id="buttonHistory" onclick="">History</button>
+	            <ul class="history-container">
+	            	<li>
+	            		<a href="${path }/mypage/ph.do">New Product</a>
+	            	</li>
+	            	<li>
+	            		<a href="${path }/mypage/funding.do">Funding</a>
+	            	</li>
+	            	<li>
+	            		<a href="${path }/mypage/auction.do">Auction</a>
+	            	</li>
+	            </ul>            
 	        </div>
 	    </div>
+		</c:if>
     </header>
     <script>
+    	$("#buttonHistory").click(function(){
+    		$(".history-container").slideToggle("slow");
+    	})
         $(".target>span").mouseover(function(){
             $(event.target).addClass("underline");
         })
@@ -151,6 +180,18 @@
                $("#userId").focus();
                $(".modal_container").show(800);
            });
+           $("#header ol li a#my").click(function(){
+               var v=document.getElementById("modal_container");
+               // v.style.transitionDelay="background-color 0.8s";
+               $(".modal_container").css({
+                   right:"0",
+                   "z-index":"9998",
+                   backgroundColor:"rgba(0,0,0,0.5)"
+               });
+               $("section").removeAttr("style");
+               $("#userId").focus();
+               $(".modal_container").show(800);
+           });
            $("#autoLogin").click(function(){
                if($("input[id='autoLogin']").is(":checked")){
                    $("input:checkbox[id='saveId']").prop("checked",false);
@@ -173,6 +214,9 @@
 	           $("input[type='checkbox']").prop("checked",false);
 	           $(".modal_container").css("backgroundColor", "");
 	           $(".modal_container").delay(800).hide(0);
+	           if($(".history-container").css("display") == "block"){
+	        	   $(".history-container").hide();
+	           }
 	       }
         $(function(){
 

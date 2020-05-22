@@ -49,6 +49,33 @@
 		                                    	<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
 		                                    </p>
 		                                </div>
+		                                <div style="margin-bottom:10px;">
+		                                	<c:set var="totalSum" value="0"/>
+		                                	<c:set var="cnt" value="0"/>
+		                                	<c:forEach items="${slist }" var="s" varStatus="st">
+		                                		<c:if test="${p['PRODUCTNO'] == s['PRODUCTNO']}">
+		                                			<c:set var="cnt" value="${cnt+1 }"/>
+		                                			<c:set var="totalSum" value="${totalSum+s['STAR'] }"/>
+		                                		</c:if>
+		                                	</c:forEach>
+					                        
+		                                	<c:if test="${totalSum != 0}">
+					                        	<%-- <fmt:parseNumber var= "tStar" integerOnly= "true" value= "${(totalSum/cnt)+(1-((totalSum/cnt)%1))%1 }" /> --%>
+					                        	<fmt:parseNumber var= "tStar" integerOnly= "true" value= "${(totalSum/cnt) }" />
+					                        </c:if>
+					                        <c:if test="${totalSum == 0 }">
+					                        	<c:set var="tStar" value="0"/>
+					                        </c:if>
+		                                	
+					                        <c:forEach begin="1" end="${tStar }" step="1">
+					                    		<i class="fas fa-star" style="color: orange; font-size: 14px;"></i>
+					                    	</c:forEach>
+							                <c:if test="${tStar != 5 }">
+								                <c:forEach begin="1" end="${5-tStar }" step="1">
+								                	<i class="fas fa-star" style="color: lightgray; font-size: 14px;"></i>
+								               	</c:forEach>
+							                </c:if>
+		                                </div>
 		                                <div class="boderbottom-Red">
 		                                    <p class="pCategory" >${p['CATEGORY'] }</p>
 		                                </div>

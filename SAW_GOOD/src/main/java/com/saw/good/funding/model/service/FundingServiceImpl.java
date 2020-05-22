@@ -118,37 +118,6 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 
-	@Override
-	public int insertFunding(Funding f,List<FDSubImg> fileNames,List<FDReword> rewordList) {
-		
-		int result = dao.insertFunding(session, f);
-		if(result == 0) throw new RuntimeException();
-		
-		if(!fileNames.isEmpty()) {
-			for(FDSubImg fs : fileNames) {
-				fs.setFdNo(f.getFdNo());
-				result = dao.insertFDSubImg(session,fs);
-				if(result == 0 ) {
-					//funding테이블의 글 지워주기
-					int delete = dao.deleteFunding(session,f.getFdNo());
-					throw new RuntimeException();//트랜잭션 처리 
-					
-					
-				}else {
-					for(FDReword fr : rewordList) {
-						fr.setFdNo(f.getFdNo());
-						result = dao.insertFDReword(session,fr);
-						
-					}
-					if(result == 0 ) {
-						throw new RuntimeException();//트랜잭션 처리 
-					}
-				}
-			}
-		}
-		
-		return result;
-	}
 
 
 	@Override
@@ -233,6 +202,35 @@ public class FundingServiceImpl implements FundingService{
 		return result ;
 	}
 
+
+	@Override
+	public int insertFDReword(List<FDReword> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		if(!list.isEmpty()) {
+			for(FDReword r : list) {
+				result = dao.insertFDReword(session,r);
+			}
+			if(result == 0)throw new RuntimeException();
+		}
+		return result ;
+	}
+
+
+	@Override
+	public int updateFundingSize(Funding f) {
+		// TODO Auto-generated method stub
+		return dao.updateFundingSize(session,f);
+	}
+
+
+	@Override
+	public int deleteFDReword(int fdNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteFDReword(session,fdNo);
+	}
+
+	
 	
 	
 	
