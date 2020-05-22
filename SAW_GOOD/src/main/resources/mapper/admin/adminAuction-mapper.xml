@@ -9,10 +9,10 @@
 	</select>
 	
 	<select id="selectAuctionAgree" resultType="map">
-		SELECT * FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2 ORDER BY ACBOARDNO DESC
+		SELECT * FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3 ORDER BY ACBOARDNO DESC
 	</select>
 	<select id="countAuctionAgree" resultType="_int">
-		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2
+		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3
 	</select>
 	
 	<select id="selectAgreeSearch" parameterType="map" resultType="map">
@@ -41,7 +41,7 @@
 			)
 		</if>
 		<if test="howStatus == null or howStatus == ''">
-			AND ACSTATUS=1 OR ACSTATUS=2
+			AND ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3
 		</if>
 		<if test="howStatus !=null and howStatus !=''">
 			<if test="howStatus eq 'Ing'">
@@ -79,7 +79,7 @@
 			)
 		</if>
 		<if test="howStatus == null or howStatus == ''">
-			AND ACSTATUS=1 OR ACSTATUS=2
+			AND ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3
 		</if>
 		<if test="howStatus !=null and howStatus !=''">
 			<if test="howStatus eq 'Ing'">
@@ -184,13 +184,13 @@
 		UPDATE AUCTION SET ACSTATUS=1 WHERE ACBOARDNO=#{acno}
 	</update>
 	<update id="updateDisagreeOneAuction">
-		UPDATE AUCTION SET ACSTATUS=3 WHERE ACBOARDNO=#{acno}
+		UPDATE AUCTION SET ACSTATUS=4 WHERE ACBOARDNO=#{acno}
 	</update>
 	
 	<update id="updateCheckAgreeAuc">
 		UPDATE AUCTION SET ACSTATUS=1 WHERE ACBOARDNO=#{acno}
 	</update>
 	<update id="updateCheckDisagreeAuc">
-		UPDATE AUCTION SET ACSTATUS=3 WHERE ACBOARDNO=#{acno}
+		UPDATE AUCTION SET ACSTATUS=4 WHERE ACBOARDNO=#{acno}
 	</update>
 </mapper>

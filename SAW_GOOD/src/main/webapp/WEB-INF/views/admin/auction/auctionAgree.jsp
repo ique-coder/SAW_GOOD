@@ -482,7 +482,7 @@ label {
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
 						<button class="btn-black" type="button" id="deleteAuc">삭제</button>
-						<button class="btn-black" type="button" id="imediatley">즉시입찰</button>
+						<button class="btn-black" type="button" id="imediatley">입찰확정</button>
 					</div>
 				</div>
 				<table class="auctionAg checking">
@@ -491,12 +491,12 @@ label {
 						<col width="5%">
 						<col width="15%">
 						<col width="auto">
+						<col width="8%">
+						<col width="8%">
 						<col width="10%">
 						<col width="10%">
 						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
+						<col width="15%">
 					</colgroup>
 
 					<tr>
@@ -540,7 +540,7 @@ label {
 							</c:if>
 							<c:if test="${ac['ACSTATUS'] == 2 }" >
 								<td>
-									<button class="btn-black" type="button" value="${ac['ACBOARDNO']}">즉시입찰</button>
+									<button class="btn-black" type="button" value="${ac['ACBOARDNO']}">입찰확정</button>
 									<button class="btn-black fnDelete" type="button" value="${ac['ACBOARDNO']}" >삭제</button>
 								</td>
 							</c:if>

@@ -9,7 +9,7 @@
 		SELECT COUNT(*) FROM SGVISITORS
 	</select>
 	
-	<select id="todayVisitor">
-		SELECT COUNT(*) FROM SGVISITORS WHERE SUBSTR(TO_CHAR(VISITDATE), 1, 9) = TO_DATE(SYSDATE, 'YY/MM/DD')
+	<select id="todayVisitor" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM SGVISITORS WHERE SUBSTR(TO_CHAR(VISITDATE), 1, 9) = TO_DATE(SYSDATE-#{no}, 'YY/MM/DD')
 	</select>
 </mapper>

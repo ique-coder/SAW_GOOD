@@ -199,11 +199,15 @@
                 </div>
                 <!-- /.content -->
             </div>
+            <div>
+            	<c:forEach items="${weekvisit }" var="w" varStatus="vs">
+            		<input type="hidden" value="${w }" id="week${vs.count }" />
+            	</c:forEach>
+            </div>
             <!-- /.content-wrapper -->
-        </div>
+
 <script>
 //판매량 차트
-
 let arr = [];
 for(let i=1; i<8; i++) {
     let date = new Date();
@@ -211,15 +215,15 @@ for(let i=1; i<8; i++) {
     arr.unshift(date.toLocaleString().substring(0,5));
 }
 
+
+
 new Chart(document.getElementById("visitor-ch"), {
     type: 'line',
     data: {
         labels: arr,
         datasets: [{
             label: 'Visitors',
-            data: [
-              5,6,8,3,32,5,3
-            ],
+            data:[$("#week7").val(),$("#week6").val(),$("#week5").val(),$("#week4").val(),$("#week3").val(),$("#week2").val(),$("#week1").val()],
             borderColor: "rgb(40,161,130)",
             backgroundColor: 'rgb(40,161,130,0)',
             fill: true,

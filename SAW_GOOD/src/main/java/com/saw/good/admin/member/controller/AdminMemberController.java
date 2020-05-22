@@ -1,6 +1,7 @@
 package com.saw.good.admin.member.controller;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.saw.good.admin.member.model.service.AdminMemberService;
 import com.saw.good.common.FinderPageFactory;
 import com.saw.good.common.PageFactory;
+import com.saw.good.common.encrypt.AESEncrypt;
+import com.saw.good.member.model.vo.Member;
 
 @Controller
 public class AdminMemberController {
@@ -24,18 +27,25 @@ public class AdminMemberController {
 	@Autowired
 	private AdminMemberService service;
 	
-	@RequestMapping("/admin/memberStatus")
-	public String memberStatus() {
-		
-		return "admin/member/memberStatus";
-	}
+	@Autowired
+	private AESEncrypt aes;
 	
 	@RequestMapping("/admin/memberManager")
 	public ModelAndView memberManager(@RequestParam(value="cPage",defaultValue="1") int cPage,
 							@RequestParam(value="numPerPage",defaultValue="10") int numPerPage,
 							HttpServletRequest request,ModelAndView m) {
 		
-		List<Map<String,String>> list =service.selectMember(cPage,numPerPage);
+		List<Member> list =service.selectMember(cPage,numPerPage);
+		for(Member mem : list) {
+			try {
+				mem.setEmail(aes.decrypt(mem.getEmail()));
+				mem.setPhone(aes.decrypt(mem.getPhone()));
+				mem.setAddress1(aes.decrypt(mem.getAddress1()));
+				mem.setAddress2(aes.decrypt(mem.getAddress2()));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 		int totalData=service.countMember();
 		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "memberManager");
 		
@@ -67,7 +77,17 @@ public class AdminMemberController {
 		map.put("searchType", searchType);
 		map.put("keyword",keyword);
 		
-		List<Map<String,String>> list=service.searchMember(cPage,numPerPage,map);
+		List<Member> list=service.searchMember(cPage,numPerPage,map);
+		for(Member mem : list) {
+			try {
+				mem.setEmail(aes.decrypt(mem.getEmail()));
+				mem.setPhone(aes.decrypt(mem.getPhone()));
+				mem.setAddress1(aes.decrypt(mem.getAddress1()));
+				mem.setAddress2(aes.decrypt(mem.getAddress2()));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 		int totalData=service.countSearchMember(map); 
 		
 		String pageBar=FinderPageFactory.getPage(totalData, cPage, numPerPage, searchType, keyword, "searchMember");
