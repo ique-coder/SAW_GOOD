@@ -162,7 +162,7 @@ public class MemberController {
 	// 승원 로그인멤버 정보 불러오기
 	@RequestMapping("/member/info.do")
 	public ModelAndView memberInfo(ModelAndView mv, @SessionAttribute("loginMember") Member m) {
-		System.out.println("왜이래 : "+m);
+
 		String userId = m.getUserId();
 		Member mem = service.loginMemberInfo(userId);
 		try {
@@ -183,7 +183,13 @@ public class MemberController {
 	@RequestMapping("/member/memberUpdate")
 	public ModelAndView memberInfoUpdate(Member m, ModelAndView mv, MultipartHttpServletRequest request,
 			HttpSession session) {
+
+		Member mem = service.loginMemberInfo(m.getUserId());
+	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+		//프로필사진 넣어주기
+		m.setProfile(mem.getProfile());
+		m.setReProfile(mem.getReProfile());
 		// 암호화하기
 		m.setPostCode(aesEncrypt.encrypt(m.getPostCode()));
 		m.setAddress1(aesEncrypt.encrypt(m.getAddress1()));
