@@ -32,7 +32,7 @@
 				</div>
 				<div id="infoSub2">
 					<p>쏘:굿 페이 포인트</p>
-					<P>${member.point }원</P>
+					<P><fmt:formatNumber type="number" value="${member.point }"/>원</P>
 				</div>
 				<div id="infoSub3">
 					<button id="cashBtn" class="btn">충전</button>
