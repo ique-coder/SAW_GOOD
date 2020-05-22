@@ -76,6 +76,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="/member/signup.do", method=RequestMethod.POST)
 	public ModelAndView signUp(Member m, ModelAndView mv ) {
+		
 		System.out.println(""+m);
 		
 		Member m2 = new Member();
@@ -104,6 +105,7 @@ public class MemberController {
 			msg = "회원가입 실패";
 		}
 		mv.addObject("msg", msg);
+		mv.addObject("loc","/");
 		mv.setViewName("common/msg");
 		
 		return mv;
