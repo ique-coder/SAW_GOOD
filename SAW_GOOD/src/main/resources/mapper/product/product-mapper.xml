@@ -5,6 +5,10 @@
 	<select id="selectProduct" resultType="map">
 		SELECT * FROM NEWPRODUCT ORDER BY PRODUCTNO DESC
 	</select>
+	<select id="selectStar" resultType="map">
+		SELECT A.*, STAR FROM NEWPRODUCT A
+		RIGHT JOIN NEWPRODUCTREVIEW R on(A.PRODUCTNO = R.PRODUCTNO)
+	</select>
 	<select id="countProduct" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCT
 	</select>
@@ -84,6 +88,10 @@
 	<select id="countOne" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM NEWPRODUCTREVIEW WHERE STAR = 1 AND PRODUCTNO = #{no}
 	</select>
+	
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE NEWPRODUCTQNA SET READCOUNT=READCOUNT+1 WHERE QNANO = #{no}
+	</update>
 </mapper>
 
 

@@ -52,3 +52,9 @@
             line-height: 14px;
             float: left;
         }
+        .ft-cs li{
+        	list-style-type: none;
+        }
+        .ft-cs li a:hover{
+        	color :#F2E8DC;
+        }
