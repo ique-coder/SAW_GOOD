@@ -16,7 +16,7 @@
 	
 	<insert id="insertPaymentHistory" parameterType="map">
 		INSERT INTO PAYMENTHISTORY VALUES(
-			SEQ_PH_NO.NEXTVAL,#{odNo},#{pNo},#{userId},#{pNum},#{tPrice},'N',0
+			SEQ_PH_NO.NEXTVAL,#{odNo},#{pNo},#{userId},#{pNum},#{tPrice},'no',0,1,null
 		)
 	</insert>
 	
