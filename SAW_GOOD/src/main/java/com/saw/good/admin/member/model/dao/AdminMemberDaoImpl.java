@@ -7,12 +7,15 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.member.model.vo.Member;
+
 @Repository
 public class AdminMemberDaoImpl implements AdminMemberDao{
 
+	
 	//멤버 페이징처리
 	@Override
-	public List<Map<String, String>> selectMember(SqlSession session,int cPage,int numPerPage) {
+	public List<Member> selectMember(SqlSession session,int cPage,int numPerPage) {
 		// TODO Auto-generated method stub
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return session.selectList("admember.selectMember", null, rb);
@@ -40,7 +43,7 @@ public class AdminMemberDaoImpl implements AdminMemberDao{
 	
 	//서치멤버 페이징처리
 	@Override
-	public List<Map<String, String>> searchMember(SqlSession session, int cPage, int numPerPage,
+	public List<Member> searchMember(SqlSession session, int cPage, int numPerPage,
 			Map<String, String> map) {
 		// TODO Auto-generated method stub
 		RowBounds rowBounds=new RowBounds((cPage-1)*numPerPage,numPerPage);
