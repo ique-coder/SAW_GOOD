@@ -23,5 +23,26 @@ public class phDaoImpl implements phDao{
 	public List<Map<String, String>> funding(SqlSession session, String userId) {
 		return session.selectList("mypage.funding", userId);
 	}
+
+	@Override
+	public int buyOk(SqlSession session, Map<String, Object> map) {
+		return session.update("mypage.buyOk", map);
+	}
+
+	@Override
+	public int status(SqlSession session, Map<String, Object> map) {
+		return session.update("mypage.status", map);
+	}
+
+	@Override
+	public int extend(SqlSession session, Map<String, Object> map) {
+		return session.update("mypage.extend", map);
+	}
+	
+	
+	
+	
+	
+	
 	
 }
