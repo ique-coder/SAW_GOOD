@@ -32,5 +32,24 @@ public class phServiceImpl implements phService{
 	public List<Map<String, String>> funding(String userId) {
 		return dao.funding(session, userId);
 	}
+
+	@Override
+	public int buyOk(Map<String, Object> map) {
+		return dao.buyOk(session, map);
+	}
+
+	@Override
+	public int status(Map<String, Object> map) {
+		return dao.status(session, map);
+	}
+
+	@Override
+	public int extend(Map<String, Object> map) {
+		return dao.extend(session, map);
+	}
+	
+	
+	
+	
 	
 }
