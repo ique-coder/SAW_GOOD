@@ -73,6 +73,14 @@
                             <img src="${path }/resources/images/search-icon.png" width="20px" height="18px"/>
                         </button>
                     </span>
+                    <c:if test="${ not empty loginMember }">
+					<span class="enroll-container"> 
+							<input type="button" class="inputred"  onclick="location.href='${path}/auction/writer'" value="AUCTION 신청"/>
+					</span>
+					<span class="enroll-container"> 
+							<input type="button" class="inputred" onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
+					</span>
+				</c:if>
 				</div>
 				<div class="col-md-10">
 				<c:if test="${not empty list }">

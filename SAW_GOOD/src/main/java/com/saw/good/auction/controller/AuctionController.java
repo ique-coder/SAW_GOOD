@@ -307,7 +307,6 @@ public class AuctionController {
        Auction a = new Auction(0,m.getUserId(),acTitle,acProName,acStartPrice,1000,
     		   0,acImdPrice,acStatusRank,acCategory,acBrand,oriNameMain,acProSize,
     		   acComent,null,null,acBuyDate,acProUrl,null,reNameMain,acEndDateNum);
-      System.out.println(a);
 //       a.setAcMainImg(oriNameMain);
 //       a.setAcReMainImg(reNameMain);
        
@@ -349,12 +348,32 @@ public class AuctionController {
           }
           e.printStackTrace();
        }
-       System.out.println("여기까지옴");
        String msg=(result>0)?"경매등록 신청성공":"경매등록 신청실패";
        String loc=(result>0)?"/auction/list":"/auction/writer";
        mv.addObject("msg", msg);
        mv.addObject("loc", loc);
        mv.setViewName("common/msg");
        return mv;
+    }
+	//포인트 판매회원한테 주기
+	@RequestMapping("/auction/salerPoint")
+    public ModelAndView acWriterEnd(ModelAndView mv,
+          Auction a){
+		System.out.println("여기 : "+a);
+		Auction ac = service.selectNowPrice(a);
+		System.out.println("다임: "+ac);
+		int result = 0;
+		int acstatus = Integer.parseInt(ac.getAcStatus());
+		System.out.println(acstatus);
+		if(acstatus != 3) {
+			result = service.updateSalePoint(ac);
+		}
+		
+		String msg=(result>0)?"입찰확정 성공":"입찰확정 실패";
+	    String loc=(result>0)?"/auction/list":"/auction/detail?acBoardNo="+ac.getAcBoardNo();
+	       mv.addObject("msg", msg);
+	       mv.addObject("loc", loc);
+	       mv.setViewName("common/msg");
+    	return mv;
     }
 }
