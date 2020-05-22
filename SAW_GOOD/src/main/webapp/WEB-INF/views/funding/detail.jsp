@@ -323,7 +323,7 @@
         				var money = Number(data.list[i].partPrice).toLocaleString();
         				//프로필 사진 설정
         				var profile = "";
-        				if(data.list[i].profile!=null){
+        				if(data.list[i].reProfile!=null){
         					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images/member/'+data.list[i].reProfile+'" width="50" height="50"></div>';
         					 
         				}else{
