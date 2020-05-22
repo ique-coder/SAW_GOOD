@@ -498,7 +498,7 @@ label {
 								for="fundAg${vs.count }"></label></td>
 							<td>${fag['FDNO'] }</td>
 							<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
-							<td><a href="${path }/admin/fundingView?fdno=${fag['FDNO'] }">${fag['TITLE']}</a></td>
+							<td><a href="${path }/funding/detail?fdNo=${fag['FDNO'] }">${fag['TITLE']}</a></td>
 							<td>${fag['CATEGORY'] }</td>
 							<td>${fag['DESIGNER'] }</td>
 							<td>${fag['USERID'] }</td>

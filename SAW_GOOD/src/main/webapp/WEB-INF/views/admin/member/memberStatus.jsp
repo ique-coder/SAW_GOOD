@@ -87,9 +87,9 @@
             <h2 id="titeltwo">Member Manager</h2>
             <hr id="hr">
             <div class="container-fluid">
-                <div clas="status-Wrapper" style="padding:0 15px;">
+                <div class="status-Wrapper" style="padding:0 15px;">
                     <div class="status-head">
-                        회원현황
+                     	회원현황
                     </div>
                     <table id="status-tbl">
                         <colgroup>
@@ -98,14 +98,14 @@
                             <col width="33%">
                         </colgroup>
                         <tr>
-                            <th>신규회원(today)</th>
-                            <th>방문회원(today)</th>
-                            <th>탈퇴회원</th>
+                         	<th>총방문자(All)</th>
+                            <th>신규회원(Today)</th>
+                            <th>방문회원(Today)</th>
                         </tr>
                         <tr>
+                            <td><span>${totalVisit }</span>명</td>
                             <td><span>0</span>명</td>
-                            <td><span>0</span>명</td>
-                            <td><span>0</span>명</td>
+                            <td><span>${todayVisit }</span>명</td>
                         </tr>
                     </table>
                     

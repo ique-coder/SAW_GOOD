@@ -427,16 +427,16 @@ label {
 					<c:forEach items="${list }" var="m" varStatus="vs">
 						<tr>
 							<td><input type="checkbox" class="memberck" name="memberCk"
-								id="member${vs.count }" value="${m['USERID'] }"><label
+								id="member${vs.count }" value="${m.userId }"><label
 								for="member${vs.count }"></label></td>
-							<td><c:out value="${m['USERID'] }" /></td>
-							<td><c:out value="${m['USERNAME']}" /></td>
-							<td><c:out value="${m['PHONE'] }" /></td>
-							<td><c:out value="${m['ADDRESS1'] }" /></td>
-							<td><c:out value="${m['EMAIL'] }" /></td>
+							<td><c:out value="${m.userId }" /></td>
+							<td><c:out value="${m.userName}" /></td>
+							<td><c:out value="${m.phone}" /></td>
+							<td><c:out value="${m.address1}" /></td>
+							<td><c:out value="${m.email }" /></td>
 							<td>
 								<button class="btn-black deleteMember" type="button"
-									value="${m['USERID'] }">삭제</button>
+									value="${m.userId  }">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
