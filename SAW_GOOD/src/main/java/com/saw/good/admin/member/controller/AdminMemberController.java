@@ -84,6 +84,7 @@ public class AdminMemberController {
 				mem.setPhone(aes.decrypt(mem.getPhone()));
 				mem.setAddress1(aes.decrypt(mem.getAddress1()));
 				mem.setAddress2(aes.decrypt(mem.getAddress2()));
+				System.out.println(mem.getEmail());
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
