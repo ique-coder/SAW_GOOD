@@ -482,6 +482,7 @@ label {
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
 						<button class="btn-black" type="button" id="deleteAuc">삭제</button>
+						<button class="btn-black" type="button" id="imediatley">입찰확정</button>
 					</div>
 				</div>
 				<table class="auctionAg checking">
@@ -490,12 +491,12 @@ label {
 						<col width="5%">
 						<col width="15%">
 						<col width="auto">
+						<col width="8%">
+						<col width="8%">
 						<col width="10%">
 						<col width="10%">
 						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
+						<col width="15%">
 					</colgroup>
 
 					<tr>
@@ -520,18 +521,26 @@ label {
 							<td>${ac['ACBOARDNO']}</td>
 							<td><img src="${path }/resources/upload/auction/${ac['ACMAINIMG']}" /></td>
 							<td>
-								<a href="${path }/admin/auctionView?acno=${ac['ACBOARDNO']}">
+								<a href="${path }/auction/detail?acBoardNo=${ac['ACBOARDNO']}">
 								${ac['ACTITLE']} (${ac['ACSTATUSRANK']}) <fmt:formatNumber value="${ac['ACSTARTPRICE']}"/>원
 								</a>
+							<%-- 	<a href="${path }/admin/auctionView?acno=${ac['ACBOARDNO']}">
+								${ac['ACTITLE']} (${ac['ACSTATUSRANK']}) <fmt:formatNumber value="${ac['ACSTARTPRICE']}"/>원 --%>
 							</td>
 							<td>${ac['ACCATEGORY']}</td>
 							<td>${ac['ACBRAND']}</td>
 							<td>${ac['USERID']}</td>
 							<td><fmt:formatDate value="${ac['ACSTART_DATE']}" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${ac['ACENDDATE']}" pattern="yyyy-MM-dd"/></td>
-							<c:if test="${ac['ACSTATUS'] == 2 }" >
+							<c:if test="${ac['ACSTATUS'] == 3 }" >
 								<td>
 									<button class="btn-black" type="button" disabled>완료</button>
+									<button class="btn-black fnDelete" type="button" value="${ac['ACBOARDNO']}" >삭제</button>
+								</td>
+							</c:if>
+							<c:if test="${ac['ACSTATUS'] == 2 }" >
+								<td>
+									<button class="btn-black" type="button" value="${ac['ACBOARDNO']}">입찰확정</button>
 									<button class="btn-black fnDelete" type="button" value="${ac['ACBOARDNO']}" >삭제</button>
 								</td>
 							</c:if>

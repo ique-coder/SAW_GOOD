@@ -3,7 +3,8 @@
 <mapper namespace="mypage">
 
 	<select id="product" resultType="map" parameterType="string">
-		select ph.userid, p.productname, p.brand, p.renamedproductimg, pm.buydate, ph.productnum, ph.protoptalprice
+		select ph.userid, p.productname, p.brand, p.renamedproductimg, pm.buydate, ph.productnum, ph.protoptalprice,
+		ph.status, ph.enddate, ph.buycheck, ph.phno, p.productno
 		from paymenthistory ph
 		join payment pm on (ph.orderno = pm.orderno)
 		join newproduct p on (p.productno = ph.productno)
@@ -22,5 +23,17 @@
 		from funding f join fdmember m on (f.fdno = m.fdno)
 		where m.userid= #{userId}
 	</select>
+	
+	<update id="buyOk" parameterType="map">
+		update paymenthistory set buycheck = 'yes' where userid = #{userId} and phno = #{phno}
+	</update>
+	
+	<update id="status" parameterType="map">
+		update paymenthistory set status = #{status} where userid = #{userId} and phno = #{phno}
+	</update>
+
+	<update id="extend" parameterType="map">
+		update paymenthistory set enddate = sysdate+7 where userid = #{userId} and phno = #{phno}
+	</update>
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.admin.member.model.dao.AdminMemberDao;
+import com.saw.good.member.model.vo.Member;
 
 @Service
 public class AdminMemberServiceImpl implements AdminMemberService{
@@ -18,9 +19,10 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	@Autowired
 	private AdminMemberDao dao;
 	
+
 	//멤버 페이징처리
 	@Override
-	public List<Map<String, String>> selectMember(int cPage,int numPerPage) {
+	public List<Member> selectMember(int cPage,int numPerPage) {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session,cPage,numPerPage);
 	}
@@ -47,7 +49,7 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	
 	//서치멤버 페이징처리
 	@Override
-	public List<Map<String, String>> searchMember(int cPage, int numPerPage, Map<String, String> map) {
+	public List<Member> searchMember(int cPage, int numPerPage, Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return dao.searchMember(session, cPage, numPerPage, map);
 	}
