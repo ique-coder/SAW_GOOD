@@ -103,5 +103,9 @@
 	<update id="updateAcFnStatus" parameterType="auction">
 		UPDATE AUCTION SET ACSTATUS = 3 WHERE ACBOARDNO = #{acBoardNo}
 	</update>
+	
+	<select id="selectMyAcList" parameterType="member" resultType="auction">
+		SELECT * FROM AUCTION WHERE USERID = #{userId}
+	</select>
  	
 </mapper>

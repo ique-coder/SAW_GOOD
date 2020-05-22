@@ -78,7 +78,7 @@
 							<input type="button" class="inputred"  onclick="location.href='${path}/auction/writer'" value="AUCTION 신청"/>
 					</span>
 					<span class="enroll-container"> 
-							<input type="button" class="inputred" onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
+							<input type="button" class="inputred" onclick="location.href='${path}/auction/myAcHistory'" value="신청내역 보기"/>
 					</span>
 				</c:if>
 				</div>
