@@ -188,7 +188,7 @@ public class MemberController {
 			m.setPhone(aesEncrypt.encrypt(m.getPhone()));
 			Member mem2 = service.loginMemberInfo(m.getUserId());
 			//경로지정
-			String path = session.getServletContext().getRealPath("/resources/upload/auction");
+			String path = session.getServletContext().getRealPath("/resources/images/member");
 			File fileDir = new File(path);
 			if(!fileDir.exists()) {
 				fileDir.mkdirs();

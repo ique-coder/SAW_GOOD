@@ -14,6 +14,7 @@
 		<div class="col-md-2">
 			<div id="info">
 				<div id="infoSub1">
+				
 				<c:if test="${ not empty loginMember.profile }">
 				
 					<img id="profileImg"
@@ -110,10 +111,11 @@
 
 
 			<div id="list">
+			
 			<c:forEach var="item" items="${list }">
 				<div class="product row">
 					<div class="col-md-2 productImg">
-						<img src="${ path}/resources/images/${item.mainImg}" alt="" >
+						<img src="${ path}/resources/images/funding/${item.mainImg}" alt="" >
 					</div>
 					<div class="col-md-8 pSpace spanSpace">
 						<c:if test ="${item.appr==1 and item.status == 1 or item.status ==2 }">
@@ -144,10 +146,10 @@
 						<p class="sendCheck">
 							<span class="sendStep1 sendStep">
 							<c:if test="${item.appr ==0 }">
-								관리자 승인 전
+								관리자 승인 전입니다.
 							</c:if>
 							<c:if test="${item.appr ==1 }">
-								<c:if test="${empty item.status }">
+								<c:if test="${ item.status == 4 }">
 									상세정보 입력 하시면 바로 노출됩니다.
 								</c:if>
 								<c:if test="${item.status == 0}">
@@ -173,19 +175,23 @@
 							<span class="sendDate">등록 날짜 : <fmt:formatDate type="date" dateStyle="medium" value="${item.enrollDate }" ></fmt:formatDate></span>
 							<br/>
 							<span class="sendDate">목표 날짜 : <fmt:formatDate type="date" dateStyle="medium" value="${item.endDate }" ></fmt:formatDate></span>
+							<c:if test="${item.appr ==0 }">
+								<br/>
+								<span class="sendDate">관리자의 승인이 완료되면 정보를 수정하실 수 없습니다.</span>
+							</c:if>
 						</p>
 
 					</div>
 					<div class="col-md-2 center inline statusBtn1">
 						<c:if test="${item.appr ==0 }">
-								<button class="productBtn" onclick="location.href='${path}/funding/enroll/modify?fdNo=${item.fdNo}'">정보 수정하기</button>
+								<button class="productBtn" onclick="location.href='${path}/funding/enroll/modify?fdNo=${item.fdNo}&userId=${item.userId }'">정보 수정하기</button>
 						</c:if>
 						<c:if test="${item.appr ==1 }">
-								<c:if test="${empty item.status }" >
-									<button class="productBtn" onclick="location.href='${path}/funding/enroll/step3?fdNo=${item.fdNo}'">상세정보 입력하기</button>
+								<c:if test="${ item.status == 4 }" >
+									<button class="productBtn" onclick="location.href='${path}/funding/enroll/display?fdNo=${item.fdNo}&userId=${item.userId }'">상세정보 입력하기</button>
 								</c:if>
 								<c:if test="${item.status == 1}">
-									<button class="productBtn" onclick="location.href='${path}/funding/detail?fdNo=${item.fdNo}'">게시글 보기</button>
+									<button class="productBtn" onclick="location.href='${path}/funding/detail?fdNo=${item.fdNo}}&userId=${item.userId }'">게시글 보기</button>
 								</c:if>
 								<c:if test="${item.status == 2}">
 									<button class="productBtn">신청회원 보기</button>
@@ -194,8 +200,17 @@
 					</div>
 				</div>
 				</c:forEach>
-				${pageBar }
+				<c:if test="${empty list }">
+					${pageBar }
+				</c:if>
 			</div>
+			
+			<c:if test="${not empty msg }">
+			<div>
+				<p class="sendCheck">${msg }</p>
+			</div>
+			</c:if>
+			
 		</div>
 	</div>
 </div>

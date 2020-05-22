@@ -53,14 +53,20 @@ public interface FundingDao {
 
 	int selectFundingCount(SqlSession session, String userId);
 
-	Funding selectItem(SqlSession session, Map map);
-
 	List<FDSubImg> selectFDSubImg(SqlSession session, int fdNo);
 
 	int updateFunding(SqlSession session, Funding f);
 
 	int updateFunding2(SqlSession session, Funding f);
 
+
+	Funding selectItem(SqlSession session, Funding funding);
+
+	int updateFundingImg(SqlSession session, Funding f);
+
+	int updateFDSubImg(SqlSession session, FDSubImg fs);
+
+	
 
 
 }

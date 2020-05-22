@@ -61,7 +61,7 @@
 							
 								<tr>
 									<td><img class="img-responsive imgheight"
-										src="${path}/resources/images/${f.mainImg}" width="100%"/></td>
+										src="${path}/resources/images/funding/${f.mainImg}" width="100%"/></td>
 									<td>${f.designer }</td>
 	                                <td>${f.title}</br>
 	                                	<p>기본가격 : 

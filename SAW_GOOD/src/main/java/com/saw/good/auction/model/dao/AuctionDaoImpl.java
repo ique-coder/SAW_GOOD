@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
+import com.saw.good.auction.model.vo.AuctionServeImg;
 
 @Repository
 public class AuctionDaoImpl implements AuctionDao {
@@ -107,6 +108,31 @@ public class AuctionDaoImpl implements AuctionDao {
 	public int updateStAuction(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
 		return session.update("auction.updateStAuction",a);
+	}
+	//경매등록
+	@Override
+	public int insertAuction(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.insert("auction.insertAuction",a);
+	}
+	
+	//경매 서브사진등록
+	@Override
+	public int insertAuctionServeImg(SqlSession session, AuctionServeImg asi) {
+		// TODO Auto-generated method stub
+		return session.insert("auction.insertAuctionServeImg",asi);
+	}
+	//즉찰후 판매자에게 바로 포인트 주기
+	@Override
+	public int updateSalePoint(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.updateSalePoint",a);
+	}
+	//입찰확정 후 옥션 스테이터스 = 3으로
+	@Override
+	public int updateAcFnStatus(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.updateAcFnStatus",a);
 	}
 	
 	

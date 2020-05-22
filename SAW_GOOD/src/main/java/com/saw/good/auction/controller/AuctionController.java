@@ -1,8 +1,14 @@
 package com.saw.good.auction.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +16,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.auction.model.service.AuctionService;
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
+import com.saw.good.auction.model.vo.AuctionServeImg;
 import com.saw.good.common.PageFactory;
 import com.saw.good.member.model.service.MemberService;
 import com.saw.good.member.model.vo.Member;
+import com.saw.good.product.model.vo.DetailImg;
+import com.saw.good.product.model.vo.PageDetailImg;
 
 @Controller
 public class AuctionController {
@@ -241,11 +252,128 @@ public class AuctionController {
 			mv.setViewName("common/msg");
 			return mv;
 	}
-	// 글쓰기
+	// 글쓰기 작성페이지
 	@RequestMapping("/auction/writer")
 	public ModelAndView auctionWriter(ModelAndView mv) {
 		
 		mv.setViewName("auction/auctionWriter");
 		return mv;
 	}
+	// 글쓰기 작성완료
+	@RequestMapping("/auction/auctionWriterEnd")
+    public ModelAndView acWriterEnd(ModelAndView mv,
+          @SessionAttribute("loginMember") Member m,
+          @RequestParam(value = "acTitle") String acTitle,
+          @RequestParam(value = "acProName") String acProName,
+          @RequestParam(value = "acCategory") String acCategory,
+          @RequestParam(value = "acStatusRank") String acStatusRank,
+          @RequestParam(value = "acProSize") String acProSize,
+          @RequestParam(value = "acBrand") String acBrand,
+          @RequestParam(value = "acBuyDate") String acBuyDate,
+          @RequestParam(value = "acProUrl",defaultValue = "") String acProUrl,
+          @RequestParam(value = "acComent", defaultValue = "내용없음") String acComent,
+          @RequestParam(value = "aEDN") String aEDN,
+          @RequestParam(value = "asp") String asp,
+          @RequestParam(value = "aip") String aip,
+          MultipartHttpServletRequest request,
+          HttpSession session)throws Exception {
+       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+       System.out.println(m.getUserId());
+       int acStartPrice=Integer.parseInt(asp);
+       int acImdPrice=Integer.parseInt(aip);
+       int acEndDateNum=Integer.parseInt(aEDN);
+
+       String oriNameMain="";
+       String reNameMain="";
+
+       //파일 풀러오기
+       MultipartFile amImg=request.getFile("acMainImg");
+       System.out.println(amImg.isEmpty());
+       List<MultipartFile> asImg=request.getFiles("acServeImg");
+       System.out.println(asImg.isEmpty());
+       //폴더경로 찾기
+       String path=session.getServletContext().getRealPath("/resources/upload/auction");
+       //폴더경로 없으면 생성
+       File fileDir = new File(path); 
+       if (!fileDir.exists()) { fileDir.mkdirs(); }
+       //상품 메인 이미지
+       if(!amImg.isEmpty()) {
+          int rnd=(int)(Math.random()*1000);
+          oriNameMain=amImg.getOriginalFilename();
+          String ext=oriNameMain.substring(oriNameMain.lastIndexOf("."));
+          reNameMain=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+          amImg.transferTo(new File(fileDir+"/"+reNameMain));
+       }
+       Auction a = new Auction(0,m.getUserId(),acTitle,acProName,acStartPrice,1000,
+    		   0,acImdPrice,acStatusRank,acCategory,acBrand,oriNameMain,acProSize,
+    		   acComent,null,null,acBuyDate,acProUrl,null,reNameMain,acEndDateNum);
+//       a.setAcMainImg(oriNameMain);
+//       a.setAcReMainImg(reNameMain);
+       
+       //서브이미지들
+       List<AuctionServeImg> ASImgList = new ArrayList();
+       for(MultipartFile mf : asImg) {
+          if(!mf.isEmpty()) {
+             int rnd=(int)(Math.random()*1000);
+             String oriNameServe=mf.getOriginalFilename();
+             String ext=oriNameServe.substring(oriNameServe.lastIndexOf("."));
+             String reNameServe=sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+             try {
+                mf.transferTo(new File(fileDir+"/"+reNameServe));
+             }catch(IOException e){
+                e.printStackTrace();
+             }
+              AuctionServeImg asi=new AuctionServeImg();
+             asi.setAcOriNameServe(oriNameServe);
+             asi.setAcReNameServe(reNameServe);
+             ASImgList.add(asi);
+          }
+       }
+       
+       //오류나면 올리지마!
+       int result=0;
+       try {
+          result=service.inserAuction(a, ASImgList);
+          System.out.println(result);
+       }catch(RuntimeException e) {
+          File pdf=new File(fileDir+"/"+reNameMain);
+          if(pdf.exists()) {
+             pdf.delete();
+          }
+          for(AuctionServeImg asi : ASImgList) {
+             File delete=new File(fileDir+"/"+asi.getAcReNameServe());
+             if(delete.exists()) {
+                delete.delete();
+             }
+          }
+          e.printStackTrace();
+       }
+       String msg=(result>0)?"경매등록 신청성공":"경매등록 신청실패";
+       String loc=(result>0)?"/auction/list":"/auction/writer";
+       mv.addObject("msg", msg);
+       mv.addObject("loc", loc);
+       mv.setViewName("common/msg");
+       return mv;
+    }
+	//포인트 판매회원한테 주기
+	@RequestMapping("/auction/salerPoint")
+    public ModelAndView acWriterEnd(ModelAndView mv,
+          Auction a){
+		System.out.println("여기 : "+a);
+		Auction ac = service.selectNowPrice(a);
+		System.out.println("다임: "+ac);
+		int result = 0;
+		int acstatus = Integer.parseInt(ac.getAcStatus());
+		System.out.println(acstatus);
+		if(acstatus != 3) {
+			result = service.updateSalePoint(ac);
+		}
+		
+		String msg=(result>0)?"입찰확정 성공":"입찰확정 실패";
+	    String loc=(result>0)?"/auction/list":"/auction/detail?acBoardNo="+ac.getAcBoardNo();
+	       mv.addObject("msg", msg);
+	       mv.addObject("loc", loc);
+	       mv.setViewName("common/msg");
+    	return mv;
+    }
 }

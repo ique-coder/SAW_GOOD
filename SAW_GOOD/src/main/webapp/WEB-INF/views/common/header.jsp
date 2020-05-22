@@ -72,7 +72,6 @@
           </c:if>
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
-
 	             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
 	             <li class="col-md-3"><a href="${path }//member/info.do">my Info</a></li>
 	             <li class="col-md-3"><a href="${path }/payment/cart">cart</a></li>

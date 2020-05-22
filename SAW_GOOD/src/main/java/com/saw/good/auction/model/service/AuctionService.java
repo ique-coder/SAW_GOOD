@@ -6,6 +6,7 @@ import java.util.Map;
 import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
+import com.saw.good.auction.model.vo.AuctionServeImg;
 
 public interface AuctionService {
 	//상품리스트 불러오기
@@ -46,6 +47,11 @@ public interface AuctionService {
 	
 	//경매페이지 경매 종료
 		int updateStAuction(Auction a);
+	//경매상품 등록
+		int inserAuction(Auction a, List<AuctionServeImg> asiList);
+		
+	//즉찰 후 포인트 바로주기
+		int updateSalePoint(Auction a);
 	
 
 }

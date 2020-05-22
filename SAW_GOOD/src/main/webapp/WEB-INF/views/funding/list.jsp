@@ -95,7 +95,7 @@
 					<div class="col-md-6" id="main-container">
 						<div id="main" class="main product-container">
 							<a href="${path }/funding/detail?fdNo=${highList[0].fdNo}">
-							 <img src="${path }/resources/images/${highList[0].mainImg}" class="images" />
+							 <img src="${path }/resources/images/funding/${highList[0].mainImg}" class="images" />
 								<h1 class="text-deco text-position">
 									<c:out value="${highList[0].title}" />
 								</h1>
@@ -131,7 +131,7 @@
 						<c:forEach items="${highList }" var ="item" begin="1" step="2" varStatus="status">
 							<div class="sub-item">
 								<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
-								<img src="${path }/resources/images/${item.mainImg}" class="images" />
+								<img src="${path }/resources/images/funding/${item.mainImg}" class="images" />
 									<table>
 										<thead>
 											<th colspan="2">
@@ -173,7 +173,7 @@
 						<c:forEach items="${highList }" var ="item" varStatus="vs" begin="2" step="2">
 							<div class="sub-item">
 								<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
-								<img src="${path }/resources/images/${item.mainImg}" class="images" />
+								<img src="${path }/resources/images/funding/${item.mainImg}" class="images" />
 									<table>
 										<thead>
 											<th colspan="2">
@@ -242,7 +242,7 @@
 				<div class="col-md-3">
 				 	<div class="sub-item">
 								<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
-								<img src="${path }/resources/images/${item.mainImg}" class="images" />
+								<img src="${path }/resources/images/funding/${item.mainImg}" class="images" />
 									<table>
 										<thead>
 											<tr>

@@ -124,13 +124,21 @@ input[name="totalprice"]
 	width:130px;
 	font-size:16px;
 }
-/* 장바구니, 구매버튼 */
-section tfoot button{
+/* 행 추가 삭제버튼 */
+section tfoot button:first-child{
     width: 100%;
     height: 30px;
     border: 1px solid #51735D;
     border-radius: 5px;
     color:#51735D;
+    
+}
+section tfoot button:last-child{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    color:#555555;
     
 }
 

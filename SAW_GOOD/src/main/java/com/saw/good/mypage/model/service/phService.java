@@ -7,4 +7,7 @@ public interface phService {
 
 	List<Map<String,String>> product(String userId);
 	
+	List<Map<String,String>> auction(String userId);
+	List<Map<String,String>> funding(String userId);
+	
 }

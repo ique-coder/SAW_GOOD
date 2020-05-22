@@ -72,12 +72,12 @@
 					<div class="row" style="height: 100%;">
 						<div class="col-md-6" style="margin-top: 3%">
 							<div id="profileImg"
-								style="width: 60%; height: 50%; border-radius: 125px; display: block; margin-left: 23%;">
+								style="width: 60%; height: 50%; border-radius: 125px; display: block; margin-left: 25%;">
 							<c:if test="${mem.reProfile !=null }">
-                            	<img src="${path }/resources/upload/auction/${mem.reProfile}" class="profileImg"/>
+                            	<img src="${path }/resources/images/member/${mem.reProfile}" class="profileImg"/>
                             </c:if>
                             <c:if test="${mem.reProfile ==null }">
-                            	<img src="http://placehold.it/500x500"  class="profileImg"/>
+                            	<img src="${path }/resources/images/profileBasic/${mem.profile}"  class="profileImg"/>
                             </c:if>
 							</div>
 							<div class="filebox">
