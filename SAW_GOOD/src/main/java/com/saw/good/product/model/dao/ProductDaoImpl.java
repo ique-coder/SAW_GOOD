@@ -19,6 +19,11 @@ public class ProductDaoImpl implements ProductDao {
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return session.selectList("newProduct.selectProduct", null, rb );
 	}
+	
+	@Override
+	public List<Map<String, String>> selectStar(SqlSessionTemplate session) {
+		return session.selectList("newProduct.selectStar");
+	}
 
 	@Override
 	public int countProduct(SqlSessionTemplate session) {
@@ -118,6 +123,11 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int countOne(SqlSessionTemplate session, int no) {
 		return session.selectOne("newProduct.countOne", no);
+	}
+
+	@Override
+	public void updateReadCount(SqlSessionTemplate session, int no) {
+		session.update("newProduct.updateReadCount", no);
 	}
 	
 }

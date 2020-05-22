@@ -325,7 +325,7 @@ public class MemberController {
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
 					if(loginMember.isEmailAccess()&&loginMember.getStatus()!=0) {
 						//로그인성공
-						msg="로그인 성공";
+						msg="";
 						//로그인 값을 유지 -> session객체에 데이터 보관
 						//HttpSession session=request.getSession();//서블릿방식!
 //					session.setAttribute("loginMember", loginMember);
