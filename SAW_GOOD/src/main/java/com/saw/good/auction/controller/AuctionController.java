@@ -376,4 +376,15 @@ public class AuctionController {
 	       mv.setViewName("common/msg");
     	return mv;
     }
+	//나의 경매내역 보기
+	@RequestMapping("/auction/myAcHistory")
+	public ModelAndView myAcHistroy(ModelAndView mv ,
+			 @SessionAttribute("loginMember") Member m ) {
+		System.out.println(m);
+		List<Auction> list = service.selectMyAcList(m);
+		System.out.println(list);
+		mv.addObject("list",list);
+		mv.setViewName("auction/myAcStroy");
+		return mv;
+	}
 }
