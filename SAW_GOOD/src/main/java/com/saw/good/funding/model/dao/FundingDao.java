@@ -66,6 +66,10 @@ public interface FundingDao {
 
 	int updateFDSubImg(SqlSession session, FDSubImg fs);
 
+	int updateFundingSize(SqlSession session, Funding f);
+
+	int deleteFDReword(SqlSession session, int fdNo);
+
 	
 
 

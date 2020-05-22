@@ -114,13 +114,13 @@
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/funding/${funding['MAINIMG']}" width="99%"
+							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/images/funding/${funding['MAINIMG']}" width="99%"
 								style="height:500px;" />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
 								<c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
+									<li><img src="${path }/resources/images/funding/${i['SUBIMG']}" class="changeImg" /></li>
 								</c:forEach>
 							</ul>
 						</div>

@@ -19,7 +19,7 @@ function enroll(){
 }	
 
 function regTitle(){
-	var reg = /^[\w\W+]{1,12}$/;
+	var reg = /^[\w\W+]{1,16}$/;
 	if(!reg.test($("#title").val())){
 		
 		$("#title").val("");

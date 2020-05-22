@@ -7,7 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/common/footer.css"/>
 <footer>
-    <div class="container-fluid" style="text-align: center;">
+    <div class="container-fluid footerStyle" style="text-align: center;">
         <div class="foot-01">
             <div class="foot-wrap">
                 <h2 class="logo">

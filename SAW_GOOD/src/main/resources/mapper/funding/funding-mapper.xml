@@ -26,7 +26,7 @@
   	 	SELECT COUNT(*) as count ,SUM(PARTPRICE) as sum FROM FDMEMBER WHERE FDNO = #{fdNo}
   	</select>
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
-  		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
+  		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo} ORDER BY REWORD
   	</select>
 
   	<select id="selectComment" resultType="comment" parameterType="_int">
@@ -46,16 +46,16 @@
   		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)
   	</insert>
   	<select id="selectFDMemberList" parameterType="_int" resultType="fdmember" >
-		SELECT F.* ,M.PROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE
+		SELECT F.* ,M.REPROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE
 	</select>
 	<select id="selectFDMemberCount" parameterType="_int" resultType="int">
 	 	SELECT COUNT(*) FROM FDMEMBER WHERE FDNO=#{fdNo}
 	</select>
 	
 	<insert id="insertFunding" parameterType="funding">
-	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,TARGETPRICE,ENROLLDATE,MAINIMG,CATEGORY,ENDDATE,APPR) 
+	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,TARGETPRICE,ENROLLDATE,MAINIMG,CATEGORY,ENDDATE,APPR,STATUS) 
                           VALUES (FDSEQ.NEXTVAL, #{userId},#{designer},#{title}, #{subContent},#{detail},
-                          #{targetPrice},SYSDATE, #{mainImg}, #{category},#{endDate},0)
+                          #{targetPrice},SYSDATE, #{mainImg}, #{category},#{endDate},0,NULL)
           <selectKey keyProperty="fdNo" resultType="int" order="AFTER">
           	SELECT FDSEQ.CURRVAL FROM DUAL
           </selectKey>           
@@ -129,4 +129,11 @@
 	<update id="updateFDSubImg" parameterType="fdsubImg" >
 		UPDATE FDSUBIMG SET SUBIMG = #{subImg} WHERE FDNO =#{fdNo} AND SUBIMG = #{prevName}
 	</update>
+	<update id="updateFundingSize" parameterType="funding">
+		UPDATE FUNDING SET FDSIZE = #{fdSize} , STATUS = 1 WHERE FDNO = #{fdNo}
+	</update>
+	<delete id="deleteFDReword" parameterType="_int">
+		DELETE FROM FDREWORD WHERE FDNO = #{fdNo}
+	</delete>
+	
 </mapper>
