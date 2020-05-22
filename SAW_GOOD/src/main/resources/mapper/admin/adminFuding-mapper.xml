@@ -43,7 +43,9 @@
 	</select>
 	
 	<update id="updateAgreeFunding" parameterType="_int">
+
 		UPDATE FUNDING SET APPR=1 ,STATUS = NULL WHERE FDNO=#{fdno}
+
 	</update>
 	<update id="updateDisAgreeFunding" parameterType="_int">
 		UPDATE FUNDING SET APPR=2 WHERE FDNO=#{fdno}

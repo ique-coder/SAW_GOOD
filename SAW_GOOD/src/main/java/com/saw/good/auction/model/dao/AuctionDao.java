@@ -44,8 +44,9 @@ public interface AuctionDao {
 	
 	int insertAuctionServeImg(SqlSession session,AuctionServeImg asi);
 	
+	int updateSalePoint(SqlSession session,Auction a);
 	
-	
+	int updateAcFnStatus(SqlSession session,Auction a);
 	
 	
 }
