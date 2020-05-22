@@ -79,9 +79,9 @@ function paging(data){
 				//참여가격에 ,찍기
 				var money = addComma(data.list[i+j].sum);
 				
-				const div2 = $("<div>").addClass("sub-iten");
+				const div2 = $("<div>").addClass("sub-item");
 				div2.append($("<a>").attr("href","${path}/funding/detail?fdNo="+ data.list[i+j].fdNo));
-				div2.append($("<img>").attr({src:"${path }/resources/images/funding/"+data.list[i+j].mainImg,
+				div2.append($("<img>").attr({src:"/resources/images/funding/"+data.list[i+j].mainImg,
 											class:"images"}));
 				
 				

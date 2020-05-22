@@ -15,12 +15,12 @@
 			<div id="info">
 				<div id="infoSub1">
 				
-				<c:if test="${ not empty loginMember.profile }">
+				<c:if test="${ not empty loginMember.reProfile }">
 				
 					<img id="profileImg"
-						src="../image/KakaoTalk_20200423_153013027.jpg" alt="">
+						src="${path }/resources/images/member/${loginMember.reProfile}" alt="">
 				</c:if>
-				<c:if test="${ empty loginMember.profile }">
+				<c:if test="${ empty loginMember.reProfile }">
 				
 					<div id="alterImg">
 					
