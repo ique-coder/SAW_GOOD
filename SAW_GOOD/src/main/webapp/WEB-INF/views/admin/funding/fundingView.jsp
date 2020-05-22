@@ -12,7 +12,7 @@
 		#titeltwo {
 			padding-bottom: 30px;
 			margin: 0;
-			font-size: 40px;
+			font-size: 45px;
 			font-weight: bolder;
 		}
 
@@ -65,11 +65,11 @@
 
 		.character>b {
 			font-weight: bolder;
-			font-size: 17px;
+			font-size: 23px;
 		}
 
 		.character>p {
-			font-size: 13px;
+			font-size: 17px;
 			color: #b2b2b2;
 			margin: 0;
 			padding: 5px 0 10px 10px;
@@ -78,15 +78,16 @@
 		.funding_tit {
 			display: inline-block;
 			width: 150px;
-			font-size: 15px;
+			font-size: 20px;
 		}
 
 		.funding_con {
 			display: inline-block;
 			width: 282px;
 			color: black;
-			font-size: 20px;
+			font-size: 25px;
 		}
+		
 
 		#button {
 			text-align: right;
@@ -114,13 +115,13 @@
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/funding/${funding['MAINIMG']}" width="99%"
-								style="height:500px;" />
+							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/newproduct/funding/${funding['MAINIMG']}" width="99%"
+								style="height:600px;" />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
 								<c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/funding/${i['SUBIMG']}" class="changeImg" /></li>
+									<li><img src="${path }/resources/upload/newproduct/funding/${i['SUBIMG']}" class="changeImg" /></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -131,11 +132,11 @@
 								<b>펀딩특징</b>
 								<p>이 펀딩은 쏘굿에서만 특별진행하는 펀딩입니다.</p>
 							</div>
-							<h4 style="font-size: 20px;">
+							<h4 style="font-size: 23px;">
 								Funding Info
-								<span style="font-size: 13px; padding-left:10px;color:#b2b2b2">펀딩정보</span>
+								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">펀딩정보</span>
 							</h4>
-							<ul id="funding-all" style="padding:20px 0 0 0;">
+							<ul id="funding-all" style="padding:20px 0 0 0; height:450px;">
 								<li>
 									<p class="funding_tit"><span> - </span> 작성자 </p>
 									<p class="funding_con">
@@ -206,7 +207,7 @@
 				minSlides: 2,
 				maxSlides: 5,
 				moveSlides: 1,
-				slideWidth: 150,
+				slideWidth: 255,
 				slideMargin: 30
 			})
 

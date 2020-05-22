@@ -9,8 +9,9 @@
 <body>
 
 	<script>
-	
-		alert("${msg}");
+		if(${not empty msg or msg != ""}){			
+			alert("${msg}");
+		}
 		if(${not empty loc}){
 			location.replace("${pageContext.request.contextPath}${loc}");
 		}

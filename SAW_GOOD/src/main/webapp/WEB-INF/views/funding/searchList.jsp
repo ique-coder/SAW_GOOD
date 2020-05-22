@@ -96,7 +96,7 @@
 							<div class="col-md-3">
 							 	<div class="sub-item">
 											<a href="${path }/funding/detail?fdNo=${item.fdNo}"> 
-											<img src="${path }/resources/images/${item.mainImg}" class="images" />
+											<img src="${path }/resources/images/funding/${item.mainImg}" class="images" />
 												<table>
 													<thead>
 														<tr>
@@ -245,7 +245,7 @@
 					var money = addComma(data.list[i+j].sum);
 					div.append('<div class="sub-item">'
 										+'<a href="${path }/funding/detail?fdNo='+ data.list[i+j].fdNo+ '">'
-										+'<img src="${path }/resources/images/'+data.list[i+j].mainImg+'" class="images" />'
+										+'<img src="${path }/resources/images/funding/'+data.list[i+j].mainImg+'" class="images" />'
 										+'<table><thead><tr><th colspan="2">'
 															+'<h1 class="text-deco text-position">'
 																+data.list[i+j].title+'</h1>'

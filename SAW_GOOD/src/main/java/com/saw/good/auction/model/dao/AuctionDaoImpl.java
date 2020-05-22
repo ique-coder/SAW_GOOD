@@ -122,6 +122,18 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.insert("auction.insertAuctionServeImg",asi);
 	}
+	//즉찰후 판매자에게 바로 포인트 주기
+	@Override
+	public int updateSalePoint(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.updateSalePoint",a);
+	}
+	//입찰확정 후 옥션 스테이터스 = 3으로
+	@Override
+	public int updateAcFnStatus(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.updateAcFnStatus",a);
+	}
 	
 	
 	

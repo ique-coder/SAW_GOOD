@@ -42,8 +42,9 @@ public class ProductController {
 		List<Map<String,String>> list =service.selectProduct(cPage,numPerPage);
 		int totalData=service.countProduct();
 		String pageBar=PageFactory.getPage(totalData, cPage, numPerPage, "productList");
-		
+		List<Map<String,String>> slist = service.selectStar();
 		m.addObject("list", list);
+		m.addObject("slist", slist);
 		m.addObject("pageBar", pageBar);
 		m.addObject("numPerPage", numPerPage);
 		m.addObject("cPage", cPage);
@@ -191,6 +192,7 @@ public class ProductController {
 		boolean flag = false;
 		if(pass.equals(qna.getQnaPass())) {
 			flag = true;
+			service.updateReadCount(no);
 		}
 		response.setCharacterEncoding("UTF-8");
 		mv.addObject("flag", flag);

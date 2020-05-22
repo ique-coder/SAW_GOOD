@@ -49,6 +49,9 @@ public interface AuctionService {
 		int updateStAuction(Auction a);
 	//경매상품 등록
 		int inserAuction(Auction a, List<AuctionServeImg> asiList);
+		
+	//즉찰 후 포인트 바로주기
+		int updateSalePoint(Auction a);
 	
 
 }

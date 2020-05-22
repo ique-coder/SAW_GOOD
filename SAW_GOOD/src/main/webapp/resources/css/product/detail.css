@@ -64,6 +64,7 @@
     .bigImg{
         max-width: 500px;
         cursor: pointer;
+        width: 100%;
     }
     .record_container{
         display: flex;

@@ -25,6 +25,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map<String, String>> selectProduct(int cPage, int numPerPage) {
 		return dao.selectProduct(session, cPage, numPerPage);
 	}
+	
+	@Override
+	public List<Map<String, String>> selectStar() {
+		return dao.selectStar(session);
+	}
 
 	@Override
 	public int countProduct() {
@@ -120,6 +125,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int countOne(int no) {
 		return dao.countOne(session, no);
+	}
+
+	@Override
+	public void updateReadCount(int no) {
+		dao.updateReadCount(session, no);
 	}
 	
 }
