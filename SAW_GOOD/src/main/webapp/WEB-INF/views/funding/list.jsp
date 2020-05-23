@@ -12,7 +12,12 @@
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date() %>" var="now"/>    
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
-
+<style>
+.clock{
+	 width:11px;
+	 height:11px;
+}
+</style>
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/sample1.jpg">
@@ -106,17 +111,18 @@
 								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
                                      <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
                                 </svg>
-								<div style="margin: 0 10%; height: 20px;">
-									<i><img></i> 
-									<span>
+								<div style="margin: 0 10%; height: 20px;" class="">
+									<i><img src="${path }/resources/images/common/clock.png" class="clock"></i> 
+									<span class="spanStyle">
 										<b>
 											<fmt:parseNumber value="${highList[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 											${endDate-today}
 
 										</b>일 남음
-									</span> 
-									<span><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
-									<span><b>
+									</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="spanStyle"><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="spanStyle"><b>
 											<fmt:formatNumber value="${highList[0].sum/highList[0].targetPrice *100}" />
 										  </b>%</span>
 								</div>
@@ -142,6 +148,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -184,6 +191,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -215,18 +223,18 @@
 
 <section class="container-fluid" id="category-nav"> 
         <div class="row" >
-            <img src="${path }/resources/images/funding/sofa.jpg" class ="col-md-6"/>
+            <img src="${path }/resources/images/funding/${list[1].mainImg}" class ="col-md-6"/>
             <div class="col-md-6 text-container">
             	<p>
-            		ISSUE THIRTY-FIVE
+            		${list[1].category }
             	</p>
-                <a href="#">
-                	Change Issue
+                <a href="${path }/funding/detail?fdNo=${list[1].fdNo}">
+                	${list[1].title }
                 </a>
                 <h2>
-                	Small steps, big dreams: Learn to leap into your own unknown
+                	${list[1].subContent }
                 </h2>
-                <button type="button">SHOP NOW</button>
+                <button type="button" onclick="location.href='${path }/funding/detail?fdNo=${list[1].fdNo}'">SHOP NOW</button>
             </div>
         </div>
 
@@ -254,6 +262,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -357,7 +366,7 @@ var cPage = 2;
 																+data.list[i+j].title+'</h1>'
 														+'</th></tr></thead>'
 														+'<tr><th>'+data.list[i+j].designer+'</th>'
-														+'<td>'
+														+'<td><img src="${path }/resources/images/common/clock.png" class="clock"> '
 														+result
 														+'</td></tr><tbody><tr>'
 														+'<th colspan="2">'

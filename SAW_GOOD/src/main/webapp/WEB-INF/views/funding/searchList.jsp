@@ -12,7 +12,12 @@
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date() %>" var="now"/>
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
-
+<style>
+.clock{
+	 width:11px;
+	 height:11px;
+}
+</style>
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/sample1.jpg" style="background: transparent;">
@@ -111,6 +116,7 @@
 															<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 															 
 															<c:if test="${endDate-today >=0}">
+															<img src="${path }/resources/images/common/clock.png" class="clock">
 																${endDate-today}
 																일 남음
 															</c:if>
@@ -237,7 +243,7 @@
 					
 					var result ="";
 					if(Math.floor((endDate-today)/(60*24*60*1000))>=0){
-						result = Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
+						result = '<img src="${path }/resources/images/common/clock.png" class="clock"> '+Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
 					}
 					
 					var money = addComma(data.list[i+j].sum);
