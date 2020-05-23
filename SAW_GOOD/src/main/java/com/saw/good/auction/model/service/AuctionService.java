@@ -59,6 +59,8 @@ public interface AuctionService {
 		int updateSalePoint(Auction a);
 	//내 옥션 참여 리스트 가져오기
 		List<Auction> selectMyAcList(Member m);
+	//경매 삭제하기 
+		int deleteAuction(Auction a);
 	
 
 }
