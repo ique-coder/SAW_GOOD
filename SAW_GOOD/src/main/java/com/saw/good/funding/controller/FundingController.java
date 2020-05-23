@@ -575,7 +575,7 @@ public class FundingController {
 			mv.addObject("msg", "수정 실패했습니다. 다시 시도해주세요.");
 			
 		}
-		mv.addObject("loc", "/funding/enroll/myList");
+		mv.addObject("loc", "/mypage/funding/enroll/myList");
 		mv.setViewName("common/msg");
 		
 		return mv;
