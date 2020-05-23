@@ -11,6 +11,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 
 @Repository
 public class AuctionDaoImpl implements AuctionDao {
@@ -133,6 +134,12 @@ public class AuctionDaoImpl implements AuctionDao {
 	public int updateAcFnStatus(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
 		return session.update("auction.updateAcFnStatus",a);
+	}
+	//나의 경매내역 확인
+	@Override
+	public List<Auction> selectMyAcList(SqlSession session, Member m) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectMyAcList",m);
 	}
 	
 	

@@ -13,6 +13,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.PageDetailImg;
 @Service
@@ -152,6 +153,12 @@ public class AuctionServiceIpml implements AuctionService {
 			result=dao.updateAcFnStatus(session,a);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Auction> selectMyAcList(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectMyAcList(session,m);
 	}
 
 	
