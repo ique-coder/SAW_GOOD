@@ -5,7 +5,7 @@ html,body{
 div{
     height: 100%;
     position: relative;
-}
+} 
 button,input[type='button'],input[type='submit']{
 	background:none;
 	outline:none;

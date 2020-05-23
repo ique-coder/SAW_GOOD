@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FDSubImg {
 	
-	int fdNo;
-	String subImg;
-	String prevName;
+	private int fdNo;
+	private String subImg;
+	private String prevName;
 	
 	
 }	

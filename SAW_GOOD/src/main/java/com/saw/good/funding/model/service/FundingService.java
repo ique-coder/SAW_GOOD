@@ -67,6 +67,8 @@ public interface FundingService {
 	int updateFundingSize(Funding f);
 
 	int deleteFDReword(int fdNo);
+
+	List<Map<String, String>> selectPartList(Funding f);
 	
 
 

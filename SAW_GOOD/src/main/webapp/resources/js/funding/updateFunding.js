@@ -73,7 +73,7 @@ var sub = true;
 
 var sel_file ; 
 function imagePreview(event){
-	console.log("바뀌니");
+
 	var files = event.target.files;
 	var filesArr = Array.prototype.slice.call(files);
 	

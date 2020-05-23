@@ -305,6 +305,36 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.upbtn{
+	margin-bottom:10px;
+}
 </style>
 <!-- Page Content  -->
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -338,7 +368,7 @@ label {
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="userid"> <input type="text"
 									name="keyword" placeholder="아이디를 입력해주세요" style="width: 80%">
-								<button type="submit" class="btn-black">검색</button>
+								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
 						<div id="search_name">
@@ -347,7 +377,7 @@ label {
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="username"> <input type="text"
 									name="keyword" placeholder="이름을 입력해주세요" style="width: 80%">
-								<button type="submit" class="btn-black">검색</button>
+								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
 						<div id="search_email">
@@ -356,7 +386,7 @@ label {
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="email"> <input type="text"
 									name="keyword" placeholder="이메일을 입력해주세요" style="width: 80%">
-								<button type="submit" class="btn-black">검색</button>
+								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
 						<div id="search_phone">
@@ -365,7 +395,7 @@ label {
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="phone"> <input type="text"
 									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 80%">
-								<button type="submit" class="btn-black">검색</button>
+								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
 						<div id="search_addr">
@@ -374,7 +404,7 @@ label {
 									value="${param.numPerPage }" /> <input type="hidden"
 									name="searchType" value="address1"> <input type="text"
 									name="keyword" placeholder="주소를 입력해주세요" style="width: 80%">
-								<button type="submit" class="btn-black">검색</button>
+								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
 						</td>
@@ -401,7 +431,7 @@ label {
 			<form action="#" method="post" id="frmMember">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
-						<button class="btn-black" type="button" onclick="checkDelete();">선택삭제</button>
+						<button class="btn-white" type="button" onclick="checkDelete();">선택삭제</button>
 					</div>
 				</div>
 				<table class="memberMg checking">
@@ -435,7 +465,7 @@ label {
 							<td><c:out value="${m.address1}" /></td>
 							<td><c:out value="${m.email }" /></td>
 							<td>
-								<button class="btn-black deleteMember" type="button"
+								<button class="btn-white deleteMember" type="button"
 									value="${m.userId  }">삭제</button>
 							</td>
 						</tr>

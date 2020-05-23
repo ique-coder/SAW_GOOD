@@ -41,7 +41,7 @@ table.auctionAg {
 
 /* 버튼 */
 .btn-black {
-	width:100px;
+	width:80px;
 	line-height: 30px;
 	font-size: 15px;
 	color: #fff;
@@ -339,6 +339,37 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
+/* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.upbtn{
+	margin-bottom:10px;
+}
 
 </style>
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -436,7 +467,7 @@ label {
 					
 					<tr>
 						<td colspan="2" style="text-align: right; border: none;">
-							<button type="button" class="btn-black" id="submitSearch">검색</button>
+							<button type="button" class="btn-white" id="submitSearch">검색</button>
 						</td>
 					</tr>
 				</table>
@@ -472,8 +503,8 @@ label {
 			<form action="#" method="post" id="auctionFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
-						<button class="btn-black" type="button" id="checkAgree">승인</button>
-						<button class="btn-black" type="button" id="checkDisagree">거부</button>
+						<button class="btn-white" type="button" id="checkAgree">승인</button>
+						<button class="btn-white" type="button" id="checkDisagree">거부</button>
 					</div>
 				</div>
 				<table class="auctionAg checking">
@@ -482,12 +513,12 @@ label {
 						<col width="5%">
 						<col width="15%">
 						<col width="auto">
+						<col width="8%">
+						<col width="8%">
 						<col width="10%">
 						<col width="10%">
 						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
+						<col width="15%">
 					</colgroup>
 
 					<tr>
@@ -522,8 +553,8 @@ label {
 							<td><fmt:formatDate value="${ac['ACSTART_DATE']}" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${ac['ACENDDATE']}" pattern="yyyy-MM-dd"/></td>
 							<td>
-								<button class="btn-black agreeAuc" type="button" value="${ac['ACBOARDNO']}">승인</button>
-								<button class="btn-black disagreeAuc" type="button" value="${ac['ACBOARDNO']}">거부</button>
+								<button class="btn-white upbtn agreeAuc" type="button" value="${ac['ACBOARDNO']}">승인</button>
+								<button class="btn-white disagreeAuc" type="button" value="${ac['ACBOARDNO']}">거부</button>
 							</td>
 						</tr>
 					</c:forEach>
