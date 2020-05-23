@@ -7,6 +7,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 
 public interface AuctionService {
 	//상품리스트 불러오기
@@ -52,6 +53,8 @@ public interface AuctionService {
 		
 	//즉찰 후 포인트 바로주기
 		int updateSalePoint(Auction a);
+	//내 옥션 참여 리스트 가져오기
+		List<Auction> selectMyAcList(Member m);
 	
 
 }
