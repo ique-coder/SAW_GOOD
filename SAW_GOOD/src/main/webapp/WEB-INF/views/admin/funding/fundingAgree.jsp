@@ -41,13 +41,17 @@ table.fundingAg {
 
 /* 버튼 */
 .btn-black {
-	width:100px;
+	width:70px;
 	line-height: 30px;
 	font-size: 15px;
 	color: #fff;
 	text-align: center;
 	background-color: #303030;
 	border: 1px solid #303030;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 }
 
 /* 펀딩승인 카테고리 */
@@ -337,7 +341,36 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
-
+/* 버튼 */
+.btn-white {
+	width:70px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.btn-white:hover {
+	width:70px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.upbtn{
+	margin-bottom:10px;
+}
 </style>
 <div id="content" class="p-4 p-md-5 pt-5">
 	<h2 id="titeltwo">Funding Manager</h2>
@@ -429,7 +462,7 @@ label {
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: right; border: none;">
-							<button type="button" class="btn-black" id="submitSearchAg">검색</button>
+							<button type="button" class="btn-white" id="submitSearchAg">검색</button>
 						</td>
 					</tr>
 				</table>
@@ -460,8 +493,8 @@ label {
 			<form action="#" method="post" id="fundFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
-						<button class="btn-black" type="button" id="checkReFund">환불</button>
-						<button class="btn-black" type="button" id="checkDelete">삭제</button>
+						<button class="btn-white" type="button" id="checkReFund">환불</button>
+						<button class="btn-white" type="button" id="checkDelete">삭제</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -512,7 +545,7 @@ label {
 							</c:if>
 							<c:if test="${fag['STATUS'] eq '0'}">
 									<td>
-										<button class="btn-black refundFd" type="button" value="${fag['FDNO'] }">환불</button>
+										<button class="btn-white refundFd" type="button" value="${fag['FDNO'] }">환불</button>
 									</td>
 							</c:if>
 							<c:if test="${fag['STATUS'] eq '2'}">

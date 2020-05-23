@@ -129,6 +129,47 @@ public class AdminAuctionServiceImpl implements AdminAuctionService {
 		
 		return result;
 	}
+	//옥션 한개 입찰확정
+	@Override
+	public int updateDecideAuction(String acno) throws RuntimeException {
+		// TODO Auto-generated method stub
+		int result=0;
+		Map<String,String> map=new HashMap();
+		map.put("acno",acno);
+		result=dao.updateSalePoint(session,map);
+		if(result==0) {
+			throw new RuntimeException();
+		}
+		result=dao.updateDecideAuction(session,acno);
+		if(result==0) {
+			throw new RuntimeException();
+		}
+		
+		return result;
+	}
+	
+	//선택한 경매 입찰확정
+	@Override
+	public int updateCkDecideAuc(String[] aucCheck) throws RuntimeException{
+		// TODO Auto-generated method stub
+		int result=0;
+		Map<String,String> map=new HashMap();
+		for(String s : aucCheck) {
+			map.put("acno", s);
+			result=dao.updateSalePoint(session,map);
+			if(result==0) {
+				throw new RuntimeException();
+			}
+			result=dao.updateDecideAuction(session,s);
+			if(result==0) {
+				throw new RuntimeException();
+			}
+			map.remove("acno");
+		}
+		
+		return result;
+	}
+	
 	//옥션 비동의 리스트
 	@Override
 	public List<Map<String, String>> selectAuctionDisAgree(int cPage,int numPerPage) {
