@@ -37,4 +37,6 @@ public interface MemberService {
 	
 	//옥션에서 포인트 가져오는 로직
 	int updateMemAPoint(Auction a);
+
+	int deleteAccount(String userId);
 }
