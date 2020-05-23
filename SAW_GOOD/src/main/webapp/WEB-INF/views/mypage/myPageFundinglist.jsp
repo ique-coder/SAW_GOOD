@@ -120,7 +120,7 @@
 
 			<div id="list">
 			<c:if test="${empty list}">
-				<p class="noList center">결재내역이 없습니다.<p>
+				<p class="noList center">등록내역이 없습니다.<p>
 			</c:if>
 			<c:if test="${not empty list }">
 			<c:forEach var="item" items="${list }">

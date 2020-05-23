@@ -651,7 +651,7 @@ public class FundingController {
 		}
 		
 		mv.addObject("msg",msg);
-		mv.addObject("loc", "/funding/enroll/myList");
+		mv.addObject("loc", "/mypage/funding/enroll/myList");
 		mv.setViewName("common/msg");
 		return mv;
 	}
