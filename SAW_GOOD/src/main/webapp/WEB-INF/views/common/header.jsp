@@ -118,9 +118,12 @@
 	            	<li style="color: #ee987c;">
 	            			- seller - 
 	            	</li>
+	            	<li>
+	            		<a href="">Auction</a>
+	            	</li>
 	            	<c:if test = "${loginMember.status>1 }">
 	            		<li>
-	            			<a href="${path }/funding/enroll/myList">Funding</a>
+	            			<a href="${path }/mypage/funding/enroll/myList">Funding</a>
 	            		</li>
 		            	
 	            	</c:if>

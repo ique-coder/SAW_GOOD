@@ -135,5 +135,11 @@
 	<delete id="deleteFDReword" parameterType="_int">
 		DELETE FROM FDREWORD WHERE FDNO = #{fdNo}
 	</delete>
-	
+	<select id="selectPartList" parameterType ="funding" resultType="map">
+		SELECT A.FDNO, A.USERID , A.PARTPRICE,NVL(A.REWORD,'없음') as reword,A.PARTDATE, C.USERNAME,C.PHONE,C.POSTCODE,C.ADDRESS1,C.ADDRESS2
+		FROM FDMEMBER A 
+		JOIN FUNDING B ON(A.FDNO = B.FDNO)
+		JOIN MEMBER C ON(A.USERID= C.USERID)
+		WHERE A.FDNO = #{fdNo} AND B.USERID = #{userId}	AND B.APPR = 1 AND B.STATUS = 2 
+	</select>
 </mapper>

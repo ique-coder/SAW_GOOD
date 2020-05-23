@@ -17,9 +17,9 @@ public class StatusCheckInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		HttpSession session = request.getSession();
 		String refer = request.getHeader("Referer");
+		System.out.println(refer);
 		Member m = (Member)session.getAttribute("loginMember");
 		if(m==null || m.getStatus()<2) {
-			
 			request.setAttribute("msg", "판매등급인 회원만 이용가능합니다.");
 			request.setAttribute("referer", "/"+refer.substring(refer.indexOf("good")));
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")

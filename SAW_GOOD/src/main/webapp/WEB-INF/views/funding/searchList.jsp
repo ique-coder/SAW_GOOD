@@ -82,9 +82,7 @@
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
 					</span>
-					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
-					</span>
+					
 				</c:if>
 			</div>
 			<div class="col-md-10" id="item-container">

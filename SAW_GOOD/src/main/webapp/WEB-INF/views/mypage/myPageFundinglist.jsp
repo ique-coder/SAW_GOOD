@@ -7,7 +7,15 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp">
 		<jsp:param value="" name=""/>
 	</jsp:include>
-
+<style>
+.noList {
+		margin-top: 50px;
+	}
+	#list {
+		height: auto;
+		
+	}
+</style>
 <link rel="stylesheet" href="${path }/resources/css/member/myPage/myPageFundingList.css?ver=0"/>
 <div class="container">
 	<div class="row">
@@ -64,7 +72,7 @@
 
 
 		<div class="col-md-10 ilnine">
-
+			
 			<div id="useList" class="col-md-12 center">
 				<!-- 현재상태 보여주기 -->
 				<!-- <div id="checkStatus">
@@ -111,7 +119,10 @@
 
 
 			<div id="list">
-			
+			<c:if test="${empty list}">
+				<p class="noList center">결재내역이 없습니다.<p>
+			</c:if>
+			<c:if test="${not empty list }">
 			<c:forEach var="item" items="${list }">
 				<div class="product row">
 					<div class="col-md-2 productImg">
@@ -194,22 +205,18 @@
 									<button class="productBtn" onclick="location.href='${path}/funding/detail?fdNo=${item.fdNo}&userId=${item.userId }'">게시글 보기</button>
 								</c:if>
 								<c:if test="${item.status == 2}">
-									<button class="productBtn">신청회원 보기</button>
+									<button class="productBtn" onclick="location.href='${path}/funding/enroll/myFundingPartList?fdNo=${item.fdNo}&userId=${item.userId }'">신청회원 보기</button>
 								</c:if>
 							</c:if>
 					</div>
 				</div>
 				</c:forEach>
-				<c:if test="${not empty list }">
+				</c:if>
+				<c:if test="${not empty pageBar }">
 					${pageBar }
 				</c:if>
 			</div>
 			
-			<c:if test="${not empty msg }">
-			<div>
-				<p class="sendCheck">${msg }</p>
-			</div>
-			</c:if>
 			
 		</div>
 	</div>

@@ -83,7 +83,7 @@ public class MemberController {
 		Member m2 = new Member();
 		m2.setUserId(m.getUserId());
 		m2.setEmail(m.getEmail());
-
+		System.out.println(m);
 		// 암호화하기
 		m.setPassword(pwEncoder.encode(m.getPassword()));
 		m.setEmail(aesEncrypt.encrypt(m.getEmail()));
@@ -157,6 +157,7 @@ public class MemberController {
 		}
 
 		mv.addObject("msg", msg);
+		mv.addObject("loc","/");
 		mv.setViewName("common/msg");
 		return mv;
 	}

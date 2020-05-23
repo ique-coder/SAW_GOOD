@@ -13,9 +13,10 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		HttpSession session = request.getSession();
 		String refer=request.getHeader("Referer");
+		System.out.println(("로그인 체크")+refer);
 		if(session.getAttribute("loginMember")==null) {
 			request.setAttribute("msg", "로그인 후 이용할 수 있습니다.");
-			request.setAttribute("referer", "/"+refer.substring(refer.indexOf("20AM_SAW_GOOD_final")));
+			request.setAttribute("referer", "/"+refer.substring(refer.indexOf("good")));
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 			.forward(request, response);
 			return false;

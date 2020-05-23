@@ -199,7 +199,7 @@ $(function() {
 					$("#email").val($("#email1").val()+"@"+$("#email2").val());
 					$("#phone").val($("#selectNum").val()+$("input[name='phone2']").val()+$("input[name='phone3']").val());
 					
-					alert($("#email").val());
+					
 					$("form").submit();
 				}
 			})
