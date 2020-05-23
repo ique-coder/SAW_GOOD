@@ -37,18 +37,30 @@
 					<div class="col-md-12" id="mainImg"
 						style="height: 60%; margin-bottom: 10px;">
 						<img class="images"
-							src="${path }/resources/images/${a.acMainImg }.jpg">
+							src="${path }/resources/upload/auction/${a.acReMainImg }">
 					</div>
 					<div class="col-md-12 row" id="serveImg"
 						style="height: 20%; margin: 0;">
-						<img class="col-md-3 images"
-							src="${path }/resources/images/signup.jpg" /> <img
+						<c:if test="${!empty list}">
+							<c:forEach items="${sumImg }" var="s">
+						
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty list }">
+							<img class="col-md-3 images"
+							src="http://placehold.it/118x113" /> 
+							<img
 							class="col-md-3 images"
-							src="${path }/resources/images/signup2.jpg" /> <img
+							src="http://placehold.it/118x113" /> 
+							<img
 							class="col-md-3 images"
-							src="${path }/resources/images/signup3.jpg" /> <img
+							src="http://placehold.it/118x113" /> 
+							<img
 							class="col-md-3 images"
-							src="${path }/resources/images/signup4.jpg" />
+							src="http://placehold.it/118x113" /> 
+						
+						</c:if>
+				
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -87,7 +99,7 @@
 								<c:if test="${a.acNowPrice < a.acStartPrice }">
                                     		현재 입찰자 없음
                                     	</c:if> <c:if
-									test="${a.acNowPrice > a.acStartPrice }">
+									test="${a.acNowPrice >= a.acStartPrice }">
 									<fmt:formatNumber value="${a.acNowPrice+10000 }"
 										pattern="#,###" /> P
                                     	</c:if>
@@ -99,7 +111,7 @@
 							<div class="product-button">
 							
 								<c:if
-									test="${acEndDate-today > 0 && loginMember != null && a.acStatus == 1}">
+									test="${acEndDate-today > 0 && loginMember != null && a.acStatus == 1 && loginMember.userId != a.userId}">
 									<button type="button" class="buy-btn" data-toggle="modal"
 										data-target="#bidModal">입찰하기</button>
 									<button class="nowBuy-btn" id="nowBuy-btn" onclick="nowBuy();">즉시입찰</button>
@@ -374,7 +386,7 @@
 					<div class="modal-body" style="padding-bottom: 0;">
 						<div>
 							<input type="text" class="form-control" name="bidPrice"
-								id="bidPrice" placeholder=" 최고입찰금액초과  + 단위금액 입력"
+								id="bidPrice" placeholder=" 최고입찰금액 이상" value="0"
 								style="border-radius: 7px;" required> <span
 								id="bidNowCk"></span>
 						</div>
@@ -401,7 +413,7 @@
 			if(${loginMember!=null?loginMember.point:0} < ${a.acImdPrice}){
 				alert("포인트가 부족합니다. 충전후 이용해주세요.");
 			}else{
-					if (confirm("바로 입찰됩니다. 동의하시겠습니까?") == true){    //확인
+					if (confirm("즉시 입찰됩니다. 동의하시겠습니까?") == true){    //확인
 					    $("#nowBuyBid").submit();
 					}else{   //취소
 					 
@@ -409,7 +421,17 @@
 			}
 		}
     	function bidUpdate(){
-    		$("#acMemberBid").submit();
+    		if (confirm("입찰하시겠습니까?") == true){    //확인
+			    if(${a.acImdPrice}>$("#bidPrice").val()){
+			    	$("#acMemberBid").submit();
+			    }else{
+			    	alert("즉시입찰금액보다 적게 입력해야합니다.");
+			    }
+    			
+			}else{   //취소
+			 
+			}
+    		
     	}
     	function salerPoint(){
     		console.log("엥?");

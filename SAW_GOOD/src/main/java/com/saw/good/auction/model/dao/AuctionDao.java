@@ -24,6 +24,8 @@ public interface AuctionDao {
 	
 	Auction selectDtAuction(SqlSession session,Auction acBoardNo);
 	
+	List<AuctionServeImg> selectServeImg(SqlSession session,Auction a);
+	
 	int countBid(SqlSession session,Auction a);
 	
 	List<Map<String, String>> selectAcMember(SqlSession session,Auction acBoardNo);
