@@ -306,4 +306,8 @@ button,input[type='button'],input[type='submit']{
 	color: white;
 	background: black;
 }
+.spanStyle{
+	display: inline-block;
+	padding:10px;
+}
 	
