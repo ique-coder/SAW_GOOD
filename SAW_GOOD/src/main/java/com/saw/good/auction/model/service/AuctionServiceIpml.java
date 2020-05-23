@@ -165,6 +165,12 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectMyAcList(session,m);
 	}
+    //경매삭제하기
+	@Override
+	public int deleteAuction(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.deleteAuction(session,a);
+	}
 
 	
 

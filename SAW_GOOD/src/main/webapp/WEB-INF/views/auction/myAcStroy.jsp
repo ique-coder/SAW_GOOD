@@ -114,6 +114,7 @@
 			<div id="list">
 
 				<c:forEach var="a" items="${list }">
+				<c:if test="${a.acStatus != 5 }">
 					<div class="product row">
 						<div class="col-md-2 productImg">
 							<img
@@ -193,14 +194,16 @@
 								</c:if>	
 								<c:if test="${a.acStatus ==1 || a.acStatus ==0}">
 									<input type="button" class="productBtn acDelete" value="경매삭제">
+									
 								</c:if>
-								<c:if test="${a.acStatus == 2 || a.acStatus == 3 || acStatus ==4 }">
+								<c:if test="${a.acStatus == 3 || acStatus ==4 }">
 									<input type="button" class="productBtn acListDelete" value="경매내역삭제">
 								</c:if>						
 								<input type="hidden" class="acNo" name="acno" value="${a.acBoardNo }">
 							</form> 
 						</div>
 					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 			</c:if>
@@ -239,11 +242,11 @@ let userId = "${loginMember.userId}";
 	})
 	
 	$(".acDelete").off("click").on("click", function() {
-		$(this).parent().attr('action','${path}/mypage/extend');
+		$(this).parent().attr('action','${path}/auction/myAcDelete');
 		$(this).parent().submit();
 	})
 	$(".acListDelete").off("click").on("click", function() {
-		$(this).parent().attr('action','${path}/mypage/review');
+		$(this).parent().attr('action','${path}/auction/myAcListDelete');
 		$(this).parent().submit();
 	})
 
