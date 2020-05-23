@@ -93,7 +93,7 @@
 									<div class="auctionProduct">
 										<a href="${path }/auction/detail?acBoardNo=${item.acBoardNo}"> 
 											<div class="productPoto">
-												<img src="${path }/resources/images/${item.acMainImg}.jpg"
+												<img src="${path}/resources/upload/auction/${item.acReMainImg }"
 													style="width: 100%; height: 220px;">
 											</div>
 											<div class="proTitle">

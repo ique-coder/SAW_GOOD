@@ -62,6 +62,12 @@ public class AuctionDaoImpl implements AuctionDao {
 	}
 	
 	@Override
+	public List<AuctionServeImg> selectServeImg(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectServeImg",a);
+	}
+
+	@Override
 	public int countBid(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
 		return session.selectOne("auction.countBid",a);

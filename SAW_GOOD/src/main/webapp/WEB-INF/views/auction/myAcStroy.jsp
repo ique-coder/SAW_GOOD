@@ -23,23 +23,23 @@
 				<div id="infoSub1">
 					<img id="profileImg"
 						src="../image/KakaoTalk_20200423_153013027.jpg" alt="">
-					<p>${member.userId }님</p>
+					<p>${mem.userId }님</p>
 				</div>
 				<div id="infoSub2">
 					<p>쏘:굿 페이 포인트</p>
-					<P><fmt:formatNumber type="number" value="${member.point }"/>원</P>
+					<P><fmt:formatNumber type="number" value="${mem.point }"/>원</P>
 				</div>
 				<div id="infoSub3">
 					<button id="cashBtn" class="btn">충전</button>
 				</div>
 			</div>
-			<div id="infoCount" class="center">
+		<!-- 	<div id="infoCount" class="center">
 				<p>총 이용 내역</p>
 				<p>
 					<span id="useCount">6건</span> <span>&nbsp;l&nbsp;</span> <span
 						id="usePrice">1,071,000원</span>
 				</p>
-			</div>
+			</div> -->
 			<div id="userCategory" class="center">
 				<p>회원정보</p>
 				<p>장바구니</p>
@@ -117,8 +117,8 @@
 					<div class="product row">
 						<div class="col-md-2 productImg">
 							<img
-								src="${path }/resources/upload/images/auctin/bed.jpg"
-								alt="">
+								src="${path }/resources/upload/auction/${a.acReMainImg}"
+								style="width:100%;height:100%;">
 						</div>
 						<div class="col-md-8 pSpace spanSpace">
 							<p class="titleInfo">
@@ -127,7 +127,7 @@
 							</p>
 							
 							<p class="priceDate">
-								<span class="productPrice">
+								현재 입찰금액 : <span class="productPrice">
 									<fmt:formatNumber type="number" value="${a.acNowPrice}"/>원
 								</span>
 								<span class="sendDate">${a.acEndDate }</span>
