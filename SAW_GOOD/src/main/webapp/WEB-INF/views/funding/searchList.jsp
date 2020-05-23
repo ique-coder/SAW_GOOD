@@ -19,7 +19,7 @@
 		<h3>CREATE YOUR ROOM</h3>
 	</div>
 	<div id="search-area" class="container">
-		<form action="" method="post">
+		<!-- <form action="" method="post">
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
@@ -51,7 +51,7 @@
 				<option value="2">낮은 금액</option>
 			</select>
 			<button type="submit">검색하기</button>
-		</form>
+		</form> -->
 	</div>
 	<div class="container padding">
 		<div class="row">
@@ -82,9 +82,7 @@
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
 					</span>
-					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
-					</span>
+					
 				</c:if>
 			</div>
 			<div class="col-md-10" id="item-container">
@@ -281,4 +279,4 @@
 </script>
 			
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	

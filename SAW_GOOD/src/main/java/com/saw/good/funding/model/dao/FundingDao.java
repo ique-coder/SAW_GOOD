@@ -70,6 +70,8 @@ public interface FundingDao {
 
 	int deleteFDReword(SqlSession session, int fdNo);
 
+	List<Map<String, String>> selectPartList(SqlSession session, Funding f);
+
 	
 
 

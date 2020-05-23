@@ -26,10 +26,16 @@
      <div class="container">
         <div class="col-md-12">
             <section class="row first-row">
-                <div class="col-md-7 img-container" style="height: 700px;">
-                    <img src="${path }/resources/images/leftphoto.png" class="arrow" style="left: 20px;">
-                    <img src="${path }/resources/images/funding/${f.mainImg}" class="images"> 
-                    <img src="${path }/resources/images/rightphoto.png" class="arrow" style="right: 20px;">
+                <div class="col-md-7 img-container" >
+                    <%-- <img src="${path }/resources/images/leftphoto.png" class="arrow" style="left: 20px;"> --%>
+                    <img src="${path }/resources/images/funding/${f.mainImg}" class="images mainImg" height="700px"> 
+                    <%-- <img src="${path }/resources/images/rightphoto.png" class="arrow" style="right: 20px;"> --%>
+                    <div class="col-md-12 row" style="height:150px; margin:0;">
+                    	<c:forEach items="${subImg }" var = "i" varStatus ="status">
+                         	<img class="col-md-3 images subImg" src="${path }/resources/images/funding/${i.subImg}" id="sub${status.index }"/>
+                         	
+                        </c:forEach>
+                    </div>
                 </div>
                 <div id="p-table" class="col-md-5" style="height: 700px;">
                     <caption>
@@ -131,10 +137,14 @@
             <section>
                 
                 <div class="detail-select" id="project">
-                    <pre>${f.subContent }</pre>
-                     <pre>${f.detail }</pre>
-                        
-                   
+                    
+                    <div style="white-space:pre;">
+                     	<c:out value="${f.subContent }"/>
+					</div>
+					<div style="white-space:pre;">
+						<c:out value="${f.detail }"/>
+					</div>
+					
                 </div>
                 <div class="detail-select" id="purchase">
                   
@@ -323,7 +333,9 @@
         				var money = Number(data.list[i].partPrice).toLocaleString();
         				//프로필 사진 설정
         				var profile = "";
+        				console
         				if(data.list[i].reProfile!=null){
+        					console.log("있어");
         					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images/member/'+data.list[i].reProfile+'" width="50" height="50"></div>';
         					 
         				}else{

@@ -82,7 +82,7 @@
                                     <input type="text" id="email1" class="inputStyle" name="email1"  placeholder="example" style="width: 22%;">
                                     <span class="txt_email">@</span>
                                     <input type="text" id="email2" class="inputStyle" name="email2" placeholder="직접 입력" class="mail_domain" style="width: 22%;">
-                                    <input type="hidden" name="email" />
+                                    
                                     <select id="emailSelect" title="select color"  onchange="selectEmail();" class="selectStyle">
                                         <option value="write" >직접 입력</option>
                                         <option value="1">naver.com</option>
@@ -91,6 +91,7 @@
                                         <option value="4">nate.com</option>
                                     </select>
                                     <input type="hidden" name="email" id="email">
+                                    
                                     
                                    
                                     </td>

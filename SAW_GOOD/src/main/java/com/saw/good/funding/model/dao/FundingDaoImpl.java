@@ -193,6 +193,12 @@ public class FundingDaoImpl implements FundingDao{
 		 
 	}
 
+	@Override
+	public List<Map<String, String>> selectPartList(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.selectPartList",f);
+	}
+	
 	
 	
 	
