@@ -30,6 +30,12 @@ public interface AdminAuctionService {
 	//옥션 진행중 선택삭제 
 	int deleteIngCkAuction(String[] aucCheck);
 	
+	//옥션 한개 입찰 확정
+	int updateDecideAuction(String acno);
+	
+	//선택한 옥션 입찰 확정
+	int updateCkDecideAuc(String[] aucCheck);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(int cPage,int numPerPage);
 	int countAuctionDisAgree();

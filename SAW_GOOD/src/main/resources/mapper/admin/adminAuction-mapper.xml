@@ -41,13 +41,16 @@
 			)
 		</if>
 		<if test="howStatus == null or howStatus == ''">
-			AND ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3
+			AND ACSTATUS IN (1,2,3)
 		</if>
 		<if test="howStatus !=null and howStatus !=''">
 			<if test="howStatus eq 'Ing'">
 				AND ACSTATUS=1
 			</if>
 			<if test="howStatus eq 'finish'">
+				AND ACSTATUS=3
+			</if>
+			<if test="howStatus eq 'decide'">
 				AND ACSTATUS=2
 			</if>
 		</if>
@@ -79,13 +82,16 @@
 			)
 		</if>
 		<if test="howStatus == null or howStatus == ''">
-			AND ACSTATUS=1 OR ACSTATUS=2 OR ACSTATUS=3
+			AND ACSTATUS IN (1,2,3)
 		</if>
 		<if test="howStatus !=null and howStatus !=''">
 			<if test="howStatus eq 'Ing'">
 				AND ACSTATUS=1
 			</if>
 			<if test="howStatus eq 'finish'">
+				AND ACSTATUS=3
+			</if>
+			<if test="howStatus eq 'decide'">
 				AND ACSTATUS=2
 			</if>
 		</if>
@@ -117,6 +123,16 @@
 	<delete id="deleteIngCkAuction" parameterType="string">
 		DELETE FROM AUCTION WHERE ACBOARDNO=#{acno}
 	</delete>
+	
+	<update id="updateSalePoint" parameterType="map">
+		<selectKey keyProperty="USERID,ACNOWPRICE" resultType="hashmap" order="BEFORE">
+			SELECT USERID,ACNOWPRICE FROM AUCTION WHERE ACBOARDNO=#{acno}
+		</selectKey>
+		UPDATE MEMBER SET POINT=POINT+#{ACNOWPRICE} WHERE USERID=#{USERID}
+	</update>
+	<update id="updateDecideAuction" parameterType="string">
+		UPDATE AUCTION SET ACSTATUS=3 WHERE ACBOARDNO=#{s}
+	</update>
 	
 	<select id="selectAuctionDisAgree" resultType="map">
 		SELECT * FROM AUCTION WHERE ACSTATUS=0 ORDER BY ACBOARDNO DESC

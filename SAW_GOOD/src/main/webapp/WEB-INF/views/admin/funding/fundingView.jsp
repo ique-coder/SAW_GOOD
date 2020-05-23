@@ -95,17 +95,34 @@
 			border-top:1px solid #eee;
 			padding-top:20px;
 		}
+/* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
-		.btn-agree {
-			padding: 0 30px;
-			line-height: 42px;
-			font-size: 15px;
-			color: #fff;
-			text-align: center;
-			background-color: #303030;
-			border: 1px solid #303030;
-
-		}
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
 </style>
 
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -193,8 +210,8 @@
 							</ul>
 							<c:if test="${funding['APPR'] == 0 }">
 								<div id="button">
-									<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
-									<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+									<button type="button" class="btn-white" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
+									<button type="button" class="btn-white" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
 								</div>
 							</c:if>
 						</div>

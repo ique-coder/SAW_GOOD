@@ -94,6 +94,20 @@ public class AdminAuctionDaoImpl implements AdminAuctionDao {
 		// TODO Auto-generated method stub
 		return session.delete("adAuction.deleteIngCkAuction",s);
 	}
+	
+	//옥션 판매원한테 금액 넣어주기
+	@Override
+	public int updateSalePoint(SqlSession session, Map<String,String> map) {
+		// TODO Auto-generated method stub
+		return session.update("adAuction.updateSalePoint", map);
+	}
+
+	@Override
+	public int updateDecideAuction(SqlSession session, String s) {
+		// TODO Auto-generated method stub
+		return session.update("adAuction.updateDecideAuction", s);
+	}
+
 	//옥션 비동의 리스트
 	@Override
 	public List<Map<String, String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage) {
