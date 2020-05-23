@@ -69,6 +69,11 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectDtAuction(session,acBoardNo);
 	}
+	//경매상품 서브이미지 가져오기
+	@Override
+	public List<AuctionServeImg> selectServeImg(Auction a) {
+		return dao.selectServeImg(session,a);
+	}
 	//디테일페이지 카운트 가져오기
 	@Override
 	public int countBid(Auction a) {

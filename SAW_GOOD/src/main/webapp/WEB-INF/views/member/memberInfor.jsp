@@ -86,8 +86,15 @@
                      </div>
                      <button type="button" class="pwd-btn" data-toggle="modal"
                         data-target="#pwdModal">비밀번호 변경</button>
-                     <button type="button" class="seller-btn" data-toggle="modal"
-                        data-target="#sellerModal">판매자 회원등록</button>
+                     <c:if test="${mem.status==1 }">                     
+                     	<button type="button" class="seller-btn" data-toggle="modal"
+                        data-target="#sellerModal">판매자 회원등록(사업자번호)</button>
+                     </c:if>
+                      <c:if test="${mem.status==2 }">                     
+                     	<button type="button" class="seller-btn" data-toggle="modal"
+                        data-target="#sellerModal">사업자번호 변경</button>
+                     </c:if>
+                     
 
                   </div>
                   <div class="col-md-6 profileModify">

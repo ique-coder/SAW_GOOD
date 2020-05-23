@@ -25,6 +25,10 @@ public interface AuctionService {
 	//상품 디테일 가져오기
 	Auction selectDtAuction(Auction acBoardNo);
 	
+	//상품 서브이미지 가져오기
+	
+	List<AuctionServeImg> selectServeImg(Auction a);
+	
 	//입찰 건수가져오기
 	int countBid(Auction a);
 	
