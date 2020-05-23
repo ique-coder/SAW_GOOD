@@ -191,7 +191,7 @@
 									<button class="productBtn" onclick="location.href='${path}/funding/enroll/display?fdNo=${item.fdNo}&userId=${item.userId }'">상세정보 입력하기</button>
 								</c:if>
 								<c:if test="${item.status == 1}">
-									<button class="productBtn" onclick="location.href='${path}/funding/detail?fdNo=${item.fdNo}}&userId=${item.userId }'">게시글 보기</button>
+									<button class="productBtn" onclick="location.href='${path}/funding/detail?fdNo=${item.fdNo}&userId=${item.userId }'">게시글 보기</button>
 								</c:if>
 								<c:if test="${item.status == 2}">
 									<button class="productBtn">신청회원 보기</button>
@@ -200,7 +200,7 @@
 					</div>
 				</div>
 				</c:forEach>
-				<c:if test="${empty list }">
+				<c:if test="${not empty list }">
 					${pageBar }
 				</c:if>
 			</div>

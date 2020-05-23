@@ -424,7 +424,7 @@ public class FundingController {
 		List<Funding> list = service.selectMypageFundingList(member.getUserId(),cPage,numPerPage);
 		if(!list.isEmpty()) {
 			mv.addObject("list", list);
-			mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/good/funding/enroll/myList"));
+			mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/20AM_SAW_GOOD_final/funding/enroll/myList"));
 			
 		}else {
 			

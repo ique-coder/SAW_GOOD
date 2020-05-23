@@ -104,16 +104,29 @@
 		<c:if test="${not empty loginMember }">
 		<div class="container-fluid modal_container" id="modal_container">
         	<div class="my_modal" id="logined">
-	            <div class="prof">
+	            <div class="prof" style="height:80px;">
 	            	<img src="http://placehold.it/600x500" width="78px" height="78px"/>
 	            </div>
 	            <p class="welcome-msg">${loginMember.userId }님 환영합니다.</p>
+	            <br>
 	            <p class="welcom-msg">쏘:굿 POINT : ${loginMember.point } P</p>
 	            <span class="login_Xbutton" onclick="closeLogin();">x</span>
 	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
 	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart">Cart</button>            
 	            <button type="button" id="buttonHistory" onclick="">History</button>
 	            <ul class="history-container">
+	            	<li style="color: #ee987c;">
+	            			- seller - 
+	            	</li>
+	            	<c:if test = "${loginMember.status>1 }">
+	            		<li>
+	            			<a href="${path }/funding/enroll/myList">Funding</a>
+	            		</li>
+		            	
+	            	</c:if>
+	            	<li style="color: #ee987c;">
+		            		- customer -
+		            </li>
 	            	<li>
 	            		<a href="${path }/mypage/ph.do">New Product</a>
 	            	</li>
