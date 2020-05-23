@@ -37,4 +37,6 @@ public interface MemberDao {
 	
 	//승원 옥션멤버포인트 가져오기
 	int updateMemAPoint(SqlSessionTemplate session,Auction a);
+
+	int deleteAccount(SqlSessionTemplate session, String userId);
 }

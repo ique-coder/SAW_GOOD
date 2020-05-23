@@ -432,5 +432,56 @@ public class MemberController {
 		mv.setViewName("jsonView");
 		return mv;
 	}
+	
+	@RequestMapping("/member/deleteAccount")
+	public ModelAndView deleteAccount (ModelAndView mv) {
+		
+		mv.setViewName("member/checkPassword");
+		return mv;
+	}
+	@RequestMapping("/member/deleteAccount.do")
+	public ModelAndView deleteAccountEnd (ModelAndView mv,@SessionAttribute ("loginMember") Member member,SessionStatus status , String password) {
+		
+		Member m = new Member();
+		String msg ="";
+		m.setUserId(member.getUserId());
+		if(member.getStatus()>1) {
+			msg="판매회원은 탈퇴하실 수 없습니다. 관리자에게 문의하세요.";
+		}else {
+			Member checkMember = service.selectMember(m);
+			if (checkMember != null) {
+				
+				if (pwEncoder.matches(password,checkMember.getPassword())) {
+					
+					
+					int result = service.deleteAccount(member.getUserId());
+					if(result>0) {
+						if (!status.isComplete()) {// 세션이 완료(만료)됬니?
+							status.setComplete();// session을 종료시킴~
+							msg="탈퇴되었습니다.";
+						}else {
+							msg="탈퇴에 실패하였습니다.다시 시도하시거나 관리자에게 문의하세요.";
+						}
+					}
+					
+					
+				} else {
+					// 패스워드가 일치하지 않음
+					msg = "비밀번호를 잘못 입력하셨습니다";
+				}
+			} else {
+				// 아이디가 일치하지않음
+				msg = "잘못된 경로입니다.";
+			}
+		}
+		
+		
+		
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/");
+		mv.setViewName("common/msg");
+		return mv;
+	}
 
 }

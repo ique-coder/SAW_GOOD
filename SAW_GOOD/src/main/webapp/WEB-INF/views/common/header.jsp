@@ -34,12 +34,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${path }/resources/js/parallax.min.js"></script>
 </head>
+
+<body>
 <style>
    a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
     a:hover { color:  #3C5946; text-decoration: none;}
 </style>
-<body>
     <header class="container-fluid fixed-show">
        <div class="row " id="header">
           <div class="col-md-3"href="#">
@@ -114,6 +115,9 @@
 	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
 	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart">Cart</button>            
 	            <button type="button" id="buttonHistory" onclick="">History</button>
+	            <c:if test="${loginMember.status==1 }" >
+	            	<button type="button" id="deleteAccount" onclick="">Delete My Account</button>
+	            </c:if>
 	            <ul class="history-container">
 	            	<li style="color: #ee987c;">
 	            			- seller - 
@@ -356,6 +360,10 @@
         	function fn_login_validate(){
         		
         	}
-        
+        	
+        	$("#deleteAccount").click(function(){
+        		
+        		location.href="${path}/member/deleteAccount";
+        	})
        
     </script>
