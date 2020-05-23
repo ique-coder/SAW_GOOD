@@ -230,6 +230,13 @@ public class FundingServiceImpl implements FundingService{
 		return dao.deleteFDReword(session,fdNo);
 	}
 
+
+	@Override
+	public List<Map<String, String>> selectPartList(Funding f) {
+		// TODO Auto-generated method stub
+		return dao.selectPartList(session,f);
+	}
+
 	
 	
 	

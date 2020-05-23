@@ -109,9 +109,14 @@ public class AuctionController {
 		// 입철 건수
 		int bidCount = service.countBid(ac);
 		
+		//상품 서브 이미지 가져오기
+		List<AuctionServeImg> list = service.selectServeImg(ac);
+		System.out.println(list);
+		
 		// 경매 랭크 불러오기
 		List<Map<String, String>> acMem = service.selectAcMember(ac);
 		System.out.println(acinfo);
+		mv.addObject("list",list);
 		mv.addObject("bc",bidCount);
 		mv.addObject("a", acinfo);
 		mv.addObject("am", acMem);
@@ -376,4 +381,16 @@ public class AuctionController {
 	       mv.setViewName("common/msg");
     	return mv;
     }
+	//나의 경매내역 보기
+	@RequestMapping("/auction/myAcHistory")
+	public ModelAndView myAcHistroy(ModelAndView mv ,
+			 @SessionAttribute("loginMember") Member m ) {
+		System.out.println(m);
+		List<Auction> list = service.selectMyAcList(m);
+		System.out.println(list);
+		mv.addObject("mem",m);
+		mv.addObject("list",list);
+		mv.setViewName("auction/myAcStroy");
+		return mv;
+	}
 }

@@ -61,14 +61,14 @@
       <div class="row">
          <!-- <div class="col-md-2"></div> -->
          <div class="col-md-8" id="profileBackground">
-            <div class="row" style="height: 20%;">
+            <div class="row" style="height: 10%;">
                <div class="col-md-12 MemberInfo">
                   <span class="title">Profile modify</span> </br> <span class="content">당신의
                      새로운 정보를 알려주세요!</span>
                </div>
             </div>
             <form id="profileForm" action="${path}/member/memberUpdate" enctype="multipart/form-data"
-               method="post" style="height: 80%;">
+               method="post" style="height: 80%; margin-top:5%;">
                <div class="row" style="height: 100%;">
                   <div class="col-md-6" style="margin-top: 3%">
                      <div id="profileImg"
@@ -86,8 +86,15 @@
                      </div>
                      <button type="button" class="pwd-btn" data-toggle="modal"
                         data-target="#pwdModal">비밀번호 변경</button>
-                     <button type="button" class="seller-btn" data-toggle="modal"
-                        data-target="#sellerModal">판매자 회원등록</button>
+                     <c:if test="${mem.status==1 }">                     
+                     	<button type="button" class="seller-btn" data-toggle="modal"
+                        data-target="#sellerModal">판매자 회원등록(사업자번호)</button>
+                     </c:if>
+                      <c:if test="${mem.status==2 }">                     
+                     	<button type="button" class="seller-btn" data-toggle="modal"
+                        data-target="#sellerModal">사업자번호 변경</button>
+                     </c:if>
+                     
 
                   </div>
                   <div class="col-md-6 profileModify">

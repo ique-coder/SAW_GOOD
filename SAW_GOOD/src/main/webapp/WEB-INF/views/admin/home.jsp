@@ -62,67 +62,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach items="${topfive}" var="t">
                                                 <tr>
                                                     <td>
-                                                        <img src="${path }/resourcs/images/default-150x150.png" alt="Product 1"
+                                                        <img src="${path }/resources/upload/newproduct/${t['RENAMEDPRODUCTIMG']}"
                                                             class="img-circle img-size-32 mr-2">
-                                                        Some Product
+                                                        ${t['PRODUCTNAME'] }
                                                     </td>
-                                                    <td>$13 USD</td>
+                                                    <td>
+                                                    	<fmt:formatNumber value="${t['PRODUCTPRICE'] }"/>원
+                                                    </td>
                                                     <td>
                                                         <small class="text-success mr-1">
                                                             <i class="fas fa-arrow-up"></i>
-                                                            12%
                                                         </small>
-                                                        12,000 Sold
+                                                        ${t['TOP'] }
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="text-muted">
+                                                        <a href="${path }/product/productView?no= ${t['PRODUCTNO'] }" class="text-muted">
                                                             <i class="fas fa-search"></i>
                                                         </a>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="${path }/resourcs/images/default-150x150.png" alt="Product 1"
-                                                            class="img-circle img-size-32 mr-2">
-                                                        Another Product
-                                                    </td>
-                                                    <td>$29 USD</td>
-                                                    <td>
-                                                        <small class="text-warning mr-1">
-                                                            <i class="fas fa-arrow-down"></i>
-                                                            0.5%
-                                                        </small>
-                                                        123,234 Sold
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="text-muted">
-                                                            <i class="fas fa-search"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="${path }/resourcs/images/default-150x150.png" alt="Product 1"
-                                                            class="img-circle img-size-32 mr-2">
-                                                        Amazing Product
-                                                    </td>
-                                                    <td>$1,230 USD</td>
-                                                    <td>
-                                                        <small class="text-danger mr-1">
-                                                            <i class="fas fa-arrow-down"></i>
-                                                            3%
-                                                        </small>
-                                                        198 Sold
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="text-muted">
-                                                            <i class="fas fa-search"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            
+                                                </tr>    
+                                                </c:forEach>                                        
                                             </tbody>
                                         </table>
                                     </div>
@@ -199,11 +161,18 @@
                 </div>
                 <!-- /.content -->
             </div>
+            <div>
+            	<c:forEach items="${weekvisit }" var="w" varStatus="vs">
+            		<input type="hidden" value="${w }" id="week${vs.count }" />
+            	</c:forEach>
+            	<c:forEach items="${totalPrice }" var="t" varStatus="vs">
+            		<input type="hidden" value="${t }" id="total${vs.count }" />
+            	</c:forEach>
+            </div>
             <!-- /.content-wrapper -->
-        </div>
+
 <script>
 //판매량 차트
-
 let arr = [];
 for(let i=1; i<8; i++) {
     let date = new Date();
@@ -211,15 +180,15 @@ for(let i=1; i<8; i++) {
     arr.unshift(date.toLocaleString().substring(0,5));
 }
 
+
+
 new Chart(document.getElementById("visitor-ch"), {
     type: 'line',
     data: {
         labels: arr,
         datasets: [{
             label: 'Visitors',
-            data: [
-              5,6,8,3,32,5,3
-            ],
+            data:[$("#week7").val(),$("#week6").val(),$("#week5").val(),$("#week4").val(),$("#week3").val(),$("#week2").val(),$("#week1").val()],
             borderColor: "rgb(40,161,130)",
             backgroundColor: 'rgb(40,161,130,0)',
             fill: true,
@@ -245,7 +214,7 @@ new Chart(document.getElementById("visitor-ch"), {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'x축'
+                    labelString: '날짜'
                 }
             }],
             yAxes: [{
@@ -255,7 +224,7 @@ new Chart(document.getElementById("visitor-ch"), {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'y축'
+                    labelString: '방문자수'
                 }
             }]
         }
@@ -263,19 +232,14 @@ new Chart(document.getElementById("visitor-ch"), {
 });
 // 방문객 차트
 new Chart(document.getElementById("line-chart"), {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
         labels: arr,
         datasets: [{
             label: 'Sales',
             data: [
-                3100000,
-                3000000,
-                4500000,
-                3200000,
-                1800000,
-                2000000,
-                5000000
+                $("#total7").val(), $("#total6").val(), $("#total5").val(),
+                $("#total4").val(),$("#total3").val(), $("#total2").val(), $("#total1").val(),
             ],
             borderColor: "rgb(206,29,22)",
             backgroundColor: "rgba(206,29,22,0.5)",
@@ -304,7 +268,7 @@ new Chart(document.getElementById("line-chart"), {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: '방문자수'
+                    labelString: '날짜'
                 }
             }],
             yAxes: [{
@@ -314,7 +278,7 @@ new Chart(document.getElementById("line-chart"), {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: '날짜'
+                    labelString: '판매금액'
                 }
             }]
         }

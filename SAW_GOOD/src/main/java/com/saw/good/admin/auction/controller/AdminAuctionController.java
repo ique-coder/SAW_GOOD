@@ -255,6 +255,51 @@ public class AdminAuctionController {
 		mv.setViewName("admin/common/msg");
 		return mv;	
 	}
+	//옥션 입찰확정 시키기
+	@RequestMapping("/admin/decideOneAuction")
+	public ModelAndView decideOneAuction(ModelAndView mv,String acno) {
+		
+		String msg="";
+		int result=0;
+		
+		try {
+			result=service.updateDecideAuction(acno);
+		}catch(RuntimeException e) {
+			msg="경매 입찰 확정을 실패하였습니다.";
+		}
+		
+		if(result>0) {
+			msg="경매 입찰 확정을 하였습니다.";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/auctionAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;	
+	}
+	
+	@RequestMapping("/admin/checkDecideAuction")
+	public ModelAndView checkDecideAuction(ModelAndView mv,String[] aucCheck) {
+		
+		String msg="";
+		int result=0;
+		
+		try {
+			result=service.updateCkDecideAuc(aucCheck);
+		}catch(RuntimeException e) {
+			msg="선택한 경매 입찰 확정을 실패하였습니다.";
+		}
+		
+		if(result>0) {
+			msg="선택한 경매를 입찰확정 하였습니다.";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", "/admin/auctionAgreeList");
+		mv.setViewName("admin/common/msg");
+		return mv;	
+		
+	}
 	
 	//옥션 비동의 페이지
 	@RequestMapping("admin/auctionDisAgreeList")

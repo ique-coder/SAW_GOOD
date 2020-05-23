@@ -98,7 +98,7 @@
 	<insert id="insertProduct" parameterType="product">
 		INSERT INTO NEWPRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,#{productName},#{productContent},
 		#{productPrice},#{productImg},#{category},#{brand},
-		DEFAULT,DEFAULT,#{topImg}
+		DEFAULT,#{topImg}
 		,#{renamedProductImg},#{renamedTopImg})
 		<selectKey keyProperty="productNo" resultType="_int" order="AFTER">
 			SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL

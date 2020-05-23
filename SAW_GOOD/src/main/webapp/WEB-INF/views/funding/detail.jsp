@@ -5,8 +5,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${path }/resources/css/funding/detail.css?ver=0"/>
+	
+<style>
+.subImg{
+	cursor: pointer;
+	z-index: 999;
+}
+</style>
 	
 <div class="container-fluid col-md-12" id="detail-header">
 	<c:if test="${empty subImg }">
@@ -25,11 +33,18 @@
 <section>
      <div class="container">
         <div class="col-md-12">
-            <section class="row first-row">
-                <div class="col-md-7 img-container" style="height: 700px;">
-                    <img src="${path }/resources/images/leftphoto.png" class="arrow" style="left: 20px;">
-                    <img src="${path }/resources/images/funding/${f.mainImg}" class="images"> 
-                    <img src="${path }/resources/images/rightphoto.png" class="arrow" style="right: 20px;">
+            <section class="row first-row"  style=" z-index: -1;">
+                <div class="col-md-7 img-container" style=" z-index: 0;">
+                    <%-- <img src="${path }/resources/images/leftphoto.png" class="arrow" style="left: 20px;"> --%>
+                    <img src="${path }/resources/images/funding/${f.mainImg}" class="images mainImg" height="700px" id="mainPhoto"> 
+                    <%-- <img src="${path }/resources/images/rightphoto.png" class="arrow" style="right: 20px;"> --%>
+                    <div class="col-md-12 row" style="height:150px; margin:0; z-index: 1;">
+                    	<c:forEach items="${subImg }" var = "i" varStatus ="status">
+                         	<!-- <a  href="javascript:change();"class="col-md-3"> -->
+                         		<img class="images subImg col-md-3" src="${path }/resources/images/funding/${i.subImg}" id="sub${status.index }" onclick="change();"/>
+                         	<!-- </a> -->
+                        </c:forEach>
+                    </div>
                 </div>
                 <div id="p-table" class="col-md-5" style="height: 700px;">
                     <caption>
@@ -131,10 +146,20 @@
             <section>
                 
                 <div class="detail-select" id="project">
-                    <pre>${f.subContent }</pre>
-                     <pre>${f.detail }</pre>
-                        
-                   
+                    <c:set var="size"  value="${fn:split(f.fdSize,'//')}" />
+					<c:forEach items="${ size}" var ="s"> 
+						<div style="white-space:pre;">
+                    		<p>${s }</p>
+                    	</div>
+                    </c:forEach>
+                    
+                    <div style="white-space:pre;">
+                     	<c:out value="${f.subContent }"/>
+					</div>
+					<div style="white-space:pre;">
+						<c:out value="${f.detail }"/>
+					</div>
+					
                 </div>
                 <div class="detail-select" id="purchase">
                   
@@ -252,6 +277,16 @@
 
 </section>
 <script>
+
+function change(){
+	
+	var temp = $("#mainPhoto").attr("src");
+	$("#mainPhoto").attr("src",$(event.target).attr("src"));
+	$(event.target).attr("src",temp);
+	/* console.log($(event.target).attr("src"));
+	console.log($("#mainPhoto").attr("src")); */
+	
+}
         function select(menu){
 
             var project = $("#project");
@@ -323,7 +358,9 @@
         				var money = Number(data.list[i].partPrice).toLocaleString();
         				//프로필 사진 설정
         				var profile = "";
+        				console
         				if(data.list[i].reProfile!=null){
+        					console.log("있어");
         					profile = '<div class="emptyProfile"><img class="profile" src="${path}/resources/images/member/'+data.list[i].reProfile+'" width="50" height="50"></div>';
         					 
         				}else{

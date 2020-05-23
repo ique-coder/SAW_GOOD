@@ -300,7 +300,7 @@ public class AdminProductController {
 			}
 		}
 		
-		String msg=(result>0)?"등록성공":"등록실패";
+		String msg=(result>0)?"상품을 등록하였습니다.":"상품 등록을 실패하였습니다.";
 		String loc=(result>0)?"/admin/productManager":"/admin/productRegist";
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
@@ -502,7 +502,7 @@ public class AdminProductController {
 				}
 		
 		
-		String msg=(result==diList.size()+pdiList.size()+1)?"등록성공":"등록실패";
+		String msg=(result==diList.size()+pdiList.size()+1)?"상품을 수정하였습니다.":"상품수정을 실패하였습니다.";
 		String loc="/admin/productManager";
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
