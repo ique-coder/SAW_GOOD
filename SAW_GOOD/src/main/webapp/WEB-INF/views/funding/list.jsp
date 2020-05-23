@@ -119,8 +119,9 @@
 											${endDate-today}
 
 										</b>일 남음
-									</span> 
+									</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<span class="spanStyle"><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<span class="spanStyle"><b>
 											<fmt:formatNumber value="${highList[0].sum/highList[0].targetPrice *100}" />
 										  </b>%</span>
