@@ -40,17 +40,6 @@ table.fundingAg {
 	border-top: 1px solid black;
 }
 
-/* 버튼 */
-.btn-black {
-	padding: 0 20px;
-	line-height: 30px;
-	font-size: 15px;
-	color: #fff;
-	text-align: center;
-	background-color: #303030;
-	border: 1px solid #303030;
-}
-
 /* 펀딩승인 카테고리 */
 div.subcategory:hover {
 	cursor: pointer;
@@ -327,7 +316,37 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
+/* 버튼 */
+.btn-white {
+	width:70px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
+}
+.btn-white:hover {
+	width:70px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.upbtn{
+	margin-bottom:10px;
+}
 </style>
 
 <!-- Page Content  -->
@@ -370,7 +389,7 @@ label {
 									<input type="hidden" name="searchType" value="userid"> <input
 										type="text" name="keyword" placeholder="작성자를 입력해주세요"
 										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
+									<button type="submit" class="btn-white">검색</button>
 								</form>
 							</div>
 							<div id="searchDisAg_designer">
@@ -379,7 +398,7 @@ label {
 									<input type="hidden" name="searchType" value="designer"> <input
 										type="text" name="keyword" placeholder="디자이너를 입력해주세요"
 										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
+									<button type="submit" class="btn-white">검색</button>
 								</form>
 							</div>
 							<div id="searchDisAg_title">
@@ -388,7 +407,7 @@ label {
 									<input type="hidden" name="searchType" value="title">
 									<input type="text" name="keyword" placeholder="제목을 입력해주세요"
 										style="width: 80%">
-									<button type="submit" class="btn-black">검색</button>
+									<button type="submit" class="btn-white">검색</button>
 								</form>
 							</div>
 							<div id="searchDisAg_enrollDate">
@@ -396,7 +415,7 @@ label {
 									<input type="hidden" name="numPerPage" value="${numPerPage }"/>
 									<input type="hidden" name="searchType" value="enrollDate"> 
 									<input type="date" name="keyword" style="width: 80%"/>
-									<button type="submit" class="btn-black">검색</button>
+									<button type="submit" class="btn-white">검색</button>
 								</form>
 							</div>
 						</td>
@@ -421,8 +440,8 @@ label {
 			<form action="#" method="post" id="disAgreeFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom:10px;">
-						<button class="btn-black" type="button" id="checkAgree">승인</button>
-						<button class="btn-black" type="button" id="checkDisAgree">거부</button>
+						<button class="btn-white" type="button" id="checkAgree">승인</button>
+						<button class="btn-white" type="button" id="checkDisAgree">거부</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -463,8 +482,8 @@ label {
 								<td>${dag['USERID']}</td>
 								<td><fmt:formatDate value="${dag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
 								<td>
-									<button class="btn-black agreeFd" type="button" value="${ dag['FDNO']}">승인</button>
-									<button class="btn-black disAgreeFd" type="button" value="${ dag['FDNO']}">거부</button>
+									<button class="btn-white agreeFd upbtn" type="button" value="${ dag['FDNO']}">승인</button>
+									<button class="btn-white disAgreeFd" type="button" value="${ dag['FDNO']}">거부</button>
 								</td>
 							</tr>
 						</c:forEach>

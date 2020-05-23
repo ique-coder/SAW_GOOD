@@ -96,12 +96,22 @@ div.footer {
 					<li class="menu"><a href="${path }/admin"><span
 							class="fa fa-chart-bar mr-3"></span>DashBoard</a></li>
 					<div></div>
-					<li class="menu"><a href="${path }/admin/fundingDisAgreeList"><span
+					<li class="menu"><a href="#"><span
 							class="fa-hourglass  mr-3"></span> funding</a></li>
-					<div></div>
-					<li class="menu"><a href="${path }/admin/auctionDisAgreeList"><span class="fa fa-font mr-3"></span>
+					<div class="submenu">
+						<ul>
+							<li class="activemenu"><a href="${path }/admin/fundingDisAgreeList">FundingStandBy</a></li>
+							<li class="activemenu"><a href="${path }/admin/fundingAgreeList">FundingAgree</a></li>
+						</ul>
+					</div>
+					<li class="menu"><a href="#"><span class="fa fa-font mr-3"></span>
 							Auction</a></li>
-					<div></div>
+					<div class="submenu">
+						<ul>
+							<li class="activemenu"><a href="${path }/admin/auctionDisAgreeList">AuctionStandBy</a></li>
+							<li class="activemenu"><a href="${path }/admin/auctionAgreeList">AuctionAgree</a></li>
+						</ul>
+					</div>
 					<li class="menu"><a href="#"><span
 							class="fa fa-couch mr-3"></span> Product</a></li>
 					<div class="submenu">
@@ -114,7 +124,6 @@ div.footer {
 							class="fa fa-users mr-3"></span> Member</a></li>
 					<div class="submenu">
 						<ul>
-							<li class="activemenu"><a href="${path }/admin/memberStatus">MemberStatus</a></li>
 							<li class="activemenu"><a href="${path }/admin/memberManager">MemberManager</a></li>
 						</ul>
 					</div>

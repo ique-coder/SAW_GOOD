@@ -35,6 +35,10 @@ public interface AdminAuctionDao {
 	//옥션 완료 선택삭제
 	int deleteFnCkAuction(SqlSession session,String s);
 	
+	//옥션 현재가격 판매원한테 입금시키기
+	int updateSalePoint(SqlSession session,Map<String,String> map);
+	int updateDecideAuction(SqlSession session,String s);
+	
 	//옥션 비동의 리스트
 	List<Map<String,String>> selectAuctionDisAgree(SqlSession session,int cPage,int numPerPage);
 	int countAuctionDisAgree(SqlSession session);
@@ -50,4 +54,5 @@ public interface AdminAuctionDao {
 	//체크 승인 및 거부
 	int updateCheckAgreeAuc(SqlSession session,String s);
 	int updateCheckDisagreeAuc(SqlSession session,String s);
+	
 }

@@ -97,17 +97,34 @@
 			border-top:1px solid #eee;
 			padding-top:20px;
 		}
+/* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
-		.btn-agree {
-			padding: 0 30px;
-			line-height: 42px;
-			font-size: 15px;
-			color: #fff;
-			text-align: center;
-			background-color: #303030;
-			border: 1px solid #303030;
-
-		}
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
 </style>
 
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -132,7 +149,7 @@
 					<div class="col-xl-6" style="padding:5px 0 0 20px;">
 						<div id="auction-info">
 							<div class="character">
-								<b>펀딩특징</b>
+								<b>옥션특징</b>
 								<p>이 펀딩은 쏘굿에서만 특별진행하는 펀딩입니다.</p>
 							</div>
 							<h4 style="font-size: 23px;">
@@ -193,8 +210,8 @@
 							</ul>
 								<div id="button">
 									<c:if test="${auc['ACSTATUS'] ==0 }">
-										<button type="button" class="btn-agree" id="fd-Ag" value="">승인</button>
-										<button type="button" class="btn-agree" id="fd-disAg" value="">거부</button>
+										<button type="button" class="btn-white" id="fd-Ag" value="">승인</button>
+										<button type="button" class="btn-white" id="fd-disAg" value="">거부</button>
 									</c:if>
 								</div>
 						</div>
