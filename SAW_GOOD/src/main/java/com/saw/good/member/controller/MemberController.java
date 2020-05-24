@@ -386,7 +386,7 @@ public class MemberController {
 
 		response.setCharacterEncoding("UTF-8");
 
-		m.setEmail(aesEncrypt.encrypt("," + m.getEmail()));
+		m.setEmail(aesEncrypt.encrypt(m.getEmail()));
 
 		System.out.println("암호화 후 : " + m.getEmail());
 		Member mem = service.selectFindMember(m);
