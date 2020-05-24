@@ -102,10 +102,12 @@ public class ProductController {
 		int totalData=service.countSearchProduct(map); 
 		
 		String pageBar=ProductFinderPage.getPage(totalData, cPage, numPerPage, keyword, "searchProduct");
+		List<Map<String,String>> slist = service.selectStar();
 		
 		System.out.println(numPerPage);
 		System.out.println(keyword);
 		m.addObject("list", list);
+		m.addObject("slist", slist);
 		m.addObject("pageBar", pageBar);
 		m.addObject("keyword", keyword);
 		m.addObject("numPerPage", numPerPage);
@@ -128,8 +130,10 @@ public class ProductController {
 		int totalData=service.countSearchCategory(map); 
 		
 		String pageBar=ProductCategoryPage.getPage(totalData, cPage, numPerPage, category, "searchCategory");
+		List<Map<String,String>> slist = service.selectStar();
 		
 		mv.addObject("list", list);
+		mv.addObject("slist", slist);
 		mv.addObject("pageBar", pageBar);
 		mv.addObject("category", category);
 		mv.addObject("numPerPage", numPerPage);
@@ -265,6 +269,34 @@ public class ProductController {
 	@RequestMapping("/search/searchForm")
 	public String searchForm() {
 		return "product/searchForm";
+	}
+	@RequestMapping("/history/check")
+	@ResponseBody
+	public ModelAndView historyCheck(ModelAndView mv, @RequestParam Map map) {
+		
+		String result = service.historyCheck(map);
+		boolean flag = false;
+		if(result != null) {			
+			if(result.equals("yes")) {
+				flag = true;
+			}
+		}
+		
+		mv.addObject("flag", flag);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	@RequestMapping("/review/modify")
+	@ResponseBody
+	public ModelAndView reviewModify(ModelAndView mv, @RequestParam Map map,
+				HttpServletResponse response) {
+		
+		ProductReview pr = service.selectReviewOne(map);
+		System.out.println(pr);
+		response.setCharacterEncoding("UTF-8");
+		mv.addObject("pr", pr);
+		mv.setViewName("jsonView");
+		return mv;
 	}
 	
 }

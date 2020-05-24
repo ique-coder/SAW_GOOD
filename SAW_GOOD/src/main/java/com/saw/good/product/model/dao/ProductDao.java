@@ -33,4 +33,6 @@ public interface ProductDao {
 	int countTwo(SqlSessionTemplate session, int no);
 	int countOne(SqlSessionTemplate session, int no);
 	void updateReadCount(SqlSessionTemplate session, int no);
+	String historyCheck(SqlSessionTemplate session, Map map);
+	ProductReview selectReviewOne(SqlSessionTemplate session, Map map);
 }

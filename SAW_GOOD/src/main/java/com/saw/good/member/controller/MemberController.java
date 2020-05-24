@@ -389,9 +389,11 @@ public class MemberController {
 				HttpServletResponse response) throws UnsupportedEncodingException {
 			response.setCharacterEncoding("UTF-8");
 			
-			m.setEmail(aesEncrypt.encrypt(","+m.getEmail()));			
 			
-			System.out.println("암호화 후 : "+m.getEmail());
+			System.out.println("Test : "+m.getEmail());
+			m.setEmail(aesEncrypt.decrypt(m.getEmail()));			
+			
+			System.out.println("복호화 후 : "+m.getEmail());
 			Member mem = service.selectFindPw(m);
 			boolean flag = false;
 			System.out.println("member : "+mem);
