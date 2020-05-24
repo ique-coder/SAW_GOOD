@@ -479,7 +479,7 @@ label {
 								<td><input type="checkbox" name="fundcheck" id="fund${vs.count }" class="fundcheck" value="${ dag['FDNO']}"><label
 									for="fund${vs.count }"></label></td>
 								<td>${ dag['FDNO']}</td>
-								<td><img src="${path }/resources/images/funding/${fag['MAINIMG']}" class="productimg"/></td>
+								<td><img src="${path }/resources/images/funding/${dag['MAINIMG']}" class="productimg"/></td>
 								<td><a href="${path }/admin/fundingView?fdno=${ dag['FDNO']}">${dag['TITLE']}</a></td>
 								<td>${dag['CATEGORY']}</td>
 								<td>${dag['DESIGNER']}</td>
