@@ -18,13 +18,14 @@
 	
 	<select id="hotProduct" resultType="map">
 		select rownum, a.* from (
-		select productno no, img, name, productprice price ,count(*) as c from(
+		select productno no, img, name, productprice price ,count(*) as c, status from(
 		select ph.userid, p.productname as name, p.brand, p.renamedproductimg as img, pm.buydate, 
-		ph.productnum, ph.protoptalprice, ph.productno, p.productprice
+		ph.productnum, ph.protoptalprice, ph.productno, p.productprice, p.status
 		from paymenthistory ph
 		join payment pm on (ph.orderno = pm.orderno)
 		join newproduct p on (p.productno = ph.productno)) real
-		group by productno, img, name, productprice order by c desc
+		where status = 'N'
+		group by productno, img, name, productprice, status order by c desc
 		) a where rownum between 1 and 5
 	</select>
 	
