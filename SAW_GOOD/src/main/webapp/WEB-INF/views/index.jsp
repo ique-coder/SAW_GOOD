@@ -145,6 +145,7 @@
 		color: #51735D;
 		margin-right: 10px;
 	}
+	
 
 </style>
 
@@ -234,8 +235,11 @@
 	</div>
 </section>
 
+
+
 <script>
 
+	
 
  	function typingRepeat() {
 	 

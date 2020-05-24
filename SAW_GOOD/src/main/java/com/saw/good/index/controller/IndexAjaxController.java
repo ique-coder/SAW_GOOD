@@ -18,21 +18,6 @@ public class IndexAjaxController {
 	@Autowired
 	private IndexService service;
 	
-	@RequestMapping("/index.do")
-	public ModelAndView index(ModelAndView mv, HttpServletResponse response) {
-		
-		List<Map<String, String>> newProduct = service.newProduct();
-		List<Map<String, String>> newFunding = service.newFunding();
-		List<Map<String, String>> newAuction = service.newAuction();
-		
-		mv.addObject("np", newProduct);
-		mv.addObject("nF", newFunding);
-		mv.addObject("nA", newAuction);
-		mv.setViewName("jsonView");
-		
-		response.setCharacterEncoding("utf-8");
-		
-		return mv;
-	}
+	
 
 }
