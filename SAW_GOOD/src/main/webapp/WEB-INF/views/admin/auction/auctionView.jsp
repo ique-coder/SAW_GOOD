@@ -78,16 +78,16 @@
 
 		.auction_tit {
 			display: inline-block;
-			width: 250px;
-			font-size: 20px;
+			width: 200px;
+			font-size: 17px;
 			margin-bottom:17px;
 		}
 
 		.auction_con {
 			display: inline-block;
-			width: 300px;
+			width: 400px;
 			color: black;
-			font-size: 25px;
+			font-size: 20px;
 			margin-bottom:17px;
 		}
 
@@ -135,7 +135,7 @@
 					<div class="col-xl-6">
 						<div>
 							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/auction/${auc['ACMAINIMG']}" width="99%"
-								style="height:600px;" />
+								style="height:500px;" />
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
@@ -156,7 +156,7 @@
 								auction Info
 								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">경매정보</span>
 							</h4>
-							<ul id="auction-all" style="padding:15px 0 0 0; height:450px;">
+							<ul id="auction-all" style="padding:15px 0 0 0; height:350px;">
 								<li>
 									<p class="auction_tit"><span> - </span> 작성자 </p>
 									<p class="auction_con">
@@ -184,21 +184,21 @@
 								<li>
 									<p class="auction_tit"><span> - </span> 시작가격 <span>/</span> 즉시입찰가</p>
 									<p class="auction_con">
-										<strong> ${auc['ACSTARTPRICE'] } <span>/</span> ${auc['ACIMDPRICE'] } </strong>
+										<strong> ${auc['ACSTARTPRICE'] } P <span>/</span> <span style="color:red;">${auc['ACIMDPRICE'] } P</span> </strong>
 									</p>
 								</li>
 								<c:if test="${auc['ACSTATUS'] ==1 or auc['ACSTATUS'] ==2  }">
 									<li>
 										<p class="auction_tit"><span> - </span> 현재가격 </p>
 										<p class="auction_con">
-											<strong> ${auc['ACNOWPRICE'] }</strong>
+											<strong> ${auc['ACNOWPRICE'] }원</strong>
 										</p>
 									</li>
 								</c:if>
 								<li>
 									<p class="auction_tit"><span> - </span> 등록날짜 </p>
 									<p class="auction_con">
-										<strong><fmt:formatDate value="${auc['ACSTART_DATE'] }" pattern="yyyy-MM-dd"/></strong>
+										<strong><fmt:formatDate value="${auc['ACSTARTDATE'] }" pattern="yyyy-MM-dd"/></strong>
 									</p>
 								</li>
 								<li>

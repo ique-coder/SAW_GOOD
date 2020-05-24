@@ -34,12 +34,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${path }/resources/js/parallax.min.js"></script>
 </head>
+
+<body>
 <style>
    a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
     a:hover { color:  #3C5946; text-decoration: none;}
 </style>
-<body>
     <header class="container-fluid fixed-show">
        <div class="row " id="header">
           <div class="col-md-3"href="#">
@@ -70,15 +71,27 @@
 	             <li class="col-md-4"><a href="javascript:void(0)" id="login">login</a></li>
 	          </ol>
           </c:if>
-          <c:if test="${not empty loginMember }">
-          	  <ol class="col-md-3 row">
-          	  	<li class="col-md-3"></li>
-          	  	
-	             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
-	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
-          	  	<li class="col-md-3"></li>
-	          </ol>
-          </c:if>
+          <c:choose>
+	          <c:when test="${not empty loginMember && loginMember.userId=='admin'}">
+	          	  <ol class="col-md-3 row">
+	          	  	<li class="col-md-3"></li>
+	          	  	
+		             <li class="col-md-3"><a href="${path }/admin/home">Manager</a></li>
+		             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
+	          	  	<li class="col-md-3"></li>
+		          </ol>
+	          </c:when>
+	          <c:when test="${not empty loginMember }">
+	          	  <ol class="col-md-3 row">
+	          	  	<li class="col-md-3"></li>
+	          	  	
+		             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
+		             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
+	          	  	<li class="col-md-3"></li>
+		          </ol>
+	          </c:when>
+          </c:choose>
+      
        </div>
        <c:if test="${empty loginMember }">
 	       <div class="container-fluid modal_container" id="modal_container">
@@ -104,22 +117,33 @@
 		<c:if test="${not empty loginMember }">
 		<div class="container-fluid modal_container" id="modal_container">
         	<div class="my_modal" id="logined">
-	            <div class="prof" style="height:80px;">
-	            	<img src="http://placehold.it/600x500" width="78px" height="78px"/>
-	            </div>
+        		<c:if test="${loginMember.reProfile == null}">
+		            <div class="prof" style="height:80px;">
+		            	<img src="${path }/resources/images/profileBasic/profileImg.png" width="78px" height="78px"/>
+		            </div>
+		        </c:if>
+		        <c:if test="${loginMember.reProfile != null}">
+		            <div class="prof" style="height:80px;">
+		            	<img src="${path }/resources/images/profileBasic/${loginMember.reProfile}" width="78px" height="78px"/>
+		            </div>
+		        </c:if>
+		        
 	            <p class="welcome-msg">${loginMember.userId }님 환영합니다.</p>
 	            <br>
 	            <p class="welcom-msg">쏘:굿 POINT : ${loginMember.point } P</p>
 	            <span class="login_Xbutton" onclick="closeLogin();">x</span>
 	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
-	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart">Cart</button>            
+	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart'">Cart</button>            
 	            <button type="button" id="buttonHistory" onclick="">History</button>
+	            <c:if test="${loginMember.status==1 }" >
+	            	<button type="button" id="deleteAccount" onclick="">Delete My Account</button>
+	            </c:if>
 	            <ul class="history-container">
 	            	<li style="color: #ee987c;">
 	            			- seller - 
 	            	</li>
 	            	<li>
-	            		<a href="">Auction</a>
+	            		<a href="${path}/auction/myAcHistory">Auction</a>
 	            	</li>
 	            	<c:if test = "${loginMember.status>1 }">
 	            		<li>
@@ -137,7 +161,7 @@
 	            		<a href="${path }/mypage/funding.do">Funding</a>
 	            	</li>
 	            	<li>
-	            		<a href="${path }/mypage/auction.do">Auction</a>
+	            		<a href="${path }/auction/myAcSitinstory">Auction</a>
 	            	</li>
 	            </ul>            
 	        </div>
@@ -356,6 +380,10 @@
         	function fn_login_validate(){
         		
         	}
-        
+        	
+        	$("#deleteAccount").click(function(){
+        		
+        		location.href="${path}/member/deleteAccount";
+        	})
        
     </script>

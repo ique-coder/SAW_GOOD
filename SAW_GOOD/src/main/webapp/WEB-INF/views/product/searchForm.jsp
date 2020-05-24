@@ -37,7 +37,7 @@
                             </p>
                             <ul class="frm_list">
                                 <li>
-                                    <input type="text" id="userId" name="userId" placeholder="ID">
+                                    <input type="text" id="userId1" name="userId1" placeholder="ID">
                                 </li>
                                 <li>
                                     <input type="email" id="email1" name="email1" placeholder="EMAIL">
@@ -65,9 +65,22 @@
 				data:{"userName":$("#name").val(),
 					  "email":$("#email").val()},
 				success:function(data){
-					console.log(data);
+					if($("#name").val().trim()==""||
+							$("#name").val().trim()==null){
+						alert("이름을 입력해주세요.");
+						$("#name").focus();
+						return false;
+					}else if($("#email").val().trim()==""||
+							$("#email").val().trim()==null){
+						alert("이메일을 입력해주세요.");
+						$("#email").focus();
+						return false;
+					}
 					if(!data.flag){
 						alert("등록된 회원이 존재하지 않습니다.");
+						$("#name").val("");
+						$("#email").val("");
+						$("#name").focus();
 						return false;
 					}
 					var span = "<span class='search-result'>아이디 찾기가 완료 되었습니다.</span>";
@@ -83,12 +96,26 @@
     	    		url:"${path}/find/findPw",
     	    		type:"post",
     				dataType:"json",
-    				data:{"userId":$("#userId").val(),
+    				data:{"userId":$("#userId1").val(),
     					  "email":$("#email1").val()},
     				success:function(data){
     					console.log(data);
+    					if($("#userId1").val().trim()==""||
+    							$("#userId1").val().trim()==null){
+    						alert("아이디를 입력해주세요.");
+    						$("#userId1").focus();
+    						return false;
+    					}else if($("#email1").val().trim()==""||
+    							$("#email1").val().trim()==null){
+    						alert("이메일을 입력해주세요.");
+    						$("#email1").focus();
+    						return false;
+    					}
     					if(!data.flag){
     						alert("등록된 회원이 존재하지 않습니다.");
+    						$("#userId1").val("");
+    						$("#email1").val("");
+    						$("#userId1").focus();
     						return false;
     					}else{    						
 	    					var span = "<span class='search-result'>"+data.member.userId+"님의 임시 비밀번호를</span>";

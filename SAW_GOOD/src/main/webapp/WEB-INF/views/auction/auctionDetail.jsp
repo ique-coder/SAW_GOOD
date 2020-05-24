@@ -16,7 +16,14 @@
 <!-- 가져온 날짜 세팅 -->
 <fmt:parseNumber value="${a.acEndDate.time / (1000*60*60*24)}"
 	integerOnly="true" var="acEndDate" />
+<style>
+.subImg{
+	cursor: pointer;
+	z-index: 999;
+}	
 
+
+</style>
 <section>
 	<!-- <div class="container-fluid" style="margin-top: 50px;"> -->
 	<div class="container" style="margin-top: 50px;">
@@ -36,14 +43,15 @@
 				<div class="col-sm-6">
 					<div class="col-md-12" id="mainImg"
 						style="height: 60%; margin-bottom: 10px;">
-						<img class="images"
+						<img class="images" id="mainPhoto"
 							src="${path }/resources/upload/auction/${a.acReMainImg }">
 					</div>
 					<div class="col-md-12 row" id="serveImg"
 						style="height: 20%; margin: 0;">
 						<c:if test="${!empty list}">
-							<c:forEach items="${sumImg }" var="s">
-						
+							<c:forEach items="${list}" var="s">
+								<img class="col-md-3 images subImg" onclick="change();"
+									src="${path }/resources/upload/auction/${s.acReNameServe }">								
 							</c:forEach>
 						</c:if>
 						<c:if test="${empty list }">
@@ -409,6 +417,14 @@
 
 </section>
 <script>
+
+	
+		function change(){
+			   var temp = $("#mainPhoto").attr("src");
+			   $("#mainPhoto").attr("src",$(event.target).attr("src"));
+			   $(event.target).attr("src",temp);
+  
+			}
 	    function nowBuy(){
 			if(${loginMember!=null?loginMember.point:0} < ${a.acImdPrice}){
 				alert("포인트가 부족합니다. 충전후 이용해주세요.");

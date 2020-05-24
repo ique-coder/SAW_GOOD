@@ -84,6 +84,7 @@
                                             <option value="carpet">carpet</option>
                                             <option value="lug">lug</option>
                                             <option value="storage">storage</option>
+                                            <option value="light">light</option>
                                             <option value="others">others</option>
                                         </select> 
                                     </strong>

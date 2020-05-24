@@ -1,3 +1,17 @@
+	.review-modify{
+		border: none;
+	    background-color: #32a852;
+	    padding: 5px 10px;
+	    color: #dae6dd;
+	    font-weight: bold;
+	}
+	.review-delete{
+		border: none;
+	    background-color: #e6320e;
+	    padding: 5px 10px;
+	    color: #dae6dd;
+	    font-weight: bold;
+	}
 	.review-size{
 		width: 128px;
 	    height: 128px;
@@ -230,7 +244,7 @@
     .pro-name{
         padding: 7px 0 8px 15px;
         text-align: left;
-        width: 100%;
+        width: 455px;
         font-weight: 550;
     }
     input[type="number"]::-webkit-outer-spin-button,
@@ -344,6 +358,12 @@
         height: 81px;
         overflow: hidden;
     }
+    .review-photo1{
+        margin-left: -15px;
+        width: 355px;
+        height: 81px;
+        overflow: hidden;
+    }
     .ul-photo{
         width: 430px;
         height: 75px;
@@ -352,6 +372,20 @@
         margin-left: 10px;
     }
     .ul-photo li{
+        width: 75px;
+        height: 75px;
+        position: relative;
+        display: inline-block;
+        margin: 0 5px 10px 5px;
+    }
+    .ul-photo1{
+        width: 430px;
+        height: 75px;
+        padding: 0px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    .ul-photo1 li{
         width: 75px;
         height: 75px;
         position: relative;
@@ -396,7 +430,38 @@
         transition: background-color 0.2s;
         border: none;
     }
+    .review-btn1{
+        position: absolute;
+        right: 60px;
+        top: 0;
+        width: 228px;
+        height: 35px;
+        background: #3f3f3f;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        border: none;
+    }
+    .review-cancle{
+    	position: absolute;
+	    right: 0;
+	    top: 0;
+	    width: 50px;
+	    height: 35px;
+	    background: #e6320e;
+	    color: white;
+	    font-size: 14px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    transition: background-color 0.2s;
+	    border: none;
+    }
     .review-btn:hover{
+        background-color: black;
+    }
+    .review-btn1:hover{
         background-color: black;
     }
     .review-summary{
@@ -523,7 +588,26 @@
         text-align: center;
         padding-top: 40%;
     }
+    .img-remove1{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        background: black;
+        cursor: pointer;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+        text-align: center;
+        padding-top: 40%;
+    }
     .img-remove:hover{
+        opacity: 0.7;
+    }
+    .img-remove1:hover{
         opacity: 0.7;
     }
     /* 페이지바 */

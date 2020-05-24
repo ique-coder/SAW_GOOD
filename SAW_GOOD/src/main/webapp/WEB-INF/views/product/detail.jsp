@@ -12,7 +12,7 @@
     <div class="container-fluid" style="margin-top: 50px;">
         <div class="container">
             <ul class="detail_top">
-                <li><a href="#"><i class="fas fa-home" style="color: green;"></i></a></li>
+                <li><a href="${path }"><i class="fas fa-home" style="color: green;"></i></a></li>
                 <li><i class="fas fa-chevron-right"></i> 가구</li>
             </ul>
             <div class="detailArea">
@@ -21,7 +21,9 @@
                         <h2>${product.productName }</h2>
                     </div>
                     <div class="record_container">
-                        
+                        <div class="record">
+                            <span style="font-size:12px;font-weight:bold;">상품평</span>
+                        </div>
                         <div class="pro-name" style="font-weight: 400;">
                             <div class="starRev">
                             	<c:set var="sum" value="0"/>
@@ -86,8 +88,8 @@
                         </div>
                         <div class="productAction">
                             <div class="product-button">
-                                <button class="buy-btn">바로구매</button>
-                                <button class="cart-btn">장바구니</button>
+                                <%-- <button class="buy-btn" onclick="location.href='${path}/payment/paymentView?productNo=${product.productNo }'">바로구매</button> --%>
+                                <button class="cart-btn" onclick="cartAdd(${product.productNo},$('#amount').val(),$('#productPrice strong').eq(1).html().trim());">장바구니</button>
                             </div>
                         </div>
                     </div>
@@ -124,8 +126,8 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <div class="test">
-                    1
+                <div style="text-align:center;">
+                    ${product.productContent }
                 </div>
             </div>
             <div id="information">
@@ -137,8 +139,8 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <div class="test">
-                    2
+                <div style="text-align:center; zoom:1.5;">
+                    <img src="${path }/resources/images/information.PNG"/>
                 </div>
             </div>
             <div id="review">
@@ -336,6 +338,12 @@
 		                                    <fmt:formatDate value="${r.writeDate }" pattern="yyyy.MM.dd"/>
 		                                </div>
 		                            </li>
+		                            <c:if test="${loginMember.userId eq r.userId }">
+			                            <li>
+			                            	<button class="review-modify" onclick="reviewModify(${r.reviewNo},'${r.userId }');">수정</button>
+			                    			<button class="review-delete" onclick="reviewDelete(${r.reviewNo},'${r.userId }');">삭제</button>
+			                            </li>
+		                            </c:if>
 		                        </ul>
 		                    </div>           
 		                    <c:forEach begin="1" end="${r.star }" step="1">
@@ -472,7 +480,7 @@
                           </tbody>
                     </table>
                     <p class="base-btn">
-                        <a href="${path }/qna/qnaForm?no=${product.productNo}" class="write-btn">글쓰기</a>
+                        <a href="javascript:void(0)" class="write-btn" onclick="qnaWrite(${product.productNo})">글쓰기</a>
                     </p>
                     <div id="pagebar" style="clear:both;">
                     	${pageBar }
@@ -487,6 +495,215 @@
     </div>
 </section>
     <script>
+    	function cartAdd(no,amount,price){
+    		if(${loginMember eq null or loginMember == ""}){
+    			var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+        		if(result){            			
+        			$("#header ol li:last a#login").click();
+        		}
+        		return false;
+    		}
+    		location.href="${path }/payment/cart?no="+no+"&amount="+amount+"&price="+price;
+    	}
+    	function reviewModify(rNo, rUserId){
+    		let div = $(event.target).parent().parent().parent().parent();
+    		let temp = $(div).html();
+    		$.ajax({
+    			url:"${path}/review/modify",
+        		type:"POST",
+    			data:{"userId":rUserId,
+    				  "no":rNo},
+    			success:function(data){
+    				console.log(temp);
+    				console.log(data);
+    				$(div).html(
+    				'<input type="file" name="file1" id="file1" accept="image/*" style="display:none"/>'+
+    				'<form id="review-modify" method="post" action="${path }/review/modifyEnd" enctype="multipart/form-data">'+
+                	'<input type="hidden" name="rename" id="rename"/>'+
+                    	'<input type="hidden" name="original" id="original"/>'+
+                    	'<input type="hidden" name="no" value="${product.productNo }"/>'+
+                    	'<input type="hidden" name="userId" value="${loginMember.userId }"/>'+
+                    '<div class="review-container">'+
+                        '<div>'+
+                                '<textarea class="review-message" name="reContent" id="reContent" placeholder="고객님의 소중한 제품 리뷰를 남겨주세요"></textarea>'+
+                        '</div>'+
+                        '<div class="review-photo1" >'+
+                            '<ul class="ul-photo1">'+
+                                
+                            '</ul>'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="review-submit">'+
+                        '<div class="review-camara" style="cursor: pointer;" onclick="getElementById(\'file1\').click();">'+
+                            '<span class="review-img">'+
+                                '<i class="fas fa-camera"></i>'+
+                                '<div class="review-txt"> + 사진추가</div>'+
+                            '</span>'+
+                        '</div>'+
+                        '<div style="margin: 0 300px 0 213px;">'+
+                            '<div class="review-score">'+
+                                '<select name="star1" id="star1">'+
+                                    '<option value="5">'+
+                                        '★★★★★ 아주 좋아요'+
+                                    '</option>'+
+                                    '<option value="4">'+
+                                        '★★★★ 맘에 들어요'+
+                                    '</option>'+
+                                    '<option value="3">'+
+                                        '★★★ 보통이에요'+
+                                    '</option>'+
+                                    '<option value="2">'+
+                                        '★★ 그냥 그래요'+
+                                    '</option>'+
+                                    '<option value="1">'+
+                                        '★ 별로에요'+
+                                    '</option>'+
+                                '</select>'+
+                            '</div>'+
+                        '</div>'+
+                        '<button class="review-btn1" type="submit">'+
+                            '<i class="far fa-check-circle" style="color: white; font-size: 26px; padding-right: 10px;"></i>'+
+                            '<span style="color: white; font-size: 20px;">리뷰 등록하기</span>'+
+                        '</button>'+
+                        '<button type="button" class="review-cancle" onclick="review_delete();">'+
+                        '취소'+
+                        '</button>'+
+                    '</div>'+
+                    '</form>'+
+                    '<script>'+
+                    'console.log('+$(div)+');'+
+                    'function review_delete(){'+
+                    	
+                    '}'+	
+                    'function delete_modifyImg(){'+
+							'$(event.target).parent().remove();'+
+		    	        	'if(!$(".ul-photo1").children().is("li")){'+
+		    	        		'$(".review-photo1").css("display","none");'+
+		    	        	'}'+
+		    	        	'var rename = $(event.target).parent().children(".img-wrap").children().attr("title");'+
+		    	        	// ajax
+		    	            '$.ajax({'+
+		    	                'type:"POST",'+
+		    	                'url:"${path}/review/deleteImg",'+
+		    	                'data:{"rename":rename},'+
+		    	                'success : function(data, textStatus, xhr) {'+
+		    	                '},'+
+		    	                'error : function(request,status,error) {'+  
+		    	                   
+		    	                '}'+
+		    	            '});'+
+		    	        '}'+
+                    	'$(function(){'+
+                    		'$(".review-photo1").hide();'+
+                    		'$("#star1").val('+data.pr.star+').prop("selected", true);'+
+                    		'function renameModify(){'+
+		                        'var formData = new FormData();'+
+		        				//첫번째 파일태그
+		        				'formData.append("uploadfile",$("input[id=file1]")[0].files[0]);'+
+		                     	'var title;'+
+		                     	'var alt;'+
+		                        // ajax
+		                        '$.ajax({'+
+		                            'type:"POST",'+
+		                            'url:"${path}/review/reviewImg",'+
+		                            'data:formData,'+
+		                            'processData: false,'+
+		                            'contentType: false,'+
+		                            'async: false,'+
+		                            'success : function(data, textStatus, xhr) {'+
+		                                'title=data.renamed;'+
+		                                'alt=data.original;'+    
+		                            '},'+
+		                            'error : function(request,status,error) {'+  
+		                               
+		                            '}'+
+		                        '});'+
+		                        'return [title, alt];'+
+                    		'}'+
+                    		'$("#file1").change(function(event){ '+
+					            	'$(".review-photo1").show();'+
+					            	
+					            	'var get_file = event.target.files;'+
+					                'var image = document.createElement("img");'+
+					                'var renames = renameModify();'+
+					                'image.title=renames[0];'+
+					                'image.alt=renames[1];'+
+					            
+					                /* FileReader 객체 생성 */
+					                'var reader = new FileReader();'+
+					         
+					                /* reader 시작시 함수 구현 */
+					                'reader.onload = (function (aImg) {'+
+					                    'return function (event) {'+
+					                        /* base64 인코딩 된 스트링 데이터 */
+					                        'aImg.src = event.target.result;'+
+					                        '$(aImg).addClass("img-size");'+
+					                    '}'+
+					                '})(image);'+
+					                'if(get_file){'+
+					                    /* 
+					                        get_file[0] 을 읽어서 read 행위가 종료되면 loadend 이벤트가 트리거 되고 
+					                        onload 에 설정했던 return 으로 넘어간다.
+					                                                이와 함게 base64 인코딩 된 스트링 데이터가 result 속성에 담겨진다.
+					                    */
+					                    'reader.readAsDataURL(get_file[0]);'+
+					                '}'+
+					                
+					            	'if(!$(".ul-photo1").children().is("li")){'+
+						            	'var div = $(".ul-photo1").append($("<li>").append("<div class=\'img-wrap\'>"));'+
+						            	'var img = $(div).children().children(".img-wrap");'+
+					            		'$(img).append(image).after("<div class=\'img-remove1\' onclick=\'delete_modifyImg();\'>삭제");'+
+					            	'}else if($(".ul-photo1").children().is("li")){'+
+					                	'var div = $(".ul-photo1").append($("<li>").append("<div class=\'img-wrap\'>"));'+
+					                	'var img = $(div).children().children(".img-wrap1");'+
+					            		'$(img).last().append(image).after("<div class=\'img-remove\' onclick=\'delete_modifyImg();\'>삭제");'+
+					            	'}'+
+					            	
+					         '});'+
+					         '$("#file1").click(function(){'+
+					            	'if($(".ul-photo1").children("li").length == 4){'+
+					            		'alert("리뷰 사진은 최대 4장까지 첨부가능합니다.");'+
+					            		'return false;'+
+					            	'}'+
+					          '});'+
+				    	        '$("#review-modify").submit(function(){'+
+				    	        	'var rename = new Array();'+
+				    	        	'var original = new Array();'+
+				    	        	
+				    	        	'$(".ul-photo1 .img-wrap img").each(function(index,item){'+
+				    	        		'rename.push(item.title);'+
+				    	        		'rename.join(",");'+
+				    	        		'original.push(item.alt);'+
+				    	        		'original.join(",");'+
+				    	        	'});'+
+				    	        	'$("#rename").val(rename);'+
+				    	        	'$("#original").val(original);'+
+				    	        '});'+
+                    	'});'+
+                    '</'+'script>')
+    				
+    			},
+    			error : function(request, status) {
+					
+					if (request.status == 404)
+						//$("#content").append(request.status);
+						alert("페이지를 찾을 수 없습니다.");
+				}
+    		});
+    	}
+    	function reviewDelete(rNo, rUserId){
+    		
+    	}
+    	function qnaWrite(qno){
+    		if(${loginMember eq null or loginMember == ""}){
+    			var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+        		if(result){            			
+        			$("#header ol li:last a#login").click();
+        		}
+        		return false;
+    		}
+    		location.href="${path }/qna/qnaForm?no="+qno;
+    	}
         $(function(){
     		$(window).scroll(function(){
                 var height = $(document).scrollTop();
@@ -577,31 +794,7 @@
                 });
                 return [title, alt];
             }
-            /* function original(){
-            	var formData = new FormData();
-				//첫번째 파일태그
-				formData.append("uploadfile",$("input[id=file]")[0].files[0]);
-				//console.log($("input[id=file]")[0].files[0]);
-             	var alt;
-                // ajax
-                $.ajax({
-                    type:'POST',
-                    url:'${path}/review/reviewImg',
-                    data:formData,
-                    processData: false,
-                    contentType: false,
-                    async: false,
-                    success : function(data, textStatus, xhr) {
-                    	//console.log(data.renamed);
-                        alt=data.original;
-                        
-                    },
-                    error : function(request,status,error) {  
-                       alert("code:"+request.status+"\n"+"error:"+error);
-                    }
-                });
-                return alt;
-            } */
+            
             $(".review-photo").hide();
             $("#file").change({param_img : img},function(event){ 
             	$(".review-photo").show();
@@ -637,7 +830,6 @@
             	if(!$(".ul-photo").children().is("li")){
 	            	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
 	            	var img = $(div).children().children(".img-wrap");
-	            	//$(img).append($("<input type='file' name='file[]' id='files' style='display:none;'>"));
             		$(img).append(image).after("<div class='img-remove' onclick='delete_img();'>삭제");
             	}else if($(".ul-photo").children().is("li")){
                 	var div = $(".ul-photo").append($("<li>").append("<div class='img-wrap'>"));
@@ -653,6 +845,26 @@
             			$("#header ol li:last a#login").click();
             		}
             		$("#reContent").blur();
+            	}else{
+            		$.ajax({
+            			url:"${path}/history/check",
+                		type:"POST",
+            			data:{"userId":"${loginMember.userId}",
+            				  "no":${product.productNo}},
+            			success:function(data){
+            				if(!data.flag){
+            					alert("구매 후 리뷰를 작성해주세요.");
+            					$("#reContent").blur();
+            				}
+            				
+            			},
+            			error : function(request, status) {
+        					
+        					if (request.status == 404)
+        						//$("#content").append(request.status);
+        						alert("페이지를 찾을 수 없습니다.");
+        				}
+            		});
             	}
             })
             
@@ -750,6 +962,7 @@
         		return false;
         	}
         }
+        
         
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

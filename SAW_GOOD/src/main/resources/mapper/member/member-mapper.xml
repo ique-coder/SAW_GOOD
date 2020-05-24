@@ -62,4 +62,8 @@
   <update id="updateMemAPoint2" parameterType="com.saw.good.auction.model.vo.AuctionMember">
   	UPDATE MEMBER SET POINT = POINT - #{acImdPrice} WHERE USERID=#{userId}
   </update>
+  <update id="deleteAccount" parameterType="string">
+  	UPDATE MEMBER SET status = 0 WHERE USERID=#{userId}
+  </update>
+  
 </mapper>

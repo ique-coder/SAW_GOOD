@@ -21,6 +21,7 @@
     <div class="bg-image" style="background-image: url(${path}/resources/images/signup2.jpg);"></div>
     </c:if>
     <c:if test="${not empty subImg }">
+    
     <div class="bg-image" style="background-image:  url(${path}/resources/images/funding/${subImg[0].subImg });"></div>
    
     </c:if>

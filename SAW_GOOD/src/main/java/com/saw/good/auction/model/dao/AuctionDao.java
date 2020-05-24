@@ -53,5 +53,9 @@ public interface AuctionDao {
 	
 	List<Auction> selectMyAcList(SqlSession session, Member m);
 	
+	int deleteAuction(SqlSession session,Auction a);
 	
+	List<AuctionMember> selectMySiAcList(SqlSession session,Member m);
+	
+	Auction selectMySitinAcList(SqlSession session,AuctionMember am);
 }

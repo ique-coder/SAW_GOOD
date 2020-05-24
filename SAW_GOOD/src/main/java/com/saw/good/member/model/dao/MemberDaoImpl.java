@@ -94,4 +94,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updateMemAPoint2", a);
 	}
 
+	@Override
+	public int deleteAccount(SqlSessionTemplate session,String userId) {
+		// TODO Auto-generated method stub
+		return session.update( "member.deleteAccount", userId);
+	}
+
+	
 }

@@ -99,6 +99,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.updateMemAPoint(session, a);
 	}
+
+	@Override
+	public int deleteAccount(String userId) {
+		// TODO Auto-generated method stub
+		return dao.deleteAccount(session,userId);
+	}
 	
 	
 	
