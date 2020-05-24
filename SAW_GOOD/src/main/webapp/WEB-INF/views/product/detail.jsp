@@ -88,8 +88,8 @@
                         </div>
                         <div class="productAction">
                             <div class="product-button">
-                                <button class="buy-btn">바로구매</button>
-                                <button class="cart-btn">장바구니</button>
+                                <%-- <button class="buy-btn" onclick="location.href='${path}/payment/paymentView?productNo=${product.productNo }'">바로구매</button> --%>
+                                <button class="cart-btn" onclick="cartAdd(${product.productNo},$('#amount').val(),$('#productPrice strong').eq(1).html().trim());">장바구니</button>
                             </div>
                         </div>
                     </div>
@@ -495,6 +495,16 @@
     </div>
 </section>
     <script>
+    	function cartAdd(no,amount,price){
+    		if(${loginMember eq null or loginMember == ""}){
+    			var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+        		if(result){            			
+        			$("#header ol li:last a#login").click();
+        		}
+        		return false;
+    		}
+    		location.href="${path }/payment/cart?no="+no+"&amount="+amount+"&price="+price;
+    	}
     	function reviewModify(rNo, rUserId){
     		let div = $(event.target).parent().parent().parent().parent();
     		let temp = $(div).html();

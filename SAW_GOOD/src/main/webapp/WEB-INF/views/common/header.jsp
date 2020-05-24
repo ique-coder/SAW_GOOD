@@ -143,7 +143,7 @@
 	            			- seller - 
 	            	</li>
 	            	<li>
-	            		<a href="">Auction</a>
+	            		<a href="${path}/auction/myAcHistory">Auction</a>
 	            	</li>
 	            	<c:if test = "${loginMember.status>1 }">
 	            		<li>
@@ -161,7 +161,7 @@
 	            		<a href="${path }/mypage/funding.do">Funding</a>
 	            	</li>
 	            	<li>
-	            		<a href="${path }/mypage/auction.do">Auction</a>
+	            		<a href="${path }/auction/myAcSitinstory">Auction</a>
 	            	</li>
 	            </ul>            
 	        </div>
