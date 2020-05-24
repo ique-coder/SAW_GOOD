@@ -447,12 +447,14 @@ label {
 						<th>브랜드</th>
 						<td class="checking"><input type="checkbox" name="brand"
 							value="에이스" id="br1"><label for="br1">에이스</label> <input
-							type="checkbox" name="brand" value="알레르망" id="br2"><label
-							for="br2">알레르망</label> <input type="checkbox" name="brand"
-							value="쇼팽" id="br3"><label for="br3">쇼팽</label> <input
-							type="checkbox" name="brand" value="모차르트" id="br4"><label
-							for="br4">모차르트</label> <input type="checkbox" name="brand"
-							value="베토벤" id="br5"><label for="br5">베토벤</label></td>
+							type="checkbox" name="brand" value="이케아" id="br5"><label
+							for="br5">이케아</label> <input type="checkbox" name="brand"
+							value="알레르망" id="br2"><label for="br2">알레르망</label> <input
+							type="checkbox" name="brand" value="한샘" id="br3"><label
+							for="br3">한샘</label> <input type="checkbox" name="brand"
+							value="이케아" id="br4"><label for="br4">이케아</label> <input
+							type="checkbox" name="brand" value="마틸라" id="br5"><label
+							for="br5">마틸라</label></td>
 					</tr>
 					<tr>
 						<th>카테고리</th>
