@@ -20,7 +20,7 @@
 		<h3>CATCH YOUR CHANCE</h3>
 	</div>
 	<!-- 전체 컨테이너 div -->
-	<div id="search-area" class="container" style="border: 0;">
+	<!-- <div id="search-area" class="container" style="border: 0;">
 		<form action="" method="post">
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
@@ -42,8 +42,8 @@
 			</select>
 			<button type="submit">검색하기</button>
 		</form>
-	</div>
-	<div class="container" style="padding: 0;">
+	</div> -->
+	<div class="container" style="padding: 0; margin-top:60px;">
 		<!-- 경매(옥션) 메인 사진 -->
 		<!-- <img src="image/auction main2.jpg" style="width: 1080px; height: 550px; margin-left: 30px; margin-top: 30px;"/> -->
 
@@ -78,8 +78,11 @@
 							<input type="button" class="inputred"  onclick="location.href='${path}/auction/writer'" value="AUCTION 신청"/>
 					</span>
 					<span class="enroll-container"> 
-							<input type="button" class="inputred" onclick="location.href='${path}/auction/myAcHistory'" value="신청내역 보기"/>
+							<input type="button" class="inputred" style="font-size:12px;" onclick="location.href='${path}/auction/myAcHistory'" value="나의경매 내역보기"/>
 					</span>
+						<span class="enroll-container"> 
+							<input type="button" class="inputred" style="font-size:12px;" onclick="location.href='${path}/auction/myAcSitinstory'" value="경매참여 내역보기"/>
+					</span>																										  
 				</c:if>
 				</div>
 				<div class="col-md-10">
