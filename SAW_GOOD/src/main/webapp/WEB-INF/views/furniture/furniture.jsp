@@ -343,7 +343,6 @@ div.categoryNameList>input:checked+label {
 	}
 </script>
 <div class="container">
-	<img src="${path }/resources/images/1234.png" width="100%">
 	<div class="col-md-12 padding">
 		<!-- 상단 카테고리 -->
 		<div id="furnitureCategory" class="row">
@@ -444,6 +443,7 @@ div.categoryNameList>input:checked+label {
 		</div>
 
 	</div>
+</div>
 
 	<%
 		cartNum = (Integer)request.getAttribute("count");
