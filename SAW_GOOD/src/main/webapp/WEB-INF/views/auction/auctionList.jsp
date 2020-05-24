@@ -132,7 +132,7 @@
 					<c:if test="${empty list }">
 	                     	<div class="col-auto" style="width:100%;">
 	                     		<div style="text-align:center;">
-	                     			<h2 style="font-size:22px; font-weight:bold;">해당하는 상품이 존재하지 않습니다.</h2>
+	                     			<h2 style="font-size:22px; font-weight:bold;">경매상품이 존재하지 않습니다.</h2>
 	                     		</div>
 	                     	</div>
 	                </c:if>
