@@ -372,7 +372,7 @@ public class AuctionController {
 		}
 		
 		String msg=(result>0)?"입찰확정 성공":"입찰확정 실패";
-	    String loc=(result>0)?"/auction/list":"/auction/detail?acBoardNo="+ac.getAcBoardNo();
+	    String loc=(result>0)?"/admin/auctionAgreeList":"/auction/detail?acBoardNo="+ac.getAcBoardNo();
 	       mv.addObject("msg", msg);
 	       mv.addObject("loc", loc);
 	       mv.setViewName("common/msg");
