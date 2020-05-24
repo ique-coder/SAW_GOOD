@@ -129,7 +129,7 @@ public class ProductController {
 		List<Map<String,Object>> list=service.searchCategory(cPage,numPerPage,map);
 		int totalData=service.countSearchCategory(map); 
 		
-		String pageBar=ProductCategoryPage.getPage(totalData, cPage, numPerPage, category, "searchCategory");
+		String pageBar=ProductCategoryPage.getPage(totalData, cPage, numPerPage, category, "productCategory");
 		List<Map<String,String>> slist = service.selectStar();
 		
 		mv.addObject("list", list);

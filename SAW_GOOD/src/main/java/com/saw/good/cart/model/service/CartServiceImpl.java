@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.cart.model.dao.CartDao;
+import com.saw.good.cart.model.vo.Cart;
 import com.saw.good.product.model.vo.Product;
 
 @Service
@@ -53,6 +54,11 @@ public class CartServiceImpl implements CartService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Cart selectData(Map map) {
+		return dao.selectData(session,map);
 	}
 	
 	
