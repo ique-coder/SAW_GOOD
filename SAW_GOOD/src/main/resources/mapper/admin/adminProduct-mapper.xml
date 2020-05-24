@@ -31,7 +31,7 @@
 	</update>
 	
 	<select id="searchProduct" parameterType="adproduct" resultType="map">
-		SELECT * FROM NEWPRODUCT WHERE 1=1
+		SELECT * FROM NEWPRODUCT WHERE 1=1 AND STATUS='N'
 		<if test="productname!=null and productname !=''">
 			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
 		</if>
@@ -64,7 +64,7 @@
 		ORDER BY PRODUCTNO DESC
 	</select>
 	<select id="countSearchProduct" parameterType="adproduct" resultType="_int">
-		SELECT count(*) FROM NEWPRODUCT WHERE 1=1
+		SELECT count(*) FROM NEWPRODUCT WHERE 1=1 AND STATUS='N'
 		<if test="productname!=null and productname !=''">
 			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
 		</if>
