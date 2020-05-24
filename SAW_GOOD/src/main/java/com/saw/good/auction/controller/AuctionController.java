@@ -49,7 +49,7 @@ public class AuctionController {
 		List<Auction> list = service.selectAcList(cPage, numPerPage);
 		int totalData = service.countAuction();
 		
-		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
 		mv.addObject("numPerPage", numPerPage);
@@ -71,7 +71,7 @@ public class AuctionController {
 		List<Auction> list = service.searchAuction(cPage, numPerPage, map);
 		int totalData = service.countAcSearch(map);
 	
-		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
 		mv.addObject("numPerPage", numPerPage);
@@ -88,7 +88,7 @@ public class AuctionController {
 		List<Auction> list = service.selectCtList(cPage, numPerPage, category);
 		int totalData = service.countCtAuction(category);
 	
-		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
+		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
 		mv.addObject("numPerPage", numPerPage);
