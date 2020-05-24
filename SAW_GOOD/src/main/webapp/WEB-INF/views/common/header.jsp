@@ -71,15 +71,27 @@
 	             <li class="col-md-4"><a href="javascript:void(0)" id="login">login</a></li>
 	          </ol>
           </c:if>
-          <c:if test="${not empty loginMember }">
-          	  <ol class="col-md-3 row">
-          	  	<li class="col-md-3"></li>
-          	  	
-	             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
-	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
-          	  	<li class="col-md-3"></li>
-	          </ol>
-          </c:if>
+          <c:choose>
+	          <c:when test="${not empty loginMember && loginMember.userId=='admin'}">
+	          	  <ol class="col-md-3 row">
+	          	  	<li class="col-md-3"></li>
+	          	  	
+		             <li class="col-md-3"><a href="${path }/admin/home">Manager</a></li>
+		             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
+	          	  	<li class="col-md-3"></li>
+		          </ol>
+	          </c:when>
+	          <c:when test="${not empty loginMember }">
+	          	  <ol class="col-md-3 row">
+	          	  	<li class="col-md-3"></li>
+	          	  	
+		             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
+		             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
+	          	  	<li class="col-md-3"></li>
+		          </ol>
+	          </c:when>
+          </c:choose>
+      
        </div>
        <c:if test="${empty loginMember }">
 	       <div class="container-fluid modal_container" id="modal_container">
@@ -131,7 +143,7 @@
 	            			- seller - 
 	            	</li>
 	            	<li>
-	            		<a href="">Auction</a>
+	            		<a href="${path}/auction/myAcHistory">Auction</a>
 	            	</li>
 	            	<c:if test = "${loginMember.status>1 }">
 	            		<li>
@@ -149,7 +161,7 @@
 	            		<a href="${path }/mypage/funding.do">Funding</a>
 	            	</li>
 	            	<li>
-	            		<a href="${path }/mypage/auction.do">Auction</a>
+	            		<a href="${path }/auction/myAcSitinstory">Auction</a>
 	            	</li>
 	            </ul>            
 	        </div>

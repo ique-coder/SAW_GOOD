@@ -34,7 +34,7 @@ public class AdminAuctionController {
 		return mv;
 	}
 	//옥션 동의 페이지
-	@RequestMapping("admin/auctionAgreeList")
+	@RequestMapping("/admin/auctionAgreeList")
 	public ModelAndView auctionAgreeList(ModelAndView mv,@RequestParam(value="cPage",defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage",defaultValue="10") int numPerPage) {
 		

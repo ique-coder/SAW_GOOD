@@ -42,6 +42,11 @@
 			<beans:bean id="statusCheck" 
 			class="com.saw.good.common.interceptor.StatusCheckInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<beans:bean id="adminLoginCheck" 
+			class="com.saw.good.common.interceptor.AdminLoginCheckInterceptor"/>
+		</interceptor>
 		
 	</interceptors>
 	 
