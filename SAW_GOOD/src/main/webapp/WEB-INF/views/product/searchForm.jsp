@@ -76,6 +76,9 @@
 						$("#email").focus();
 						return false;
 					}
+					console.log(data);
+					console.log($("#name").val());
+					console.log($("#email").val());
 					if(!data.flag){
 						alert("등록된 회원이 존재하지 않습니다.");
 						$("#name").val("");
