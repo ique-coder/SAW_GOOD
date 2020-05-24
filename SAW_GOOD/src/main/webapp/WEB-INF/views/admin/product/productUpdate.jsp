@@ -110,7 +110,9 @@
                             <option value="에이스" ${product.brand=='에이스'?"selected":""}>에이스</option>
                             <option value="한샘" ${product.brand=='한샘'?"selected":""}>한샘</option>
                             <option value="이케아" ${product.brand=='이케아'?"selected":""}>이케아</option>
-                            <option value="파로마" ${product.brand=='파로마'?"selected":""}>파로마</option>
+                            <option value="이브자리" ${product.brand=='이브자리'?"selected":""}>이브자리</option>
+                            <option value="알레르망" ${product.brand=='알레르망'?"selected":""}>알레르망</option>
+                            <option value="마틸라" ${product.brand=='마틸라'?"selected":""}>마틸라</option>
                         </select>
                     </td>
                 </tr>
