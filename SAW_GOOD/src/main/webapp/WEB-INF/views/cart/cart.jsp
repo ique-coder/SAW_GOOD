@@ -99,7 +99,8 @@
         }
         /* 사진크기 */
         .imgheight{
-            max-width:50%;height:auto;
+            height:100px;
+            width:100px;
         }
         /* 체크박스 */
         .checking input[type="checkbox"],
