@@ -10,5 +10,10 @@ public interface IndexDao {
 	public List<Map<String, String>> newProduct(SqlSession session);
 	public List<Map<String, String>> newFunding(SqlSession session);
 	public List<Map<String, String>> newAuction(SqlSession session);
+
+	
+	public List<Map<String, String>> hotProduct(SqlSession session);
+	public List<Map<String, String>> hotFunding(SqlSession session);
+	public List<Map<String, String>> hotAuction(SqlSession session);
 	
 }

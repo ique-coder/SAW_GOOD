@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.saw.good.index.model.service.IndexService;
 
 @Controller
-public class IndexAjaxController {
+public class IndexController {
 	
 	@Autowired
 	private IndexService service;
@@ -25,13 +25,34 @@ public class IndexAjaxController {
 		List<Map<String, String>> newFunding = service.newFunding();
 		List<Map<String, String>> newAuction = service.newAuction();
 		
+		List<Map<String, String>> hotProduct = service.hotProduct();
+		List<Map<String, String>> hotFunding = service.hotFunding();
+		List<Map<String, String>> hotAuction = service.hotAuction();
+		
 		mv.addObject("np", newProduct);
-		mv.addObject("nF", newFunding);
-		mv.addObject("nA", newAuction);
+		mv.addObject("nf", newFunding);
+		mv.addObject("na", newAuction);
+		
+		mv.addObject("hp", hotProduct);
+		mv.addObject("hf", hotFunding);
+		mv.addObject("ha", hotAuction);
+		
 		mv.setViewName("jsonView");
 		
 		response.setCharacterEncoding("utf-8");
 		
+		return mv;
+	}
+	
+	@RequestMapping(value="/")
+	public ModelAndView home(ModelAndView mv) {
+		List<Map<String, String>> newProduct = service.newProduct();
+		List<Map<String, String>> newFunding = service.newFunding();
+		List<Map<String, String>> newAuction = service.newAuction();
+		mv.addObject("np", newProduct);
+		mv.addObject("nF", newFunding);
+		mv.addObject("nA", newAuction);
+		mv.setViewName("index");
 		return mv;
 	}
 
