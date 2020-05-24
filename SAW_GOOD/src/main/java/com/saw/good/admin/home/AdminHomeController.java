@@ -18,7 +18,7 @@ public class AdminHomeController {
 	@Autowired
 	private AdminHomeService service;
 	
-	@RequestMapping("/admin")
+	@RequestMapping("/admin/home")
 	public ModelAndView adminHome(ModelAndView mv,HttpSession session) {
 		
 		//가장많이 팔린 상품 top5
