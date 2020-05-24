@@ -215,14 +215,14 @@
        transform: rotate(90deg);
 	}
 	
-	#newCategory {
+	#newCategory, #hotCategory {
 		text-align: center;
 		margin-bottom: 50px;
 	}
 	
 	
 	#new {
-		margin-bottom: 70px;
+		margin-bottom: 10%;
 	}
 	
 	.categoryTag {
@@ -249,6 +249,13 @@
 		display: none;
 	}
 	#newAuction .object {
+		display: none;
+	}
+	
+	#hotFunding .object {
+		display: none;
+	}
+	#hotAuction .object {
 		display: none;
 	}
 }
@@ -378,6 +385,23 @@
 			</div>
 			<div id="hot">
 				<h2>HOT FURNITURE</h2>
+				<div id="hotCategory">
+					<p>
+						<span class="categoryTag hotProductTag">Product</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="categoryTag hotProductTag">Funding</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="categoryTag hotProductTag">Auction</span>
+					</p>
+				</div>
+				<div id="hotList">
+					<div id="hotProduct" class="row">
+					</div>
+					<div id="hotFunding" class="row">
+					</div>
+					<div id="hotAuction" class="row">
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -520,7 +544,7 @@
  				let price = parseInt(a['ACNOWPRICE']);
 
 				// 이미지
-				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/auction/' + a['MAINIMG']})
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/auction/' + a['ACREMAINIMG']})
 				// [브랜드] 상품 이름
 				let p1 = $("<p>").addClass('objectName').append(
 								$("<span>").html(a['ACTITLE'])
@@ -541,7 +565,70 @@
  			// hot
  			
  			// hot proudct
- 			
+			let hp = data.hp;
+	 			
+	 		hp.forEach(p => {
+	 			let price = parseInt(p['PRICE']);
+
+				// 이미지
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/newproduct/' + p['IMG']})
+				// [브랜드] 상품 이름
+				let p1 = $("<p>").addClass('objectName').append(
+								$("<span>").html(p['NAME'])
+							);
+				// 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+
+				$("#hotProduct").append(
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+				);
+				
+			 });
+	 		
+	 		
+	 		// hot funding
+			let hf = data.hf;
+	 			
+	 		hf.forEach(f => {
+	 			let price = parseInt(f['PRICE']);
+
+				// 이미지
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/images/funding/' + f['IMG']})
+				// [브랜드] 상품 이름
+				let p1 = $("<p>").addClass('objectName').append(
+								$("<span>").html(f['NAME'])
+							);
+				// 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+
+				$("#hotFunding").append(
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+				);
+				
+			 });
+	 		
+	 		// hot auction
+			let ha = data.ha;
+	 			
+	 		ha.forEach(a => {
+	 			let price = parseInt(a['PRICE']);
+
+				// 이미지
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/auction/' + a['IMG']})
+				// [브랜드] 상품 이름
+				let p1 = $("<p>").addClass('objectName').append(
+								$("<span>").html(a['NAME'])
+							);
+				// 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+
+				$("#hotAuction").append(
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+				);
+				
+			 });
+	 		
+	 		$("#hotCategory").find(".categoryTag:first-child").addClass("selectTag");
  			
  		}
  	})
@@ -567,6 +654,31 @@
  			$("#newProduct").find(".object").hide("slow");
  			$("#newFunding").find(".object").hide("slow");
  			$("#newAuction").find(".object").show("slow");
+ 			break;
+ 		}
+ 	})
+ 	
+ 	$(".hotProductTag").click(function() {
+ 		$("#hotCategory").find(".categoryTag").removeClass("selectTag");
+ 		$(this).addClass("selectTag");
+ 		
+ 		let tagName = $(this).html();
+ 		
+ 		switch(tagName) {
+ 		case "Product" :
+ 			$("#hotProduct").find(".object").show("slow");
+ 			$("#hotFunding").find(".object").hide("slow");
+ 			$("#hotAuction").find(".object").hide("slow");
+ 			break;
+ 		case "Funding" :
+ 			$("#hotProduct").find(".object").hide("slow");
+ 			$("#hotFunding").find(".object").show("slow");
+ 			$("#hotAuction").find(".object").hide("slow");
+ 			break;
+ 		case "Auction" :
+ 			$("#hotProduct").find(".object").hide("slow");
+ 			$("#hotFunding").find(".object").hide("slow");
+ 			$("#hotAuction").find(".object").show("slow");
  			break;
  		}
  	})
