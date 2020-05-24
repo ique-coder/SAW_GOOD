@@ -338,12 +338,12 @@
 		                                    <fmt:formatDate value="${r.writeDate }" pattern="yyyy.MM.dd"/>
 		                                </div>
 		                            </li>
-		                            <c:if test="${loginMember.userId eq r.userId }">
+		                            <%-- <c:if test="${loginMember.userId eq r.userId }">
 			                            <li>
 			                            	<button class="review-modify" onclick="reviewModify(${r.reviewNo},'${r.userId }');">수정</button>
 			                    			<button class="review-delete" onclick="reviewDelete(${r.reviewNo},'${r.userId }');">삭제</button>
 			                            </li>
-		                            </c:if>
+		                            </c:if> --%>
 		                        </ul>
 		                    </div>           
 		                    <c:forEach begin="1" end="${r.star }" step="1">
