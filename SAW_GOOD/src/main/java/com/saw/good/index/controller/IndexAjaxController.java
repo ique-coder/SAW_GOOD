@@ -25,9 +25,18 @@ public class IndexAjaxController {
 		List<Map<String, String>> newFunding = service.newFunding();
 		List<Map<String, String>> newAuction = service.newAuction();
 		
+		List<Map<String, String>> hotProduct = service.hotProduct();
+		List<Map<String, String>> hotFunding = service.hotFunding();
+		List<Map<String, String>> hotAuction = service.hotAuction();
+		
 		mv.addObject("np", newProduct);
-		mv.addObject("nF", newFunding);
-		mv.addObject("nA", newAuction);
+		mv.addObject("nf", newFunding);
+		mv.addObject("na", newAuction);
+		
+		mv.addObject("hp", hotProduct);
+		mv.addObject("hf", hotFunding);
+		mv.addObject("ha", hotAuction);
+		
 		mv.setViewName("jsonView");
 		
 		response.setCharacterEncoding("utf-8");

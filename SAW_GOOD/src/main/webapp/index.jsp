@@ -84,6 +84,7 @@
 	/* oneStep */
 	#one {
 		margin-top: 15%;
+		cursor: pointer;
 	}
 	.oneTitle {
 		font-size: 50px;
@@ -132,19 +133,75 @@
 
 	/* three */
 	#three h2 {
-		margin: 0 auto;
+		/* margin: 0 auto; */
+		text-align: center;
 		letter-spacing: 5px;
 		font-size: 25px;
+		margin-bottom: 25px;
 	}
 	
 	.objectImg {
 		width: 100%;
 	}
 	
-	.objectName span:first-child {
-		color: #51735D;
-		margin-right: 10px;
+	.objectName {
+		margin-top: 10px;
+		text-align: center;
+		font-weight: bolder;
 	}
+	.objectPrice {
+		margin-top: 10px;
+		text-align: center;
+	}
+	
+	.rotate {
+
+       -webkit-transform: rotate(90deg);
+       -moz-transform: rotate(90deg);
+       -ms-transform: rotate(90deg);
+       -o-transform: rotate(90deg);
+       transform: rotate(90deg);
+	}
+	
+	#newCategory {
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	
+	
+	#new {
+		margin-bottom: 70px;
+	}
+	
+	.categoryTag {
+		color: gray;
+		padding-bottom: 5px;
+	}
+	.selectTag {
+		color: black;
+		border-bottom: solid 1px gray;
+	}
+	
+	.categoryTag:hover {
+		color: black;
+		border-bottom: solid 1px gray;
+		cursor: pointer;
+	}
+	
+/* 	#newCategory .categoryTag:first-child {
+		color: black;
+		border-bottom: solid 1px gray;
+	} */
+	
+	#newFunding .object {
+		display: none;
+	}
+	#newAuction .object {
+		display: none;
+	}
+}
+	
+	
 
 </style>
 
@@ -218,18 +275,31 @@
 			<img src="${path }/resources/images/main.png" width="100%">
 		</div>
 		
-		<!-- <div id="three" class="col-md-12">
+		<div id="three" class="col-md-12">
 			<div id="new">
 				<h2>NEW ARRIVAL</h2>
+				<div id="newCategory">
+					<p>
+						<span class="categoryTag newProductTag">Product</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="categoryTag newProductTag">Funding</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="categoryTag newProductTag">Auction</span>
+					</p>
+				</div>
 				<div id="newList">
 					<div id="newProduct" class="row">
+					</div>
+					<div id="newFunding" class="row">
+					</div>
+					<div id="newAuction" class="row">
 					</div>
 				</div>
 			</div>
 			<div id="hot">
 				<h2>HOT FURNITURE</h2>
 			</div>
-		</div> -->
+		</div>
 		
 	</div>
 </section>
@@ -292,34 +362,119 @@
  	
  	$("#one").click(function() {
  		$(".hideP").toggle("slow");
+ 		$(".oneTitle").addClass("rotate");
  	})
  	
- 	/* $.ajax({
+ 	$.ajax({
  		url: "${path}/index.do",
  		success: function(data) {
+ 			
+ 			// new
+ 			
+ 			// new product
  			let np = data.np;
+ 			
  			np.forEach(p => {
- 				
  				let price = parseInt(p['PRODUCTPRICE']);
 
 				// 이미지
 				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/newproduct/' + p['RENAMEDPRODUCTIMG']})
 				// [브랜드] 상품 이름
 				let p1 = $("<p>").addClass('objectName').append(
-							$("<span>").html('[' + p['BRAND'] + ']')).append(
 								$("<span>").html(p['PRODUCTNAME'])
 							);
 				// 가격
-				let p2 = $("<p>").addClass('objectPrice').html(price+'원'
-							
-						);
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
 
 				$("#newProduct").append(
-					$("<div>").addClass("object col-md-3").append(img).append(p1).append(p2)
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
 				);
+				
+				
 			 });
+ 			
+ 			
+ 			// new Funding
+			let nf = data.nf;
+ 			
+ 			nf.forEach(f => {
+ 				let price = parseInt(f['TARGETPRICE']);
+
+				// 이미지
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/images/funding/' + f['MAINIMG']})
+				// [브랜드] 상품 이름
+				let p1 = $("<p>").addClass('objectName').append(
+								$("<span>").html(f['TITLE'])
+							);
+				// 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+
+				$("#newFunding").append(
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+				);
+				
+			 });
+ 			
+ 			
+ 			
+ 			// new Auction
+			let na = data.na;
+ 			
+ 			na.forEach(a => {
+ 				let price = parseInt(a['ACNOWPRICE']);
+
+				// 이미지
+				let img = $("<img>").addClass('objectImg').attr({'src':'${path}/resources/upload/auction/' + a['MAINIMG']})
+				// [브랜드] 상품 이름
+				let p1 = $("<p>").addClass('objectName').append(
+								$("<span>").html(a['ACTITLE'])
+							);
+				// 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+
+				$("#newAuction").append(
+					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+				);
+				
+			 });
+ 			
+ 			$("#newCategory").find(".categoryTag:first-child").addClass("selectTag");
+ 			
+ 			
+ 			
+ 			// hot
+ 			
+ 			// hot proudct
+ 			
+ 			
  		}
- 	}) */
+ 	})
+ 	
+ 	$(".newProductTag").click(function() {
+ 		$("#newCategory").find(".categoryTag").removeClass("selectTag");
+ 		$(this).addClass("selectTag");
+ 		
+ 		let tagName = $(this).html();
+ 		
+ 		switch(tagName) {
+ 		case "Product" :
+ 			$("#newProduct").find(".object").show("slow");
+ 			$("#newFunding").find(".object").hide("slow");
+ 			$("#newAuction").find(".object").hide("slow");
+ 			break;
+ 		case "Funding" :
+ 			$("#newProduct").find(".object").hide("slow");
+ 			$("#newFunding").find(".object").show("slow");
+ 			$("#newAuction").find(".object").hide("slow");
+ 			break;
+ 		case "Auction" :
+ 			$("#newProduct").find(".object").hide("slow");
+ 			$("#newFunding").find(".object").hide("slow");
+ 			$("#newAuction").find(".object").show("slow");
+ 			break;
+ 		}
+ 	})
+ 	
     
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 

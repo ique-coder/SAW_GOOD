@@ -34,5 +34,21 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	
+	@Override
+	public List<Map<String, String>> hotProduct() {
+		return dao.hotProduct(session);
+	}
+
+	@Override
+	public List<Map<String, String>> hotFunding() {
+		return dao.hotFunding(session);
+	}
+
+	@Override
+	public List<Map<String, String>> hotAuction() {
+		return dao.hotAuction(session);
+	}
+	
+	
 	
 }
