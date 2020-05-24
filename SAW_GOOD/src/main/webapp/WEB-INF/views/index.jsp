@@ -19,6 +19,58 @@
 	body {
 		background-color: rgb(255, 252, 245, 0.3);
 	}
+	
+	/* 펀딩 상품 css */
+	#category-nav{
+		padding: 0 50px;
+		margin: 10% 0 15% 0;
+	}
+	#category-nav>.row{
+		height:400px;
+	}
+	#category-nav img{
+		height:400px;
+		object-fit:cover;
+	}
+	.text-container{
+		text-align:center;
+		position:relative;
+		padding-top:80px;
+		
+	}
+	.text-container p{
+		text-transform: uppercase;
+	    letter-spacing: 0.115em;
+	    font-size: 0.9375rem;
+	    margin-bottom: 20px;
+	}
+	.text-container a{
+		font-size: 3.4375rem;
+		letter-spacing: 0em;
+		
+	}
+	.text-container h2{
+		margin: 30px 0;
+		line-height: 1.7;
+		font-weight: 400;
+	}
+	.text-container button{
+		text-decoration: none;
+	    padding: 15px 70px;
+	    border: 1px solid #808080;
+	    display: inline-block;
+	    text-transform: uppercase;
+	    letter-spacing: 0.115em;
+	    font-family: "Tw Cen W01 Light", sans-serif;
+	    font-size: 14px;
+	    font-size: 0.875rem;
+	    transition: color ease 350ms, background ease 350ms;
+	}
+	.text-container button:hover{
+		color: white;
+		background: black;
+	}
+	/* 펀딩 끝 */
 
     /* 타이핑 텍스트 */
     .typing-txt {
@@ -275,6 +327,34 @@
 			<img src="${path }/resources/images/main.png" width="100%">
 		</div>
 		
+	</div>
+</section>
+
+
+<section class="container-fluid" id="category-nav"> 
+        
+    <c:forEach items="${nF}" var ="f" varStatus="status">
+        
+        <div class="row funding-item" id="f-item${status.index }">
+            <img src="${path }/resources/images/funding/${f['MAINIMG']}" class ="col-md-6"/> 
+            <div class="col-md-6 text-container">
+            	<p>
+            		${f['CATEGORY'] }
+            	</p>
+                <a href="${path }/funding/detail?fdNo=${f.FDNO}">
+                	${f['TITLE'] }
+                </a>
+                <h2>
+                	${f['SUBCONTENT'] }
+                </h2>
+                <button type="button" onclick="location.href='${path }/funding/detail?fdNo=${f['FDNO']}'">SHOP NOW</button>
+            </div>
+        </div>
+	</c:forEach>
+</section>
+
+<section>
+	<div class="container">
 		<div id="three" class="col-md-12">
 			<div id="new">
 				<h2>NEW ARRIVAL</h2>
@@ -304,7 +384,23 @@
 	</div>
 </section>
 
+
+
 <script>
+	var item= 1;
+
+	$(function(){
+		$(".funding-item").hide();
+		$("#f-item"+0).show();
+		 showHide = setInterval(function() {
+			$(".funding-item").hide();
+			$("#f-item"+item).fadeIn(1000);
+				item++;
+				if(item == 3) item =0;
+		}, 5000);
+		 
+		 
+	})
 
 
  	function typingRepeat() {
@@ -477,4 +573,6 @@
  	
     
 </script>
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
