@@ -14,8 +14,9 @@
 	padding-bottom: 30px;
 	margin: 0;
 }
-hr{
-	margin-bottom:45px;
+
+hr {
+	margin-bottom: 45px;
 }
 
 /* 펀딩동의 테이블 */
@@ -43,7 +44,7 @@ table.fundingAg {
 
 /* 버튼 */
 .btn-black {
-	width:70px;
+	width: 70px;
 	padding: 0 20px;
 	line-height: 30px;
 	font-size: 15px;
@@ -302,9 +303,9 @@ label {
 }
 
 /* 상품이미지 */
-.productimg{
-	width:100px;
-	height:100px;
+.productimg {
+	width: 100px;
+	height: 100px;
 }
 /* 페이지바 */
 #pageBar {
@@ -334,8 +335,9 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
+
 .btn-white {
-	width:80px;
+	width: 80px;
 	line-height: 30px;
 	font-size: 15px;
 	color: skyblue;
@@ -344,12 +346,12 @@ label {
 	border: 1px solid skyblue;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	border-top-left-radius: 5px; 
+	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
-
 }
+
 .btn-white:hover {
-	width:80px;
+	width: 80px;
 	line-height: 30px;
 	font-size: 15px;
 	color: white;
@@ -358,11 +360,12 @@ label {
 	border: 1px solid skyblue;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	border-top-left-radius: 5px; 
+	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
-.upbtn{
-	margin-bottom:10px;
+
+.upbtn {
+	margin-bottom: 10px;
 }
 </style>
 
@@ -370,10 +373,11 @@ label {
 <div id="content" class="p-4 p-md-5 pt-5">
 	<h2 id="titeltwo">Product Manager</h2>
 	<hr>
-	
+
 	<div class="container-fluid newPro" style="margin-bottom: 30px;">
 		<div class="col-md">
-			<form id="searchFrm" action="${path }/admin/searchProduct" method="get">
+			<form id="searchFrm" action="${path }/admin/searchProduct"
+				method="get">
 				<table id="search">
 					<colgroup>
 						<col width="20%">
@@ -382,18 +386,20 @@ label {
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td ><input type="text" name="productname"></td>
+						<td><input type="text" name="productname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>
-						<td class="checking" ><input type="checkbox" name="brand"
+						<td class="checking"><input type="checkbox" name="brand"
 							value="에이스" id="br1"><label for="br1">에이스</label> <input
-							type="checkbox" name="brand" value="알레르망" id="br2"><label
-							for="br2">알레르망</label> <input type="checkbox" name="brand"
-							value="쇼팽" id="br3"><label for="br3">쇼팽</label> <input
-							type="checkbox" name="brand" value="모차르트" id="br4"><label
-							for="br4">모차르트</label> <input type="checkbox" name="brand"
-							value="베토벤" id="br5"><label for="br5">베토벤</label></td>
+							type="checkbox" name="brand" value="이케아" id="br5"><label
+							for="br5">이케아</label> <input type="checkbox" name="brand"
+							value="알레르망" id="br2"><label for="br2">알레르망</label> <input
+							type="checkbox" name="brand" value="한샘" id="br3"><label
+							for="br3">한샘</label> <input type="checkbox" name="brand"
+							value="이케아" id="br4"><label for="br4">이케아</label> <input
+							type="checkbox" name="brand" value="마틸라" id="br5"><label
+							for="br5">마틸라</label></td>
 					</tr>
 					<tr>
 						<th>가구종류</th>
@@ -402,37 +408,34 @@ label {
 							for="ca1">bed</label> <input type="checkbox" name="category"
 							value="sofa" id="ca2"><label for="ca2">sofa</label> <input
 							type="checkbox" name="category" value="chair" id="ca3"><label
-							for="ca3">chair</label> <input type="checkbox" name="category" value="light"
-							id="ca4"><label for="ca4">light</label> <input
+							for="ca3">chair</label> <input type="checkbox" name="category"
+							value="light" id="ca4"><label for="ca4">light</label> <input
 							type="checkbox" name="category" value="table" id="ca5"><label
-							for="ca5">table</label>
-							<input
-							type="checkbox" name="category" value="desk" id="ca6"><label
-							for="ca6">desk</label><input
+							for="ca5">table</label> <input type="checkbox" name="category"
+							value="desk" id="ca6"><label for="ca6">desk</label><input
 							type="checkbox" name="category" value="carpet" id="ca7"><label
-							for="ca7">carpet</label><input
-							type="checkbox" name="category" value="lug" id="ca8"><label
-							for="ca8">lug</label> <input
+							for="ca7">carpet</label><input type="checkbox" name="category"
+							value="lug" id="ca8"><label for="ca8">lug</label> <input
 							type="checkbox" name="category" value="storage" id="ca9"><label
-							for="ca9">storage</label> <input
-							type="checkbox" name="category" value="others" id="ca10"><label
-							for="ca10">others</label> 
-							</td>
-							</tr>
+							for="ca9">storage</label> <input type="checkbox" name="category"
+							value="others" id="ca10"><label for="ca10">others</label>
+						</td>
+					</tr>
 					<tr>
 						<th>가격</th>
 						<td class="checking" style="position: relative;"><input
 							type="radio" name="productprice" value="100000" id="pri1"><label
-							for="pri1">~100,000원</label> <input type="radio" name="productprice"
-							value="200000" id="pri2"><label for="pri2">100,000원~200,000원</label>
-							<input type="radio" name="productprice" value="300000" id="pri3"><label
+							for="pri1">~100,000원</label> <input type="radio"
+							name="productprice" value="200000" id="pri2"><label
+							for="pri2">100,000원~200,000원</label> <input type="radio"
+							name="productprice" value="300000" id="pri3"><label
 							for="pri3">200,000~300,000원</label> <input type="radio"
-							name="productprice" value="400000" id="pri4"><label for="pri4">300,000원~400,000원</label>
-						</td>
+							name="productprice" value="400000" id="pri4"><label
+							for="pri4">300,000원~400,000원</label></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" style="text-align:right; border: none;">
+						<td colspan="2" style="text-align: right; border: none;">
 							<button type="submit" class="btn-white">검색</button>
 						</td>
 					</tr>
@@ -445,20 +448,20 @@ label {
 			<form
 				action='${path }/admin/${productname!=null?"searchProduct":"productManager"}'
 				method="post" id="frmNum">
-				<input type="hidden" name="cPage" value="${cPage }" />
-				<input type="hidden" name="produtname" value="${produtname }" /> 
-				<input type="hidden" name="productprice" value="${productprice }" />
+				<input type="hidden" name="cPage" value="${cPage }" /> <input
+					type="hidden" name="produtname" value="${produtname }" /> <input
+					type="hidden" name="productprice" value="${productprice }" />
 				<c:if test="${brand !=null }">
 					<c:forEach items="${brand }" var="b">
-						<input type="hidden" name="brand" value="${b }"/>
+						<input type="hidden" name="brand" value="${b }" />
 					</c:forEach>
-				</c:if>	
+				</c:if>
 				<c:if test="${category !=null }">
 					<c:forEach items="${category }" var="c">
-						<input type="hidden" name="category" value="${c }"/>
+						<input type="hidden" name="category" value="${c }" />
 					</c:forEach>
-				</c:if>	
-					<select name="numPerPage" style="font-size: 16px;" id="numPer">
+				</c:if>
+				<select name="numPerPage" style="font-size: 16px;" id="numPer">
 					<option value="10" ${numPerPage!=10?"":"selected" }>10개씩보기</option>
 					<option value="20" ${numPerPage!=20?"":"selected" }>20개씩보기</option>
 					<option value="30" ${numPerPage!=30?"":"selected" }>30개씩보기</option>
@@ -485,8 +488,8 @@ label {
 					</colgroup>
 
 					<tr>
-						<th scope="col"><input type="checkbox"
-							id="allck"><label for="allck"></label></th>
+						<th scope="col"><input type="checkbox" id="allck"><label
+							for="allck"></label></th>
 						<th scope="col">번호</th>
 						<th scope="col"></th>
 						<th scope="col">상품정보</th>
@@ -496,31 +499,33 @@ label {
 						<th scope="col">관리</th>
 					</tr>
 					<c:forEach items="${list }" var="p" varStatus="vs">
-					<tr>
-						<td><input type="checkbox" name="procheck" class="procheck" value="${p['PRODUCTNO']}"  id="pro${vs.count }"><label
-							for="pro${vs.count }"></label></td>
-						<td>${p['PRODUCTNO'] }</td>
-						<td>
-							<img class="img-responsive productimg"
-							src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG'] }"/>
-						</td>
-						<td>
-							<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
-						</td>
-						<td><fmt:formatNumber value="${p['PRODUCTPRICE'] }"/>원</td>
-						<td>${p['CATEGORY'] }</td>
-						<td>${p['BRAND'] }</td>
-						<td>
-							<button class="btn-white deletePro" type="button" value="${p['PRODUCTNO']}">삭제</button>
-							<button class="btn-white updatePro" type="button" value="${p['PRODUCTNO']}">수정</button>
-						</td>
-					</tr>
+						<tr>
+							<td><input type="checkbox" name="procheck" class="procheck"
+								value="${p['PRODUCTNO']}" id="pro${vs.count }"><label
+								for="pro${vs.count }"></label></td>
+							<td>${p['PRODUCTNO'] }</td>
+							<td><img class="img-responsive productimg"
+								src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG'] }" />
+							</td>
+							<td><a
+								href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
+							</td>
+							<td><fmt:formatNumber value="${p['PRODUCTPRICE'] }" />원</td>
+							<td>${p['CATEGORY'] }</td>
+							<td>${p['BRAND'] }</td>
+							<td>
+								<button class="btn-white deletePro" type="button"
+									value="${p['PRODUCTNO']}">삭제</button>
+								<button class="btn-white updatePro" type="button"
+									value="${p['PRODUCTNO']}">수정</button>
+							</td>
+						</tr>
 					</c:forEach>
 				</table>
 			</form>
 			${pageBar }
 		</div>
-</div>
+	</div>
 </div>
 </body>
 <script>
@@ -546,27 +551,27 @@ label {
 		})
 	})
 	//수정페이지 이동
-	$(".updatePro").click(function(){
-		var value=$(this).val();
-		location.replace("${path}/admin/productUpdate?productno="+value);
+	$(".updatePro").click(function() {
+		var value = $(this).val();
+		location.replace("${path}/admin/productUpdate?productno=" + value);
 	})
-	
+
 	//삭제페이지 이동
-	$(".deletePro").click(function(){
-		var value=$(this).val();
-		location.replace("${path}/admin/productDelete?productno="+value);
+	$(".deletePro").click(function() {
+		var value = $(this).val();
+		location.replace("${path}/admin/productDelete?productno=" + value);
 	})
 	//선택삭제
-	$(".checkDelete").click(function(){
-		if($(".procheck:checked").length>0){
-			$("#proFrm").attr("action","${path}/admin/checkDelete");
-			$("#proFrm").submit(); 
-		}else{
+	$(".checkDelete").click(function() {
+		if ($(".procheck:checked").length > 0) {
+			$("#proFrm").attr("action", "${path}/admin/checkDelete");
+			$("#proFrm").submit();
+		} else {
 			alert("삭제 할 항목을 선택해주세요!");
 		}
 	})
-	$(".addtotal").click(function(){
-		$(".spanview").css("display","inline-block");
+	$(".addtotal").click(function() {
+		$(".spanview").css("display", "inline-block");
 	})
 	//넘버페이지 변경
 	$("#numPer").change(function() {

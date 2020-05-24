@@ -17,15 +17,30 @@
 	
 	
 	<select id="hotProduct" resultType="map">
-		select rownum r, a.* from (select * from newproduct order by productno desc) a where rownum between 1 and 5
+		select rownum, a.* from (
+		select productno no, img, name, productprice price ,count(*) as c from(
+		select ph.userid, p.productname as name, p.brand, p.renamedproductimg as img, pm.buydate, 
+		ph.productnum, ph.protoptalprice, ph.productno, p.productprice
+		from paymenthistory ph
+		join payment pm on (ph.orderno = pm.orderno)
+		join newproduct p on (p.productno = ph.productno)) real
+		group by productno, img, name, productprice order by c desc
+		) a where rownum between 1 and 5
 	</select>
 	
 	<select id="hotFunding" resultType="map">
-		select rownum r, a.* from (select * from funding order by fdno desc) a where rownum between 1 and 5
+		select rownum, a.* from (select fm.fdno no, f.mainimg img, f.title name, f.targetprice price, count(*) as c 
+		from fdmember fm join funding f on (fm.fdno = f.fdno) 
+		group by fm.fdno, f.mainimg, f.title, f.targetprice order by c desc) a
+		where rownum between 1 and 5
 	</select>
 	
 	<select id="hotAuction" resultType="map">
-		select rownum r, a.* from (select * from auction order by acboardno desc) a where rownum between 1 and 5
+		select rownum, al.* from(
+		select am.acboardno no, a.actitle name, a.acnowprice price, a.acremainimg img, count(*) as c from auctionmember am
+		join auction a on (am.acboardno = a.acboardno)
+		group by am.acboardno, a.actitle, a.acnowprice, a.acremainimg
+		order by c desc) al where rownum between 1 and 5
 	</select>
 
 </mapper>
