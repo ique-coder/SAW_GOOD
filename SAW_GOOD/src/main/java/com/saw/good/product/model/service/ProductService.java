@@ -3,6 +3,7 @@ package com.saw.good.product.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
 import com.saw.good.product.model.vo.ProductReview;
@@ -33,4 +34,5 @@ public interface ProductService {
 	void updateReadCount(int no);
 	String historyCheck(Map map);
 	ProductReview selectReviewOne(Map map);
+	List<DetailImg> selectDetailImg(int no);
 }
