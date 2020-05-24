@@ -367,7 +367,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="userid"> <input type="text"
-									name="keyword" placeholder="아이디를 입력해주세요" style="width: 80%">
+									name="keyword" placeholder="아이디를 입력해주세요" style="width: 75%">
 								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
@@ -376,7 +376,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="username"> <input type="text"
-									name="keyword" placeholder="이름을 입력해주세요" style="width: 80%">
+									name="keyword" placeholder="이름을 입력해주세요" style="width: 75%">
 								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
@@ -385,7 +385,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="email"> <input type="text"
-									name="keyword" placeholder="이메일을 입력해주세요" style="width: 80%">
+									name="keyword" placeholder="이메일을 입력해주세요" style="width: 75%">
 								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
@@ -394,7 +394,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${numPerPage }" /> <input type="hidden"
 									name="searchType" value="phone"> <input type="text"
-									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 80%">
+									name="keyword" placeholder="전화번호를 입력해주세요" style="width: 75%">
 								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
@@ -403,7 +403,7 @@ label {
 								<input type="hidden" name="numPerPage"
 									value="${param.numPerPage }" /> <input type="hidden"
 									name="searchType" value="address1"> <input type="text"
-									name="keyword" placeholder="주소를 입력해주세요" style="width: 80%">
+									name="keyword" placeholder="주소를 입력해주세요" style="width: 75%">
 								<button type="submit" class="btn-white">검색</button>
 							</form>
 						</div>
