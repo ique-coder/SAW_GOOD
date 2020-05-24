@@ -488,7 +488,7 @@ input[type="number"]::-webkit-inner-spin-button {
                     <li>주문결제</li>
                     <li>주문완료</li>
                 </ul>
-                <form action="${path }/payment/paymentView" id="cartFrm">
+                <form action="#" id="cartFrm">
                 <div class="row">
                     <div class="col-md-9">
                         <div  style="padding:0 0 0 30px">
@@ -546,9 +546,10 @@ input[type="number"]::-webkit-inner-spin-button {
                             </c:choose>
                         </table>
                         <div style="padding-bottom:20px;">
-                            <button type="button" class="btn-black" onclick="cartSubmit();">선택상품 삭제</button>
-                        </div>
+                            <button type="button" class="btn-black" id="checkPro">선택상품 삭제</button>
+                        </div>  
                     </div>
+                    
                		</div>
                     <div class="col-md-3 payment">
                         <div class="bx_total">
@@ -769,9 +770,16 @@ input[type="number"]::-webkit-inner-spin-button {
 	    		setTimeout(function(){
 	        			click=false;
 	        		},2000)
+	        	$("#cartFrm").attr("action","${path }/payment/paymentView");
 	        	$("#cartFrm").submit();
    			}
    		}
+   		
+   		//선택삭제
+   		$("#checkPro").click(function(){
+	   		$("#cartFrm").attr("action","${path }/payment/deleteCart");
+		    $("#cartFrm").submit();
+   		})
     		
    		
     </script>

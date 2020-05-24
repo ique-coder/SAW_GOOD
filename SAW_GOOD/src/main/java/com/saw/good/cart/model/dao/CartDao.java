@@ -13,4 +13,6 @@ public interface CartDao {
 	List<Map<String,String>> selectCart(SqlSession session,String userId);
 	Product selectProductView(SqlSession session, int no);
 	int insertCart(SqlSession session, Map map);
+	
+	int deleteCart(SqlSession session,Map<String,String> map);
 }
