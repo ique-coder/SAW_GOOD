@@ -349,7 +349,7 @@ jindo.FileUploader = jindo.$Class({
         return new Date().getMilliseconds() + Math.floor(Math.random() * 100000);
     },
     _createElement: function (name, attributes) {
-        var el = jindo.$("<' + name + '>");
+        var el = jindo.$("<" + name + ">");
         var wel = jindo.$Element(el);
         for (var k in attributes) {
             wel.attr(k, attributes[k]);
