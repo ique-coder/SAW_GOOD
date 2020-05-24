@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adproduct">
 	<select id="selectProduct" resultType="map">
-		SELECT * FROM NEWPRODUCT WHERE STATUS='N'
+		SELECT * FROM NEWPRODUCT WHERE STATUS='N' ORDER BY PRODUCTNO DESC
 	</select>
 	
 	<select id="countProduct" resultType="_int">
@@ -31,7 +31,7 @@
 	</update>
 	
 	<select id="searchProduct" parameterType="adproduct" resultType="map">
-		SELECT * FROM NEWPRODUCT WHERE 1=1
+		SELECT * FROM NEWPRODUCT WHERE 1=1 AND STATUS='N'
 		<if test="productname!=null and productname !=''">
 			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
 		</if>
@@ -61,9 +61,10 @@
 		<if test="productprice != null and productprice == 400000">
 			AND PRODUCTPRICE BETWEEN 300000 AND 400000
 		</if>
+		ORDER BY PRODUCTNO DESC
 	</select>
 	<select id="countSearchProduct" parameterType="adproduct" resultType="_int">
-		SELECT count(*) FROM NEWPRODUCT WHERE 1=1
+		SELECT count(*) FROM NEWPRODUCT WHERE 1=1 AND STATUS='N'
 		<if test="productname!=null and productname !=''">
 			AND PRODUCTNAME LIKE '%'||#{productname}||'%'
 		</if>

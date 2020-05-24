@@ -100,6 +100,10 @@
 	<select id="selectReviewOne" parameterType="map" resultType="productReview">
 		SELECT CONTENT,STAR,REVIEWIMG,RENAMEIMG FROM NEWPRODUCTREVIEW WHERE REVIEWNO=#{no} AND USERID=#{userId}
 	</select>
+	
+	<select id="selectDetailImg" parameterType="_int" resultType="detailImg">
+		SELECT * FROM DETAILIMG WHERE PRODUCTNO=#{no}
+	</select>
 </mapper>
 
 

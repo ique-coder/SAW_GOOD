@@ -141,7 +141,7 @@
 	            <p class="welcom-msg">쏘:굿 POINT : ${loginMember.point } P</p>
 	            <span class="login_Xbutton" onclick="closeLogin();">x</span>
 	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
-	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart'">Cart</button>            
+	            <button type="button" id="buttonCart" onclick="location.href='${path }/cart/cart'">Cart</button>            
 	            <button type="button" id="buttonHistory" onclick="">History</button>
 	            <c:if test="${loginMember.status==1 }" >
 	            	<button type="button" id="deleteAccount" onclick="">Delete My Account</button>

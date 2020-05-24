@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saw.good.product.model.dao.ProductDao;
+import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
 import com.saw.good.product.model.vo.ProductReview;
@@ -140,6 +141,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductReview selectReviewOne(Map map) {
 		return dao.selectReviewOne(session, map);
+	}
+
+	@Override
+	public List<DetailImg> selectDetailImg(int no) {
+		return dao.selectDetailImg(session,no);
 	}
 	
 }
