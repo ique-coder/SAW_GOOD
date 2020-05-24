@@ -126,8 +126,8 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <div class="test">
-                    1
+                <div style="text-align:center;">
+                    ${product.productContent }
                 </div>
             </div>
             <div id="information">
@@ -139,8 +139,8 @@
                         <li><a href="#qna">Q&A</a></li>
                     </ul>
                 </div>
-                <div class="test">
-                    2
+                <div style="text-align:center; zoom:1.5;">
+                    <img src="${path }/resources/images/information.PNG"/>
                 </div>
             </div>
             <div id="review">
