@@ -18,5 +18,6 @@
 		<typeAlias type="com.saw.good.cart.model.vo.Cart" alias="cart"/>
 		<typeAlias type="com.saw.good.payment.model.vo.Payment" alias="payment"/>
 		<typeAlias type="com.saw.good.payment.model.vo.PaymentHistory" alias="payhis"/>
+		<typeAlias type="com.saw.good.auction.model.vo.AuctionServeImg" alias="auctionSI"/>
 	</typeAliases>
 </configuration>

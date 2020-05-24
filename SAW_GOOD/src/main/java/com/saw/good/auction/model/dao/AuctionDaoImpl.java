@@ -11,6 +11,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 
 @Repository
 public class AuctionDaoImpl implements AuctionDao {
@@ -60,6 +61,12 @@ public class AuctionDaoImpl implements AuctionDao {
 		return session.selectOne("auction.selectDtAuction",acBoardNo);
 	}
 	
+	@Override
+	public List<AuctionServeImg> selectServeImg(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectServeImg",a);
+	}
+
 	@Override
 	public int countBid(SqlSession session, Auction a) {
 		// TODO Auto-generated method stub
@@ -134,12 +141,18 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.update("auction.updateAcFnStatus",a);
 	}
-	
-	
-	
-
-	
-
+	//나의 경매내역 확인
+	@Override
+	public List<Auction> selectMyAcList(SqlSession session, Member m) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectMyAcList",m);
+	}
+	//경매 삭제하기
+	@Override
+	public int deleteAuction(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.deleteAuction",a);
+	}
 	
 	
 

@@ -12,14 +12,19 @@
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date() %>" var="now"/>    
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
-
+<style>
+.clock{
+	 width:11px;
+	 height:11px;
+}
+</style>
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/sample1.jpg">
 		<h3>CREATE YOUR ROOM</h3>
 	</div>
 	<div id="search-area" class="container">
-		<form action="" method="post">
+		<!-- <form action="" method="post">
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
@@ -51,7 +56,7 @@
 				<option value="2">낮은 금액</option>
 			</select>
 			<button type="submit">검색하기</button>
-		</form>
+		</form> -->
 	</div>
 	<div class="container padding">
 		<div class="row">
@@ -82,9 +87,7 @@
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
 					</span>
-					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
-					</span>
+					
 				</c:if>
 				
 				
@@ -108,17 +111,18 @@
 								<svg width="80%" height="3px" xmlns="http://w3.org/2000/svg" version="1.1" class="bar-container">
                                      <rect x="0" y="0" width="${highList[0].sum/highList[0].targetPrice *100}%" height="3px" class="bar" />
                                 </svg>
-								<div style="margin: 0 10%; height: 20px;">
-									<i><img></i> 
-									<span>
+								<div style="margin: 0 10%; height: 20px;" class="">
+									<i><img src="${path }/resources/images/common/clock.png" class="clock"></i> 
+									<span class="spanStyle">
 										<b>
 											<fmt:parseNumber value="${highList[0].endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 											${endDate-today}
 
 										</b>일 남음
-									</span> 
-									<span><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
-									<span><b>
+									</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="spanStyle"><b><fmt:formatNumber value="${highList[0].sum }"/></b>원</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="spanStyle"><b>
 											<fmt:formatNumber value="${highList[0].sum/highList[0].targetPrice *100}" />
 										  </b>%</span>
 								</div>
@@ -144,6 +148,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -186,6 +191,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -217,23 +223,23 @@
 
 <section class="container-fluid" id="category-nav"> 
         <div class="row" >
-            <img src="${path }/resources/images/funding/sofa.jpg" class ="col-md-6"/>
+            <img src="${path }/resources/images/funding/${list[1].mainImg}" class ="col-md-6"/>
             <div class="col-md-6 text-container">
             	<p>
-            		ISSUE THIRTY-FIVE
+            		${list[1].category }
             	</p>
-                <a href="#">
-                	Change Issue
+                <a href="${path }/funding/detail?fdNo=${list[1].fdNo}">
+                	${list[1].title }
                 </a>
                 <h2>
-                	Small steps, big dreams: Learn to leap into your own unknown
+                	${list[1].subContent }
                 </h2>
-                <button type="button">SHOP NOW</button>
+                <button type="button" onclick="location.href='${path }/funding/detail?fdNo=${list[1].fdNo}'">SHOP NOW</button>
             </div>
         </div>
 
 </section>
-<section class="container">
+<section class="container" id="item-container">
 	<c:forEach items="${list }" varStatus="status" step="4">
 	
 		<div class="row">
@@ -256,6 +262,7 @@
 										<tr>
 											<th>${item.designer}</th>
 											<td>
+												<img src="${path }/resources/images/common/clock.png" class="clock">
 												<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 												${endDate-today}
 												일 남음
@@ -291,5 +298,98 @@
 
 
 <script src="${path }/resources/js/funding/list.js"></script>
+<script>
+
+var cPage = 2;
+
+	function requestData(){
+		
+		$.ajax({
+			url:"${path}/funding/list.ajaxPaging",
+			data:{cPage:cPage},
+			async:false,
+			success:function(data){
+				paging(data);
+				cPage++;
+			}
+		})
+	}
+
+	function paging(data){
+		var con = $("#item-container");
+		
+		var length = data.list.length%4 ==0? 4 : data.list.length%4;
+		//console.log("된다");
+		//console.log(data.list.length);
+		if(data.list.length>0){
+			for(let i = 0;i<data.list.length;i=i+4){
+				const row = $("<div>").addClass("row");
+				
+				for(let j = 0; j<length; j++){
+					const div = $("<div>").addClass("col-md-3");
+					
+					//받아온 날짜 포멧
+					var today = new Date();
+					var endDate = new Date(data.list[i+j].endDate);
+					var result ="";
+					if(Math.floor((endDate-today)/(60*24*60*1000))>=0){
+						result = Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
+					}
+					//참여가격에 ,찍기
+					var money = addComma(data.list[i+j].sum);
+					
+//					const div2 = $("<div>").addClass("sub-item");
+//					div2.append($("<a>").attr("href","${path}/funding/detail?fdNo="+ data.list[i+j].fdNo));
+//					div2.append($("<img>").attr({src:"/resources/images/funding/"+data.list[i+j].mainImg,
+//												class:"images"}));
+//					
+					
+					
+//					var thead = $("<thead>").append($("<tr>").append($("<th>").attr("colspan","2").append($("<h1>").addClass("text-deco text-position").html(data.list[i+j].title))));
+//						
+//					var tr = $("<tr>").append($("<th>").html(data.list[i+j].designer)).append($("<td>").html(result));
+//					var tbody = $("<tbody>").append($("<td>").append($("<th>").attr("colspan","2").append($("<svg>").attr({
+//						width:"100%", height:"3px", xmlns:"http://w3.org/2000/svg",version:"1.1",class:"bar-container"
+//					}).append($("<rect>").attr({
+//						x:"0",y:"0",width:(data.list[i+j].sum)/(data.list[i+j].targetPrice)*100+"%",height:"3px",class:"bar"
+//					})))));
+//					var tfoot = $("<tfoot>").append($("<tr>").append($("<th>").html(money+"원")).append($("<td>").html(Math.floor((data.list[i+j].sum)/(data.list[i+j].targetPrice)*100)+"%")));
+//					
+//					div2.append($("<table>").append(thead).append(tr).append(tbody).append(tfoot));
+//					
+					
+					div.append('<div class="sub-item">'
+										+'<a href="${path }/funding/detail?fdNo='+ data.list[i+j].fdNo+ '">'
+										+'<img src="${path }/resources/images/funding/'+data.list[i+j].mainImg+'" class="images" />'
+										+'<table><thead><tr><th colspan="2">'
+															+'<h1 class="text-deco text-position">'
+																+data.list[i+j].title+'</h1>'
+														+'</th></tr></thead>'
+														+'<tr><th>'+data.list[i+j].designer+'</th>'
+														+'<td><img src="${path }/resources/images/common/clock.png" class="clock"> '
+														+result
+														+'</td></tr><tbody><tr>'
+														+'<th colspan="2">'
+														+'<svg width="100%" height="3px"xmlns="http://w3.org/2000/svg" version="1.1"class="bar-container">'
+						                                   +'<rect x="0" y="0" width="'+ (data.list[i+j].sum)/(data.list[i+j].targetPrice)*100+'%" height="3px" class="bar" /></svg></th>'
+						                        +'</tr></tbody><tfoot>'
+												+'<tr><th>'+ money+'원</th>'
+													+'<td>'+Math.floor((data.list[i+j].sum)/(data.list[i+j].targetPrice)*100)+'%</td>'
+											+'</tr></tfoot></table></a></div>');
+					
+					//row.append(div.append(div2));
+					row.append(div);
+					
+				}
+				con.append(row);
+				
+			} 
+		}else{
+			flag = false;
+		}
+	}
+</script>
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

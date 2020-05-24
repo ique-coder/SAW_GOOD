@@ -78,17 +78,17 @@
 
 		.auction_tit {
 			display: inline-block;
-			width: 150px;
+			width: 250px;
 			font-size: 20px;
-			margin-bottom:20px;
+			margin-bottom:17px;
 		}
 
 		.auction_con {
 			display: inline-block;
-			width: 282px;
+			width: 300px;
 			color: black;
 			font-size: 25px;
-			margin-bottom:20px;
+			margin-bottom:17px;
 		}
 
 		#button {
@@ -97,17 +97,34 @@
 			border-top:1px solid #eee;
 			padding-top:20px;
 		}
+/* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
-		.btn-agree {
-			padding: 0 30px;
-			line-height: 42px;
-			font-size: 15px;
-			color: #fff;
-			text-align: center;
-			background-color: #303030;
-			border: 1px solid #303030;
-
-		}
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
 </style>
 
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -132,14 +149,14 @@
 					<div class="col-xl-6" style="padding:5px 0 0 20px;">
 						<div id="auction-info">
 							<div class="character">
-								<b>펀딩특징</b>
+								<b>옥션특징</b>
 								<p>이 펀딩은 쏘굿에서만 특별진행하는 펀딩입니다.</p>
 							</div>
 							<h4 style="font-size: 23px;">
 								auction Info
 								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">경매정보</span>
 							</h4>
-							<ul id="auction-all" style="padding:20px 0 0 0; height:450px;">
+							<ul id="auction-all" style="padding:15px 0 0 0; height:450px;">
 								<li>
 									<p class="auction_tit"><span> - </span> 작성자 </p>
 									<p class="auction_con">
@@ -153,15 +170,9 @@
 									</p>
 								</li>
 								<li>
-									<p class="auction_tit"><span> - </span> 브랜드 </p>
+									<p class="auction_tit"><span> - </span> 브랜드 <span>/</span> 카테고리  </p>
 									<p class="auction_con">
-										<strong> ${auc['ACBRAND'] } </strong>
-									</p>
-								</li>
-								<li>
-									<p class="auction_tit"><span> - </span> 카테고리 </p>
-									<p class="auction_con">
-										<strong> ${auc['ACCATEGORY'] } </strong>
+										<strong> ${auc['ACBRAND'] } <span>/</span> ${auc['ACCATEGORY'] }  </strong>
 									</p>
 								</li>
 								<li>
@@ -199,8 +210,8 @@
 							</ul>
 								<div id="button">
 									<c:if test="${auc['ACSTATUS'] ==0 }">
-										<button type="button" class="btn-agree" id="fd-Ag" value="">승인</button>
-										<button type="button" class="btn-agree" id="fd-disAg" value="">거부</button>
+										<button type="button" class="btn-white" id="fd-Ag" value="">승인</button>
+										<button type="button" class="btn-white" id="fd-disAg" value="">거부</button>
 									</c:if>
 								</div>
 						</div>

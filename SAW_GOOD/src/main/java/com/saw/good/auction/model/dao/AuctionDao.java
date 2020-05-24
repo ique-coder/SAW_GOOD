@@ -9,6 +9,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 
 public interface AuctionDao {
 
@@ -22,6 +23,8 @@ public interface AuctionDao {
 	int countAcSearch(SqlSession session, Map<String,String> map);
 	
 	Auction selectDtAuction(SqlSession session,Auction acBoardNo);
+	
+	List<AuctionServeImg> selectServeImg(SqlSession session,Auction a);
 	
 	int countBid(SqlSession session,Auction a);
 	
@@ -47,6 +50,10 @@ public interface AuctionDao {
 	int updateSalePoint(SqlSession session,Auction a);
 	
 	int updateAcFnStatus(SqlSession session,Auction a);
+	
+	List<Auction> selectMyAcList(SqlSession session, Member m);
+	
+	int deleteAuction(SqlSession session,Auction a);
 	
 	
 }

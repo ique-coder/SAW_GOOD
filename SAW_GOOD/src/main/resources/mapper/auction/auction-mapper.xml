@@ -3,7 +3,7 @@
 <mapper namespace="auction">
 	
 	<select id="selectAllList" resultType="auction">
- 		SELECT * FROM AUCTION WHERE ACSTATUS=1
+ 		SELECT * FROM AUCTION WHERE ACSTATUS=1 ORDER BY ACBOARDNO DESC
  	</select>
  	<select id="countAuction" resultType="_int">
  		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1
@@ -47,6 +47,10 @@
  	
  	<select id="selectDtAuction" parameterType="auction" resultType="auction">
  		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo}
+ 	</select>
+ 	
+ 	<select id="selectServeImg" parameterType="auction" resultType="auctionSI">
+ 		SELECT * FROM AUCTIONSERVEIMG WHERE ACBOARDNO= #{acBoardNo}
  	</select>
  	
  	<select id="countBid" parameterType="auction" resultType="_int">
@@ -102,6 +106,14 @@
 	
 	<update id="updateAcFnStatus" parameterType="auction">
 		UPDATE AUCTION SET ACSTATUS = 3 WHERE ACBOARDNO = #{acBoardNo}
+	</update>
+	
+	<select id="selectMyAcList" parameterType="member" resultType="auction">
+		SELECT * FROM AUCTION WHERE USERID = #{userId} ORDER BY ACBOARDNO DESC
+	</select>
+	
+	<update id="deleteAuction" parameterType="auction">
+		UPDATE AUCTION SET ACSTATUS = 5 WHERE ACBOARDNO = #{acBoardNo}
 	</update>
  	
 </mapper>

@@ -43,6 +43,7 @@ table.fundingAg {
 
 /* 버튼 */
 .btn-black {
+	width:70px;
 	padding: 0 20px;
 	line-height: 30px;
 	font-size: 15px;
@@ -333,6 +334,36 @@ label {
 	border: 1px solid #191919;
 	color: #191919;
 }
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.upbtn{
+	margin-bottom:10px;
+}
 </style>
 
 <!-- Page Content  -->
@@ -351,11 +382,11 @@ label {
 					</colgroup>
 					<tr>
 						<th>가구이름</th>
-						<td colspan="2"><input type="text" name="productname"></td>
+						<td ><input type="text" name="productname"></td>
 					</tr>
 					<tr>
 						<th>브랜드</th>
-						<td class="checking" style="border-right:white"><input type="checkbox" name="brand"
+						<td class="checking" ><input type="checkbox" name="brand"
 							value="에이스" id="br1"><label for="br1">에이스</label> <input
 							type="checkbox" name="brand" value="알레르망" id="br2"><label
 							for="br2">알레르망</label> <input type="checkbox" name="brand"
@@ -363,14 +394,10 @@ label {
 							type="checkbox" name="brand" value="모차르트" id="br4"><label
 							for="br4">모차르트</label> <input type="checkbox" name="brand"
 							value="베토벤" id="br5"><label for="br5">베토벤</label></td>
-							<td style="border-left:white;text-align:right;padding-right:10px">
-								<button type="button" class="addtotal">+</button>
-								<span style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
-							</td>
 					</tr>
 					<tr>
 						<th>가구종류</th>
-						<td class="checking" style="position: relative;border-right:white"><input
+						<td class="checking" style="position: relative;"><input
 							type="checkbox" name="category" value="bed" id="ca1"><label
 							for="ca1">bed</label> <input type="checkbox" name="category"
 							value="sofa" id="ca2"><label for="ca2">sofa</label> <input
@@ -391,14 +418,10 @@ label {
 							type="checkbox" name="category" value="others" id="ca10"><label
 							for="ca10">others</label> 
 							</td>
-							<td style="border-left:white;text-align:right;padding-right:10px">
-								<button type="button" class="addtotal">+</button>
-								<span  style="display:none;" class="spanview"><input type="text"><button type="button" class="regist">등록</button></span>
-							</td>
 							</tr>
 					<tr>
 						<th>가격</th>
-						<td colspan="2" class="checking" style="position: relative;"><input
+						<td class="checking" style="position: relative;"><input
 							type="radio" name="productprice" value="100000" id="pri1"><label
 							for="pri1">~100,000원</label> <input type="radio" name="productprice"
 							value="200000" id="pri2"><label for="pri2">100,000원~200,000원</label>
@@ -409,8 +432,8 @@ label {
 					</tr>
 
 					<tr>
-						<td colspan="3" style="text-align: right; border: none;">
-							<button type="submit" class="btn-black">검색</button>
+						<td colspan="2" style="text-align:right; border: none;">
+							<button type="submit" class="btn-white">검색</button>
 						</td>
 					</tr>
 				</table>
@@ -446,7 +469,7 @@ label {
 			<form action="#" method="post" id="proFrm">
 				<div class="row">
 					<div class="col-md-8" style="padding-bottom: 10px;">
-						<button class="btn-black checkDelete" type="button">선택삭제</button>
+						<button class="btn-white checkDelete" type="button">선택삭제</button>
 					</div>
 				</div>
 				<table class="fundingAg checking">
@@ -467,9 +490,9 @@ label {
 						<th scope="col">번호</th>
 						<th scope="col"></th>
 						<th scope="col">상품정보</th>
+						<th scope="col">가격</th>
 						<th scope="col">가구종류</th>
 						<th scope="col">브랜드</th>
-						<th scope="col">평점</th>
 						<th scope="col">관리</th>
 					</tr>
 					<c:forEach items="${list }" var="p" varStatus="vs">
@@ -482,15 +505,14 @@ label {
 							src="${path }/resources/upload/newproduct/${p['RENAMEDPRODUCTIMG'] }"/>
 						</td>
 						<td>
-							<p style="font-weight:bolder;font-size:18px;">${p['PRODUCTNAME'] }</p>
-							<p style="display:inline-block">${p['PRODUCTPRICE'] }원</p>
+							<a href="${path }/product/productView?no=${p['PRODUCTNO']}">${p['PRODUCTNAME'] }</a>
 						</td>
+						<td><fmt:formatNumber value="${p['PRODUCTPRICE'] }"/>원</td>
 						<td>${p['CATEGORY'] }</td>
 						<td>${p['BRAND'] }</td>
-						<td>${p['STAR'] }</td>
 						<td>
-							<button class="btn-black deletePro" type="button" value="${p['PRODUCTNO']}">삭제</button>
-							<button class="btn-black updatePro" type="button" value="${p['PRODUCTNO']}">수정</button>
+							<button class="btn-white deletePro" type="button" value="${p['PRODUCTNO']}">삭제</button>
+							<button class="btn-white updatePro" type="button" value="${p['PRODUCTNO']}">수정</button>
 						</td>
 					</tr>
 					</c:forEach>

@@ -31,6 +31,7 @@
 			class="com.kh.spring.common.interceptor.LoggerInterceptor"/>
 		</interceptor> -->
 		<!-- 로그인 후 이용 가능한 인터셉터 -->
+		
 		<interceptor>
 			<mapping path="/funding/patronage/*"/>
 			<beans:bean id="loginCheck" 
@@ -41,6 +42,7 @@
 			<beans:bean id="statusCheck" 
 			class="com.saw.good.common.interceptor.StatusCheckInterceptor"/>
 		</interceptor>
+		
 	</interceptors>
 	 
 	<!-- 파일업로드 resolver bean설정하기 -->

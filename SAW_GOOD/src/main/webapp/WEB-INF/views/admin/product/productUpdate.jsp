@@ -30,16 +30,34 @@
             resize: none;
         }
         /* 버튼 */
-        .btn-black {
-            padding: 0 20px;
-			line-height: 30px;
-			font-size: 15px;
-			color: #fff;
-			text-align: center;
-			background-color: #303030;
-			border: 1px solid #303030;
+        /* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
-        }
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
         .preViewImg{
         	width:100px;
         	height:100px;
@@ -146,7 +164,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: right; padding:30px 30px 0 0; border:0;" colspan="2">
-                        <button type="submit" class="btn-black">등록</button>
+                        <button type="submit" class="btn-white">수정</button>
                     </td>
                 </tr>
             </table>

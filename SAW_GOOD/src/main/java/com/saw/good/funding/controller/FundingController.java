@@ -1,6 +1,7 @@
 package com.saw.good.funding.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.saw.good.common.PageFactory;
+import com.saw.good.common.encrypt.AESEncrypt;
 import com.saw.good.funding.model.service.FundingService;
 import com.saw.good.funding.model.vo.Comment;
 import com.saw.good.funding.model.vo.FDMember;
@@ -43,15 +46,18 @@ public class FundingController {
 	@Autowired
 	Logger logger;
 	
+	@Autowired
+	private AESEncrypt aesEncrypt;
+	
 	@RequestMapping("/funding/list")
 	public ModelAndView fundingList(ModelAndView mv) {
 		//인기있는 아이템 9개 가져오기 (상단 노출)
 		int high = 9;
 		List<Funding> highList = service.selectHighList(high);
 		
-		//데이터 20개씩 가져오기
+		//데이터 4개씩 가져오기
 		int cPage = 1;
-		int numPerPage = 5;
+		int numPerPage = 4;
 		List<Funding> list = service.selectList(cPage,numPerPage);
 		
 		mv.addObject("highList",highList);
@@ -61,6 +67,19 @@ public class FundingController {
 		return mv;
 		
 	}
+	@RequestMapping("/funding/list.ajaxPaging")
+	@ResponseBody
+	public Map <String,Object>fundingListPagingAjax(@RequestParam (required = false, defaultValue="1") int cPage) {
+		
+		int numPerPage = 4;
+		List<Funding> list = service.selectList(cPage,numPerPage);
+	
+		Map <String,Object>  map = new HashMap();
+		map.put("list", list);
+		
+		return map;
+	}
+	 
 	
 //	@RequestMapping("/funding/detail")
 //	public ModelAndView fundingDetail(ModelAndView mv,Funding item) {
@@ -220,7 +239,6 @@ public class FundingController {
 	
 	
 	@RequestMapping("/funding/enroll/step2")
-	@ResponseBody
 	public ModelAndView enrollEndFunding( ModelAndView mv,
 								@SessionAttribute ("loginMember") Member member,
 								HttpSession session,
@@ -310,30 +328,7 @@ public class FundingController {
 		mv.addObject("loc","/funding/list");
 		mv.setViewName("common/msg");
 	
-//		String fdSize = "";
-//		for(int i = 0 ; i< f.getItem().length; i++) {
-//			fdSize+=f.getItem()[i];
-//			fdSize+=" : ";
-//			fdSize+=f.getSize()[i];
-//			fdSize+=" // ";		
-//		}
-//		f.setFdSize(fdSize);
-		
-	
-//		List<FDReword> rewordList = new ArrayList();
-		
-//		for(int i = 0; i<f.getReword().length;i++) {
-//			FDReword r = new FDReword();
-//			if(f.getPartPrice()[i]!=null || f.getPartPrice()[i]!="" ) {
-//				r.setReword(f.getReword()[i]);
-//				r.setPartPrice(Integer.parseInt(f.getPartPrice()[i]));
-//			}
-//			
-//			rewordList.add(r);
-//		}
-		
-		
-		
+
 		
 		return mv;
 	}
@@ -425,7 +420,7 @@ public class FundingController {
 		
 	}
 	
-	@RequestMapping("/funding/enroll/myList")
+	@RequestMapping("/mypage/funding/enroll/myList")
 	public ModelAndView FundingEnrollList(ModelAndView mv , @SessionAttribute ("loginMember") Member member 
 											,@RequestParam (required = false, defaultValue="1") int cPage
 											,@RequestParam (required = false, defaultValue="10") int numPerPage) {
@@ -435,11 +430,8 @@ public class FundingController {
 		List<Funding> list = service.selectMypageFundingList(member.getUserId(),cPage,numPerPage);
 		if(!list.isEmpty()) {
 			mv.addObject("list", list);
-			mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/good/funding/enroll/myList"));
+			mv.addObject("pageBar", PageFactory.getPage(count, cPage, numPerPage, "/20AM_SAW_GOOD_final/mypage/funding/enroll/myList"));
 			
-		}else {
-			
-			mv.addObject("msg", "등록된 게시글이 없습니다.");
 		}
 		mv.setViewName("/mypage/myPageFundinglist");
 		
@@ -583,7 +575,7 @@ public class FundingController {
 			mv.addObject("msg", "수정 실패했습니다. 다시 시도해주세요.");
 			
 		}
-		mv.addObject("loc", "/funding/enroll/myList");
+		mv.addObject("loc", "/mypage/funding/enroll/myList");
 		mv.setViewName("common/msg");
 		
 		return mv;
@@ -610,6 +602,112 @@ public class FundingController {
 		
 		return mv;
 	}
+	@RequestMapping("/funding/enroll/displayEnd")
+	public ModelAndView FundingEnrollDisplayEnd(ModelAndView mv , Funding f,
+												String[] reword, int[] partPrice, String[] item, String[] size,
+												@SessionAttribute ("loginMember") Member m) {
+		
+		String msg ="";
+		if(m.getUserId().equals(f.getUserId()) || m.getUserId().equals("admin")) {
+			
+			List<FDReword> list = new ArrayList();
+			for(int i = 0;i<reword.length;i++) {
+				FDReword r = new FDReword();
+				r.setFdNo(f.getFdNo());
+				r.setReword(reword[i]);
+				r.setPartPrice(partPrice[i]);
+				list.add(r);
+				
+			}
+			int result = 0;
+			try {
+				result = service.insertFDReword(list);
+			}catch(RuntimeException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			String fdSize = "";
+			
+			for(int i = 0;i<item.length;i++) {
+				fdSize+=item[i]+" : "+size[i]+" // ";
+			}
+			f.setFdSize(fdSize);
+			
+			result = service.updateFundingSize(f);
+			if(result >0) {
+				msg = "글이 정상적으로 등록되었습니다.";
+			}else {
+				result  = service.deleteFDReword(f.getFdNo());
+				msg="글 등록에 실패하였습니다. 재등록하시거나 관리자에게 문의하세요.";
+			}
+			
+			
+			
+			
+		}else {
+			msg = "접근권한이 없습니다.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc", "/mypage/funding/enroll/myList");
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/funding/enroll/myFundingPartList")
+	public ModelAndView myFundingPartList(ModelAndView mv, Funding f, @SessionAttribute ("loginMember") Member m) {
+		
+		//System.out.println(f.getUserId());
+		//System.out.println(m.getUserId());
+		if(m!=null && f.getUserId().equals(m.getUserId())) {
+			List <Map<String,String>> list = service.selectPartList(f);
+			if(!list.isEmpty()) {
+				//System.out.println(list);
+				
+				for(Map<String,String> map : list) {
+					
+					try {
+						
+						map.replace("phone", aesEncrypt.decrypt((String)map.get("phone")));
+						map.replace("address1", aesEncrypt.decrypt((String)map.get("address1")));
+						map.replace("address2", aesEncrypt.decrypt((String)map.get("address2")));
+						map.replace("userName", aesEncrypt.decrypt((String)map.get("userName")));
+						map.replace("email", aesEncrypt.decrypt((String)map.get("email")));
+						map.replace("email", aesEncrypt.decrypt((String)map.get("postCode")));
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+					
+				}
+				System.out.println(list);
+				
+				mv.addObject("list", list);
+				mv.setViewName("funding/customerList");
+				
+			}else {
+				String msg="권한이 없거나 조회된 결과가 없습니다. 관리자에게 문의하세요.";
+				mv.addObject("msg", msg);
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+			}
+			
+		}else {
+			String msg="권한이 없습니다.";
+			mv.addObject("msg", msg);
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+		}
+		
+		
+		
+		
+		return mv;
+	}
+	
 	
 	
 }

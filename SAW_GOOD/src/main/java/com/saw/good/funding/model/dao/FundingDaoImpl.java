@@ -103,11 +103,6 @@ public class FundingDaoImpl implements FundingDao{
 		return session.delete("funding.deleteFunding", fdNo);
 	}
 
-	@Override
-	public int insertFDReword(SqlSession session, FDReword fr) {
-		// TODO Auto-generated method stub
-		return session.insert("funding.insertFDReword",fr);
-	}
 
 	@Override
 	public List<Funding> selectCategoryList(SqlSession session, Map map,int cPage, int numPerPage) {
@@ -180,6 +175,30 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.selectMyFunding", funding);
 	}
 
+	@Override
+	public int insertFDReword(SqlSession session, FDReword fr) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertFDReword",fr);
+	}
+	@Override
+	public int updateFundingSize(SqlSession session,Funding f) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateFundingSize", f);
+	}
+
+	@Override
+	public int deleteFDReword(SqlSession session,int fdNo) {
+		// TODO Auto-generated method stub
+		return session.delete("funding.deleteFDReword");
+		 
+	}
+
+	@Override
+	public List<Map<String, String>> selectPartList(SqlSession session, Funding f) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.selectPartList",f);
+	}
+	
 	
 	
 	

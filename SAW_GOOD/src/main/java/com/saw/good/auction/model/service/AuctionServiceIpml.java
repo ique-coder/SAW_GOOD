@@ -13,6 +13,7 @@ import com.saw.good.auction.model.vo.Auction;
 import com.saw.good.auction.model.vo.AuctionMember;
 import com.saw.good.auction.model.vo.AuctionSearch;
 import com.saw.good.auction.model.vo.AuctionServeImg;
+import com.saw.good.member.model.vo.Member;
 import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.PageDetailImg;
 @Service
@@ -67,6 +68,11 @@ public class AuctionServiceIpml implements AuctionService {
 	public Auction selectDtAuction(Auction acBoardNo) {
 		// TODO Auto-generated method stub
 		return dao.selectDtAuction(session,acBoardNo);
+	}
+	//경매상품 서브이미지 가져오기
+	@Override
+	public List<AuctionServeImg> selectServeImg(Auction a) {
+		return dao.selectServeImg(session,a);
 	}
 	//디테일페이지 카운트 가져오기
 	@Override
@@ -152,6 +158,18 @@ public class AuctionServiceIpml implements AuctionService {
 			result=dao.updateAcFnStatus(session,a);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Auction> selectMyAcList(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectMyAcList(session,m);
+	}
+    //경매삭제하기
+	@Override
+	public int deleteAuction(Auction a) {
+		// TODO Auto-generated method stub
+		return dao.deleteAuction(session,a);
 	}
 
 	

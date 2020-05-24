@@ -95,17 +95,34 @@
 			border-top:1px solid #eee;
 			padding-top:20px;
 		}
+/* 버튼 */
+.btn-white {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: skyblue;
+	text-align: center;
+	background-color: white;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
 
-		.btn-agree {
-			padding: 0 30px;
-			line-height: 42px;
-			font-size: 15px;
-			color: #fff;
-			text-align: center;
-			background-color: #303030;
-			border: 1px solid #303030;
-
-		}
+}
+.btn-white:hover {
+	width:80px;
+	line-height: 30px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	background-color: skyblue;
+	border: 1px solid skyblue;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
 </style>
 
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -115,13 +132,17 @@
 				<div class="row">
 					<div class="col-xl-6">
 						<div>
-							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/upload/newproduct/funding/${funding['MAINIMG']}" width="99%"
-								style="height:600px;" />
+
+							<img class="img-reponsive img-thumbnail" id="mainImg" src="${path }/resources/images/funding/${funding['MAINIMG']}" width="99%"
+								style="height:500px;" />
+
 						</div>
 						<div class="slideWrap multipleWrap controls">
 							<ul class="multiple_slider">
 								<c:forEach items="${subImg }" var="i" varStatus="vs">
-									<li><img src="${path }/resources/upload/newproduct/funding/${i['SUBIMG']}" class="changeImg" /></li>
+
+									<li><img src="${path }/resources/images/funding/${i['SUBIMG']}" class="changeImg" /></li>
+
 								</c:forEach>
 							</ul>
 						</div>
@@ -189,8 +210,8 @@
 							</ul>
 							<c:if test="${funding['APPR'] == 0 }">
 								<div id="button">
-									<button type="button" class="btn-agree" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
-									<button type="button" class="btn-agree" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
+									<button type="button" class="btn-white" id="fd-Ag" value="${funding['FDNO'] }">승인</button>
+									<button type="button" class="btn-white" id="fd-disAg" value="${funding['FDNO'] }">거부</button>
 								</div>
 							</c:if>
 						</div>

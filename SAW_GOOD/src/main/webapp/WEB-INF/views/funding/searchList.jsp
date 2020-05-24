@@ -12,14 +12,19 @@
 <!-- 오늘 날짜 세팅 -->
 <c:set value="<%=new java.util.Date() %>" var="now"/>
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
-
+<style>
+.clock{
+	 width:11px;
+	 height:11px;
+}
+</style>
 <section id="section">
 	<div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/sample1.jpg" style="background: transparent;">
 		<h3>CREATE YOUR ROOM</h3>
 	</div>
 	<div id="search-area" class="container">
-		<form action="" method="post">
+		<!-- <form action="" method="post">
 			<select id="category" name="category" class="selectStyle">
 				<option value="0">category</option>
 				<option value="1">bed</option>
@@ -51,7 +56,7 @@
 				<option value="2">낮은 금액</option>
 			</select>
 			<button type="submit">검색하기</button>
-		</form>
+		</form> -->
 	</div>
 	<div class="container padding">
 		<div class="row">
@@ -82,9 +87,7 @@
 					<span id="enroll-container"> 
 							<input type="button"  onclick="location.href='${path}/funding/enroll/step1'" value="FUNDING 신청"/>
 					</span>
-					<span id="enroll-container"> 
-							<input type="button"  onclick="location.href='${path}/funding/enroll/myList'" value="신청내역 보기"/>
-					</span>
+					
 				</c:if>
 			</div>
 			<div class="col-md-10" id="item-container">
@@ -113,6 +116,7 @@
 															<fmt:parseNumber value="${item.endDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 															 
 															<c:if test="${endDate-today >=0}">
+															<img src="${path }/resources/images/common/clock.png" class="clock">
 																${endDate-today}
 																일 남음
 															</c:if>
@@ -239,7 +243,7 @@
 					
 					var result ="";
 					if(Math.floor((endDate-today)/(60*24*60*1000))>=0){
-						result = Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
+						result = '<img src="${path }/resources/images/common/clock.png" class="clock"> '+Math.floor((endDate-today)/(60*24*60*1000))+"일 남음";
 					}
 					
 					var money = addComma(data.list[i+j].sum);
@@ -281,4 +285,4 @@
 </script>
 			
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	

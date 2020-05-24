@@ -54,7 +54,7 @@
                                 <tr>
                                     <th>TITLE</th>
                                     <th><input type="text" id="title" class="inputStyle"
-                                        name="title" placeholder="제목 12자 이하 " value="${f.title }"></th>
+                                        name="title" placeholder="제목 16자 이하 " value="${f.title }"></th>
                                 </tr>
                             </thead>
                             <tbody id="main-info">
@@ -83,6 +83,7 @@
                                             <option value="sofa"<c:if test="${f.category =='sofa' }">selected</c:if>>소파</option>
                                             <option value="chair" <c:if test="${f.category =='chair' }">selected</c:if>>의자</option>
                                             <option value="table" <c:if test="${f.category =='table' }">selected</c:if>>테이블</option>
+                                            <option value="light" <c:if test="${f.category =='light' }">selected</c:if>>조명</option>
                                             <option value="desk" <c:if test="${f.category =='desk' }">selected</c:if>>책상</option>
                                             <option value="lug" <c:if test="${f.category =='lug' }">selected</c:if>>카펫 / 러그</option>
                                             <option value="storage" <c:if test="${f.category =='storage' }">selected</c:if>>서랍 / 수납함</option>

@@ -1,7 +1,10 @@
 package com.saw.good.mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,9 +64,58 @@ public class PaymentHistoryController {
 		return mv;
 	}
 	
-//	public String subMove(String status) {
-//		System.out.println(status);
-//		return "/mypage/paymentHistory";
-//	}
 	
+	@RequestMapping("/mypage/buyOk")
+	public ModelAndView buyOk(ModelAndView mv, @SessionAttribute("loginMember") Member m, HttpServletRequest request) {
+		
+		String userId = m.getUserId();
+		int phno = Integer.parseInt(request.getParameter("phno"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("phno", phno);
+		
+		int result = service.buyOk(map);
+		if(result > 0) {
+			map.put("status", 5);
+			int status = service.status(map);
+		}
+		
+		mv.setViewName("redirect:/mypage/ph.do");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/mypage/extend")
+	public ModelAndView extend(ModelAndView mv, @SessionAttribute("loginMember") Member m, HttpServletRequest request) {
+		
+		String userId = m.getUserId();
+		int phno = Integer.parseInt(request.getParameter("phno"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("phno", phno);
+		
+		int result = service.extend(map);
+		if(result > 0) {
+			map.put("status", 3);
+			int status = service.status(map);
+		}
+		
+		mv.setViewName("redirect:/mypage/ph.do");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/mypage/review")
+	public ModelAndView review(ModelAndView mv, HttpServletRequest request) {
+		
+		int productNo = Integer.parseInt(request.getParameter("productNo"));
+		
+		mv.addObject("no", productNo);
+		mv.setViewName("redirect:/product/productView");
+
+		return mv;
+		
+	}
 }

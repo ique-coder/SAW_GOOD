@@ -57,7 +57,7 @@ public class AESEncrypt {
 		keygen.init(128,sr);
 		key = keygen.generateKey();
 		
-		File f = new File(path+"/secret.bs");
+		File f = new File(this.path+"/secret.bs");
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));){
 			oos.writeObject(key);
 		}catch(IOException e) {

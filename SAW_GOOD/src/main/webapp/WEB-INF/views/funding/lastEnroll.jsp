@@ -24,14 +24,15 @@
     <h1>${f.title }</h1> 
 </div>
 
-	<form action="${path }/funding/enroll/modifyEnd" method="post" enctype="multipart/form-data" id="enroll"> 
+	<form action="${path }/funding/enroll/displayEnd" method="post" enctype="multipart/form-data" id="enroll"> 
+	<input type="hidden" name="fdNo" value="${f.fdNo }"/>
+    <input type="hidden" name="userId" value="${f.userId }"/>
 	<section>
          <div class="container">
             <div class="col-md-12">
                 <section class="row first-row">
                     <div class="col-md-7 img-container" style="height:100%;">
-                    	<input type="hidden" name="fdNo" value="${f.fdNo }"/>
-                    	<input type="hidden" name="userId" value="${f.userId }"/>
+                    	
                         <img src="${path }/resources/images/funding/${f.mainImg}"
                          class="images col-md-12" style="height: 700px;" id="main"/> 
                         
@@ -169,7 +170,6 @@
 	                		 <tr>
 	                			<th><input type="text" name="item"></th>
 	                			<td><input type="text" class="size" name="size"></td>
-	                			 
 	                		</tr>
 	                		
                 		</tbody>
@@ -191,7 +191,7 @@
                 		</tr>
                 		<tr>
                 			<td>
-                				<p>${f.detail }</p>
+                				<p><pre>${f.detail }</pre></p>
                 			</td>
                 		</tr>
                 		
@@ -211,13 +211,20 @@
     </form>
     <script>
 function addRow(){
-	$("#reword-container").append('<tr class="addRow"><td><input type="text" class="inputStyle" name="reword"></td>'
-       +'<td><input type="text" class="inputStyle" name="partPrice"></td></tr>');
-       
+	
+	let reword = $("<td>").append($("<input>").addClass("inputStyle").attr({type:"text",name:"reword"}));
+	let partPrice = $("<td>").append($("<input>").addClass("inputStyle").attr({type:"text",name:"partPrice"}));
+	
+	$("#reword-container").append($("<tr>").addClass("addRow").append(reword).append(partPrice));
+	
+	
 }
 function addSize(){
-	$("#size-container").append('<tr class="addSize"><th><input type="text" name="item"></th>'
-			+'<td><input type="text" class="size" name="size"></td></tr>');
+	
+	let item = $("<th>").append($("<input>").attr({type:"text",name:"item"}));
+	let size = $("<td>").append($("<input>").attr({type:"text",name:"size"}));
+	
+	$("#size-container").append($("<tr>").addClass("addSize").append(item).append(size));
 
 }
 function removeRow(){
@@ -229,54 +236,77 @@ function removeSize(){
 }
 
 
-let checkCount = 0;
+
 function enroll(){
 	
 	var reword = $("input[name='reword']");
-	if(reword.length>0){
-		
-		$.each(reword,function(){
-			if(checkCount == 1) {
-				
-			} else if($(this).val() == null || $(this).val() == ''){
-				alert("리워드를 입력해주세요.");
-				checkCount++;
-			}
-		})
-		checkCount = 0;
-	}else{
-		alert("리워드를 1개이상 입력해주세요");
-	}
-	
 	var partPrice = $("input[name='partPrice']");
-	if(partPrice.length>0){
-		$.each(partPrice,function(){
-			if(checkCount == 1) {
-				
-			} else if($(this).val() == null || $(this).val() == ''){
-				alert("리워드에 대한 가격을 입력해주세요.");
-				checkCount++;
-			}
-		})
-		checkCount = 0;
-	}else{
-		alert("가격을 1개이상 입력해주세요");
-	}
-	
 	var item = $("input[name='item']");
-	
-	
 	var size = $("input[name='size']");
 	
+	//분기처리를 위한 변수 
+	var checkCount = 0;
 	
+	//forEach돌려서 input에 있는 값 들어있는지 확인해 주기
+		//
+		//리워드확인하기
+		$.each(reword,function(){
+			 if($(this).val() == null || $(this).val() == ''){
+				
+				checkCount ++;
+			 }
+		})
+		var rCheck = checkCount==0?true:false;
+		checkCount = 0;
+		
+		
+		//상품 가격 확인하기
+		$.each(partPrice,function(){
+			var reg = /^[1-9]+[0-9]{0,11}/;
+			//숫자만 허용하는 정규표현식
+			 if($(this).val() == null || $(this).val() == ''){
+				 checkCount++;
+			}else if(!reg.test($(this).val())){
+				checkCount++;
+			}
+			
+		})
+		
+		var pCheck = checkCount == 0? true:false;
+		checkCount = 0;
 	
+		//아이템
+		$.each(item,function(){
+			 if($(this).val() == null || $(this).val() == ''){
+				checkCount++;
+			}
+		})
+		
+		var iCheck = checkCount == 0? true:false;
+		checkCount = 0;
 	
-	
-	
-	
-	
-	
-	
+		//사이즈
+		$.each(size,function(){
+			var reg =/[0-9xX\s]/g;
+			if($(this).val() == null || $(this).val() == ''){
+				 checkCount++;
+			}else if(!reg.test($(this).val())){
+				checkCount++;				
+			}
+		})
+		
+		sCheck = checkCount == 0? true:false;
+		checkCount = 0;
+		
+		if(!rCheck)alert("리워드를 정확히 입력해주세요");
+		else if(!pCheck)alert("가격를 정확히 입력해주세요");
+		else if(!iCheck)alert("제품을 정확히 입력해주세요");
+		else if(!sCheck)alert("사이즈를 정확히 입력해주세요");
+		else {
+			if(confirm('제출하시면 바로 펀딩 목록에 노출되고 내용은 수정할 수 없습니다.\n등록하시겠습니까? ')){
+				$("#enroll").submit();
+			}
+		}
 	
 }
     

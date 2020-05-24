@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>쏘:굿 SAWGOOD</title>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -34,12 +34,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${path }/resources/js/parallax.min.js"></script>
 </head>
+
+<body>
 <style>
    a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
     a:hover { color:  #3C5946; text-decoration: none;}
 </style>
-<body>
     <header class="container-fluid fixed-show">
        <div class="row " id="header">
           <div class="col-md-3"href="#">
@@ -72,11 +73,11 @@
           </c:if>
           <c:if test="${not empty loginMember }">
           	  <ol class="col-md-3 row">
+          	  	<li class="col-md-3"></li>
+          	  	
 	             <li class="col-md-3"><a href="javascript:void(0)" id="my">my page</a></li>
-	             <li class="col-md-3"><a href="${path }//member/info.do">my Info</a></li>
-	             <li class="col-md-3"><a href="${path }/payment/cart">cart</a></li>
 	             <li class="col-md-3"><a href="${path }/member/logout">logout</a></li>
-
+          	  	<li class="col-md-3"></li>
 	          </ol>
           </c:if>
        </div>
@@ -104,23 +105,43 @@
 		<c:if test="${not empty loginMember }">
 		<div class="container-fluid modal_container" id="modal_container">
         	<div class="my_modal" id="logined">
-	            <div class="prof">
+	            <div class="prof" style="height:80px;">
 	            	<img src="http://placehold.it/600x500" width="78px" height="78px"/>
 	            </div>
 	            <p class="welcome-msg">${loginMember.userId }님 환영합니다.</p>
+	            <br>
+	            <p class="welcom-msg">쏘:굿 POINT : ${loginMember.point } P</p>
 	            <span class="login_Xbutton" onclick="closeLogin();">x</span>
-	            <button type="button" id="buttonJoin" onclick="location.href='${path}/signup'">My Info</button>
-	            <button type="button" id="buttonCart" onclick="">Cart</button>            
+	            <button type="button" id="buttonJoin" onclick="location.href='${path}/member/info.do/'">My Info</button>
+	            <button type="button" id="buttonCart" onclick="location.href='${path }/payment/cart">Cart</button>            
 	            <button type="button" id="buttonHistory" onclick="">History</button>
+	            <c:if test="${loginMember.status==1 }" >
+	            	<button type="button" id="deleteAccount" onclick="">Delete My Account</button>
+	            </c:if>
 	            <ul class="history-container">
-	            	<li>
-	            		<a href="">New Product</a>
-	            	</li>
-	            	<li>
-	            		<a href="">Funding</a>
+	            	<li style="color: #ee987c;">
+	            			- seller - 
 	            	</li>
 	            	<li>
 	            		<a href="">Auction</a>
+	            	</li>
+	            	<c:if test = "${loginMember.status>1 }">
+	            		<li>
+	            			<a href="${path }/mypage/funding/enroll/myList">Funding</a>
+	            		</li>
+		            	
+	            	</c:if>
+	            	<li style="color: #ee987c;">
+		            		- customer -
+		            </li>
+	            	<li>
+	            		<a href="${path }/mypage/ph.do">New Product</a>
+	            	</li>
+	            	<li>
+	            		<a href="${path }/mypage/funding.do">Funding</a>
+	            	</li>
+	            	<li>
+	            		<a href="${path }/mypage/auction.do">Auction</a>
 	            	</li>
 	            </ul>            
 	        </div>
@@ -339,6 +360,10 @@
         	function fn_login_validate(){
         		
         	}
-        
+        	
+        	$("#deleteAccount").click(function(){
+        		
+        		location.href="${path}/member/deleteAccount";
+        	})
        
     </script>

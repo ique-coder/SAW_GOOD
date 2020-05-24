@@ -109,9 +109,14 @@ public class AuctionController {
 		// 입철 건수
 		int bidCount = service.countBid(ac);
 		
+		//상품 서브 이미지 가져오기
+		List<AuctionServeImg> list = service.selectServeImg(ac);
+		System.out.println(list);
+		
 		// 경매 랭크 불러오기
 		List<Map<String, String>> acMem = service.selectAcMember(ac);
 		System.out.println(acinfo);
+		mv.addObject("list",list);
 		mv.addObject("bc",bidCount);
 		mv.addObject("a", acinfo);
 		mv.addObject("am", acMem);
@@ -376,4 +381,72 @@ public class AuctionController {
 	       mv.setViewName("common/msg");
     	return mv;
     }
+	//나의 경매내역 보기
+	@RequestMapping("/auction/myAcHistory")
+	public ModelAndView myAcHistroy(ModelAndView mv ,
+			 @SessionAttribute("loginMember") Member m ) {
+		System.out.println(m);
+		List<Auction> list = service.selectMyAcList(m);
+		System.out.println(list);
+		mv.addObject("mem",m);
+		mv.addObject("list",list);
+		mv.setViewName("auction/myAcStroy");
+		return mv;
+	}
+	
+	@RequestMapping("auction/myAcDelete")
+	public ModelAndView myAcDelete(ModelAndView mv,
+			@RequestParam(value = "acno") String aNo) {
+		int acNo = Integer.parseInt(aNo);
+		int result = 0;
+		String msg="";
+		
+		System.out.println(acNo);
+		Auction a = new Auction();
+		a.setAcBoardNo(acNo);
+		Auction a2 = service.selectDtAuction(a);
+		System.out.println(a2.getAcStartPrice()>a2.getAcNowPrice());
+		if(a2.getAcStartPrice()>a2.getAcNowPrice()) {
+			result = service.deleteAuction(a2);
+			System.out.println("입찰금액없으면 여기");
+		}else {
+			//최고입찰자
+			AuctionMember am = service.selectFsMem(a);
+			System.out.println(am);
+			result = mService.updateMemPoint(am);
+			if(result>0) {
+				result = service.deleteAuction(a2);
+			}else {
+				msg = "경매 삭제에 실패하였습니다. 관리자에게 문의해주세요.";
+			}
+		}
+		msg=(result>0)?"경매삭제 성공":"경매삭제 실패";
+	    String loc="/auction/myAcHistory";
+	    mv.addObject("msg", msg);
+	    mv.addObject("loc", loc);
+	    mv.setViewName("common/msg");
+		return mv;
+	}
+	//경매 내역에서만 삭제
+	@RequestMapping("auction/myAcListDelete")
+	public ModelAndView myAcListDelete(ModelAndView mv,
+			@RequestParam(value = "acno") String aNo) {
+		int acNo = Integer.parseInt(aNo);
+		int result = 0;
+		String msg="";
+		//최고입찰자
+		System.out.println(acNo);
+		
+		Auction a = new Auction();
+		a.setAcBoardNo(acNo);
+		result = service.deleteAuction(a);
+
+	
+		msg=(result>0)?"경매내역 삭제성공":"경매내역 삭제실패";
+	    String loc="/auction/myAcHistory";
+	    mv.addObject("msg", msg);
+	    mv.addObject("loc", loc);
+	    mv.setViewName("common/msg");
+		return mv;
+	}
 }

@@ -26,7 +26,7 @@
   	 	SELECT COUNT(*) as count ,SUM(PARTPRICE) as sum FROM FDMEMBER WHERE FDNO = #{fdNo}
   	</select>
   	<select id="selectRewordList" parameterType="_int" resultType="fdreword">
-  		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo}
+  		SELECT * FROM FDREWORD WHERE FDNO =#{fdNo} ORDER BY REWORD
   	</select>
 
   	<select id="selectComment" resultType="comment" parameterType="_int">
@@ -46,16 +46,16 @@
   		VALUES (#{fdNo,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR},#{partPrice,jdbcType=INTEGER},#{reword,jdbcType=VARCHAR},SYSDATE,default)
   	</insert>
   	<select id="selectFDMemberList" parameterType="_int" resultType="fdmember" >
-		SELECT F.* ,M.PROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE
+		SELECT F.* ,M.REPROFILE FROM FDMEMBER F JOIN MEMBER M ON(F.USERID=M.USERID )WHERE F.FDNO=#{fdNo} ORDER BY PARTDATE DESC
 	</select>
 	<select id="selectFDMemberCount" parameterType="_int" resultType="int">
 	 	SELECT COUNT(*) FROM FDMEMBER WHERE FDNO=#{fdNo}
 	</select>
 	
 	<insert id="insertFunding" parameterType="funding">
-	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,TARGETPRICE,ENROLLDATE,MAINIMG,CATEGORY,ENDDATE,APPR) 
+	 	INSERT INTO FUNDING (FDNO,USERID,DESIGNER,TITLE,SUBCONTENT,DETAIL,TARGETPRICE,ENROLLDATE,MAINIMG,CATEGORY,ENDDATE,APPR,STATUS) 
                           VALUES (FDSEQ.NEXTVAL, #{userId},#{designer},#{title}, #{subContent},#{detail},
-                          #{targetPrice},SYSDATE, #{mainImg}, #{category},#{endDate},0)
+                          #{targetPrice},SYSDATE, #{mainImg}, #{category},#{endDate},0,NULL)
           <selectKey keyProperty="fdNo" resultType="int" order="AFTER">
           	SELECT FDSEQ.CURRVAL FROM DUAL
           </selectKey>           
@@ -73,7 +73,7 @@
 	<select id="categoryList" parameterType="map" resultType="funding">
 		SELECT A.* , (SELECT COUNT(*) FROM FDMEMBER B WHERE A.FDNO=B.FDNO)COUNT ,
  					 (SELECT NVL(SUM(PARTPRICE),0) FROM FDMEMBER B WHERE A.FDNO = B.FDNO ) SUM 
-		FROM FUNDING A WHERE STATUS = 1 AND APPR = 1 AND CATEGORY IN(#{category1}
+		FROM FUNDING A WHERE STATUS in (1,2) AND APPR = 1 AND CATEGORY IN(#{category1}
 		<if test="category2!=null and category2 !=''">
 			,#{category2}
 		</if>
@@ -88,7 +88,7 @@
 	</select>
 	<!-- 통합검색 -->
 	<select id="selectSearchList" parameterType="string" resultType="funding">
-		SELECT * FROM FUNDING WHERE USERID LIKE '%'||#{keyword}||'%' OR DESIGNER LIKE '%'||#{keyword}||'%' OR 
+		SELECT * FROM(SELECT * FROM FUNDING WHERE APPR = 1 AND STATUS in (1,2)) WHERE USERID LIKE '%'||#{keyword}||'%' OR DESIGNER LIKE '%'||#{keyword}||'%' OR 
 		TITLE LIKE '%'||#{keyword}||'%' OR SUBCONTENT LIKE '%'||#{keyword}||'%' OR DETAIL LIKE '%'||#{keyword}||'%' OR
 		FDSIZE LIKE '%'||#{keyword}||'%' OR CATEGORY LIKE '%'||#{keyword}||'%'
 	</select>
@@ -129,4 +129,17 @@
 	<update id="updateFDSubImg" parameterType="fdsubImg" >
 		UPDATE FDSUBIMG SET SUBIMG = #{subImg} WHERE FDNO =#{fdNo} AND SUBIMG = #{prevName}
 	</update>
+	<update id="updateFundingSize" parameterType="funding">
+		UPDATE FUNDING SET FDSIZE = #{fdSize} , STATUS = 1 WHERE FDNO = #{fdNo}
+	</update>
+	<delete id="deleteFDReword" parameterType="_int">
+		DELETE FROM FDREWORD WHERE FDNO = #{fdNo}
+	</delete>
+	<select id="selectPartList" parameterType ="funding" resultType="map">
+		SELECT A.FDNO, A.USERID , A.PARTPRICE,NVL(A.REWORD,'없음') as reword,A.PARTDATE, C.USERNAME,C.PHONE,C.POSTCODE,C.ADDRESS1,C.ADDRESS2
+		FROM FDMEMBER A 
+		JOIN FUNDING B ON(A.FDNO = B.FDNO)
+		JOIN MEMBER C ON(A.USERID= C.USERID)
+		WHERE A.FDNO = #{fdNo} AND B.USERID = #{userId}	AND B.APPR = 1 AND B.STATUS = 2 
+	</select>
 </mapper>

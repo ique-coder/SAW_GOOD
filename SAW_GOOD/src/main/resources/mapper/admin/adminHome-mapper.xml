@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminHome">
+	<select id="topFiveProduct" resultType="map">
+		SELECT  MAX(A.PRODUCTNO) AS PRODUCTNO,MAX(B.PRODUCTNAME) AS PRODUCTNAME,MAX(B.RENAMEDPRODUCTIMG) AS RENAMEDPRODUCTIMG,MAX(B.PRODUCTPRICE) AS PRODUCTPRICE,
+		COUNT(1) AS TOP FROM PAYMENTHISTORY A JOIN NEWPRODUCT B ON A.PRODUCTNO = B.PRODUCTNO GROUP BY A.PRODUCTNO ORDER BY TOP DESC
+	</select>
+	
+	<select id="countToday" resultType="_int" parameterType="_int">
+		SELECT COUNT(*) AS COUNT FROM PAYMENT WHERE SUBSTR(TO_CHAR(BUYDATE), 1, 9)=SUBSTR(TO_CHAR(SYSDATE-#{i}), 1, 9)
+	</select>
+	
+	<select id="totalPrice" resultType="_int">
+		<if test="count==0">
+			SELECT #{count} FROM DUAL
+		</if>
+		<if test="count>0">
+			SELECT SUM(ODTOTALPRICE) AS TOTAL FROM PAYMENT GROUP BY SUBSTR(TO_CHAR(BUYDATE), 1, 9)
+		HAVING SUBSTR(TO_CHAR(BUYDATE), 1, 9)=SUBSTR(TO_CHAR(SYSDATE-#{i}), 1, 9)
+		</if>
+	</select>
+</mapper>
