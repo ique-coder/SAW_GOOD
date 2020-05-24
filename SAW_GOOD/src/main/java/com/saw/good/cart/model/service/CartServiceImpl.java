@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.saw.good.cart.model.dao.CartDao;
 import com.saw.good.cart.model.vo.Cart;
+import com.saw.good.product.model.vo.Product;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -23,6 +24,16 @@ public class CartServiceImpl implements CartService {
 	public List<Map<String,String>> selectCart(String userId) {
 		// TODO Auto-generated method stub
 		return dao.selectCart(session,userId);
+	}
+
+	@Override
+	public Product selectProductView(int no) {
+		return dao.selectProductView(session,no);
+	}
+
+	@Override
+	public int insertCart(Map map) {
+		return dao.insertCart(session,map);
 	}
 	
 	

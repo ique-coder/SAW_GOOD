@@ -23,6 +23,23 @@ public class IndexDaoImpl implements IndexDao{
 	public List<Map<String, String>> newAuction(SqlSession session) {
 		return session.selectList("index.newAuction");
 	}
+	
+	
+	
+	@Override
+	public List<Map<String, String>> hotProduct(SqlSession session) {
+		return session.selectList("index.hotProduct");
+	}
+
+	@Override
+	public List<Map<String, String>> hotFunding(SqlSession session) {
+		return session.selectList("index.hotFunding");
+	}
+
+	@Override
+	public List<Map<String, String>> hotAuction(SqlSession session) {
+		return session.selectList("index.hotAuction");
+	}
 
 	
 }

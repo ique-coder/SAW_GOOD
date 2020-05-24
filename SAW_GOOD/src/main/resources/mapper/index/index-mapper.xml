@@ -3,16 +3,29 @@
 <mapper namespace="index">
 
 	<select id="newProduct" resultType="map">
-		select rownum r, a.* from (select * from newproduct order by productno desc) a where rownum between 1 and 4
+		select rownum r, a.* from (select * from newproduct order by productno desc) a where rownum between 1 and 5
 	</select>
 	
 	<select id="newFunding" resultType="map">
-		select rownum r, a.* from (select * from funding order by fdno desc) a where rownum between 1 and 4
+		select rownum r, a.* from (select * from funding order by fdno desc) a where rownum between 1 and 5
 	</select>
 	
 	<select id="newAuction" resultType="map">
-		select rownum r, a.* from (select * from auction order by acboardno desc) a where rownum between 1 and 4
+		select rownum r, a.* from (select * from auction order by acboardno desc) a where rownum between 1 and 5
 	</select>
 	
+	
+	
+	<select id="hotProduct" resultType="map">
+		select rownum r, a.* from (select * from newproduct order by productno desc) a where rownum between 1 and 5
+	</select>
+	
+	<select id="hotFunding" resultType="map">
+		select rownum r, a.* from (select * from funding order by fdno desc) a where rownum between 1 and 5
+	</select>
+	
+	<select id="hotAuction" resultType="map">
+		select rownum r, a.* from (select * from auction order by acboardno desc) a where rownum between 1 and 5
+	</select>
 
 </mapper>

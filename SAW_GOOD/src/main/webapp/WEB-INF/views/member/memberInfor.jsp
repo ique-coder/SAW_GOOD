@@ -290,7 +290,7 @@
 
                      document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
                      document.getElementById('address').value = fullRoadAddr;
-                     document.getElementById('detailAddress').value = data.jibunAddress;
+                     /* document.getElementById('detailAddress').value = data.jibunAddress; */
                      // 커서를 상세주소 필드로 이동한다.
                      document.getElementById("detailAddress").focus();
                   }
