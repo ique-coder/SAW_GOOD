@@ -171,16 +171,19 @@ public class AuctionServiceIpml implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.deleteAuction(session,a);
 	}
+	//내가 참여한 옥션 리스트 번호 가죠오기
+	@Override
+	public List<AuctionMember> selectMySiAcList(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectMySiAcList(session,m);
+	}
+	//내가 참여한 옥션 리스트  가죠오기
+	@Override
+	public Auction selectMySitinAcList(AuctionMember am) {
+		// TODO Auto-generated method stub
+		return dao.selectMySitinAcList(session,am);
+	}
 
-	
-
-	
-	
-	
-	
-	
-	
-	
 	
 
 }

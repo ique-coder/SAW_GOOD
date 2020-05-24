@@ -48,7 +48,7 @@ public class AuctionController {
 			@RequestParam(value = "numPerPage", defaultValue = "6") int numPerPage) {
 		List<Auction> list = service.selectAcList(cPage, numPerPage);
 		int totalData = service.countAuction();
-		System.out.println(totalData);
+		
 		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
@@ -67,11 +67,10 @@ public class AuctionController {
 		map.put("keyword", keyword);
 		map.put("value", value);
 
-		System.out.println(map);
+		
 		List<Auction> list = service.searchAuction(cPage, numPerPage, map);
 		int totalData = service.countAcSearch(map);
-		System.out.println(list);
-		System.out.println(totalData);
+	
 		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
@@ -85,10 +84,10 @@ public class AuctionController {
 	public ModelAndView auctionList(ModelAndView mv, AuctionSearch category,
 			@RequestParam(value = "cPage", defaultValue = "1") int cPage,
 			@RequestParam(value = "numPerPage", defaultValue = "6") int numPerPage) {
-		System.out.println(category);
+	
 		List<Auction> list = service.selectCtList(cPage, numPerPage, category);
 		int totalData = service.countCtAuction(category);
-		System.out.println(totalData);
+	
 		String pageBar = PageFactory.getPage(totalData, cPage, numPerPage, "/good/auction/list");
 		mv.addObject("list", list);
 		mv.addObject("pageBar", pageBar);
@@ -111,11 +110,11 @@ public class AuctionController {
 		
 		//상품 서브 이미지 가져오기
 		List<AuctionServeImg> list = service.selectServeImg(ac);
-		System.out.println(list);
+	
 		
 		// 경매 랭크 불러오기
 		List<Map<String, String>> acMem = service.selectAcMember(ac);
-		System.out.println(acinfo);
+	
 		mv.addObject("list",list);
 		mv.addObject("bc",bidCount);
 		mv.addObject("a", acinfo);
@@ -128,7 +127,7 @@ public class AuctionController {
 	@RequestMapping("/auction/bidUpdate")
 	public ModelAndView updateBidPrice(ModelAndView mv, AuctionMember am, Auction a,
 			@SessionAttribute("loginMember") Member m) {
-		System.out.println(m);
+	
 		// 현재 상품정보 확인하기
 		Auction ac = service.selectNowPrice(a);
 		int bidPrice = am.getBidPrice();
@@ -147,7 +146,7 @@ public class AuctionController {
 					// befor 1등  + 하기 (포인트 돌려주기)
 					int bMpResult=0;
 					if(am2!=null) {
-						System.out.println("포인트돌려주기 :"+am2);
+				
 						bMpResult = mService.updateMemPoint(am2);
 					}else {
 						bMpResult=1;
@@ -155,7 +154,7 @@ public class AuctionController {
 
 					if (bMpResult > 0) {
 						// after 1등 - 하기 (포인트 가져오기)
-						System.out.println("포인트가져오기 :"+am);
+				
 						int aMpResult = mService.updateMemAPoint(am);
 						if(aMpResult>0) {
 							int result = service.insertBidPrice(am);
@@ -200,14 +199,12 @@ public class AuctionController {
 	@RequestMapping("/auction/nowBuyBid")
 	public ModelAndView updateNowBuyBid(ModelAndView mv, AuctionMember am, Auction a,
 			@SessionAttribute("loginMember") Member m) {
-			System.out.println("m : "+m);
-			System.out.println("am : "+am);
-			System.out.println("a : "+a);
+		
 			// 현재 상품정보 확인하기
 			
 			Auction ac = service.selectNowPrice(a);
 			am.setBidPrice(ac.getAcImdPrice());
-			System.out.println("ac : "+ac);
+		
 			String msg = "";
 			String loc = "/auction/detail?acBoardNo=" + a.getAcBoardNo();
 			//최고입찰자
@@ -216,7 +213,7 @@ public class AuctionController {
 			// befor 1등  + 하기 (포인트 돌려주기)
 			int bMpResult=0;
 			if(am2!=null) {
-				System.out.println("포인트돌려주기 :"+am2);
+			
 				bMpResult = mService.updateMemPoint(am2);
 			}else {
 				bMpResult=1;
@@ -224,7 +221,7 @@ public class AuctionController {
 
 			if (bMpResult > 0) {
 				// after 1등 - 하기 (포인트 가져오기)
-				System.out.println("포인트가져오기 :"+ac);
+			
 				int aMpResult = mService.updateMemAPoint(am);
 				if(aMpResult>0) {
 				
@@ -283,7 +280,7 @@ public class AuctionController {
           MultipartHttpServletRequest request,
           HttpSession session)throws Exception {
        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-       System.out.println(m.getUserId());
+     
        int acStartPrice=Integer.parseInt(asp);
        int acImdPrice=Integer.parseInt(aip);
        int acEndDateNum=Integer.parseInt(aEDN);
@@ -293,9 +290,9 @@ public class AuctionController {
 
        //파일 풀러오기
        MultipartFile amImg=request.getFile("acMainImg");
-       System.out.println(amImg.isEmpty());
+
        List<MultipartFile> asImg=request.getFiles("acServeImg");
-       System.out.println(asImg.isEmpty());
+   
        //폴더경로 찾기
        String path=session.getServletContext().getRealPath("/resources/upload/auction");
        //폴더경로 없으면 생성
@@ -339,7 +336,7 @@ public class AuctionController {
        int result=0;
        try {
           result=service.inserAuction(a, ASImgList);
-          System.out.println(result);
+      
        }catch(RuntimeException e) {
           File pdf=new File(fileDir+"/"+reNameMain);
           if(pdf.exists()) {
@@ -364,12 +361,12 @@ public class AuctionController {
 	@RequestMapping("/auction/salerPoint")
     public ModelAndView acWriterEnd(ModelAndView mv,
           Auction a){
-		System.out.println("여기 : "+a);
+	
 		Auction ac = service.selectNowPrice(a);
-		System.out.println("다임: "+ac);
+	
 		int result = 0;
 		int acstatus = Integer.parseInt(ac.getAcStatus());
-		System.out.println(acstatus);
+	
 		if(acstatus != 3) {
 			result = service.updateSalePoint(ac);
 		}
@@ -385,9 +382,9 @@ public class AuctionController {
 	@RequestMapping("/auction/myAcHistory")
 	public ModelAndView myAcHistroy(ModelAndView mv ,
 			 @SessionAttribute("loginMember") Member m ) {
-		System.out.println(m);
+	
 		List<Auction> list = service.selectMyAcList(m);
-		System.out.println(list);
+		
 		mv.addObject("mem",m);
 		mv.addObject("list",list);
 		mv.setViewName("auction/myAcStroy");
@@ -401,18 +398,18 @@ public class AuctionController {
 		int result = 0;
 		String msg="";
 		
-		System.out.println(acNo);
+		
 		Auction a = new Auction();
 		a.setAcBoardNo(acNo);
 		Auction a2 = service.selectDtAuction(a);
-		System.out.println(a2.getAcStartPrice()>a2.getAcNowPrice());
+		
 		if(a2.getAcStartPrice()>a2.getAcNowPrice()) {
 			result = service.deleteAuction(a2);
-			System.out.println("입찰금액없으면 여기");
+		
 		}else {
 			//최고입찰자
 			AuctionMember am = service.selectFsMem(a);
-			System.out.println(am);
+		
 			result = mService.updateMemPoint(am);
 			if(result>0) {
 				result = service.deleteAuction(a2);
@@ -435,7 +432,7 @@ public class AuctionController {
 		int result = 0;
 		String msg="";
 		//최고입찰자
-		System.out.println(acNo);
+	
 		
 		Auction a = new Auction();
 		a.setAcBoardNo(acNo);
@@ -447,6 +444,27 @@ public class AuctionController {
 	    mv.addObject("msg", msg);
 	    mv.addObject("loc", loc);
 	    mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	//나의 경매내역 보기
+	@RequestMapping("/auction/myAcSitinstory")
+	public ModelAndView myAcSitinstory(ModelAndView mv ,
+			 @SessionAttribute("loginMember") Member m ) {
+		
+		List<AuctionMember> list = service.selectMySiAcList(m);
+
+		List<Auction> aList = new ArrayList();
+
+		for(AuctionMember am : list) {
+			Auction a = service.selectMySitinAcList(am);
+			aList.add(a);
+		}
+		
+		mv.addObject("mem",m); 
+		mv.addObject("aList",aList);
+		mv.addObject("list",list); 
+		mv.setViewName("auction/myAcSitinStory");
 		return mv;
 	}
 }

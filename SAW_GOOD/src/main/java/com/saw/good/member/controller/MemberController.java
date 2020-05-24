@@ -207,7 +207,7 @@ public class MemberController {
 		}
 		int result = 0;
 		MultipartFile pfImg = request.getFile("profileImg");
-		System.out.println(pfImg.isEmpty());
+		
 
 		if (pfImg.isEmpty()) {
 			result = service.updateMemberInfo(m);
@@ -291,7 +291,7 @@ public class MemberController {
 	public ModelAndView businessChek(@RequestParam("businessNumber") String bsNum, ModelAndView mv) throws IOException {
 //		System.out.println(bsNo);
 		String bsNo = aesEncrypt.encrypt(bsNum);
-		System.out.println(bsNo);
+		
 		Member m = service.selectBusinessNumber(bsNo);
 		boolean flag = m != null ? false : true;
 
@@ -305,7 +305,7 @@ public class MemberController {
 	@RequestMapping("/member/sellerUpdate")
 	public ModelAndView bsNoUpdate(Member m, ModelAndView mv) {
 
-		System.out.println(m);
+		
 		// 암호화하기
 		m.setBusinessNumber((aesEncrypt.encrypt(m.getBusinessNumber())));
 
