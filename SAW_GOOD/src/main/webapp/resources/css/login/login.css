@@ -17,6 +17,7 @@
         background-color: rgb(223, 230, 221);
         text-align: center;
         opacity: 0.9;
+        overflow: auto;
     }
     .login_Xbutton{
         position: absolute;
