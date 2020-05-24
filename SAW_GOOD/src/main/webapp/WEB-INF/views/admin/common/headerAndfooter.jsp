@@ -93,7 +93,7 @@ div.footer {
 					<a href="#" class="logo">Saw Good</a>
 				</h1>
 				<ul class="list-unstyled components mb-5">
-					<li class="menu"><a href="${path }/admin"><span
+					<li class="menu"><a href="${path }/admin/home"><span
 							class="fa fa-chart-bar mr-3"></span>DashBoard</a></li>
 					<div></div>
 					<li class="menu"><a href="#"><span

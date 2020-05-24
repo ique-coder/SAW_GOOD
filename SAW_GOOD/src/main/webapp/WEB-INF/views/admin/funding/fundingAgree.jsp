@@ -538,7 +538,7 @@ label {
 							<td><fmt:formatDate value="${fag['ENROLLDATE']}" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${fag['ENDDATE']}" pattern="yyyy-MM-dd"/>
 							</td>
-							<c:if test="${EndDate-today >= 0 and fag['STATUS'] eq '1'}">
+							<c:if test="${EndDate-today >= 0 and (fag['STATUS'] eq '1' or fag['STATUS']==null)}">
 								<td>
 									<button class="btn-black" type="button" value="${fag['FDNO'] }" disabled>진행중</button>
 								</td>
