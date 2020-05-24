@@ -11,6 +11,7 @@ public interface CartService {
 	List<Map<String,String>> selectCart(String userId);
 	Product selectProductView(int no);
 	int insertCart(Map map);
+	Cart selectData(Map map);
 	
 	int deleteCart(String[] productNo,String userid);
 }

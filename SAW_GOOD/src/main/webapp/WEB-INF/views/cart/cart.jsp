@@ -516,7 +516,7 @@ input[type="number"]::-webkit-inner-spin-button {
                             	<c:forEach items="${list }" var="c" varStatus="vs">
 	                            <tr>
 	                                <td><input type="checkbox" name="productNo" class="productNo" id="pro${vs.count }" value="${c['PRODUCTNO'] }"><label for="pro${vs.count }"></label></td>
-	                                <td><img class="img-responsive imgheight" src="${paht }/resources/upload/newproduct/${c['RENAMEDPRODUCTIMG']}" width="100%"/></td>
+	                                <td><img class="img-responsive imgheight" src="${path }/resources/upload/newproduct/${c['RENAMEDPRODUCTIMG']}" width="100%"/></td>
 	                                <td>${c['PRODUCTNAME'] }</td>
 	                                <td>${c['BRAND'] }</td>
 	                                <td class="quantity">
