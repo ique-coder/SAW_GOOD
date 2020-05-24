@@ -8,12 +8,16 @@
 		SELECT * FROM NEWPRODUCT WHERE PRODUCTNO=#{no}
 	</select>
 	
+	<select id="selectData" resultType="cart" parameterType="map">
+		SELECT * FROM CART WHERE USERID=#{member.userId} AND PRODUCTNO=#{no}
+	</select>
+	
 	<update id="updateCart" parameterType="map">
 		UPDATE CART SET CARTTOTALPRICE=#{tp},CARTCOUNT=#{qt},STATUS=1 WHERE PRODUCTNO=#{pNo} AND USERID=#{userId}
 	</update>
 	
 	<insert id="insertCart" parameterType="map">
-		INSERT INTO CART VALUES(#{member.userId},#{no},#{amount},default,#{price},default)
+		INSERT INTO CART VALUES(#{member.userId},#{no},#{amount},0,#{price},default)
 	</insert>
 	
 	<delete id="deleteCart" parameterType="map">

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.saw.good.cart.model.vo.Cart;
@@ -28,6 +27,11 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public int insertCart(SqlSession session, Map map) {
 		return session.insert("cart.insertCart", map);
+	}
+	
+	@Override
+	public Cart selectData(SqlSession session, Map map) {
+		return session.selectOne("cart.selectData", map);
 	}
 
 	@Override
