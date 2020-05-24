@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.mouse-cursor{
+		position:absolute;
+		top:0;
+		left:0;
+		width:50%;
+		height:100%;
+		
+	}
+	.left{
+	    cursor:url(../images/left-cursor.gif),auto;
+	    z-index:100;
+		display: inline-block;
+		position:relative;
+		width:49%;
+		left:0;
+		height:100%;
+	}
+	.right{
+	 	cursor:url(../images/right-cursor.gif),auto;
+	 	z-index:100;
+		display: inline-block;
+		position:relative;
+		width:49%;
+		right:0;
+		height:100%;
+		
+	}

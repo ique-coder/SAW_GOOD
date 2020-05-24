@@ -13,17 +13,14 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
-
-
+<link rel="stylesheet" type="text/css" href="${path }/resources/css/index.css"/>
 <style>
-	body {
-		background-color: rgb(255, 252, 245, 0.3);
-	}
 	
 	/* 펀딩 상품 css */
 	#category-nav{
 		padding: 0 50px;
 		margin: 10% 0 15% 0;
+		position:relative;
 	}
 	#category-nav>.row{
 		height:400px;
@@ -251,6 +248,14 @@
 	#newAuction .object {
 		display: none;
 	}
+
+	.funding-item{
+		position:relative;
+	}
+	
+	
+	
+
 	
 	#hotFunding .object {
 		display: none;
@@ -258,7 +263,8 @@
 	#hotAuction .object {
 		display: none;
 	}
-}
+
+
 	
 	
 
@@ -339,10 +345,15 @@
 
 
 <section class="container-fluid" id="category-nav"> 
-        
+    <div class="mouse-cursor" >
+        		<div class="left"></div>
+        		<div class="right"></div>
+     </div>
     <c:forEach items="${nF}" var ="f" varStatus="status">
         
         <div class="row funding-item" id="f-item${status.index }">
+        
+        	
             <img src="${path }/resources/images/funding/${f['MAINIMG']}" class ="col-md-6"/> 
             <div class="col-md-6 text-container">
             	<p>
@@ -411,21 +422,54 @@
 
 
 <script>
-	var item= 1;
+	var item= 0;
+	
+	let sc = 7000;
+	let click = 0;
 
 	$(function(){
 		$(".funding-item").hide();
-		$("#f-item"+0).show();
-		 showHide = setInterval(function() {
-			$(".funding-item").hide();
-			$("#f-item"+item).fadeIn(1000);
-				item++;
-				if(item == 3) item =0;
-		}, 5000);
+		$("#f-item"+item).show();
+		
+		
+	 var showHide = setInterval(function (){
+			
+			item++;
+			ani();
+			
+		}, 5000);		
 		 
-		 
+	
+	
+	
+	$(".left").click(function(){
+		
+		if(item==0){
+			item = 4;
+			ani();
+		}else{
+			item--;
+			ani();
+		}
 	})
-
+	$(".right").click(function(){
+		
+		if(item==4){
+			item = 0;
+			ani();
+		}else{
+			item++;
+			ani();
+		}
+	})
+	
+	function ani(){
+		if(item == 5) item =0; 
+		$(".funding-item").hide();
+		$("#f-item"+item).fadeIn(1000);
+			
+	}
+})
 
  	function typingRepeat() {
 	 
