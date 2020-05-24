@@ -15,4 +15,8 @@
 	<insert id="insertCart" parameterType="map">
 		INSERT INTO CART VALUES(#{member.userId},#{no},#{amount},default,#{price},default)
 	</insert>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM CART WHERE PRODUCTNO=#{no} AND USERID=#{userid}
+	</delete>
 </mapper>
