@@ -218,7 +218,7 @@
 			<img src="${path }/resources/images/main.png" width="100%">
 		</div>
 		
-		<!-- <div id="three" class="col-md-12">
+		 <div id="three" class="col-md-12">
 			<div id="new">
 				<h2>NEW ARRIVAL</h2>
 				<div id="newList">
@@ -229,7 +229,7 @@
 			<div id="hot">
 				<h2>HOT FURNITURE</h2>
 			</div>
-		</div> -->
+		</div>
 		
 	</div>
 </section>
