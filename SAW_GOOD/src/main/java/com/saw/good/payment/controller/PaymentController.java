@@ -52,6 +52,9 @@ public class PaymentController {
 		String userId=m.getUserId();
 
 		int phResult=service.insertPaymentHistory(odNo,userId,pNo,pNum,tPrice);
+		String msg=phResult>0?"결제를 완료하였습니다.결제내역 페이지로 이동합니다.":"결제실패하였습니다.결제페이지로 이동합니다.";
+		String loc=phResult>0?"/mypage/ph.do":"/payment/paymentView";
+		mv.setViewName("common/msg");
 		return mv;
 	}
 }

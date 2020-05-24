@@ -647,9 +647,6 @@ div.categoryNameList>input:checked+label {
 				let index = $(this).attr('name');
 				index--;
 				$(".interior").eq(index).css({
-					'position' : 'absolute',
-					'top' : '0px',
-					'left' : '0px',
 					'visibility' : 'hidden'
 				});
 				$(this).parent().parent().remove();
