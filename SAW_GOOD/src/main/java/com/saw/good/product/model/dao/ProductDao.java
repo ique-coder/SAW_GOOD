@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
 import com.saw.good.product.model.vo.ProductReview;
@@ -35,4 +36,5 @@ public interface ProductDao {
 	void updateReadCount(SqlSessionTemplate session, int no);
 	String historyCheck(SqlSessionTemplate session, Map map);
 	ProductReview selectReviewOne(SqlSessionTemplate session, Map map);
+	List<DetailImg> selectDetailImg(SqlSessionTemplate session, int no);
 }

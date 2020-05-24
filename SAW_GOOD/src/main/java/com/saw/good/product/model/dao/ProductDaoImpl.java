@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
 import com.saw.good.product.model.vo.ProductReview;
@@ -138,6 +139,11 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public ProductReview selectReviewOne(SqlSessionTemplate session, Map map) {
 		return session.selectOne("newProduct.selectReviewOne", map);
+	}
+
+	@Override
+	public List<DetailImg> selectDetailImg(SqlSessionTemplate session, int no) {
+		return session.selectList("newProduct.selectDetailImg", no);
 	}
 	
 }

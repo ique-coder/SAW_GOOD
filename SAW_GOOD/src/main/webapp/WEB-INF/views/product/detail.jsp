@@ -98,21 +98,13 @@
                     <img src="${path }/resources/upload/newproduct/${product.renamedProductImg }" class="bigImg">
                     <div class="addImg">
                         <ul>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
+                        	<c:if test="${not empty di }">
+	                        	<c:forEach items="${di }" var="subImg">
+		                            <li class="img-record">
+		                                <img src="${path }/resources/upload/newproduct/${subImg.diRenameFile}" class="subImg">
+		                            </li>
+	                            </c:forEach>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -705,6 +697,15 @@
     		location.href="${path }/qna/qnaForm?no="+qno;
     	}
         $(function(){
+        	var oriImg = $(".bigImg").attr("src");
+        	$(".subImg").hover(function(){
+        		$(".bigImg").attr("src",$(".subImg").attr("src"));
+        	})
+        	console.log(oriImg);
+        	$(".subImg").mouseleave(function(){
+        		$(".bigImg").attr("src",oriImg);
+        	})
+        	
     		$(window).scroll(function(){
                 var height = $(document).scrollTop();
                 if(height>=600){
