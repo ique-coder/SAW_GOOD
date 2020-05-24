@@ -31,4 +31,6 @@ public interface ProductService {
 	int countTwo(int no);
 	int countOne(int no);
 	void updateReadCount(int no);
+	String historyCheck(Map map);
+	ProductReview selectReviewOne(Map map);
 }
