@@ -40,11 +40,19 @@
    a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
     a:hover { color:  #3C5946; text-decoration: none;}
+    
+    #logo {
+    	position: relative;
+    	top: -10px;
+    	width:200px;
+    	left: -80px;
+    }
 </style>
     <header class="container-fluid fixed-show">
        <div class="row " id="header">
           <div class="col-md-3"href="#">
-             <a href="#" class="col-md-6"><img id="logo" src="" alt="로고"/></a>
+             <a href="${path }" class="col-md-6"><img id="logo" src="${path }/resources/images/fullLogo.png" alt="로고"/>
+             </a>
           </div>
           <ul class="col-md-6 row text-design">
                 <li class="col-md-3 ">
@@ -124,7 +132,7 @@
 		        </c:if>
 		        <c:if test="${loginMember.reProfile != null}">
 		            <div class="prof" style="height:80px;">
-		            	<img src="${path }/resources/images/profileBasic/${loginMember.reProfile}" width="78px" height="78px"/>
+		            	<img src="${path }/resources/images/member/${loginMember.reProfile}" width="78px" height="78px"/>
 		            </div>
 		        </c:if>
 		        
