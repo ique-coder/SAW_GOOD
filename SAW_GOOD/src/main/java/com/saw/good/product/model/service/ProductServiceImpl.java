@@ -131,5 +131,15 @@ public class ProductServiceImpl implements ProductService {
 	public void updateReadCount(int no) {
 		dao.updateReadCount(session, no);
 	}
+
+	@Override
+	public String historyCheck(Map map) {
+		return dao.historyCheck(session, map);
+	}
+
+	@Override
+	public ProductReview selectReviewOne(Map map) {
+		return dao.selectReviewOne(session, map);
+	}
 	
 }

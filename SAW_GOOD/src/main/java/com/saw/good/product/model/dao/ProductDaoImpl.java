@@ -129,5 +129,15 @@ public class ProductDaoImpl implements ProductDao {
 	public void updateReadCount(SqlSessionTemplate session, int no) {
 		session.update("newProduct.updateReadCount", no);
 	}
+
+	@Override
+	public String historyCheck(SqlSessionTemplate session, Map map) {
+		return session.selectOne("newProduct.historyCheck", map);
+	}
+
+	@Override
+	public ProductReview selectReviewOne(SqlSessionTemplate session, Map map) {
+		return session.selectOne("newProduct.selectReviewOne", map);
+	}
 	
 }

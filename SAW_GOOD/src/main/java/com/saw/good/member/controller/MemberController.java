@@ -475,9 +475,6 @@ public class MemberController {
 			}
 		}
 		
-		
-		
-		
 		mv.addObject("msg", msg);
 		mv.addObject("loc", "/");
 		mv.setViewName("common/msg");
