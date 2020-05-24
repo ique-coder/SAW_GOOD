@@ -8209,7 +8209,7 @@ h1, h2, h3, h4, h5,
 #sidebar {
   min-width: 270px;
   max-width: 270px;
-  background:url(../admin/sidebar.jpg);
+  background:url(../admin/side.jpg);
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
@@ -8240,10 +8240,10 @@ h1, h2, h3, h4, h5,
       color: black;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
       #sidebar ul li a:hover {
-        color: #fff; }
+        color: #4B4B4B; }
     #sidebar ul li.active > a {
       background: transparent;
-      color: #fff; }
+      color: #4B4B4B; }
   @media (max-width: 991.98px) {
     #sidebar {
       margin-left: -270px; }
@@ -8310,7 +8310,7 @@ a[data-toggle="collapse"] {
     border-color: #494ca2 !important; }
 
 .footer p {
-  color: rgba(255, 255, 255, 0.5); }
+  color: black }
 
 .form-control {
   height: 40px !important;

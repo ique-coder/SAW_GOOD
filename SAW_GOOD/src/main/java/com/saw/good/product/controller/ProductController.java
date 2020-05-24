@@ -24,6 +24,7 @@ import com.saw.good.common.ProductCategoryPage;
 import com.saw.good.common.ProductFinderPage;
 import com.saw.good.common.QnaPage;
 import com.saw.good.product.model.service.ProductService;
+import com.saw.good.product.model.vo.DetailImg;
 import com.saw.good.product.model.vo.Product;
 import com.saw.good.product.model.vo.ProductQna;
 import com.saw.good.product.model.vo.ProductReview;
@@ -57,6 +58,7 @@ public class ProductController {
 			int no,ModelAndView mv) {
 		
 		Product p=service.selectProductView(no);
+		List<DetailImg> di = service.selectDetailImg(no);
 		List<ProductQna> pq=service.selectProductQna(no,cPage,numPerPage);
 		
 		int totalQna=service.countQna(no);
@@ -71,6 +73,7 @@ public class ProductController {
 		int twostarCnt=service.countTwo(no);
 		int onestarCnt=service.countOne(no);
 		
+		mv.addObject("di", di);
 		mv.addObject("fiveStar", fivestarCnt);
 		mv.addObject("fourStar", fourstarCnt);
 		mv.addObject("threeStar", threestarCnt);
@@ -129,7 +132,7 @@ public class ProductController {
 		List<Map<String,Object>> list=service.searchCategory(cPage,numPerPage,map);
 		int totalData=service.countSearchCategory(map); 
 		
-		String pageBar=ProductCategoryPage.getPage(totalData, cPage, numPerPage, category, "searchCategory");
+		String pageBar=ProductCategoryPage.getPage(totalData, cPage, numPerPage, category, "productCategory");
 		List<Map<String,String>> slist = service.selectStar();
 		
 		mv.addObject("list", list);

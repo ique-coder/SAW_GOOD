@@ -88,8 +88,8 @@
                         </div>
                         <div class="productAction">
                             <div class="product-button">
-                                <button class="buy-btn">바로구매</button>
-                                <button class="cart-btn">장바구니</button>
+                                <%-- <button class="buy-btn" onclick="location.href='${path}/payment/paymentView?productNo=${product.productNo }'">바로구매</button> --%>
+                                <button class="cart-btn" onclick="cartAdd(${product.productNo},$('#amount').val(),$('#productPrice strong').eq(1).html().trim());">장바구니</button>
                             </div>
                         </div>
                     </div>
@@ -98,21 +98,13 @@
                     <img src="${path }/resources/upload/newproduct/${product.renamedProductImg }" class="bigImg">
                     <div class="addImg">
                         <ul>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
-                            <li class="img-record">
-                                <img src="http://placehold.it/600x500" class="subImg">
-                            </li>
+                        	<c:if test="${not empty di }">
+	                        	<c:forEach items="${di }" var="subImg">
+		                            <li class="img-record">
+		                                <img src="${path }/resources/upload/newproduct/${subImg.diRenameFile}" class="subImg">
+		                            </li>
+	                            </c:forEach>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -338,12 +330,12 @@
 		                                    <fmt:formatDate value="${r.writeDate }" pattern="yyyy.MM.dd"/>
 		                                </div>
 		                            </li>
-		                            <c:if test="${loginMember.userId eq r.userId }">
+		                            <%-- <c:if test="${loginMember.userId eq r.userId }">
 			                            <li>
 			                            	<button class="review-modify" onclick="reviewModify(${r.reviewNo},'${r.userId }');">수정</button>
 			                    			<button class="review-delete" onclick="reviewDelete(${r.reviewNo},'${r.userId }');">삭제</button>
 			                            </li>
-		                            </c:if>
+		                            </c:if> --%>
 		                        </ul>
 		                    </div>           
 		                    <c:forEach begin="1" end="${r.star }" step="1">
@@ -495,6 +487,16 @@
     </div>
 </section>
     <script>
+    	function cartAdd(no,amount,price){
+    		if(${loginMember eq null or loginMember == ""}){
+    			var result = confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?");
+        		if(result){            			
+        			$("#header ol li:last a#login").click();
+        		}
+        		return false;
+    		}
+    		location.href="${path }/payment/cart?no="+no+"&amount="+amount+"&price="+price;
+    	}
     	function reviewModify(rNo, rUserId){
     		let div = $(event.target).parent().parent().parent().parent();
     		let temp = $(div).html();
@@ -695,6 +697,15 @@
     		location.href="${path }/qna/qnaForm?no="+qno;
     	}
         $(function(){
+        	var oriImg = $(".bigImg").attr("src");
+        	$(".subImg").hover(function(){
+        		$(".bigImg").attr("src",$(".subImg").attr("src"));
+        	})
+        	console.log(oriImg);
+        	$(".subImg").mouseleave(function(){
+        		$(".bigImg").attr("src",oriImg);
+        	})
+        	
     		$(window).scroll(function(){
                 var height = $(document).scrollTop();
                 if(height>=600){

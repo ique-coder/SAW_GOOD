@@ -121,7 +121,9 @@
                             <option value="에이스">에이스</option>
                             <option value="한샘">한샘</option>
                             <option value="이케아">이케아</option>
-                            <option value="파로마">파로마</option>
+                           	<option value="이브자리">이브자리</option>
+                            <option value="알레르망">알레르망</option>
+                            <option value="마틸라">마틸라</option>
                         </select>
                     </td>
                 </tr>

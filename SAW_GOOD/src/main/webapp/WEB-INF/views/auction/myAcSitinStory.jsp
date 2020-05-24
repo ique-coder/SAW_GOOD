@@ -25,8 +25,12 @@
 		<div class="col-md-2">
 			<div id="info">
 				<div id="infoSub1">
-					<img id="profileImg"
-						src="../image/KakaoTalk_20200423_153013027.jpg" alt="">
+					<c:if test="${mem.reProfile !=null }">
+                    	<img id="profileImg" src="${path }/resources/images/member/${mem.reProfile}"/>
+                    </c:if>
+                    <c:if test="${mem.reProfile ==null }">
+                    	<img id="profileImg" src="${path }/resources/images/profileBasic/profileImg.png"/>
+                    </c:if>
 					<p>${mem.userId }님</p>
 				</div>
 				<div id="infoSub2">

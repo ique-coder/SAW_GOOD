@@ -20,7 +20,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="${path }/resources/css/admin/style.css?ver=9">
+<link rel="stylesheet" href="${path }/resources/css/admin/style.css?ver=11">
 
 <!-- IonIcons -->
 <link rel="stylesheet"

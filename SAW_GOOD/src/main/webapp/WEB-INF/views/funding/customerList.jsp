@@ -8,10 +8,18 @@
 		<jsp:param value="" name=""/>
 	</jsp:include>
 	
+	<style>
+		td{
+			width:100px;
+			height:30px;
+			
+		}
+	
+	</style>
 	
 	
 	<div class="container">
-		<table border="1">
+		<table >
 			<thead>
 				<tr>
 					<td>제품번호</td>
@@ -19,11 +27,11 @@
 					<td>이름</td>
 					<td>참여가격</td>
 					<td>리워드</td>
-					<td>전화번호</td>
+					<td style="width:200px;">전화번호</td>
 					
 					<td>우편번호</td>
-					<td>주소</td>
-					<td>상세주소</td>
+					<td style="width:200px;">주소</td>
+					<td style="width:200px;">상세주소</td>
 				</tr>
 			
 			</thead>
@@ -35,11 +43,11 @@
 						<td>${i.USERNAME }</td>
 						<td><fmt:formatNumber type="number" value="${i.PARTPRICE}"/></td>
 						<td>${i.REWORD}</td>
-						<td>${i.PHONE}</td>
+						<td style="width:200px;">${i.PHONE}</td>
 						
 						<td>${i.POSTCODE}</td>
-						<td>${i.ADDRESS1 }</td>
-						<td>${i.ADDRESS2 }</td>
+						<td style="width:200px;">${i.ADDRESS1 }</td>
+						<td style="width:200px;">${i.ADDRESS2 }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
