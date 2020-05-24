@@ -61,7 +61,7 @@
 					<form id="subFormFunding" action="${path }/mypage/funding.do" method="post">
 						<p id="fundingClick" name="funding" class="click">funding</p>
 					</form>
-					<form id="subFormAuction" action="${path }/mypage/auction.do" method="post">
+					<form id="subFormAuction" action="${path }/auction/myAcSitinstory" method="post">
 						<p id="auctionClick" name="auction" class="click">auction</p>
 					</form>
 				</div>
