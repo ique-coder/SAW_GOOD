@@ -11,7 +11,8 @@
         <div class="foot-01">
             <div class="foot-wrap">
                 <h2 class="logo">
-                    <a href="#"></a>
+                    <a href="${path }" class="col-md-6"><img src="${path }/resources/images/footer.PNG" alt="로고"/>
+             		</a>
                 </h2>
                 <div class="ft-info">
                     <strong style="color: coral; font-weight: bold;">CS Center  </strong><br>
