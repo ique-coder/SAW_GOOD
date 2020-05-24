@@ -17,7 +17,7 @@
 </style>
 <div class="parallax-window" data-parallax="scroll"
 		data-image-src="${path }/resources/images/signup5.jpg">
-		<h3>MY AUCTION STROY</h3>
+		<h3>MY AUCTION SITIN STROY</h3>
 	</div>
 <div class="container">
 		
@@ -109,14 +109,14 @@
 			</div>
 
 
-			<c:if test="${list.size() == 0 }">
+			<c:if test="${aList.size() == 0 }">
 				<p class="noList center">경매내역이 없습니다.<p>
 			</c:if>
-			<c:if test="${list.size() != 0 }">
+			<c:if test="${aList.size() != 0 }">
 			
 			<div id="list">
 
-				<c:forEach var="a" items="${list }">
+				<c:forEach var="a" items="${aList }">
 				<c:if test="${a.acStatus != 5 }">
 					<div class="product row">
 						<div class="col-md-2 productImg">
@@ -146,9 +146,6 @@
 
 							<p class="sendCheck">
 							
-								<c:if test="${a.acStatus == 0 }">
-									<span class="sendStep1 sendStep">승인대기중</span>
-								</c:if>
 								<c:if test="${a.acStatus == 1 }">
 									<span class="sendStep2 sendStep">경매진행중</span>
 								</c:if>
@@ -158,7 +155,7 @@
 								<c:if test="${a.acStatus == 3 }">
 									<span class="sendStep4 sendStep">입찰완료</span>
 								</c:if>
-
+					
 							</p>
 
 							<!-- status1 : 배송전
@@ -167,26 +164,32 @@
 		                        statusX : 취소  -->
 
 						 	<p class="confirmStatus status1">
-						 			<c:if test="${a.acStatus == 0 }">
-										<span>관리자 승인대기중입니다.</span></br>
-										<span>조금민 기다려주십시오.</span>								
-									</c:if>
-									<c:if test="${a.acStatus == 1 }">
+						 		<c:forEach var="l" items="${list }">
+									<c:if test="${a.acStatus == 1 &&(a.acNowPrice == l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
 										<span>경매가 진행중입니다.</span></br>
-										<span>경매보기 버튼을 클릭하셔서 확인하시기 바랍니다.</span>						
+										<span>현재 입찰 상태  : 최고입찰자</span>						
 									</c:if>
-									<c:if test="${a.acStatus == 2 }">
-										<span>경매가 완료되었습니다.</span></br>
-										<span>입찰상태 확인 후 포인트 지급예정입니다.</span>					
+									<c:if test="${a.acStatus == 1 &&(a.acNowPrice > l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
+										<span>경매가 진행중입니다.</span></br>
+										<span>현재 입찰 상태  : 입찰실패</span>						
+									</c:if>
+									<c:if test="${a.acStatus == 2&&(a.acNowPrice == l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
+										<span>경매가 종료되었습니다.</span></br>
+										<span>최종 입찰 상태  : 입찰성공 </span>	
+									</c:if>	
+									<c:if test="${a.acStatus == 2&&(a.acNowPrice > l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
+										<span>경매가 종료되었습니다.</span></br>
+										<span>최종 입찰 상태  : 입찰실패 </span>	
 									</c:if>							
-									<c:if test="${a.acStatus == 3 }">
-										<span>고객님의 경매가 끝났습니다.</span></br>
-										<span>포인트를 확인해주시기 바랍니다.</span>						
-									</c:if>
-									<c:if test="${a.acStatus == 4 }">
-										<span>고객님의 경매상품이 승인거부 되었습니다.</span></br>
-										<span>관리자에게 문의 또는 상품정보를 정확하게 입력해 주십시오.</span>						
-									</c:if>
+									<c:if test="${a.acStatus == 3&&(a.acNowPrice == l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
+										<span>경매가 종료되었습니다.</span></br>
+										<span>최종 입찰 상태  : 입찰성공 </span>	
+									</c:if>	
+									<c:if test="${a.acStatus == 3&&(a.acNowPrice > l.bidPrice)&&(a.acBoardNo == l.acBoardNo) }">
+										<span>경매가 종료되었습니다.</span></br>
+										<span>최종 입찰 상태  : 입찰실패 </span>	
+									</c:if>	
+								</c:forEach>	
 							</p>
 
 						</div>
@@ -194,13 +197,6 @@
 							<form action="" method="post">
 								<c:if test="${a.acStatus !=0 }">
 									<input type="button" class="productBtn acDetail" value="경매보기">
-								</c:if>	
-								<c:if test="${a.acStatus ==1 || a.acStatus ==0}">
-									<input type="button" class="productBtn acDelete" value="경매삭제">
-									
-								</c:if>
-								<c:if test="${a.acStatus == 3 || acStatus ==4 }">
-									<input type="button" class="productBtn acListDelete" value="경매내역삭제">
 								</c:if>						
 								<input type="hidden" class="acNo" name="acno" value="${a.acBoardNo }">
 							</form> 
