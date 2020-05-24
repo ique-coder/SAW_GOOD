@@ -19,7 +19,7 @@
   <!-- 승원 정보 수정 -->
    <update id="updateMemberInfo" parameterType="member">
   	 UPDATE MEMBER SET USERNAME = #{userName}, PHONE = #{phone}, POSTCODE = #{postCode},
-  	  ADDRESS1 = #{address1}, ADDRESS2 = #{address2}, PROFILE = #{profile}, REPROFILE = #{reProfile} WHERE USERID=#{userId}
+  	  ADDRESS1 = #{address1}, ADDRESS2 = #{address2}, PROFILE = #{profile,jdbcType=VARCHAR}, REPROFILE = #{reProfile,jdbcType=VARCHAR} WHERE USERID=#{userId}
   </update>
     <!-- 승원 비밀번호 변경 -->
    <update id="updatePassword" parameterType="member">
