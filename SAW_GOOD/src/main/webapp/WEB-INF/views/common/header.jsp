@@ -64,7 +64,7 @@
                     </c:if>
                 </li>
                 <li class="col-md-3">
-                    <a href="${path }/product/productList" class="target"><span>NEW ARRIVAL</span></a>
+                    <a href="${path }/product/productList" class="target"><span>NEW PRODUCT</span></a>
                 </li>
                 <li class="col-md-3">
                     <a href="${path }/funding/list" class="target"><span>FUNDING</span></a>
