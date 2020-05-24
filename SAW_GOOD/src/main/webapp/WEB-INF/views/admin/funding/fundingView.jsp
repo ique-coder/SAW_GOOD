@@ -77,15 +77,17 @@
 
 		.funding_tit {
 			display: inline-block;
-			width: 150px;
-			font-size: 20px;
+			width: 200px;
+			font-size: 17px;
+			margin-bottom:17px;
 		}
 
 		.funding_con {
 			display: inline-block;
-			width: 282px;
+			width: 400px;
 			color: black;
-			font-size: 25px;
+			font-size: 20px;
+			margin-bottom:17px;
 		}
 		
 
@@ -157,7 +159,7 @@
 								Funding Info
 								<span style="font-size: 17px; padding-left:10px;color:#b2b2b2">펀딩정보</span>
 							</h4>
-							<ul id="funding-all" style="padding:20px 0 0 0; height:450px;">
+							<ul id="funding-all" style="padding:20px 0 0 0; height:350px;">
 								<li>
 									<p class="funding_tit"><span> - </span> 작성자 </p>
 									<p class="funding_con">
@@ -177,12 +179,6 @@
 									</p>
 								</li>
 								<li>
-									<p class="funding_tit"><span> - </span> 목표가격</p>
-									<p class="funding_con">
-										<strong><fmt:formatNumber value="${funding['TARGETPRICE'] }"/>원</strong>
-									</p>
-								</li>
-								<li>
 									<p class="funding_tit"><span> - </span> 현재가격 </p>
 									<p class="funding_con">
 										<c:choose>
@@ -195,6 +191,12 @@
 										</c:choose>
 									</p>
 								</li>
+								<li>
+									<p class="funding_tit"><span> - </span> 목표가격</p>
+									<p class="funding_con">
+										<strong style="color:red;"><fmt:formatNumber value="${funding['TARGETPRICE'] }"/>원</strong>
+									</p>
+								</li>				
 								<li>
 									<p class="funding_tit"><span> - </span> 등록날짜 </p>
 									<p class="funding_con">

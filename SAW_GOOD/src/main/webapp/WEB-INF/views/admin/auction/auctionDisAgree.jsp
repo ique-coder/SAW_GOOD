@@ -370,6 +370,10 @@ label {
 .upbtn{
 	margin-bottom:10px;
 }
+.productimg{
+	width:100px;
+	height:100px;
+}
 
 </style>
 <div id="content" class="p-4 p-md-5 pt-5">
@@ -541,7 +545,7 @@ label {
 							<td><input type="checkbox" name="aucCheck" id="aucDisAg${vs.count }" value="${ac['ACBOARDNO']}" class="aucCheck"><label
 								for="aucDisAg${vs.count }"></label></td>
 							<td>${ac['ACBOARDNO']}</td>
-							<td><img src="${path }/resources/upload/auction/${ac['ACMAINIMG']}" /></td>
+							<td><img class="productimg" src="${path }/resources/upload/auction/${ac['ACREMAINIMG']}" /></td>
 							<td>
 								<a href="${path }/admin/auctionView?acno=${ac['ACBOARDNO']}">
 								${ac['ACTITLE']} (${ac['ACSTATUSRANK']}) <fmt:formatNumber value="${ac['ACSTARTPRICE']}"/>원
@@ -550,7 +554,7 @@ label {
 							<td>${ac['ACCATEGORY']}</td>
 							<td>${ac['ACBRAND']}</td>
 							<td>${ac['USERID']}</td>
-							<td><fmt:formatDate value="${ac['ACSTART_DATE']}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${ac['ACSTARTDATE']}" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${ac['ACENDDATE']}" pattern="yyyy-MM-dd"/></td>
 							<td>
 								<button class="btn-white upbtn agreeAuc" type="button" value="${ac['ACBOARDNO']}">승인</button>

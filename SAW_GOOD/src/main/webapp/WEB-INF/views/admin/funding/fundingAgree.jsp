@@ -371,6 +371,10 @@ label {
 .upbtn{
 	margin-bottom:10px;
 }
+.productimg{
+	width:100px;
+	height:100px;
+}
 </style>
 <div id="content" class="p-4 p-md-5 pt-5">
 	<h2 id="titeltwo">Funding Manager</h2>
@@ -530,7 +534,7 @@ label {
 							<td><input type="checkbox" name="fundcheck" id="fundAg${vs.count }" value="${fag['FDNO'] }" class="fundcheck"><label
 								for="fundAg${vs.count }"></label></td>
 							<td>${fag['FDNO'] }</td>
-							<td><img src="${path }/resources/upload/${dag['MAINIMG']}" /></td>
+							<td><img src="${path }/resources/images/funding/${fag['MAINIMG']}" class="productimg" /></td>
 							<td><a href="${path }/funding/detail?fdNo=${fag['FDNO'] }">${fag['TITLE']}</a></td>
 							<td>${fag['CATEGORY'] }</td>
 							<td>${fag['DESIGNER'] }</td>

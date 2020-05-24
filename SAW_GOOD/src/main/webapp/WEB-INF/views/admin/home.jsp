@@ -177,7 +177,7 @@ let arr = [];
 for(let i=1; i<8; i++) {
     let date = new Date();
     date.setDate(date.getDate() - i)
-    arr.unshift(date.toLocaleString().substring(0,5));
+    arr.unshift(date.toLocaleString().substring(5,10));
 }
 
 
