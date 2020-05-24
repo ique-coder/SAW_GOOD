@@ -147,12 +147,24 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectList("auction.selectMyAcList",m);
 	}
-	
-	
-	
+	//경매 삭제하기
+	@Override
+	public int deleteAuction(SqlSession session, Auction a) {
+		// TODO Auto-generated method stub
+		return session.update("auction.deleteAuction",a);
+	}
 
-	
+	@Override
+	public List<AuctionMember> selectMySiAcList(SqlSession session, Member m) {
+		// TODO Auto-generated method stub
+		return session.selectList("auction.selectMySiAcList",m);
+	}
 
+	@Override
+	public Auction selectMySitinAcList(SqlSession session,AuctionMember am) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auction.selectMySitinAc",am);
+	}
 	
 	
 

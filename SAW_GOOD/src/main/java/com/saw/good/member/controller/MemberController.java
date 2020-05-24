@@ -207,7 +207,7 @@ public class MemberController {
 		}
 		int result = 0;
 		MultipartFile pfImg = request.getFile("profileImg");
-		System.out.println(pfImg.isEmpty());
+		
 
 		if (pfImg.isEmpty()) {
 			result = service.updateMemberInfo(m);
@@ -291,7 +291,7 @@ public class MemberController {
 	public ModelAndView businessChek(@RequestParam("businessNumber") String bsNum, ModelAndView mv) throws IOException {
 //		System.out.println(bsNo);
 		String bsNo = aesEncrypt.encrypt(bsNum);
-		System.out.println(bsNo);
+		
 		Member m = service.selectBusinessNumber(bsNo);
 		boolean flag = m != null ? false : true;
 
@@ -305,7 +305,7 @@ public class MemberController {
 	@RequestMapping("/member/sellerUpdate")
 	public ModelAndView bsNoUpdate(Member m, ModelAndView mv) {
 
-		System.out.println(m);
+		
 		// 암호화하기
 		m.setBusinessNumber((aesEncrypt.encrypt(m.getBusinessNumber())));
 
@@ -343,7 +343,7 @@ public class MemberController {
 			if (pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
 				if (loginMember.isEmailAccess() && loginMember.getStatus() != 0) {
 					// 로그인성공
-					msg = "로그인 성공";
+					//msg = "로그인 성공";
 					// 로그인 값을 유지 -> session객체에 데이터 보관
 					// HttpSession session=request.getSession();//서블릿방식!
 //					session.setAttribute("loginMember", loginMember);
@@ -406,8 +406,9 @@ public class MemberController {
 	public ModelAndView findPw(ModelAndView mv, Member m, HttpServletResponse response)
 			throws UnsupportedEncodingException {
 		response.setCharacterEncoding("UTF-8");
-
-		m.setEmail(aesEncrypt.encrypt("," + m.getEmail()));
+		
+		
+		m.setEmail(aesEncrypt.encrypt(m.getEmail()));
 
 		System.out.println("암호화 후 : " + m.getEmail());
 		Member mem = service.selectFindPw(m);
@@ -416,7 +417,7 @@ public class MemberController {
 		String ran = UUID.randomUUID().toString().substring(0, 7);
 		if (mem != null) {
 			mem.setEmail(aesEncrypt.decrypt(mem.getEmail()));
-			e.setUserEmail(mem.getEmail().substring(1));
+			e.setUserEmail(mem.getEmail());
 			e.setTitle("SAW GOOD 임시비밀번호 발급 메일입니다.");
 			e.setContent(System.getProperty("line.separator") + System.getProperty("line.separator") + "임시비밀번호 : " + ran
 					+ "<br>" + "반드시 로그인후 비밀번호를 변경하세요!<br>" + "<a href='" + e.getHost()
@@ -425,8 +426,8 @@ public class MemberController {
 			int result = service.updatePassword(mem);
 			flag = true;
 			eService.send(e);
+			mv.addObject("email", mem.getEmail());
 		}
-		mv.addObject("email", mem.getEmail().substring(1));
 		mv.addObject("ran", ran);
 		mv.addObject("flag", flag);
 		mv.setViewName("jsonView");
@@ -474,9 +475,6 @@ public class MemberController {
 				msg = "잘못된 경로입니다.";
 			}
 		}
-		
-		
-		
 		
 		mv.addObject("msg", msg);
 		mv.addObject("loc", "/");

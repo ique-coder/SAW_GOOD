@@ -92,6 +92,14 @@
 	<update id="updateReadCount" parameterType="_int">
 		UPDATE NEWPRODUCTQNA SET READCOUNT=READCOUNT+1 WHERE QNANO = #{no}
 	</update>
+	
+	<select id="historyCheck" parameterType="map" resultType="string">
+		SELECT BUYCHECK FROM PAYMENTHISTORY WHERE PRODUCTNO=#{no} AND USERID=#{userId}
+	</select>
+	
+	<select id="selectReviewOne" parameterType="map" resultType="productReview">
+		SELECT CONTENT,STAR,REVIEWIMG,RENAMEIMG FROM NEWPRODUCTREVIEW WHERE REVIEWNO=#{no} AND USERID=#{userId}
+	</select>
 </mapper>
 
 

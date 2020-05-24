@@ -11,13 +11,13 @@
         }
         .foot-wrap{
             color: rgb(222, 222, 222);
-            font-size: 12px;
+            font-size: 16px;
             font-family: Arial, 돋움;
             position: relative;
             margin: 0 auto;
             padding: 0;
             text-align: left;
-            width: 1250px;
+            width: 1350px;
         }
         .foot-wrap .logo{
             position: absolute;
@@ -37,24 +37,38 @@
             width: 350px;
             line-height: 14px;
             float: left;
+            color:white;
+            margin-right: 36px;
+            line-height: 20px;
+            
         }
         .ft-info .second{
             padding: 34px 0 0 0;
             display: block;
+            color: coral; 
+            font-weight: bold;
         }
         .foot-wrap .ft-office{
             width: 520px;
             line-height: 15px;
             float: left;
+            color:white;
+            margin-right: 36px;
+            line-height: 20px;
+            
         }
         .ft-office .second{
             padding: 34px 0 0 0;
             display: block;
+            color: coral; 
+            font-weight: bold;
         }
         .foot-wrap .ft-cs{
-            width: 324px;
+            width: 364px;
             line-height: 14px;
             float: left;
+            color:white;
+            line-height: 20px;
         }
         .ft-cs li{
         	list-style-type: none;

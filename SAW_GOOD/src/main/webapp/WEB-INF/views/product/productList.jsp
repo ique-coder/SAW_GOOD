@@ -8,15 +8,20 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${path }/resources/css/product/productList.css"/>
     <section>   
+    <div class="parallax-window" data-parallax="scroll"
+		data-image-src="${path }/resources/images/productMain.jpg">
+		<h3>CREATE YOUR ROOM</h3>
+	</div>
         <!-- 전체 컨테이너 div -->
         <div class="container" style="padding: 0; ">
-            <!-- 경매(옥션) 메인 사진 -->
+            <!--
             <img src="image/auction main2.jpg" style="width: 1080px; height: 550px; margin-left: 30px; margin-top: 30px;"/>
-            <!-- <div class="container" style="padding: 0; border-top:0; ">    -->
+            <div class="container" style="padding: 0; border-top:0; ">    -->
             <div class="row" style="margin:50px 30px 30px 30px">
                 <div class="col-md-2">
                     <!-- <!— 서브네비게이션 바 —> -->
                     <ul class="category">          
+                    	<li><a href="${path }/product/productList">All</a></li>
                         <li><a href="${path }/product/productCategory?category=bed">bed</a></li>
                         <li><a href="${path }/product/productCategory?category=sofa&category=chair">sofa / chair</a></li>
                         <li><a href="${path }/product/productCategory?category=light">light</a></li>

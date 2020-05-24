@@ -65,7 +65,7 @@
 	                            </th>
 	                            <td>
 	                                <div>
-	                                    <input type="text" id="writer" name="writer" class="input-style">
+	                                    <input type="text" id="writer" name="writer" class="input-style" value="${loginMember.userId }" readonly>
 	                                </div>
 	                            </td>
 	                        </tr>

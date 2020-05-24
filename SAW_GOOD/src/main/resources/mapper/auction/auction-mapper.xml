@@ -3,7 +3,7 @@
 <mapper namespace="auction">
 	
 	<select id="selectAllList" resultType="auction">
- 		SELECT * FROM AUCTION WHERE ACSTATUS=1
+ 		SELECT * FROM AUCTION WHERE ACSTATUS=1 ORDER BY ACBOARDNO DESC
  	</select>
  	<select id="countAuction" resultType="_int">
  		SELECT COUNT(*) FROM AUCTION WHERE ACSTATUS=1
@@ -109,7 +109,19 @@
 	</update>
 	
 	<select id="selectMyAcList" parameterType="member" resultType="auction">
-		SELECT * FROM AUCTION WHERE USERID = #{userId}
+		SELECT * FROM AUCTION WHERE USERID = #{userId} ORDER BY ACBOARDNO DESC
 	</select>
- 	
+	
+	<update id="deleteAuction" parameterType="auction">
+		UPDATE AUCTION SET ACSTATUS = 5 WHERE ACBOARDNO = #{acBoardNo}
+	</update>
+ 	<!-- 참여한 경매내역 번호 가져오기 -->
+ 	<select id="selectMySiAcList" parameterType="member" resultType="com.saw.good.auction.model.vo.AuctionMember">
+ 		SELECT ACBOARDNO,MAX(BIDPRICE) AS BIDPRICE, MAX(USERID) AS USERID FROM AUCTIONMEMBER
+ 		WHERE USERID=#{userId} GROUP BY ACBOARDNO ORDER BY ACBOARDNO DESC
+ 	</select>
+ 	<!-- 참여한 갱매내역 정보 가져오기 -->
+ 	<select id="selectMySitinAc" parameterType="com.saw.good.auction.model.vo.AuctionMember" resultType="auction">
+ 		SELECT * FROM AUCTION WHERE ACBOARDNO = #{acBoardNo} ORDER BY ACBOARDNO
+ 	</select>
 </mapper>
