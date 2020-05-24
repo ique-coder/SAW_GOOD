@@ -34,7 +34,7 @@ public class PaymentController {
 		int result=service.updateCart(userId,pNo,tp,qt);
 		
 		List<Map<String,String>> list = service.selectPayment(userId,pNo);
-		System.out.println(list);
+	
 		mv.addObject("list",list);
 		mv.setViewName("payment/payment");
 		return mv;
@@ -45,11 +45,7 @@ public class PaymentController {
 									@RequestParam(value="productNum") List<String> pNum,
 									@RequestParam(value="proTotalPrice") List<String> tPrice,
 									Payment p) {
-		System.out.println(m);
-		System.out.println(p);
-		System.out.println(pNo);
-		System.out.println(pNum);
-		System.out.println(tPrice);
+	
 		
 		int pResult=service.insertPayment(p);
 		int odNo=service.selectOdNo(m);
