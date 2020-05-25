@@ -570,11 +570,11 @@
 				let p1 = $("<p>").addClass('objectName').append(
 								$("<span>").html(f['TITLE'])
 							);
-				// 가격
-				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+				/* // 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원'); */
 
 				$("#newFunding").append(
-					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+					$("<div>").addClass("object col").append(img).append(p1)
 				);
 				
 			 });
@@ -642,11 +642,11 @@
 				let p1 = $("<p>").addClass('objectName').append(
 								$("<span>").html(f['NAME'])
 							);
-				// 가격
-				let p2 = $("<p>").addClass('objectPrice').html(price+'원');
+				/* // 가격
+				let p2 = $("<p>").addClass('objectPrice').html(price+'원'); */
 
 				$("#hotFunding").append(
-					$("<div>").addClass("object col").append(img).append(p1).append(p2)
+					$("<div>").addClass("object col").append(img).append(p1)
 				);
 				
 			 });
