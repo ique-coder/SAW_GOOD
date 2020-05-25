@@ -696,15 +696,16 @@
     		}
     		location.href="${path }/qna/qnaForm?no="+qno;
     	}
-        $(function(){
         	var oriImg = $(".bigImg").attr("src");
-        	$(".subImg").hover(function(){
-        		$(".bigImg").attr("src",$(".subImg").attr("src"));
-        	})
+        	$(".subImg").mouseenter(function(){
+        		$(".bigImg").attr("src",$(this).attr("src"));
+        		console.log($(event.target));
+        	});
         	console.log(oriImg);
         	$(".subImg").mouseleave(function(){
         		$(".bigImg").attr("src",oriImg);
-        	})
+        	});
+        $(function(){
         	
     		$(window).scroll(function(){
                 var height = $(document).scrollTop();
