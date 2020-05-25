@@ -123,7 +123,7 @@ public class FurnitureController {
 			}
 		}
 
-		mv.setViewName("redirect:/payment/cart");
+		mv.setViewName("redirect:/cart/cart");
 		
 		return mv;
 	}
