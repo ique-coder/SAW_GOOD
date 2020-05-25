@@ -125,16 +125,17 @@
 		<c:if test="${not empty loginMember }">
 		<div class="container-fluid modal_container" id="modal_container">
         	<div class="my_modal" id="logined">
+        	  <c:if test="${loginMember.reProfile != null}">
+		            <div class="prof" style="height:80px;">
+		            	<img src="${path }/resources/images/member/${loginMember.reProfile}" width="78px" height="78px"/>
+		            </div>
+		        </c:if>
         		<c:if test="${loginMember.reProfile == null}">
 		            <div class="prof" style="height:80px;">
 		            	<img src="${path }/resources/images/profileBasic/profileImg.png" width="78px" height="78px"/>
 		            </div>
 		        </c:if>
-		        <c:if test="${loginMember.reProfile != null}">
-		            <div class="prof" style="height:80px;">
-		            	<img src="${path }/resources/images/member/${loginMember.reProfile}" width="78px" height="78px"/>
-		            </div>
-		        </c:if>
+		      
 		        
 	            <p class="welcome-msg">${loginMember.userId }님 환영합니다.</p>
 	            <br>
