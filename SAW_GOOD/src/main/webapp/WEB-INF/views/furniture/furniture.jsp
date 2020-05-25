@@ -679,14 +679,14 @@ div.categoryNameList>input:checked+label {
 						let div = $("<div>").addClass("product col");
 
 						// img tag
-						let src = "${path}/resources/upload/newproduct/" + product.productImg;
+						let src = "${path}/resources/upload/newproduct/" + product.renamedProductImg;
 						div.append($("<img>").addClass("productImg").attr({"src":src}));
 						// 1 p tag
 						div.append($("<p>").append($("<span>").addClass("productBrand").html(product.brand))
 								.append($("<span>").addClass("productName").html(product.productName)));
 						// 2 p tag
 						div.append($("<p>").append($("<span>").addClass("productPrice format-Price").html(product.productPrice)));
-						div.append($("<input>").attr({"type":"hidden", "name":"top"}).val(product.topImg));
+						div.append($("<input>").attr({"type":"hidden", "name":"top"}).val(product.renamedTopImg));
 						// input hidden productNo
 						div.append($("<input>").attr({"type":"hidden", "name":"productNo", "value":product.productNo}))
 						// input type=hidden 이것은 필요하면 추가하기.
